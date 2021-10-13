@@ -29,14 +29,12 @@ def log_setup():
     termlog_handler.setFormatter(formatter)
 
     logger = logging.getLogger()
-    #logger.addHandler(log_handler)
     logger.addHandler(termlog_handler)
     logger.setLevel(logging.INFO)
 
 def main():
 
     # set logger config
-    #logging.basicConfig(stream=sys.stderr, level=logging.INFO)
     log_setup()
 
     # Init BaseClass
