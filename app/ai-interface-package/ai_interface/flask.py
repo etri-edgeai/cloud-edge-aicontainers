@@ -1,13 +1,13 @@
 """
 This module is to provide RESTful interfaces for the DECENTER pacakge.
 
-:class: DecenterFlask
+:class: AIFlask 
 
 This class contains Flask application instance, and handle for appconfig.
 
 :func: init_handler
 
-Utility funcion to create and configure DecenterFlask instance. Also, all the routing functions for Flask app are defined in this function.
+Utility funcion to create and configure AIFlask instance. Also, all the routing functions for Flask app are defined in this function.
 
 """
 
@@ -19,13 +19,11 @@ from flask_cors import CORS
 
 import logging, sys
 
-class DecenterFlask():
+class AIFlask():
     """
-    :class: DecenterFlask
+    :class: AIFlask
 
-    This class creates and hods instance of Flask class. While being initialized, this class receives one parameter: instance of :class:`decenter.ai.appconfig` class. Basically, this class is a message handler between RESTful interface (Flask) and the internal decenter.ai.appconfig. When it receives a HTTP request to a specific RESTful endpoint, it calls corresponding methods of :class:`~decenter.ai.appconfig` or :class:`~decenter.ai.baseclass.BaseClass`.
 
-    To use this class, call :func:`~decenter.ai.flask.init_handler`. It will return the instance of this DecenterFlask. Remember, this init_handler() call does not start Flask app by itself. You have to run explicitly by calling app.run() method of the Flask instance. To access Flask inside the :class:'decenter.ai.flask.DecenterFlask', call :func:'get_flask_app'.
 
     """
     def __init__(self, app):
@@ -56,7 +54,7 @@ class DecenterFlask():
 
 def init_handler(app):
     """
-    Utility function to intialize DecenterFlask, and set appconfig and custom message handler.
+    Utility function to intialize AIFlask, and set appconfig and custom message handler.
 
     :param: AppConfig appConfig: instance of appconfig.
     :param: str custom_handler: name of custom handler module (not file name - do not include .py extension)
@@ -64,15 +62,13 @@ def init_handler(app):
     """
     #global msghandler
 
-    msghandler = DecenterFlask(app)
+    msghandler = AIFlask(app)
 
     flask = msghandler.get_flask_app()
     CORS(flask)
 
     #msghandler.setAppConfig(appConfig)
 
-    # default handler in decenter pacakge
-    #import decenter.ai.flaskhandler
 
     # add custmo handler here
     #if custom_handler!=None:
