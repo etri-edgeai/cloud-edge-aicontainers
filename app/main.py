@@ -19,7 +19,6 @@ def log_setup():
     """
     log_handler = logging.handlers.TimedRotatingFileHandler('/log/fe.log', when='midnight')
 
-    #formatter.converter = time.gmtime  # if you want UTC time
     log_handler.setFormatter(formatter)
     """
     formatter = logging.Formatter(
