@@ -1,5 +1,5 @@
 """
-This module is to provide RESTful interfaces for the DECENTER pacakge.
+This module is to provide RESTful interfaces for the AI pacakge.
 
 :class: AIFlask 
 
@@ -66,13 +66,6 @@ def init_handler(app):
 
     flask = msghandler.get_flask_app()
     CORS(flask)
-
-    #msghandler.setAppConfig(appConfig)
-
-
-    # add custmo handler here
-    #if custom_handler!=None:
-    #    import_module( custom_handler )
 
     #msghandler.run(host='0.0.0.0')
 
