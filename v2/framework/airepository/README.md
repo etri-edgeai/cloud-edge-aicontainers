@@ -153,7 +153,11 @@ $ docker images | grep myhello
 - 아래 주소를 참고하여 진행합니다.
 
 ```bash
+
 https://hub.docker.com/r/joxit/docker-registry-ui
+
+https://engineering.linecorp.com/ko/blog/harbor-for-private-docker-registry/
+
 ```
 
 
