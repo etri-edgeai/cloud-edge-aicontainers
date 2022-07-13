@@ -1,1 +1,1 @@
-docker-compose -f simple.yml up -d
+docker-compose -f credentials.yml up -d
