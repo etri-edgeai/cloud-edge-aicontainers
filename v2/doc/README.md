@@ -11,4 +11,10 @@
 
   . 시스템의 {성능, 신뢰성, 확장성, 운용성, 보안성능}과 같이 기능을 제외한 요구사항들을 의미합니다.
 
-## 
+## Approach
+
+- Docker container based micro architecture service
+
+
+
+
