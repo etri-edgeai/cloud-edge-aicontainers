@@ -14,6 +14,7 @@ https://appleinsider.com/articles/21/10/19/m1-pro-and-m1-max-gpu-performance-ver
 
 ```
 
+
 - Markdown Table
 
 |. Apple Silicon processor,|M1,                          |M1 Pro,                        |M1 Pro,                                               |M1 Max,                 |M1 Max                    |
