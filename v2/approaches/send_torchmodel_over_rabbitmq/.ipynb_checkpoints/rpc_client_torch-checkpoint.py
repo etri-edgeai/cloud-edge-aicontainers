@@ -59,7 +59,7 @@ def main() -> None:
 
     print(f" [d, client] Requesting send torch model ({args.num})")
     response = torch_model_rpc.call(args.num)
-    print(" [.] Got %r" % response)
+    print(response)
 
 
 if __name__ == "__main__":
