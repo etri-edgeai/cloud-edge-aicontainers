@@ -39,9 +39,7 @@ class TorchModelRpcClient(object):
             body=str(n))
         self.connection.process_data_events(time_limit=None)
         return self.response
-
-
-
+        
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="rpc")
@@ -59,7 +57,7 @@ def main() -> None:
 
     print(f" [d, client] Requesting send torch model ({args.num})")
     response = torch_model_rpc.call(args.num)
-    print(" [.] Got %r" % response)
+    print(response)
 
 
 if __name__ == "__main__":
