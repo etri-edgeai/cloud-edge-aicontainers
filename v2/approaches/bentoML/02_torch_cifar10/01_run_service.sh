@@ -1,0 +1,1 @@
+bentoml serve service:svc --reload
