@@ -1,0 +1,1 @@
+python3 receive_image.py
