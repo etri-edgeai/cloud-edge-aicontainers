@@ -18,10 +18,25 @@
 
 ### 1. 준비사항
 
-    - 프로젝트 디렉토리로 이동합니다.
+    - 프로젝트 파일을 클론합니다.
     
-    - 가상 환경을 만들고 의존성 패키지를 설치합니다.
+```bash
+    git clone https://github.com/etri-edgeai/cloud-edge-aicontainers.git
     
+    or
+    
+    보안 문제로 클론이 안되면 github에서 zip파일로 다운로드 합니다.
+```
+
+    - 작업할 폴더로 이동합니다.
+    
+```bash
+    $ cd cloud-edge-aicontainers/v2/framework/grpc-file-transfer/
+```
+
+
+    - 작업 폴더에서 가상 환경을 만들고 의존성 패키지를 설치합니다.
+
 ```bash
     $ virtualenv env
     $ source env/bin/activate
@@ -44,8 +59,38 @@
 ```
 
 
+### 2. Quick Test
 
-### 2. 사용방법 (쉘 스크립트 실행, 비보안 접속)
+- KETI에서 생성한 원격지 컴퓨터에 서버 프로세스를 미리 동작시켰습니다.
+
+- 상기, 작업폴더로 이동하고, 의존성 패키지를 설치해둔 가상환경을 수행합니다.
+```bash
+    $ cd cloud-edge-aicontainers/v2/framework/grpc-file-transfer/
+    $ source env/bin/activate
+```
+
+- 0번째 폴더의 파일 목록을 확인합니다.
+python3 -m client.main -i keticmr.iptime.org -p 22808 --from_id 0 list
+
+- 0번째 폴더에서 resnet50.onnx 파일을 현재폴더에 다운로드 합니다.
+python3 -m client.main -i keticmr.iptime.org -p 22808 --from_id 0 download -d ./ -f resnet50.onnx
+
+
+- 10번째 폴더의 파일 목록을 확인합니다.
+python3 -m client.main -i keticmr.iptime.org -p 22808 --from_id 10 list
+
+- 현재폴더의 resnet50.onnx 파일을 10번째 원격지 폴더에 업로드 합니다.
+python3 -m client.main -i keticmr.iptime.org -p 22808 --from_id 1 --to_id 10 upload -f ./resnet50.onnx
+
+- 10번째 폴더의 파일 목록을 다시 확인합니다.
+python3 -m client.main -i keticmr.iptime.org -p 22808 --from_id 10 list
+
+
+
+
+
+
+### 3. 사용방법 (쉘 스크립트 실행, 비보안 접속)
 
     - 00_make_model.sh 을 실행하여 서버측에 기계학습 모델 파일을 생성합니다.
     
@@ -79,7 +124,9 @@
 ```
 
 
-### 3. 사용방법 (파이썬 실행, 비보안 접속)
+
+
+### 4. 사용방법 (파이썬 실행, 비보안 접속)
 
 1. 첫번째 콘솔창을 띄우고 서버를 실행합니다.
 
@@ -108,7 +155,7 @@
         
         
 
-### 4. 사용방법 (쉘 스크립트 사용, 보안접속)
+### 5. 사용방법 (쉘 스크립트 사용, 보안접속)
 
     - 00_make_model.sh 을 실행하여 서버측에 기계학습 모델 파일을 생성합니다.
     
@@ -142,7 +189,7 @@
 ```
 
 
-### 5. 사용방법 (파이썬 실행, 보안접속)
+### 6. 사용방법 (파이썬 실행, 보안접속)
 
 1. 첫번째 콘솔창을 띄우고 서버를 실행합니다.
 
