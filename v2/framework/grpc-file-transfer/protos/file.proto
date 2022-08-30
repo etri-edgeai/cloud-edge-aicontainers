@@ -1,0 +1,61 @@
+syntax = "proto3";
+
+service File {
+  rpc download(FileDownloadRequest) returns (stream FileChunk) {}
+  rpc upload(stream FileChunk) returns (FileUploadResponse) {} // [ok]
+  //rpc upload(FileUploadRequest) returns (FileUploadResponse) {} // [ok]
+  rpc list(ListRequest) returns (stream ListResponse) {}
+}
+
+
+message FileChunk {
+  bytes buffer = 1;
+  string name = 2;
+  int32 from_id = 3;
+  int32 to_id = 4;
+}
+
+message FileDownloadRequest {
+  string name = 1;
+  int32 from_id = 2;
+}
+
+message FileUploadResponse {
+  int32 file_size = 1;
+}
+
+message ListRequest {
+    int32 from_id = 1;
+}
+
+message ListResponse {
+  string name = 1;
+  int64 size = 2;
+  int32 from_id = 3;
+}
+
+
+
+
+// reserved
+message FileUploadRequest {
+  oneof request {
+    //MetaData metadata = 1;
+    int32 rank_id = 1;
+    FileChunk filechunk = 2;
+  }
+}
+
+// reserved
+message MetaData {
+  int32 rank_id = 1;
+  //string description = 2;
+}
+
+// reserved, jpark
+enum Status {
+  PENDING = 0;
+  IN_PROGRESS = 1;
+  SUCCESS = 2;
+  FAILED = 3;
+}
