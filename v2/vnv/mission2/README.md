@@ -34,17 +34,17 @@
 
 
 ---------------------------------------------------
-## <font color=blue> (KETI 초안) 시험 방법 </font>
+## (KETI 초안) 시험 방법
 
 - 에지 환경 추론에 따른 성능 개선을 확인하기 위해, 성능 확인에 영향을 주는 변인들은 가급적 통제하여 평가를 실시합니다.
-- 2가지 시험 구성 {Baseline, Proposed}에 따라 평가를 진행합니다.
+- 상세하게는 다음과 같은 2가지 시험 구성 {Baseline, Proposed}에 따라 평가를 진행합니다.
 - {Baseline}과 {Proposed}의 시험 구성에 따른 추론 지연시간을 각각 $t_{ref}$, $t_{new}$ 와 같이 측정합니다.
 - 이를 비교하여 추론 지연시간 개선율을 계산합니다.
 
 $$  \Delta {t} = \frac{1}{n} \sum_{i=1}^{n} \frac{ t_{ref} -  t_{new} }{ t_{ref} } $$
 
 - {Baseline}과 {Proposed}의 주요 차이점은 추론 모델 선택에 있습니다.
-- (1) {Baseline}은 가용 모델 중, 가장 성능이 우수한 모델을 선택하는 <b>{Greedy Model Selection}</b> 을 사용합니다.
+- (1) {Baseline}은 가용 모델 중, 가장 성능이 우수한 분석 모델을 선택하는 <b>{Greedy Model Selection}</b> 을 사용합니다.
 - (2) {Proposed}는 장치의 {연산량, 연산자원, 네트워크 대역폭} 등을 고려하여 10% 이내의 정확도 열화를 감내하는 선에서 Latency Budget을 계산하여 추론 모델을 선택하는 <b>{Advanced Model Selection}</b> 을 사용합니다. 
 - 상기 2가지 시험 구성을 분리하여 설명했으나, 세부 시험 구성요소는 변인통제를 위해 서로 공유가 가능합니다.
 - 일례로, {Framework Node, Inference Node, Data Source Node}는 추론지연시간 측정을 위해 그 기능을 공유합니다.
@@ -56,7 +56,7 @@ $$  \Delta {t} = \frac{1}{n} \sum_{i=1}^{n} \frac{ t_{ref} -  t_{new} }{ t_{ref}
 
 - {Baseline}에서는 종래의 가장 성능이 우수한 모델을 선택하는 방식을 사용하는 {Greedy Model Selection} 방법을 사용하는 것을 특징으로 합니다.
 - 주요 시험 구성요소는 다음과 같습니다.
-- Framework Node (프레임워크 노드) : {MacbookPro14} --> <b><font color=blue>{Greedy Model Selection}<font></b>
+- Framework Node (프레임워크 노드) : {MacbookPro14} --> <b>{Greedy Model Selection}</b> 적용
 - Inference Node (추론 노드) : {NUC GPU Edge Device}
 - Data Source Node : {RPI or Synology NAS}
 
@@ -65,7 +65,7 @@ $$  \Delta {t} = \frac{1}{n} \sum_{i=1}^{n} \frac{ t_{ref} -  t_{new} }{ t_{ref}
 ### 시험 구성 2 (Proposed)
 - {Proposed}에서는 장치의 {연산량, 연산자원, 네트워크 대역폭} 등을 고려하여 10% 이내의 정확도 열화를 감내하는 선에서 Latency Budget을 계산하여 추론 모델을 선택하는 {Advanced Model Selection}을 사용하는 것을 특징으로 합니다.
 - 주요 시험 구성요소는 다음과 같습니다.
-- Framework Node (프레임워크 노드) : {MacbookPro14} --> <b><font color=blue>{Advanced Model Selection}<font></b>
+- Framework Node (프레임워크 노드) : {MacbookPro14} --> <b>{Advanced Model Selection}</b> 적용
 - Inference Node (추론 노드) : {NUC GPU Edge Device}
 - Data Source Node : {RPI or Synology NAS}
 
@@ -89,8 +89,7 @@ $$  \Delta {t} = \frac{1}{n} \sum_{i=1}^{n} \frac{ t_{ref} -  t_{new} }{ t_{ref}
 ### 사용 모델
 
 - Resnet 모델을 고려 중입니다. (Resnet 모델 테스트 완료후, VGG, Yolo 계열의 모델을 추가할 계획입니다. 향후 지식증류 모델을 적용하는 것도 고려할 수 있습니다.)
-- 일례로, {Baseline}실험은 RESNET101을 사용했다면,
-- {Proposed}에서는 RESNET18을 사용하여 모델 전송에 드는 오버헤드를 줄이고, 추론지연시간을 줄이는 전략을 적용합니다.
+- 일례로, {Baseline}실험은 RESNET101을 사용했다면, {Proposed}에서는 RESNET18을 사용하여 모델 전송에 드는 오버헤드를 줄이고, 추론시간을 줄이는 전략을 적용합니다.
 
 - 참고 자료 출처 : https://pytorch.org/hub/pytorch_vision_resnet/
 
@@ -130,12 +129,15 @@ resnet-101,	224 x 224,	170 MB
 model, RTX3080ti(GPU), RTX3080ti(CPU), TX2(CPU), RPI(CPU)
 VGG19, 1.194, 35.162
 SimpleDLA, 1.276, 
-
+resnet18,	,
+resnet34,	,
+resnet-50,	,
+resnet-101, ,
 ```
 
 
 
-### (참고) 임베디드 디바이스별 머신러닝 모델 동작
+### (참고) 임베디드 디바이스별 분석모델 처리 속도
 
 - 그림 출처 : https://qengineering.eu/deep-learning-with-raspberry-pi-and-alternatives.html
 
