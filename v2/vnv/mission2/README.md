@@ -44,30 +44,33 @@
 $$  \Delta {t} = \frac{1}{n} \sum_{i=1}^{n} \frac{ t_{ref} -  t_{new} }{ t_{ref} } $$
 
 - {Baseline}과 {Proposed}의 주요 차이점은 추론 모델 선택에 있습니다.
-- (1) {Baseline}에서는 종래의 가장 성능이 우수한 모델을 선택하는 방식을 사용하는 <b>{Greedy Model Selection}</b> 방법을 사용합니다.
-- (2) {Proposed}에서는 장치의 {연산량, 연산자원, 네트워크 대역폭} 등을 고려하여 10% 이내의 정확도 열화를 감내하는 선에서 Latency Budget을 계산하여 추론 모델을 선택하는 <b>{Advanced Model Selection}</b> 방식을 적용합니다. 
+- (1) {Baseline}은 가용 모델 중, 가장 성능이 우수한 모델을 선택하는 <b>{Greedy Model Selection}</b> 을 사용합니다.
+- (2) {Proposed}는 장치의 {연산량, 연산자원, 네트워크 대역폭} 등을 고려하여 10% 이내의 정확도 열화를 감내하는 선에서 Latency Budget을 계산하여 추론 모델을 선택하는 <b>{Advanced Model Selection}</b> 을 사용합니다. 
 - 상기 2가지 시험 구성을 분리하여 설명했으나, 세부 시험 구성요소는 변인통제를 위해 서로 공유가 가능합니다.
-- 일례로, {Framework Node, Data Source Node}는 추론지연시간 측정을 위해 그 기능을 공유합니다.
+- 일례로, {Framework Node, Inference Node, Data Source Node}는 추론지연시간 측정을 위해 그 기능을 공유합니다.
+- {Data Source Node}는 변인통제가 필요하지만, 현장 시나리오를 가정하여 개념도에 추가했으녀, 추론하고자 하는 데이터를 {Inference Node}에서 캐싱(cashing)하여 처리하는 것이 바람직합니다.
+
 
 
 ### 시험 구성 1 (Baseline)
 
 - {Baseline}에서는 종래의 가장 성능이 우수한 모델을 선택하는 방식을 사용하는 {Greedy Model Selection} 방법을 사용하는 것을 특징으로 합니다.
 - 주요 시험 구성요소는 다음과 같습니다.
-- Framework Node (프레임워크 노드) : {MacbookPro14}
+- Framework Node (프레임워크 노드) : {MacbookPro14} --> <b><font color=blue>{Greedy Model Selection}<font></b>
 - Inference Node (추론 노드) : {NUC GPU Edge Device}
 - Data Source Node : {RPI or Synology NAS}
 
 ![img](img4doc/01_baseline.png)
 
 ### 시험 구성 2 (Proposed)
-- {Proposed}에서는 장치의 {연산량, 연산자원, 네트워크 대역폭} 등을 고려하여 10% 이내의 정확도 열화를 감내하는 선에서 Latency Budget을 계산하여 추론 모델을 선택하는 {Advanced Model Selection} 방식을 적용하는 것을 특징으로 합니다.
+- {Proposed}에서는 장치의 {연산량, 연산자원, 네트워크 대역폭} 등을 고려하여 10% 이내의 정확도 열화를 감내하는 선에서 Latency Budget을 계산하여 추론 모델을 선택하는 {Advanced Model Selection}을 사용하는 것을 특징으로 합니다.
 - 주요 시험 구성요소는 다음과 같습니다.
-- Framework Node (프레임워크 노드) : {MacbookPro14}
+- Framework Node (프레임워크 노드) : {MacbookPro14} --> <b><font color=blue>{Advanced Model Selection}<font></b>
 - Inference Node (추론 노드) : {NUC GPU Edge Device}
 - Data Source Node : {RPI or Synology NAS}
 
 ![img](img4doc/02_proposed.png)
+
 
 
 
