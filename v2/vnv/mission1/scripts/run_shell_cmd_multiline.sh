@@ -1,0 +1,1 @@
+ansible-playbook shell_cmd_multiline.yaml -i hosts.ini
