@@ -143,22 +143,29 @@ resnet-101, ,
 
 ![img](img4doc/device_chart.png)
 
+
+
 ### (참고) RESNET 구조
 
 - Resnet18
-![img](img4doc/resnet18.png)
+
+![img](img4doc/resnet18.png){:height="30px"}
 
 - Resnet34
-![img](img4doc/resnet34.png)
+
+![img](img4doc/resnet34.png){:height="30px"}
 
 - Resnet50
-![img](img4doc/resnet50.png)
+
+![img](img4doc/resnet50.png){:height="30px"}
 
 - Resnet101
-![img](img4doc/resnet101.png)
+
+![img](img4doc/resnet101.png){:height="30px"}
 
 - Resnet152
-![img](img4doc/resnet152.png)
+
+![img](img4doc/resnet152.png){:height="30px"}
 
 
 
