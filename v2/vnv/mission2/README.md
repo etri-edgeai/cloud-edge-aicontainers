@@ -19,17 +19,17 @@
 
 ### 기본 인프라
 
-- [출처: 사업계획서] 추론(분석)으로 인해 발생하는 종단 간 지연시간의 평균 개선율을 측정하기 위해 다음과 같이 클라우드-엣지 환경을 설정합니다.
+- 추론(분석)으로 인해 발생하는 종단 간 지연시간의 평균 개선율을 측정하기 위해 다음과 같이 클라우드-엣지 환경을 설정합니다. [출처: 사업계획서] 
 
 ### 평가 환경 및 조건
 
-- [출처: 사업계획서] 이기종의 네트워크 대역폭 및 불안정한 Backgroud Utilization 환경을 고려하며, 엣지 단독 추론 및 병행추론 등 다양한 유형의 분석 방식 채택 가능합니다.
+- 이기종의 네트워크 대역폭 및 불안정한 Backgroud Utilization 환경을 고려하며, 엣지 단독 추론 및 병행추론 등 다양한 유형의 분석 방식 채택 가능합니다. [출처: 사업계획서] 
 
 ### 기준 알고리즘
-- [출처: 사업계획서] 주어진 태스크와 목적에 부합하는 딥러닝 모델 중 가장 우수한 정확도를 제공하는 모델을 엣지 추론을 위한 모델로 선정하는 Greedy Model Selection Algorithm을 기준 알고리즘으로 선정합니다.
+- 주어진 태스크와 목적에 부합하는 딥러닝 모델 중 가장 우수한 정확도를 제공하는 모델을 엣지 추론을 위한 모델로 선정하는 Greedy Model Selection Algorithm을 기준 알고리즘으로 선정합니다. [출처: 사업계획서] 
 
 ### 추론 Budget
-- [출처: 사업계획서] 엣지 추론을 위해 모델 선별 시 허용 가능한 추론 지연시간을 일종의 예산(Budget)개념으로 활용합니다.
+- 엣지 추론을 위해 모델 선별 시 허용 가능한 추론 지연시간을 일종의 예산(Budget)개념으로 활용합니다. [출처: 사업계획서] 
 
 
 
@@ -45,11 +45,11 @@ $$  \Delta {t} = \frac{1}{n} \sum_{i=1}^{n} \frac{ t_{ref} -  t_{new} }{ t_{ref}
 
 - {Baseline}과 {Proposed}의 주요 차이점은 추론 모델 선택에 있습니다.
 - (1) {Baseline}은 가용 모델 중, 가장 성능이 우수한 분석 모델을 선택하는 <b>{Greedy Model Selection}</b> 을 사용합니다.
-- (2) {Proposed}는 장치의 {연산량, 연산자원, 네트워크 대역폭} 등을 고려하여 10% 이내의 정확도 열화를 감내하는 선에서 Latency Budget을 계산하여 추론 모델을 선택하는 <b>{Advanced Model Selection}</b> 을 사용합니다. 
+- (2) {Proposed}는 장치의 {연산량, 연산자원, 네트워크 대역폭} 등을 고려하여 10% 이내의 정확도 열화를 Latency Budget으로 사용하여 추론 모델을 선택하는 <b>{Advanced Model Selection}</b> 을 사용합니다. 
 - 상기 2가지 시험 구성을 분리하여 설명했으나, 세부 시험 구성요소는 변인통제를 위해 서로 공유가 가능합니다.
-- 일례로, {Framework Node, Inference Node, Data Source Node}는 추론지연시간 측정을 위해 그 기능을 공유합니다.
-- {Data Source Node}는 변인통제가 필요하지만, 현장 시나리오를 가정하여 개념도에 추가했으녀, 추론하고자 하는 데이터를 {Inference Node}에서 캐싱(cashing)하여 처리하는 것이 바람직합니다.
-
+- 일례로, {Framework Node, Inference Node, Data Source Node, Model Repository}는 추론지연시간 측정을 위해 그 기능을 공유합니다.
+- {Data Source Node}는 변인통제가 필요하지만, 현장 시나리오를 가정하여 개념도에 추가했으며, 추론하고자 하는 데이터를 {Inference Node}에서 캐싱(cashing)하여 처리하는 것이 바람직합니다.
+- 에지 디바이스의 종류는  수 있습니다.
 
 ### 시험 방법
 
@@ -59,7 +59,7 @@ $$  \Delta {t} = \frac{1}{n} \sum_{i=1}^{n} \frac{ t_{ref} -  t_{new} }{ t_{ref}
 ```python
 
 methods = ['baseline', 'proposed']
-edges = ['RTX3080TI', 'NUC', 'MACMINI', 'RPI']
+edges = [ 'RTX3080TI', 'NUC'] # ['RTX3080TI', 'NUC', 'MACMINI', 'RPI']
 models = ['resnet18', 'resnet34', 'resnet50', 'resnet101', 'resnet152']
 measured_time = []
 
@@ -97,6 +97,8 @@ for edge in edges:
 - latency_saving_rate 가 20% 이상인지 확인합니다.
 
 
+
+
 ### 시험 구성 1 (Baseline)
 
 - {Baseline}에서는 종래의 가장 성능이 우수한 모델을 선택하는 방식을 사용하는 {Greedy Model Selection} 방법을 사용하는 것을 특징으로 합니다.
@@ -107,8 +109,7 @@ for edge in edges:
 
   (2) Model Repository (인공신경망 모델 리포지토리)
 
-
-  (3) Inference Node (추론 노드) : {NUC GPU Edge Device, RTX3080Ti GPU Server, Macbook, RPI}
+  (3) Inference Node (추론 노드) : {e.g. NUC GPU Edge Device, RTX3080Ti GPU Server, Macbook, RPI}
 
   (4) Data Source Node : {RPI or Synology NAS or Remote Repository}
 
@@ -116,8 +117,12 @@ for edge in edges:
 ![img](img4doc/01_baseline.png)
 
 
+
+
 ### 시험 구성 2 (Proposed)
-- {Proposed}에서는 장치의 {연산량, 연산자원, 네트워크 대역폭} 등을 고려하여 10% 이내의 정확도 열화를 감내하는 선에서 Latency Budget을 계산하여 추론 모델을 선택하는 {Advanced Model Selection}을 사용하는 것을 특징으로 합니다.
+
+- {Proposed}는 장치의 {연산량, 연산자원, 네트워크 대역폭} 등을 고려하여 10% 이내의 정확도 열화를 Latency Budget으로 사용하여 추론 모델을 선택하는 <b>{Advanced Model Selection}</b> 을 사용하는 것을 특징으로 합니다.
+
 - 주요 시험 구성요소는 다음과 같습니다.
 
   (1) Framework Node (프레임워크 노드) : {MacbookPro14} --> <b>{Advanced Model Selection}</b> 적용
@@ -125,22 +130,12 @@ for edge in edges:
   (2) Model Repository (인공신경망 모델 리포지토리)
 
 
-  (3) Inference Node (추론 노드) : {NUC GPU Edge Device, RTX3080Ti GPU Server, Macbook, RPI}
+  (3) Inference Node (추론 노드) : {e.g. NUC GPU Edge Device, RTX3080Ti GPU Server, Macbook, RPI}
 
   (4) Data Source Node : {RPI or Synology NAS or Remote Repository}
 
 
 ![img](img4doc/01_baseline.png)
-
-### 시험 구성 2 (Proposed)
-- {Proposed}에서는 장치의 {연산량, 연산자원, 네트워크 대역폭} 등을 고려하여 10% 이내의 정확도 열화를 감내하는 선에서 Latency Budget을 계산하여 추론 모델을 선택하는 {Advanced Model Selection}을 사용하는 것을 특징으로 합니다.
-- 주요 시험 구성요소는 다음과 같습니다.
-- Framework Node (프레임워크 노드) : {MacbookPro14} --> <b>{Advanced Model Selection}</b> 적용
-- Inference Node (추론 노드) : {NUC GPU Edge Device}
-- Data Source Node : {RPI or Synology NAS}
->>>>>>> 2293a61a380fc0c0c80e793aba76264545d41a22
-
-![img](img4doc/02_proposed.png)
 
 
 
