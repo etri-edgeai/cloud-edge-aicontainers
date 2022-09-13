@@ -19,18 +19,31 @@
 
 - 추론(분석)으로 인해 발생하는 종단 간 지연시간의 평균 개선율을 측정하기 위해 다음과 같이 클라우드-엣지 환경을 설정합니다.
 
-#### 환경
-
-- 제어용 컴퓨터 : {MacbookPro14}
-- 프레임워크 서버 : {RTX3080ti GPU 서버}
-- 에지 디바이스 : {RPI, TX2} + $\alpha$
-
-
-
-
-### 평가 조건
+### 평가 환경 및 조건
 
 - 이기종의 네트워크 대역폭 및 불안정한 Backgroud Utilization 환경을 고려하며, 엣지 단독 추론 및 병행추론 등 다양한 유형의 분석 방식 채택 가능합니다.
+- 에지 환경 추론에 따른 성능 개선을 확인하기 위해, 성능 확인에 영향을 주는 변인들은 가급적 통제하여 평가를 실시합니다.
+
+
+### 시험용 시스템 1 (Baseline 구성)
+
+- Framework Node (프레임워크 노드) : {MacbookPro14}
+- Inference Node for Baseline Scheme (베이스라인 추론 노드) : {NUC GPU Edge Device}
+- Data Source Node : {RPI or Synology NAS}
+
+![img](img4doc/01_baseline.png)
+
+### 시험용 시스템 2 (Proposed 구성)
+
+- Framework Node (프레임워크 노드) : {MacbookPro14}
+- Inference Node for Proposed Scheme (제안하는 추론 노드) : {NUC GPU Edge Device}
+- Data Source Node : {RPI or Synology NAS}
+
+![img](img4doc/02_proposed.png)
+
+
+
+
 
 ### 기준 알고리즘
 - 주어진 태스크와 목적에 부합하는 딥러닝 모델 중 가장 우수한 정확도를 제공하는 모델을 엣지 추론을 위한 모델로 선정하는 Greedy Model Selection Algorithm 기준 알고리즘으로 선정합니다.
@@ -41,7 +54,7 @@
 
 
 
-### 사용할 Dataset은 다음과 같습니다.
+### 참고 Dataset
 ---------------------------------------------------
 
 - https://www.cs.toronto.edu/~kriz/cifar.html
@@ -70,7 +83,7 @@ SimpleDLA, 1.276,
 
 ### (참고) 모델 크기
 
-- (참고) https://github.com/albanie/convnet-burden
+- 자료 출처 : https://github.com/albanie/convnet-burden
 
 ```csv
 model,	input size,	param mem
@@ -82,7 +95,7 @@ resnet-101,	224 x 224,	170 MB
 
 ### (참고) 임베디드 디바이스별 머신러닝 모델 동작
 
-- 출처 : https://qengineering.eu/deep-learning-with-raspberry-pi-and-alternatives.html
+- 그림 출처 : https://qengineering.eu/deep-learning-with-raspberry-pi-and-alternatives.html
 
 ![img](img4doc/device_chart.png)
 
@@ -111,5 +124,12 @@ resnet-101,	224 x 224,	170 MB
   author={Mathur, Akhil and Beutel, Daniel J and de Gusmao, Pedro Porto Buarque and Fernandez-Marques, Javier and Topal, Taner and Qiu, Xinchi and Parcollet, Titouan and Gao, Yan and Lane, Nicholas D},
   journal={arXiv preprint arXiv:2104.03042},
   year={2021}
+}
+
+@article{liu2022unifed,
+  title={UniFed: A Benchmark for Federated Learning Frameworks},
+  author={Liu, Xiaoyuan and Shi, Tianneng and Xie, Chulin and Li, Qinbin and Hu, Kangping and Kim, Haoyu and Xu, Xiaojun and Li, Bo and Song, Dawn},
+  journal={arXiv preprint arXiv:2207.10308},
+  year={2022}
 }
 ```
