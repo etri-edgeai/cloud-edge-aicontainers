@@ -1,0 +1,9 @@
+# This playbook runs a basic DF command.
+- hosts: all
+  tasks:
+  - name: test
+    shell: |
+      ps
+    register: command_output
+  - debug:
+      var: command_output.stdout_lines
