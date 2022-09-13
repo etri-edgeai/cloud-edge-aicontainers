@@ -3,13 +3,14 @@
 - 현재 "초안" 입니다.
 
 
-
 ## 문서의 개요
 - 본 문서는 개발한 cloud-edge-framework 를 기반으로 VnV(Verification and Validation)를 수행하기 위한 절차 및 관련 코드를 설명합니다.
 
 ## 요약
 - 이기종의 에지 디바이스 연동 플랫폼 성능을 검증하고자 합니다.
 - 연동 플랫폼의 성능은 추론 지연시간을 측정하여 정량적으로 평가합니다.
+
+
 
 
 ## 평가환경
@@ -21,8 +22,10 @@
 #### 환경
 
 - 제어용 컴퓨터 : {MacbookPro14}
-- 프레임워크 서버 : RTX3080ti
-- 에지 디바이스 : {RPI, TX2}
+- 프레임워크 서버 : {RTX3080ti GPU 서버}
+- 에지 디바이스 : {RPI, TX2} + $\alpha$
+
+
 
 
 ### 평가 조건
@@ -47,12 +50,41 @@
 
 
 
-## 평가환경
+## 기초 실험 결과 
 
-### 기본 인프라
+### Cifar10 데이터셋에 대한 에지 기기별 동작 유무, 시간
+
+- 수행 시간 및 정확도 (TX2의 경우 VGG19 inference)
+
+
+```csv
+
+model, RTX3080ti(GPU), RTX3080ti(CPU), TX2(CPU), RPI(CPU)
+VGG19, 1.194, 35.162
+SimpleDLA, 1.276, 
 
 
 
+```
+
+
+### (참고) 모델 크기
+
+- (참고) https://github.com/albanie/convnet-burden
+
+```csv
+model,	input size,	param mem
+resnet18,	224 x 224,	45 MB
+resnet34,	224 x 224,	83 MB
+resnet-50,	224 x 224,	98 MB
+resnet-101,	224 x 224,	170 MB
+```
+
+### (참고) 임베디드 디바이스별 머신러닝 모델 동작
+
+- 출처 : https://qengineering.eu/deep-learning-with-raspberry-pi-and-alternatives.html
+
+![img](img4doc/device_chart.png)
 
 
 
