@@ -148,24 +148,23 @@ resnet-101, ,
 ### (참고) RESNET 구조
 
 - Resnet18
-
-![img](img4doc/resnet18.png){:height="30px"}
+<img src="img4doc/resnet18.png" height="100">
 
 - Resnet34
+<img src="img4doc/resnet34.png" height="100">
 
-![img](img4doc/resnet34.png){:height="30px"}
 
 - Resnet50
+<img src="img4doc/resnet50.png" height="100">
 
-![img](img4doc/resnet50.png){:height="30px"}
 
 - Resnet101
+<img src="img4doc/resnet101.png" height="100">
 
-![img](img4doc/resnet101.png){:height="30px"}
 
 - Resnet152
+<img src="img4doc/resnet152.png" height="100">
 
-![img](img4doc/resnet152.png){:height="30px"}
 
 
 
