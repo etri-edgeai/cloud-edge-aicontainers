@@ -18,8 +18,10 @@ v2/doc/figures
 
 # 모든 위치의 아래 폴더는 무시 
 **/checkpoint/
-#**/dataset/
+**/dataset/
+**/keynote/
 **/tmp/
+**/.ipynb_checkpoints/
 
 .ipynb_checkpoints
 .ipynb_checkpoints/*
@@ -136,4 +138,8 @@ DirectoryA/**/DirectoryB/
 
 # 파일 이름 중에 해시(#) 문자가 존재할 경우, 백슬래시를 escape 문자로 이용하여 표기할 수 있습니다.
 # (1.6.2.1 버전 이후부터 지원합니다.)
+<<<<<<< HEAD
 \#*#
+=======
+\#*#
+>>>>>>> 2293a61a380fc0c0c80e793aba76264545d41a22
