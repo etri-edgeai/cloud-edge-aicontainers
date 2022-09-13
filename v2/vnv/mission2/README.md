@@ -21,29 +21,7 @@
 
 ### 평가 환경 및 조건
 
-- 이기종의 네트워크 대역폭 및 불안정한 Backgroud Utilization 환경을 고려하며, 엣지 단독 추론 및 병행추론 등 다양한 유형의 분석 방식 채택 가능합니다.
-- 에지 환경 추론에 따른 성능 개선을 확인하기 위해, 성능 확인에 영향을 주는 변인들은 가급적 통제하여 평가를 실시합니다.
-
-
-### 시험용 시스템 1 (Baseline 구성)
-
-- Framework Node (프레임워크 노드) : {MacbookPro14}
-- Inference Node for Baseline Scheme (베이스라인 추론 노드) : {NUC GPU Edge Device}
-- Data Source Node : {RPI or Synology NAS}
-
-![img](img4doc/01_baseline.png)
-
-### 시험용 시스템 2 (Proposed 구성)
-
-- Framework Node (프레임워크 노드) : {MacbookPro14}
-- Inference Node for Proposed Scheme (제안하는 추론 노드) : {NUC GPU Edge Device}
-- Data Source Node : {RPI or Synology NAS}
-
-![img](img4doc/02_proposed.png)
-
-
-
-
+- [사업계획서] 이기종의 네트워크 대역폭 및 불안정한 Backgroud Utilization 환경을 고려하며, 엣지 단독 추론 및 병행추론 등 다양한 유형의 분석 방식 채택 가능합니다.
 
 ### 기준 알고리즘
 - 주어진 태스크와 목적에 부합하는 딥러닝 모델 중 가장 우수한 정확도를 제공하는 모델을 엣지 추론을 위한 모델로 선정하는 Greedy Model Selection Algorithm 기준 알고리즘으로 선정합니다.
@@ -54,7 +32,42 @@
 
 
 
-### 참고 Dataset
+## (KETI 초안) 시험 방법
+
+- 에지 환경 추론에 따른 성능 개선을 확인하기 위해, 성능 확인에 영향을 주는 변인들은 가급적 통제하여 평가를 실시합니다.
+- 2가지 시험 구성 {Baseline, Proposed}을 갖습니다.
+- <Baseline>과 <Proposed>의 시험 구성에 따른 추론 지연시간을 측정하고 이를 비교하여 다음과 같은 추론 지연시간 개선율을 계산합니다.
+
+$$  \Delta {t} = \frac{1}{n} \sum_{i=1}^{n} \frac{ t_{ref} -  t_{new} }{ t_{ref} } $$
+
+- <Baseline>과 <Proposed>의 주요 차이점은 추론 모델 선택 방법입니다.
+- 먼저, <Baseline>에서는 종래의 가장 성능이 우수한 모델을 선택하는 방식을 사용하는 <Greedy Model Selection> 방법을 사용합니다.
+- 반면, <Proposed>에서는 장치의 {연산량, 연산자원, 네트워크 대역폭} 등을 고려하여 10% 이내의 정확도 열화를 감내하는 선에서 Latency Budget을 계산하여 추론 모델을 선택하는 <Advanced Model Selection> 방식을 적용합니다. 
+- 상기 2가지 시험 구성을 분리하여 설명했으나, 세부 시험 구성요소는 서로 공유가 가능합니다.
+- 일례로, {Framework Node, Data Source Node}는 추론지연시간 측정을 위한 변인통제를 위해 그 기능을 공유합니다.
+
+
+### 시험 구성 1 (Baseline)
+
+- <Baseline>에서는 종래의 가장 성능이 우수한 모델을 선택하는 방식을 사용하는 <Greedy Model Selection> 방법을 사용하는 것을 특징으로 합니다.
+- 주요 시험 구성요소는 다음과 같습니다.
+- Framework Node (프레임워크 노드) : {MacbookPro14}
+- Inference Node for Baseline Scheme (베이스라인 추론 노드) : {NUC GPU Edge Device}
+- Data Source Node : {RPI or Synology NAS}
+
+![img](img4doc/01_baseline.png)
+
+### 시험 구성 2 (Proposed)
+- <Proposed>에서는 장치의 {연산량, 연산자원, 네트워크 대역폭} 등을 고려하여 10% 이내의 정확도 열화를 감내하는 선에서 Latency Budget을 계산하여 추론 모델을 선택하는 <Advanced Model Selection> 방식을 적용하는 것을 특징으로 합니다.
+- 주요 시험 구성요소는 다음과 같습니다.
+- Framework Node (프레임워크 노드) : {MacbookPro14}
+- Inference Node for Proposed Scheme (제안하는 추론 노드) : {NUC GPU Edge Device}
+- Data Source Node : {RPI or Synology NAS}
+
+![img](img4doc/02_proposed.png)
+
+
+### 활용 Dataset
 ---------------------------------------------------
 
 - https://www.cs.toronto.edu/~kriz/cifar.html
@@ -62,8 +75,9 @@
 - Cifar10 : 32x32 컬러 이미지, 10개의 분류객체, 클래스당 6000장(5000장 학습, 1000장 시험), 총 60000장(50000장 학습셋 + 10000장 시험셋)
 
 
+-------------------------------------------
 
-## 기초 실험 결과 
+## (TODO) 기초 실험 결과 
 
 ### Cifar10 데이터셋에 대한 에지 기기별 동작 유무, 시간
 
@@ -75,8 +89,6 @@
 model, RTX3080ti(GPU), RTX3080ti(CPU), TX2(CPU), RPI(CPU)
 VGG19, 1.194, 35.162
 SimpleDLA, 1.276, 
-
-
 
 ```
 
