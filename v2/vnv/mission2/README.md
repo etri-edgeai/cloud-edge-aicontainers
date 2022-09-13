@@ -51,14 +51,84 @@ $$  \Delta {t} = \frac{1}{n} \sum_{i=1}^{n} \frac{ t_{ref} -  t_{new} }{ t_{ref}
 - {Data Source Node}는 변인통제가 필요하지만, 현장 시나리오를 가정하여 개념도에 추가했으녀, 추론하고자 하는 데이터를 {Inference Node}에서 캐싱(cashing)하여 처리하는 것이 바람직합니다.
 
 
+### 시험 방법
+
+- 시험방법은 다음의 python 문법 형식의 의사코드로 표현할 수 있습니다.
+
+
+```python
+
+methods = ['baseline', 'proposed']
+edges = ['RTX3080TI', 'NUC', 'MACMINI', 'RPI']
+models = ['resnet18', 'resnet34', 'resnet50', 'resnet101', 'resnet152']
+measured_time = []
+
+# 가용 에지 디바이스들에 대해서 실험을 수행합니다.
+for edge in edges:
+    
+    # 선택된 에지 디바이스의 상태정보를 얻습니다.
+    device_status = getDeviceStatus(edge)
+
+    # baseline 실험을 위한 모델을 선택합니다.
+    model_baseline = greedModelSelection(models, device_status)
+    
+    # proposed 실험을 위한 모델을 선택합니다.
+    model_proposed = advancedModelSelection(models, device_status)
+
+    # 선택된 에지 디바이스에서 model_baseline을 수행합니다. 
+    start_time = getTime()
+    accuracy1 = runModel(model_baseline, edge)
+    finish_time = getTime()
+    dtime1 = finish_time - start_time
+
+    # 선택된 에지 디바이스에서 model_proposed를 수행합니다. 
+    start_time = getTime()
+    accuracy2 = runModel(model_proposed, edge)
+    finish_time = getTime()
+    dtime2 = finish_time - start_time
+
+    # 추론지연 절감율 측정
+    latency_saving_rate = (dtime1 - dtime2) / dtime1
+    diff_accuracy = accuracy1 - accuracy1
+    
+```
+
+- diff_accuracy 가 10% 이내 인지 확인합니다.
+- latency_saving_rate 가 20% 이상인지 확인합니다.
+
 
 ### 시험 구성 1 (Baseline)
 
 - {Baseline}에서는 종래의 가장 성능이 우수한 모델을 선택하는 방식을 사용하는 {Greedy Model Selection} 방법을 사용하는 것을 특징으로 합니다.
+
 - 주요 시험 구성요소는 다음과 같습니다.
-- Framework Node (프레임워크 노드) : {MacbookPro14} --> <b>{Greedy Model Selection}</b> 적용
-- Inference Node (추론 노드) : {NUC GPU Edge Device}
-- Data Source Node : {RPI or Synology NAS}
+
+  (1) Framework Node (프레임워크 노드) : {MacbookPro14} --> <b>{Greedy Model Selection}</b> 적용
+
+  (2) Model Repository (인공신경망 모델 리포지토리)
+
+
+  (3) Inference Node (추론 노드) : {NUC GPU Edge Device, RTX3080Ti GPU Server, Macbook, RPI}
+
+  (4) Data Source Node : {RPI or Synology NAS or Remote Repository}
+
+
+![img](img4doc/01_baseline.png)
+
+
+### 시험 구성 2 (Proposed)
+- {Proposed}에서는 장치의 {연산량, 연산자원, 네트워크 대역폭} 등을 고려하여 10% 이내의 정확도 열화를 감내하는 선에서 Latency Budget을 계산하여 추론 모델을 선택하는 {Advanced Model Selection}을 사용하는 것을 특징으로 합니다.
+- 주요 시험 구성요소는 다음과 같습니다.
+
+  (1) Framework Node (프레임워크 노드) : {MacbookPro14} --> <b>{Advanced Model Selection}</b> 적용
+
+  (2) Model Repository (인공신경망 모델 리포지토리)
+
+
+  (3) Inference Node (추론 노드) : {NUC GPU Edge Device, RTX3080Ti GPU Server, Macbook, RPI}
+
+  (4) Data Source Node : {RPI or Synology NAS or Remote Repository}
+
 
 ![img](img4doc/01_baseline.png)
 
@@ -68,6 +138,7 @@ $$  \Delta {t} = \frac{1}{n} \sum_{i=1}^{n} \frac{ t_{ref} -  t_{new} }{ t_{ref}
 - Framework Node (프레임워크 노드) : {MacbookPro14} --> <b>{Advanced Model Selection}</b> 적용
 - Inference Node (추론 노드) : {NUC GPU Edge Device}
 - Data Source Node : {RPI or Synology NAS}
+>>>>>>> 2293a61a380fc0c0c80e793aba76264545d41a22
 
 ![img](img4doc/02_proposed.png)
 
@@ -103,7 +174,6 @@ resnet152,	21.69,	5.94
 ```
 
 
-
 - 참고 자료 출처 : https://github.com/albanie/convnet-burden
 
 ```csv
@@ -115,8 +185,6 @@ resnet-101,	224 x 224,	170 MB
 ```
 
 
-
--------------------------------------------
 
 ## (TODO) 장치별 기초 실험 
 
