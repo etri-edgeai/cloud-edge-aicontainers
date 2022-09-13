@@ -34,9 +34,8 @@
 
 
 ---------------------------------------------------
-## (KETI 초안) 시험 방법
+## <font color=blue> (KETI 초안) 시험 방법 </font>
 
-<font color="blue"> 
 - 에지 환경 추론에 따른 성능 개선을 확인하기 위해, 성능 확인에 영향을 주는 변인들은 가급적 통제하여 평가를 실시합니다.
 - 2가지 시험 구성 {Baseline, Proposed}에 따라 평가를 진행합니다.
 - {Baseline}과 {Proposed}의 시험 구성에 따른 추론 지연시간을 각각 {$t_{ref}$ $$t_{new}$}와 같이 측정합니다.
@@ -49,7 +48,7 @@ $$  \Delta {t} = \frac{1}{n} \sum_{i=1}^{n} \frac{ t_{ref} -  t_{new} }{ t_{ref}
 - (2) {Proposed}에서는 장치의 {연산량, 연산자원, 네트워크 대역폭} 등을 고려하여 10% 이내의 정확도 열화를 감내하는 선에서 Latency Budget을 계산하여 추론 모델을 선택하는 <b>{Advanced Model Selection}</b> 방식을 적용합니다. 
 - 상기 2가지 시험 구성을 분리하여 설명했으나, 세부 시험 구성요소는 변인통제를 위해 서로 공유가 가능합니다.
 - 일례로, {Framework Node, Data Source Node}는 추론지연시간 측정을 위해 그 기능을 공유합니다.
- </font>
+
 
 ### 시험 구성 1 (Baseline)
 
