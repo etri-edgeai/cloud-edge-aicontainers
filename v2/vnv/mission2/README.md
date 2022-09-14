@@ -89,7 +89,7 @@ for edge in edges:
 
     # 추론지연 절감율 측정
     latency_saving_rate = (dtime1 - dtime2) / dtime1
-    diff_accuracy = accuracy1 - accuracy1
+    diff_accuracy = accuracy1 - accuracy2
     
 ```
 
