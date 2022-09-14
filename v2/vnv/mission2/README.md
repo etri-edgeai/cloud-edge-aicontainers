@@ -135,7 +135,7 @@ for edge in edges:
   (4) Data Source Node : {RPI or Synology NAS or Remote Repository}
 
 
-![img](img4doc/01_baseline.png)
+![img](img4doc/02_proposed.png)
 
 
 
