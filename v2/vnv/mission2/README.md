@@ -49,12 +49,11 @@ $$  \Delta {t} = \frac{1}{n} \sum_{i=1}^{n} \frac{ t_{ref} -  t_{new} }{ t_{ref}
 - 상기 2가지 시험 구성을 분리하여 설명했으나, 세부 시험 구성요소는 변인통제를 위해 서로 공유가 가능합니다.
 - 일례로, {Framework Node, Inference Node, Data Source Node, Model Repository}는 추론지연시간 측정을 위해 그 기능을 공유합니다.
 - {Data Source Node}는 변인통제가 필요하지만, 현장 시나리오를 가정하여 개념도에 추가했으며, 추론하고자 하는 데이터를 {Inference Node}에서 캐싱(cashing)하여 처리하는 것이 바람직합니다.
-- 에지 디바이스의 종류는  수 있습니다.
+- 에지 디바이스의 종류는 1개를 기본으로 하고 그 이상으로 확장될 수 있습니다.
 
 ### 시험 방법
 
 - 시험방법은 다음의 python 문법 형식의 의사코드로 표현할 수 있습니다.
-
 
 ```python
 
