@@ -151,6 +151,9 @@ for edge in edges:
 
 
 
+
+
+
 ### 사용 모델
 
 - Resnet 모델을 고려 중입니다. (Resnet 모델 테스트 완료후, VGG, Yolo 계열의 모델을 추가할 계획입니다. 향후 지식증류 모델을 적용하는 것도 고려할 수 있습니다.)
@@ -183,21 +186,27 @@ resnet-101,	224 x 224,	170 MB
 
 ## (TODO) 장치별 기초 실험 
 
-### Cifar10 데이터셋에 대한 에지 기기별 동작 유무, 시간
-
-- 수행 시간 및 정확도 (TX2의 경우 VGG19 inference)
+- Cifar10, test set 10,000장에 대한 에지 기기별 추론 시간 및 정확도
 
 ```csv
 
-model, RTX3080ti(GPU), RTX3080ti(CPU), TX2(CPU), RPI(CPU)
-VGG19, 1.194, 35.162
-SimpleDLA, 1.276, 
-resnet18,	,
-resnet34,	,
-resnet-50,	,
-resnet-101, ,
+model, RTX3080ti(GPU), RTX3080ti(CPU), NUC(GPU), NUC(CPU),
+resnet18, 91.05, todo, 87.99, todo,
+resnet34, 92.84, todo, 88.19, todo,
+resnet-50, 93.37, todo, 89.38, todo,
+resnet-101, 94.4, todo, 91.73, todo,
+resnet-152, 95.11, todo, 91.3, todo,
 ```
 
+```csv
+
+model, RTX3080ti(GPU), RTX3080ti(CPU), NUC(GPU), NUC(CPU),
+resnet18, 15.212969541549683, todo, 23.278241872787476, todo,
+resnet34, 16.24527597427368, todo, 31.52906036376953, todo,
+resnet-50, 19.635452270507812, todo, 43.629743814468384, todo,
+resnet-101, 23.857274055480957, todo, 65.02895927429199, todo,
+resnet-152, 31.87714123725891, todo, 87.38637733459473, todo,
+```
 
 
 ### (참고) 임베디드 디바이스별 분석모델 처리 속도
