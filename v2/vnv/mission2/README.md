@@ -147,6 +147,9 @@ for edge in edges:
   . https://www.cs.toronto.edu/~kriz/cifar.html
 
   . Cifar10 : 32x32 컬러 이미지, 10개의 분류객체, 클래스당 6,000장(5000장 학습, 1000장 시험), 총 60,000장(50,000장 학습셋 + 10,000장 시험셋)
+
+
+
 ```
 
 
