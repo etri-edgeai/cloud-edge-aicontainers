@@ -193,23 +193,40 @@ resnet152,	21.69,	5.94
 - Cifar10, test set 10,000장에 대한 에지 기기별 추론 시간 및 정확도
 - 현재는 서로 다른 환경에서 만든 전이학습 모델을 사용중임 --> 동일한 전이학습 모델로 추론 하도록 실험 수정할 것임
 
+
+
+- 추론 정확도 budget
+
 ```csv
 model, RTX3080ti(GPU), RTX3080ti(CPU), NUC(GPU), NUC(CPU),
-resnet18, 91.05, todo, 87.99, todo,
+resnet18, 91.04, todo, 86.72, todo,
 resnet34, 92.84, todo, 88.19, todo,
 resnet-50, 93.37, todo, 89.38, todo,
 resnet-101, 94.4, todo, 91.73, todo,
 resnet-152, 95.11, todo, 91.3, todo,
 ```
 
+![img](experiments/resnet_infer_accuracy.png)
+
+
+- 추론 지연시간 budget
+
+
+![img](experiments/resnet_infer_time.png)
+
+![img](experiments/time_cpu.png)
+
+![img](experiments/time_gpu.png)
+
+
 ```csv
 
 model, RTX3080ti(GPU), RTX3080ti(CPU), NUC(GPU), NUC(CPU),
-resnet18, 15.212969541549683, todo, 23.278241872787476, todo,
-resnet34, 16.24527597427368, todo, 31.52906036376953, todo,
-resnet-50, 19.635452270507812, todo, 43.629743814468384, todo,
-resnet-101, 23.857274055480957, todo, 65.02895927429199, todo,
-resnet-152, 31.87714123725891, todo, 87.38637733459473, todo,
+resnet18, 16.803656101226807, 169.54597854614258, 23.278241872787476, todo,
+resnet34, 17.141077518463135, 280.5474326610565, 31.52906036376953, todo,
+resnet-50, 19.997405767440796, 523.9516932964325, 43.629743814468384, todo,
+resnet-101, 25.875438451766968, 805.4357748031616, 65.02895927429199, todo,
+resnet-152, 30.793837785720825, 1121.0137231349945, 87.38637733459473, todo,
 ```
 
 
