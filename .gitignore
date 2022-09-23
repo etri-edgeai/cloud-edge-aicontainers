@@ -17,6 +17,7 @@ v2/doc/figures
 *.onnx
 
 # 모든 위치의 아래 폴더는 무시 
+**/checkpoints/
 **/checkpoint/
 **/dataset/
 **/keynote/
