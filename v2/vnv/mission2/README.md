@@ -206,16 +206,16 @@ resnet-101, 94.4, todo, 91.73, todo,
 resnet-152, 95.11, todo, 91.3, todo,
 ```
 
-<img src="experiments/resnet_infer_accuracy.png" width="300">
+<img src="experiments/resnet_infer_accuracy.png" width="600">
 
 - 추론 지연시간 budget
 
 
-<img src="experiments/resnet_infer_time.png" width="300">
+<img src="experiments/resnet_infer_time.png" width="600">
 
-<img src="experiments/time_cpu.png" width="300">
+<img src="experiments/time_cpu.png" width="600">
 
-<img src="experiments/time_gpu.png" width="300">
+<img src="experiments/time_gpu.png" width="600">
 
 
 ```csv
