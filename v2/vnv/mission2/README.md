@@ -154,8 +154,9 @@ for edge in edges:
   . https://www.kaggle.com/datasets/ifigotin/imagenetmini-1000
 ```
 
-<img src="img4doc/ILSVRC2012_val_00003382.JPEG", width=300>
-<img src="img4doc/ILSVRC2012_val_00010218.JPEG", width=300>
+<img src="img4doc/ILSVRC2012_val_00003382.jpg", width=300>
+
+<img src="img4doc/ILSVRC2012_val_00010218.jpg", width=300>
 
 
 
