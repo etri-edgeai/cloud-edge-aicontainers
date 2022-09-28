@@ -12,10 +12,10 @@
 - 연동 플랫폼의 성능은 추론 지연시간을 측정하여 정량적으로 평가합니다.
 
 
-![img](img4doc/00_system.png)
+<img src="img4doc/00_system.png" widht=500>
 
 
-![img](img4doc/00_system2.png)
+<img src="img4doc/00_system2.png" widht=500>
 
 
 ---------------------------------------------------
@@ -116,7 +116,8 @@ for edge in edges:
   (4) Data Source Node : {RPI or Synology NAS or Remote Repository}
 
 
-![img](img4doc/01_baseline.png)
+<img src="img4doc/01_baseline.png" widht=500>
+
 
 
 
@@ -137,7 +138,7 @@ for edge in edges:
   (4) Data Source Node : {RPI or Synology NAS or Remote Repository}
 
 
-![img](img4doc/02_proposed.png)
+<img src="img4doc/02_proposed.png" widht=500>
 
 
 
