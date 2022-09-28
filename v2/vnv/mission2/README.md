@@ -53,7 +53,11 @@ $$  \Delta {t} = \frac{1}{n} \sum_{i=1}^{n} \frac{ t_{b} -  t_{a} }{ t_{b} } $$
 - 일례로, {Control Node, Inference Node, Model Repository}는 추론지연시간 측정을 위해 그 기능을 공유합니다.
 - 에지 디바이스의 종류는 1개를 기본으로 하고 그 이상으로 확장될 수 있습니다.
 
+
 ### 시험 방법
+
+
+
 
 - 시험방법은 다음의 python 문법 형식의 의사코드로 표현할 수 있습니다.
 
@@ -115,6 +119,12 @@ for edge in edges:
 
 
 
+<img src="img4doc/expr01.png" width=200>
+
+
+<img src="img4doc/expr02.png" width=200>
+
+
 
 
 ### 시험 구성 2 (Advanced)
@@ -144,8 +154,8 @@ for edge in edges:
   . https://www.kaggle.com/datasets/ifigotin/imagenetmini-1000
 ```
 
-
-
+<img src="img4doc/ILSVRC2012_val_00003382.JPEG", width=300>
+<img src="img4doc/ILSVRC2012_val_00010218.JPEG", width=300>
 
 
 
