@@ -12,10 +12,10 @@
 - 연동 플랫폼의 성능은 추론 지연시간을 측정하여 정량적으로 평가합니다.
 
 
-<img src="img4doc/00_system.png" widht=450>
+<img src="img4doc/00_system.png" width=450>
 
 
-<img src="img4doc/00_system4vnv.png" widht=450>
+<img src="img4doc/00_system4vnv.png" width=450>
 
 
 ---------------------------------------------------
@@ -111,7 +111,7 @@ for edge in edges:
   (3) Inference Node (추론 노드) : {e.g. NUC GPU Edge Device, RTX3080Ti GPU Server, Macbook, RPI}
 
 
-<img src="img4doc/01_baseline.png" widht=500>
+<img src="img4doc/01_baseline.png" width=500>
 
 
 
@@ -130,7 +130,7 @@ for edge in edges:
   (3) Inference Node (추론 노드) : {e.g. NUC GPU Edge Device, RTX3080Ti GPU Server, Macbook, RPI}
 
 
-<img src="img4doc/02_advanced.png" widht=500>
+<img src="img4doc/02_advanced.png" width=500>
 
 
 
