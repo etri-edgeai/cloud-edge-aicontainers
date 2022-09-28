@@ -12,10 +12,10 @@
 - 연동 플랫폼의 성능은 추론 지연시간을 측정하여 정량적으로 평가합니다.
 
 
-<img src="img4doc/00_system.png" widht=500>
+<img src="img4doc/00_system.png" widht=450>
 
 
-<img src="img4doc/00_system2.png" widht=500>
+<img src="img4doc/00_system4vnv.png" widht=450>
 
 
 ---------------------------------------------------
@@ -30,7 +30,7 @@
 - 이기종의 네트워크 대역폭 및 불안정한 Backgroud Utilization 환경을 고려하며, 엣지 단독 추론 및 병행추론 등 다양한 유형의 분석 방식 채택 가능합니다. [출처: 사업계획서] 
 
 ### 기준 알고리즘
-- 주어진 태스크와 목적에 부합하는 딥러닝 모델 중 가장 우수한 정확도를 제공하는 모델을 엣지 추론을 위한 모델로 선정하는 Greedy Model Selection Algorithm을 기준 알고리즘으로 선정합니다. [출처: 사업계획서] 
+- 주어진 태스크와 목적에 부합하는 딥러닝 모델 중 가장 우수한 정확도를 제공하는 모델을 엣지 추론을 위한 모델로 선정하는 Greedy AI Model Selection Algorithm을 기준 알고리즘으로 선정합니다. [출처: 사업계획서] 
 
 ### 추론 Budget
 - 엣지 추론을 위해 모델 선별 시 허용 가능한 추론 지연시간을 일종의 예산(Budget)개념으로 활용합니다. [출처: 사업계획서] 
@@ -41,17 +41,16 @@
 
 - 에지 환경 추론에 따른 성능 개선을 확인하기 위해, 성능 확인에 영향을 주는 변인들은 가급적 통제하여 평가를 실시합니다.
 - 상세하게는 다음과 같은 2가지 시험 구성 {Baseline, Proposed}에 따라 평가를 진행합니다.
-- {Baseline}과 {Proposed}의 시험 구성에 따른 추론 지연시간을 각각 $t_{ref}$, $t_{new}$ 와 같이 측정합니다.
+- {Baseline}과 {Proposed}의 시험 구성에 따른 추론 지연시간을 각각 $t_{b}$, $t_{a}$ 와 같이 측정합니다.
 - 이를 비교하여 추론 지연시간 개선율을 계산합니다.
 
-$$  \Delta {t} = \frac{1}{n} \sum_{i=1}^{n} \frac{ t_{ref} -  t_{new} }{ t_{ref} } $$
+$$  \Delta {t} = \frac{1}{n} \sum_{i=1}^{n} \frac{ t_{b} -  t_{a} }{ t_{b} } $$
 
 - {Baseline}과 {Proposed}의 주요 차이점은 추론 모델 선택에 있습니다.
-- (1) {Baseline}은 가용 모델 중, 가장 성능이 우수한 분석 모델을 선택하는 <b>{Greedy Model Selection}</b> 을 사용합니다.
-- (2) {Proposed}는 장치의 {연산량, 연산자원, 네트워크 대역폭} 등을 고려하여 10% 이내의 정확도 열화를 Latency Budget으로 사용하여 추론 모델을 선택하는 <b>{Advanced Model Selection}</b> 을 사용합니다. 
+- (1) {Baseline}은 가용 모델 중, 가장 성능이 우수한 분석 모델을 선택하는 <b>{Greedy AI Model Selection}</b> 을 사용합니다.
+- (2) {Proposed}는 장치의 {연산량, 연산자원, 네트워크 대역폭} 등을 고려하여 10% 이내의 정확도 열화를 Latency Budget으로 사용하여 추론 모델을 선택하는 <b>{Advanced AI Model Selection}</b> 을 사용합니다. 
 - 상기 2가지 시험 구성을 분리하여 설명했으나, 세부 시험 구성요소는 변인통제를 위해 서로 공유가 가능합니다.
-- 일례로, {Framework Node, Inference Node, Data Source Node, Model Repository}는 추론지연시간 측정을 위해 그 기능을 공유합니다.
-- {Data Source Node}는 변인통제가 필요하지만, 현장 시나리오를 가정하여 개념도에 추가했으며, 추론하고자 하는 데이터를 {Inference Node}에서 캐싱(cashing)하여 처리하는 것이 바람직합니다.
+- 일례로, {Control Node, Inference Node, Model Repository}는 추론지연시간 측정을 위해 그 기능을 공유합니다.
 - 에지 디바이스의 종류는 1개를 기본으로 하고 그 이상으로 확장될 수 있습니다.
 
 ### 시험 방법
@@ -60,8 +59,8 @@ $$  \Delta {t} = \frac{1}{n} \sum_{i=1}^{n} \frac{ t_{ref} -  t_{new} }{ t_{ref}
 
 ```python
 
-methods = ['baseline', 'proposed']
-edges = [ 'RTX3080TI', 'NUC'] # ['RTX3080TI', 'NUC', 'MACMINI', 'RPI']
+methods = ['baseline', 'advanced']
+edges = [ 'RTX3080TI'] # ['RTX3080TI', 'NUC', 'MACMINI', 'RPI']
 models = ['resnet18', 'resnet34', 'resnet50', 'resnet101', 'resnet152']
 measured_time = []
 
@@ -74,8 +73,8 @@ for edge in edges:
     # baseline 실험을 위한 모델을 선택합니다.
     model_baseline = greedModelSelection(models, device_status)
     
-    # proposed 실험을 위한 모델을 선택합니다.
-    model_proposed = advancedModelSelection(models, device_status)
+    # advanced 실험을 위한 모델을 선택합니다.
+    model_advanced = advancedModelSelection(models, device_status)
 
     # 선택된 에지 디바이스에서 model_baseline을 수행합니다. 
     start_time = getTime()
@@ -83,9 +82,9 @@ for edge in edges:
     finish_time = getTime()
     dtime1 = finish_time - start_time
 
-    # 선택된 에지 디바이스에서 model_proposed를 수행합니다. 
+    # 선택된 에지 디바이스에서 model_advanced를 수행합니다. 
     start_time = getTime()
-    accuracy2 = runModel(model_proposed, edge)
+    accuracy2 = runModel(model_advanced, edge)
     finish_time = getTime()
     dtime2 = finish_time - start_time
 
@@ -99,21 +98,17 @@ for edge in edges:
 - latency_saving_rate 가 20% 이상인지 확인합니다.
 
 
-
-
 ### 시험 구성 1 (Baseline)
 
-- {Baseline}에서는 종래의 가장 성능이 우수한 모델을 선택하는 방식을 사용하는 {Greedy Model Selection} 방법을 사용하는 것을 특징으로 합니다.
+- {Baseline}에서는 종래의 가장 성능이 우수한 모델을 선택하는 방식을 사용하는 {Greedy AI Model Selection} 방법을 사용하는 것을 특징으로 합니다.
 
 - 주요 시험 구성요소는 다음과 같습니다.
 
-  (1) Framework Node (프레임워크 노드) : {MacbookPro14} --> <b>{Greedy Model Selection}</b> 적용
+  (1) Control Node (제어노드) : {MacbookPro14} --> <b>{Greedy AI Model Selection}</b> 적용
 
   (2) Model Repository (인공신경망 모델 리포지토리)
 
   (3) Inference Node (추론 노드) : {e.g. NUC GPU Edge Device, RTX3080Ti GPU Server, Macbook, RPI}
-
-  (4) Data Source Node : {RPI or Synology NAS or Remote Repository}
 
 
 <img src="img4doc/01_baseline.png" widht=500>
@@ -128,32 +123,25 @@ for edge in edges:
 
 - 주요 시험 구성요소는 다음과 같습니다.
 
-  (1) Framework Node (프레임워크 노드) : {MacbookPro14} --> <b>{Advanced Model Selection}</b> 적용
+  (1) Control Node (제어노드) : {MacbookPro14} --> <b>{Advanced AI Model Selection}</b> 적용
 
   (2) Model Repository (인공신경망 모델 리포지토리)
 
-
   (3) Inference Node (추론 노드) : {e.g. NUC GPU Edge Device, RTX3080Ti GPU Server, Macbook, RPI}
 
-  (4) Data Source Node : {RPI or Synology NAS or Remote Repository}
 
-
-<img src="img4doc/02_proposed.png" widht=500>
+<img src="img4doc/02_advanced.png" widht=500>
 
 
 
 
 ### 사용 Dataset
 
-- 아래의 Cifar10 데이터셋에서 일부를 추출하여 평가에 활용합니다.
+- imagenet-mini 데이터셋 중에서 validatation 셋 (1,000개의 분류객체, 클래스당 약 3장씩, 3,923장)
+
 
 ```bash
-  . https://www.cs.toronto.edu/~kriz/cifar.html
-
-  . Cifar10 : 32x32 컬러 이미지, 10개의 분류객체, 클래스당 6,000장(5000장 학습, 1000장 시험), 총 60,000장(50,000장 학습셋 + 10,000장 시험셋)
-
-
-
+  . https://www.kaggle.com/datasets/ifigotin/imagenetmini-1000
 ```
 
 
@@ -307,6 +295,16 @@ resnet-152, 30.793837785720825, 1121.0137231349945, 87.38637733459473, todo,
 
 
 
+### (참고) 데이터셋
+
+- Cifar10 데이터셋
+
+```bash
+  . https://www.cs.toronto.edu/~kriz/cifar.html
+
+  . Cifar10 : 32x32 컬러 이미지, 10개의 분류객체, 클래스당 6,000장(5000장 학습, 1000장 시험), 총 60,000장(50,000장 학습셋 + 10,000장 시험셋)
+
+```
 
 
 
