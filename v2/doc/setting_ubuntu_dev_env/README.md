@@ -55,3 +55,69 @@
 $ pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu116
 $ sudo apt install nvidia-cuda-toolkit
 ```
+
+### CUDA 11.7
+
+```bash
+$ pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu117
+$ sudo apt install nvidia-cuda-toolkit
+```
+
+
+## PyTorch 예제
+
+```bash
+
+import torch
+ 
+#  Returns a bool indicating if CUDA is currently available.
+torch.cuda.is_available()
+#  True
+ 
+#  Returns the index of a currently selected device.
+torch.cuda.current_device()
+#  0
+ 
+#  Returns the number of GPUs available.
+torch.cuda.device_count()
+#  1
+ 
+#  Gets the name of a device.
+torch.cuda.get_device_name(0)
+
+ 
+#  Context-manager that changes the selected device.
+#  device (torch.device or int) – device index to select. 
+torch.cuda.device(0)
+
+```
+
+
+- example
+
+```bash
+
+import torch
+ 
+# Default CUDA device
+cuda = torch.device('cuda')
+ 
+# allocates a tensor on default GPU
+a = torch.tensor([1., 2.], device=cuda)
+ 
+# transfers a tensor from 'C'PU to 'G'PU
+b = torch.tensor([1., 2.]).cuda()
+ 
+# Same with .cuda()
+b2 = torch.tensor([1., 2.]).to(device=cuda)
+
+
+```
+
+
+
+## Jupyterlab 설치
+
+```bash
+    $ pip3 install jupyterlab
+```
