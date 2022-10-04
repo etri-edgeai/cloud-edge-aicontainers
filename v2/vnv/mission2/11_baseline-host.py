@@ -20,24 +20,17 @@ def run(cmd, is_show=False):
         print(p.communicate())
 
 
-print('[+] Start advanced experiment')
+print('[+] Start baseline experiment')
 #---------------------------------------------------
 start = time.time()
 #---------------------------------------------------
 
-cmd = 'ansible vnv -m shell -a "cat /proc/cpuinfo" -i hosts.ini > ./tmp/baseline_cpuinfo.txt'
+cmd = 'ansible host -i hosts.ini -m shell -a "cd /Users/jpark/WorkDevEdgeAI/cloud-edge-aicontainers/v2/vnv/mission2; pwd; /opt/homebrew/bin/python3 vnv03.py resnet18 cpu 0"  > ./tmp/baseline.txt  ' 
 run(cmd, False)
-
-cmd = 'ansible vnv -m shell -a "cat /proc/meminfo" -i hosts.ini > ./tmp/baseline_meminfo.txt'
-run(cmd, False)
-
-cmd = 'ansible vnv -m shell -a "python3 /home/jpark/WorkDevEdgeAI/cloud-edge-aicontainers/v2/vnv/mission2/vnv03.py resnet101" -i hosts.ini > ./tmp/baseline.txt'
-run(cmd, False)
-
 
 #---------------------------------------------------
 end = time.time()
 #---------------------------------------------------
 
-# print('t = ', end - start)
-print('[+] Done advanced experiment')
+print('t = ', end - start)
+print('[+] Done baseline experiment')

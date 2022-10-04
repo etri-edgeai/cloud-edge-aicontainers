@@ -31,9 +31,12 @@ run(cmd, False)
 cmd = 'ansible vnv -m shell -a "cat /proc/meminfo" -i hosts.ini > ./tmp/baseline_meminfo.txt'
 run(cmd, False)
 
+cmd = 'ansible vnv -i hosts.ini -m shell -a "cd /home/jpark/WorkDevEdgeAI/cloud-edge-aicontainers/v2/vnv/mission2; pwd; /usr/bin/python3 vnv03.py resnet18 cpu 100;"  --ask-become-pass  > ./tmp/baseline.txt  ' 
+run(cmd, False)
+
 #---------------------------------------------------
 end = time.time()
 #---------------------------------------------------
 
-# print('t = ', end - start)
+print('t = ', end - start)
 print('[+] Done baseline experiment')
