@@ -62,24 +62,24 @@ def main(mode = 'baseline'):
     #cmd_sub = ' /usr/bin/python3 -c "import torch; print(torch.cuda.is_available())" '
     cmd = f'ansible vnv -m shell -a "cd {wdir}; {py} cuda_is_available.py " -i hosts.ini '
     z = run(cmd, True)
-    print('z = ', z)
 
-    if 'True' in run(cmd, True) : is_cuda_available = 1 
+    if 'True' in z : is_cuda_available = 1 
     else: is_cuda_available = 0
-    print( 'is_cuda_available = ', is_cuda_available )
 
     # for ubuntu
     cmd = f'ansible vnv -m shell -a "cat /proc/cpuinfo" -i hosts.ini > ./tmp/baseline_cpuinfo.txt'
-    run(cmd, False)
+    run(cmd, True)
 
     cmd = f'cat ./tmp/baseline_cpuinfo.txt | grep "model name" '
-    run(cmd, False)
+    cpu_model = run(cmd, True)
+    print(f'cpu_model = {cpu_model}')
 
     cmd = f'ansible vnv -m shell -a "cat /proc/meminfo" -i hosts.ini > ./tmp/baseline_meminfo.txt '
     run(cmd, False)
 
     cmd = f'cat ./tmp/baseline_meminfo.txt | grep "MemTotal" '
-    run(cmd, False)
+    mem_total = run(cmd, True)
+    print(f'mem_total = {mem_total}')
 
     et_getstatus = time.time() #---------------------
 
