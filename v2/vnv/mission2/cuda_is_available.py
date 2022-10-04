@@ -1,2 +1,2 @@
 import torch
-print(torch.cuda.is_available())
+print('{' + f'"is_cuda_available" : {torch.cuda.is_available()}' + '}')
