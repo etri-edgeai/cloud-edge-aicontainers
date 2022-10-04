@@ -1,9 +1,10 @@
+#------------------------------------------------------
 # VnV (ver. 3)
+#------------------------------------------------------
 
 ## - by JPark
 ## - 모델 추가
 ## - 지연 시간 측정을 위한 코드 통합
-
 
 #------------------------------------------------------
 # Config
@@ -17,10 +18,29 @@ import time
 from tqdm import tqdm
 import numpy as np
 import torch
+import argparse
+
+
+def arg_parser():
+    parser = argparse.ArgumentParser(description='keti vnv 2022')
+    parser.add_argument('--model', 
+                        type=str, 
+                        default='resnet18', 
+                        metavar='N', 
+                        help='neural network')
+    parser.add_argument('--device', 
+                        type=str, 
+                        default='cuda', 
+                        help='running device. e.g. {cpu, cuda, mps, ...}')
+    parser.add_argument('--N', 
+                        type=int, 
+                        default=0, 
+                        help='# of inference images')
+    
+    return parser
 
 
 def run_main(model_names=['resnet152'], devices=['mps'], N=0):
-
     # Test images
 
     zip_images_url = 'http://keticmr.iptime.org:22080/edgeai/images/imagenet-mini-val.zip'
@@ -108,24 +128,25 @@ def run_main(model_names=['resnet152'], devices=['mps'], N=0):
     #devices = ['mps']
     models = []
 
-    if N == 0:
-        testset = testfiles[:]
-    elif N > 0:
+    if N > 0:
         nn = min( len(testfiles), N )
         testset = testfiles[:nn]
+    else:
+        testset = testfiles[:]
+        
     n = len(testset)
     
     # 디바이스별 반복
     for device in devices: 
         print('-'*50)
-        print('device = ', device, flush=True)
+        print('[d] device = ', device, flush=True)
         print('-'*50)
         print('')
 
         # 모델별 반복
         for model_idx, model_name in enumerate(model_names):
             start = time.time() # strt timer        
-            print(f'model = {model_names[model_idx]}', flush=True)
+            print(f'[d] model = {model_names[model_idx]}', flush=True)
 
             # 모델 템플릿 다운로드 (from torch.hub)
             if model_name in model_names_resnet:
@@ -231,25 +252,41 @@ def run_main(model_names=['resnet152'], devices=['mps'], N=0):
                 imgidx += 1
 
             end = time.time() # end timer
-            print('n = ', n)
-            print('top1_cnt = ', top1_cnt)
-            print('top1_cnt/n * 100 [%] = ', top1_cnt/n * 100)
-            print('time [seconds] = ', end - start)
+            print('-'*50)
+            print('--- Summary ---')
+            print(f'[d] device = {device}')
+            print(f'[d] model = {model_names[model_idx]}')
+
+            print(f'[d] # of inference images = {n}')
+            print(f'[d] top1_cnt = {top1_cnt}' )
+            print(f'[d] top1_cnt/n * 100 [%] = {top1_cnt/n * 100}' )
+            print(f'[d] infernece time [seconds] = { end - start }' )
+            print('-'*50)
             print('')
-
+        
+        
 import sys
- 
-
 if __name__ == "__main__":
+    
     # total arguments
     n = len(sys.argv)
     for i in range(1, n):
         print(sys.argv[i], end = " ")
 
-    model_names=[]
-    model_names.append( sys.argv[1] )
-    devices=[]
-    devices.append( sys.argv[2] )
-    N = int(sys.argv[3])
-    run_main(model_names=model_names, devices=devices, N=N)
+    # arguments
+    parser = arg_parser()
+    args = parser.parse_args()
     
+    # set argument
+    model_names=[]
+    model_names.append( args.model )
+    devices=[]
+    devices.append( args.device )
+    N = int( int(args.N) )
+    
+    # core
+    run_main(model_names=model_names, devices=devices, N = N )
+
+#------------------------------------------------------
+# End of this file
+#------------------------------------------------------
