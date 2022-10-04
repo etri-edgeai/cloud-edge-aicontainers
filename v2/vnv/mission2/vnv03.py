@@ -19,7 +19,7 @@ import numpy as np
 import torch
 
 
-def run_main(model_names=['resnet152']):
+def run_main(model_names=['resnet152'], devices=['mps'], N=0):
 
     # Test images
 
@@ -104,20 +104,23 @@ def run_main(model_names=['resnet152']):
     preproc = ['method1', 'method2']
     preproc_method = 'method1'
 
-    devices = ['cuda', 'cpu']
-    devices = ['cuda']
-
+    #devices = ['cuda', 'cpu']
+    #devices = ['mps']
     models = []
 
-
-    testset = testfiles[:]
+    if N == 0:
+        testset = testfiles[:]
+    elif N > 0:
+        nn = min( len(testfiles), N )
+        testset = testfiles[:nn]
     n = len(testset)
-
+    
     # 디바이스별 반복
     for device in devices: 
         print('-'*50)
         print('device = ', device, flush=True)
         print('-'*50)
+        print('')
 
         # 모델별 반복
         for model_idx, model_name in enumerate(model_names):
@@ -188,8 +191,20 @@ def run_main(model_names=['resnet152']):
                 # 디바이스 설정
                 if device == 'cuda':
                     if torch.cuda.is_available():
+                        # cuda
                         input_batch = input_batch.to('cuda')
                         model.to('cuda')
+                    else:
+                        input_batch = input_batch.to('cpu')
+                        model.to('cpu')
+                elif device == 'mps':
+                    # mac
+                    try:
+                        input_batch = input_batch.to('mps')
+                        model.to('mps')
+                    except:
+                        input_batch = input_batch.to('cpu')
+                        model.to('cpu')
                 else:
                     input_batch = input_batch.to('cpu')
                     model.to('cpu')
@@ -233,5 +248,8 @@ if __name__ == "__main__":
 
     model_names=[]
     model_names.append( sys.argv[1] )
-    run_main(model_names=model_names)
+    devices=[]
+    devices.append( sys.argv[2] )
+    N = int(sys.argv[3])
+    run_main(model_names=model_names, devices=devices, N=N)
     
