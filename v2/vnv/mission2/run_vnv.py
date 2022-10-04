@@ -27,23 +27,26 @@ def run(cmd, is_show=False):
 
     if is_show:
         print( output )
+        return output
     else:
-        pass
+        return None
+
 
 def main(mode = 'baseline'):
+    #----------------------------------
+    # 프로세스를 시작합니다.
+    #----------------------------------
+    st_total = time.time() #---------------------
+
     if mode == 'baseline' or mode == 'advanced':
         print(f'[+] Start {mode} experiment')
     else:
         print(f'[-] error, there is no [{mode}] mode.')
         return
-    #---------------------------------------------------
-    start = time.time()
-    #---------------------------------------------------
-
     #----------------------------------
     # 에지 디바이스의 상태정보를 얻습니다.
     #----------------------------------
-
+    st_getstatus = time.time() #---------------------
     wdir = ' /home/jpark/WorkDevEdgeAI/cloud-edge-aicontainers/v2/vnv/mission2/'
     py = ' /usr/bin/python3'
     selected_model = 'resnet152' # default
@@ -58,7 +61,12 @@ def main(mode = 'baseline'):
     print(' ')
     #cmd_sub = ' /usr/bin/python3 -c "import torch; print(torch.cuda.is_available())" '
     cmd = f'ansible vnv -m shell -a "cd {wdir}; {py} cuda_is_available.py " -i hosts.ini '
-    run(cmd, True)
+    z = run(cmd, True)
+    print('z = ', z)
+
+    if 'True' in run(cmd, True) : is_cuda_available = 1 
+    else: is_cuda_available = 0
+    print( 'is_cuda_available = ', is_cuda_available )
 
     # for ubuntu
     cmd = f'ansible vnv -m shell -a "cat /proc/cpuinfo" -i hosts.ini > ./tmp/baseline_cpuinfo.txt'
@@ -73,31 +81,62 @@ def main(mode = 'baseline'):
     cmd = f'cat ./tmp/baseline_meminfo.txt | grep "MemTotal" '
     run(cmd, False)
 
+    et_getstatus = time.time() #---------------------
+
     #----------------------------------
     # 추론을 위한 AI 모델을 선택합니다.
     #----------------------------------
     
+    st_modelselection = time.time() #---------------------
     if mode == 'baseline':
         selected_model = model_selector.greedModelSelection()
     elif mode == 'advanced':
         selected_model = model_selector.advancedModelSelection()
 
     print(f'mode = {mode}, selected_model = {selected_model}')
+    et_modelselection = time.time() #---------------------
     
 
     #----------------------------------
     # 에지 디바이스에서 추론을 수행합니다. 
     #----------------------------------
-
+    st_inference = time.time() #---------------------
     cmd = f'ansible vnv -i hosts.ini -m shell -a "cd {wdir}; pwd; {py} vnv03.py --model {selected_model} --device {device} --N {N};"  {ask_pass_option} ' 
     run(cmd, False)
-
+    et_inference = time.time() #---------------------
+    
     #---------------------------------------------------
-    end = time.time()
+    et_total = time.time()
     #---------------------------------------------------
 
-    print('[d] Total processing time [seconds] = ', end - start)
-    print('[+] Done baseline experiment')
+    T = et_total - st_total
+    
+    title = 'Get status time'
+    t = et_getstatus - st_getstatus
+    ratio = t / T
+    disp_time(title, t, ratio)
+    
+    title = 'Model selection time'
+    t = et_modelselection - st_modelselection
+    ratio = t / T
+    disp_time(title, t, ratio)
+
+    title = 'Inference time'
+    t = et_inference - st_inference
+    ratio = t / T
+    disp_time(title, t, ratio)
+    
+    title = 'Total time'
+    t = et_total - st_total
+    ratio = t / T
+    disp_time(title, t, ratio)
+
+    print(f'[+] Done baseline experiment')
+
+
+def disp_time(title, t, ratio):
+    print(f'{t}, {ratio * 100} %, {title} ')
+
 
 
 import sys
