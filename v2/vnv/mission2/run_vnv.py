@@ -43,6 +43,7 @@ def main(mode = 'baseline'):
     else:
         print(f'[-] error, there is no [{mode}] mode.')
         return
+
     #----------------------------------
     # 에지 디바이스의 상태정보를 얻습니다.
     #----------------------------------
@@ -55,10 +56,6 @@ def main(mode = 'baseline'):
     ask_pass_option = '' #  '--ask-become-pass'
     model_selector = ModelSelection()
 
-    print( wdir )
-    print( py )
-    #print( selected_model )
-    print(' ')
     #cmd_sub = ' /usr/bin/python3 -c "import torch; print(torch.cuda.is_available())" '
     cmd = f'ansible vnv -m shell -a "cd {wdir}; {py} cuda_is_available.py " -i hosts.ini '
     z = run(cmd, True)
@@ -102,12 +99,16 @@ def main(mode = 'baseline'):
     #----------------------------------
     st_inference = time.time() #---------------------
     cmd = f'ansible vnv -i hosts.ini -m shell -a "cd {wdir}; pwd; {py} vnv03.py --model {selected_model} --device {device} --N {N};"  {ask_pass_option} ' 
-    run(cmd, False)
+    run(cmd, True)
     et_inference = time.time() #---------------------
     
     #---------------------------------------------------
     et_total = time.time()
     #---------------------------------------------------
+
+    print( f'[d] workding dir = {wdir}' )
+    print( f'[d] py = {py}' )
+    print( f'[d] selected_model = {selected_model}' )
 
     T = et_total - st_total
     
