@@ -49,15 +49,15 @@ def main(mode = 'baseline'):
     st_getstatus = time.time() #---------------------
     wdir = ' /home/jpark/WorkDevEdgeAI/cloud-edge-aicontainers/v2/vnv/mission2/'
     py = ' /usr/bin/python3'
-    selected_model = 'resnet152' # default
+    #selected_model = 'resnet152' # default
     device = 'cuda'
-    N = 10
+    N = 0
     ask_pass_option = '' #  '--ask-become-pass'
     model_selector = ModelSelection()
 
     print( wdir )
     print( py )
-    print( selected_model )
+    #print( selected_model )
     print(' ')
     #cmd_sub = ' /usr/bin/python3 -c "import torch; print(torch.cuda.is_available())" '
     cmd = f'ansible vnv -m shell -a "cd {wdir}; {py} cuda_is_available.py " -i hosts.ini '
