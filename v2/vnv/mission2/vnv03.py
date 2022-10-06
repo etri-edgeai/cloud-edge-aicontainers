@@ -195,8 +195,8 @@ def run_main(model_names=['resnet152'], devices=['mps'], N=0):
 
             # 시험영상별 반복
             imgidx = 0
-            for fpath in tqdm( testset ):
-            #for fpath in testset:
+            #for fpath in tqdm( testset ):
+            for fpath in testset:
                 #print( fpath )
                 input_image = Image.open(fpath)
 
@@ -261,7 +261,7 @@ def run_main(model_names=['resnet152'], devices=['mps'], N=0):
             print(f'[d] top1_cnt/n * 100 [%] = {top1_cnt/n * 100}' )
             print(f'[d] infernece time [seconds] = { end - start }' )
             print('-'*50)
-            print('')
+            print('\n')
         
         
 import sys
