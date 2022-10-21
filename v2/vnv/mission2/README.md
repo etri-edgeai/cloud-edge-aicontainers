@@ -237,6 +237,50 @@ resnet-152, 30.793837785720825, 1121.0137231349945, 87.38637733459473, todo,
 
 
 
+### CUDA device driver 설치 + Ubuntu 20.04
+
+# RTX3080ti
+
+Ubuntu 20.04 LTS, Pytorch
+
+[RTX3080ti 설정 참고](https://github.com/etri-edgeai/cloud-edge-framework/blob/main/v2/doc/hw/rtx3080ti/README.md)
+
+
+#### 설치 가능한 드라이버 설치
+
+- 설치 가능한 버전 체크
+
+```bash
+    $ ubuntu-drivers devices
+```
+
+- 목록에 나온 드라이버를 확인한 후, 예를들어 아래와 같은 방식으로 설치
+
+```bash
+    $ sudo apt install nvidia-driver-520
+```
+
+- 재시작
+
+```bash
+    $ sudo reboot
+```
+
+- nvidia-smi 로 확인
+
+```bash
+    $ nvidia-smi
+```
+
+
+
+
+
+
+
+
+
+
 ### (참고) 하드웨어 정보 수집 방법
 
 ```bash
