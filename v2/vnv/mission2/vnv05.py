@@ -260,14 +260,6 @@ def run_main(model_names=['resnet152'], devices=['mps'], N=0):
 
 
             end = time.time() # end timer
-            print('n = ', n)
-            print('top1_cnt = ', top1_cnt)
-            print('top1_acc = ', top1_cnt/n)
-            print('top5_cnt = ', top5_cnt)
-            print('top5_acc = ', top5_cnt/n)
-            print('time = ', end - start)
-            print('')
-
 
             print('-' * 70)
             print('GT')
@@ -280,6 +272,19 @@ def run_main(model_names=['resnet152'], devices=['mps'], N=0):
             print('-' * 70)
             for idx, cid in enumerate(top1_catids):
                 print(f'{idx:04d} = {int(cid)}')
+
+            
+            print('-' * 70)
+            print('Precision')
+            print('-' * 70)
+            
+            print('n = ', n)
+            print('top1_cnt = ', top1_cnt)
+            print('top1_acc = ', top1_cnt/n)
+            print('top5_cnt = ', top5_cnt)
+            print('top5_acc = ', top5_cnt/n)
+            print('time = ', end - start)
+            print('')
 
         
 import sys
