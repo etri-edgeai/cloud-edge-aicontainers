@@ -247,8 +247,14 @@ def run_main(model_names=['resnet152'], devices=['mps'], N=0):
                 for i in range(top5_prob.size(0)):
                     #print(top5_catid[i])
                     #print(imgidx, ' ', categories[top5_catid[i]], top5_prob[i].item())
+
                     if( top5_catid[i] == idx_gt[imgidx] ):
-                        top1_cnt += 1
+                        top5_cnt += 1
+
+                # Show top categories per image
+                top1_prob, top1_catid = torch.topk(probabilities, 1)
+                if( top1_catid[0] == idx_gt[imgidx] ):
+                    top1_cnt += 1
 
                 imgidx += 1
 
