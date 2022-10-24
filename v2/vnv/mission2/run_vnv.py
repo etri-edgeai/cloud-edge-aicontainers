@@ -98,7 +98,7 @@ def main(mode = 'baseline'):
     # 에지 디바이스에서 추론을 수행합니다. 
     #----------------------------------
     st_inference = time.time() #---------------------
-    cmd = f'ansible vnv -i hosts.ini -m shell -a "cd {wdir}; pwd; {py} vnv03.py --model {selected_model} --device {device} --N {N};"  {ask_pass_option} ' 
+    cmd = f'ansible vnv -i hosts.ini -m shell -a "cd {wdir}; pwd; {py} vnv05.py --model {selected_model} --device {device} --N {N};"  {ask_pass_option} ' 
     run(cmd, True)
     et_inference = time.time() #---------------------
     
@@ -132,7 +132,7 @@ def main(mode = 'baseline'):
     ratio = t / T
     disp_time(title, t, ratio)
 
-    print(f'[+] Done baseline experiment')
+    print(f'[+] Done {mode} experiment')
 
 
 def disp_time(title, t, ratio):
