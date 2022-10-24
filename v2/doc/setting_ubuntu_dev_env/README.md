@@ -1,4 +1,12 @@
-# 연합학습을 위한 GPU(CUDA)환경 설정
+-----------------------------------------------------
+# 기술문서 
+ - 문서 제목 : 연합학습을 위한 GPU(CUDA)환경 설정
+ - 과제명 : 능동적 즉시 대응 및 빠른 학습이 가능한 적응형 경량 엣지 연동분석 기술개발
+ - 영문과제명 : Development of Adaptive and Lightweight Edge-Collaborative Analysis Technology for Enabling Proactively Immediate Response and Rapid Learning
+ - 작성자 : 박종빈
+-----------------------------------------------------
+
+
 
 - 참고 주소 : https://pyimagesearch.com/2019/12/09/how-to-install-tensorflow-2-0-on-ubuntu/
 - 위 주소의 경우 2019년 12월 자료로써, cuda 버전은 최신 자료를 바탕으로 수정이 필요합니다.
