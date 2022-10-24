@@ -177,7 +177,7 @@ def run_main(model_names=['resnet152'], devices=['mps'], N=0):
             # 시험용 입력 영상
             top1_cnt = 0
             top5_cnt = 0
-
+            top1_catids = []
 
             # 시험용 입력 영상 전처리 (크기 및 컬러채널)
             if preproc_method == preproc[0]:
@@ -258,19 +258,29 @@ def run_main(model_names=['resnet152'], devices=['mps'], N=0):
 
                 imgidx += 1
 
-            end = time.time() # end timer
-            print('-'*50)
-            print('--- Summary ---')
-            print(f'[d] device = {device}')
-            print(f'[d] model = {model_names[model_idx]}')
 
-            print(f'[d] # of inference images = {n}')
-            print(f'[d] top1_cnt = {top1_cnt}' )
-            print(f'[d] top1_cnt_over_n * 100 [%] = {top1_cnt/n * 100}' )
-            print(f'[d] infernece time [seconds] = { end - start }' )
-            print('-'*50)
-            print('\n')
-        
+            end = time.time() # end timer
+            print('n = ', n)
+            print('top1_cnt = ', top1_cnt)
+            print('top1_acc = ', top1_cnt/n)
+            print('top5_cnt = ', top5_cnt)
+            print('top5_acc = ', top5_cnt/n)
+            print('time = ', end - start)
+            print('')
+
+
+            print('-' * 70)
+            print('GT')
+            print('-' * 70)
+            for idx, cid in enumerate(idx_gt):
+                print(f'{idx:04d} = {cid}')
+
+            print('-' * 70)
+            print('Top1 category IDs')
+            print('-' * 70)
+            for idx, cid in enumerate(top1_catids):
+                print(f'{idx:04d} = {int(cid)}')
+
         
 import sys
 if __name__ == "__main__":
