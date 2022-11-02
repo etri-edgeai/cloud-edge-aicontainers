@@ -4,7 +4,16 @@
 
 ## 1. shell script
 ```$ sh run-model.sh```<br>
-레지스트리 서버로부터 이미지를 다운로드 받고 컨테이너를 빌드하고 모델 코드를 실행하는 과정을 작성한 스크립트입니다.
+레지스트리 서버로부터 이미지를 다운로드 받고 컨테이너를 빌드하고 모델 코드를 실행하는 과정을 작성한 스크립트입니다.<br>
+
+  **※ 정상 작동을 위해 모델 코드의 path 단을 수정해야 합니다.**
+  ```python
+    ## load_model.py
+    weights_dir = './home/best_model'
+    
+    ## classifier.py
+    data_path = './home/data/'
+  ```
 ### 수행 절차
 - 레지스트리 서버로부터 이미지 풀(pull)
   - ```$ docker image pull```
