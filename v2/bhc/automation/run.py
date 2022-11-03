@@ -4,7 +4,7 @@ import re
 
 def get_reg_ip():
     print("Write IP address of registry including port...")
-    ip = input()
+    ip = str(input())
     regex = re.compile('[\d]+[.][\d]+[.][\d]+[.][\d]+[:][\d]+')
     if not regex.match(ip):
         print("IP incorrect. please check again..")
@@ -24,42 +24,60 @@ def get_models():
 
 class script_generator:
 
-    def __init__(self, ip, os, arch, model):
+    def __init__(self, ip, os, arch):
         self.os = os
         self.arch = arch
         self.ip = ip
-        self.model = model
     
     def get_image(self):
         if self.arch == 'AMD64':
             image = 'edge-model:1.1'
+        
+        image = f"{self.ip}/{image}"
     
         return image
     
-    def write_script(self, image, model_type, model_name):
-        pull_image = f"docker pull {self.ip}/{image}"
-        build_container = f"docker run -d --name edge-model -it {self.ip}/{image}"
-        run_model = f"docker exec edge-model python home/classifier.py --model_type {model_type} --model_name {model_name}"
+    def docker_script(self, image):
+        pull_image = f"docker pull {image}"
+        build_container = f"docker run -d --name edge-model -it {image}"
 
-        return pull_image, build_container, run_model
-
-
-
-        
-
+        return pull_image, build_container
     
-        
+    def prediction(self, model_type, model_name):
+        get_pred = f"docker exec edge-model python home/classifier.py --model_type {model_type} --model_name {model_name}"
+
+        return get_pred
+
+def generate_model(gen):
+    dpull, drun = gen.docker_script()
+    os.system(dpull)
+    os.system(drun)
+
+def main():
+    sh_gen = script_generator(ip, os, arch)
+    
+    docker_image = sh_gen.get_image()
+    generate_model(sh_gen.docker_script(docker_image))
+
+    model_type, model_name = get_models()
+    start = sh_gen.prediction(model_type, model_name)
+    os.system(start)
 
 
-            
+if __name__=="__main__":
+    
+    print("Dectecting Operation System...")
+    print()
 
+    os = platform.system()
+    print("OS : ", os)
 
+    print("Detecting CPU Architecture...")
+    print()
 
-print("Dectecting Operation System...")
-print("OS : ", os)
-print()
-print("Detecting CPU Architecture...")
-print("Architecture : ", arch)
-print()
+    arch = platform.machine()
+    print("Architecture : ", arch)
+    
+    ip = get_reg_ip()
 
-if os == 'Windows':
+    main()
