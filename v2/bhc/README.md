@@ -4,6 +4,7 @@
 - 참고자료
   1. MODEL GENERATION : https://ethicsense.notion.site/Inference-model-generation-f7983c1c539b469ca3128caef6c48eb6<br>
   2. DITSRIBUTION : https://www.notion.so/ethicsense/Automatic-distribution-run-f04da7cdfece46f39b11287bdec96e06<br>
+  
 해당 자료는 작업, 실험 서사 및 내용을 직접 기록한 문서입니다.
 
 ## 1. MODEL
