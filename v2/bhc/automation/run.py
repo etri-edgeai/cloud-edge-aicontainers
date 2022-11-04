@@ -5,11 +5,12 @@ import re
 def get_reg_ip():
     print("Write IP address of registry including port...")
     ip = str(input())
-    regex = re.compile('[\d]+[.][\d]+[.][\d]+[.][\d]+[:][\d]+')
-    if not regex.match(ip):
-        print("IP incorrect. please check again..")
-    else:
-        return ip
+    # regex = re.compile('[\d]+[.][\d]+[.][\d]+[.][\d]+[:][\d]+')
+    # if not regex.match(ip):
+    #     print("IP incorrect. please check again..")
+    # else:
+    #     return ip
+    return ip
 
 def get_models():
     cmd = 'docker exec edge-model python classifier.py --help'
@@ -30,8 +31,9 @@ class script_generator:
         self.ip = ip
     
     def get_image(self):
-        if self.arch == 'AMD64':
-            image = 'edge-model:1.1'
+        # if self.arch == 'AMD64':
+        #     image = 'edge-model:1.1'
+        image = 'edge-model:1.1'
         
         image = f"{self.ip}/{image}"
     
@@ -39,7 +41,9 @@ class script_generator:
     
     def docker_script(self, image):
         pull_image = f"docker pull {image}"
+        print(pull_image)
         build_container = f"docker run -d --name edge-model -it {image}"
+        print(build_container)
 
         return pull_image, build_container
     
@@ -48,8 +52,7 @@ class script_generator:
 
         return get_pred
 
-def generate_model(gen):
-    dpull, drun = gen.docker_script()
+def generate_model(dpull, drun):
     os.system(dpull)
     os.system(drun)
 
@@ -57,7 +60,8 @@ def main():
     sh_gen = script_generator(ip, os, arch)
     
     docker_image = sh_gen.get_image()
-    generate_model(sh_gen.docker_script(docker_image))
+    pull, run = sh_gen.docker_script(docker_image)
+    generate_model(pull, run)
 
     model_type, model_name = get_models()
     start = sh_gen.prediction(model_type, model_name)
@@ -69,8 +73,8 @@ if __name__=="__main__":
     print("Dectecting Operation System...")
     print()
 
-    os = platform.system()
-    print("OS : ", os)
+    op_sys = platform.system()
+    print("OS : ", op_sys)
 
     print("Detecting CPU Architecture...")
     print()
