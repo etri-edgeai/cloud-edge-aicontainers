@@ -5,6 +5,7 @@ import re
 def get_reg_ip():
     print("Write IP address of registry including port...")
     ip = str(input())
+    print()
     # regex = re.compile('[\d]+[.][\d]+[.][\d]+[.][\d]+[:][\d]+')
     # if not regex.match(ip):
     #     print("IP incorrect. please check again..")
@@ -13,8 +14,10 @@ def get_reg_ip():
     return ip
 
 def get_models():
+    print()
     cmd = 'docker exec edge-model python home/classifier.py --help'
     os.system(cmd)
+    print()
     print("check the list and choose your model...")
     print()
     model_type = str(input("write model type : "))
@@ -41,9 +44,7 @@ class script_generator:
     
     def build_script(self, image):
         pull_image = f"docker pull {image}"
-        print(pull_image)
         build_container = f"docker run -d --name edge-model -it {image}"
-        print(build_container)
 
         return pull_image, build_container
     
@@ -71,17 +72,15 @@ def main():
 if __name__=="__main__":
     
     print("Dectecting Operation System...")
-    print()
-
     op_sys = platform.system()
     print("OS : ", op_sys)
-
-    print("Detecting CPU Architecture...")
     print()
 
+    print("Detecting CPU Architecture...")
     arch = platform.machine()
     print("Architecture : ", arch)
-    
+    print()
+
     ip = get_reg_ip()
 
     main()
