@@ -1,7 +1,10 @@
 # Docker를 활용한 AI Model 구현과 배포
 **AI model dockerizing &amp; distribution**
 
-- 참고자료 : https://ethicsense.notion.site/Inference-model-generation-f7983c1c539b469ca3128caef6c48eb6<br>
+- 참고자료
+  1. MODEL GENERATION : https://ethicsense.notion.site/Inference-model-generation-f7983c1c539b469ca3128caef6c48eb6<br>
+  2. DITSRIBUTION : https://www.notion.so/ethicsense/Automatic-distribution-run-f04da7cdfece46f39b11287bdec96e06<br>
+  
 해당 자료는 작업, 실험 서사 및 내용을 직접 기록한 문서입니다.
 
 ## 1. MODEL
@@ -33,3 +36,11 @@
 멀티 스테이지 빌드 테스트, 아키텍쳐 별 이미지를 별도 제작하여 각기 배포, 차후 멀티 스테이지 빌드를 위한 Dockerfile 제작에 대한 고찰 내용을 포함합니다.<br>
 <br>
 상세 내용을 ./rebuilding_rpi_image 내부에 기재합니다.
+
+## 5. Automation
+**모델 이미지 배포, 빌드, 코드 수행 자동화**<br>
+<br>
+>가상 환경 이미지를 레지스트리로부터 받고, 컨테이너를 빌드하여 작업 명령을 수행하는 과정을 자동화하기 위한 기술, 방법론을 강구합니다.<br>
+Ansible을 통한 네트워크 구성, 각 노드를 제어하는 제어 노드 구축, 맞춤형 스크립트 출력 및 시스템의 시각화를 위한 Front 구현 등이 추가될 수 있습니다.<br>
+<br>
+상세 내용을 ./automation 내부에 기재합니다.
