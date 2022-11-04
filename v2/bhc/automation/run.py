@@ -34,9 +34,12 @@ class script_generator:
         self.ip = ip
     
     def get_image(self):
-        # if self.arch == 'AMD64':
-        #     image = 'edge-model:1.1'
-        image = 'edge-model:1.1'
+        if self.arch == 'AMD64':
+            image = 'edge-model:1.1'
+        elif self.arch == 'x86_64':
+            image = 'edge-model:1.1'
+        elif self.arch == 'aarch64':
+            image = 'rpi-model:1.2'
         
         image = f"{self.ip}/{image}"
     
