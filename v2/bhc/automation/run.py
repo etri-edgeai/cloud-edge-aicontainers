@@ -13,7 +13,7 @@ def get_reg_ip():
     return ip
 
 def get_models():
-    cmd = 'docker exec edge-model python classifier.py --help'
+    cmd = 'docker exec edge-model python home/classifier.py --help'
     os.system(cmd)
     print("check the list and choose your model...")
     print()
@@ -39,7 +39,7 @@ class script_generator:
     
         return image
     
-    def docker_script(self, image):
+    def build_script(self, image):
         pull_image = f"docker pull {image}"
         print(pull_image)
         build_container = f"docker run -d --name edge-model -it {image}"
@@ -47,7 +47,7 @@ class script_generator:
 
         return pull_image, build_container
     
-    def prediction(self, model_type, model_name):
+    def pred_script(self, model_type, model_name):
         get_pred = f"docker exec edge-model python home/classifier.py --model_type {model_type} --model_name {model_name}"
 
         return get_pred
@@ -57,14 +57,14 @@ def generate_model(dpull, drun):
     os.system(drun)
 
 def main():
-    sh_gen = script_generator(ip, os, arch)
+    gen = script_generator(ip, os, arch)
     
-    docker_image = sh_gen.get_image()
-    pull, run = sh_gen.docker_script(docker_image)
+    docker_image = gen.get_image()
+    pull, run = gen.build_script(docker_image)
     generate_model(pull, run)
 
     model_type, model_name = get_models()
-    start = sh_gen.prediction(model_type, model_name)
+    start = gen.pred_script(model_type, model_name)
     os.system(start)
 
 
