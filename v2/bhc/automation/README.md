@@ -24,7 +24,7 @@
   - ```$ docker exec```
 ### 정상 작동 확인 11/02
 로컬 환경에서 실험되었습니다.<br>
-![capture](./capture/run.png)
+![capture](./img4doc/run.png)
 
 ## 2. run.py
 ```python run.py```<br>
