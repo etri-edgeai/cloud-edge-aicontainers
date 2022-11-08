@@ -29,4 +29,27 @@ ssh keti@192.168.1.241
 $ pip isntall ansible==2.10.7
 $ ansible --version
 ```
+### set hosts
+```bash
+$ cd /etc
+$ mkdir ansible
+$ vi hosts
+```
+hosts 파일 작성
+```bash
+[builders]
+rpi6401 keti@192.168.1.241
 
+:w !sudo tee % > /dev/null
+:q!
+```
+<br>
+테스트 수행
+```$ ansible builders -m ping```<br>
+
+### sending files | directories
+```bash
+$ 
+```
+
+지속 테스트 및 작업 중입니다.
