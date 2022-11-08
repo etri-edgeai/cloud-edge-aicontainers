@@ -43,7 +43,7 @@ def get_infer():
 
 
     ## load input data
-    data_path = './data/'
+    data_path = './home/data/'
     data_path = data_path + args.input
     img = Image.open(data_path)
     img_tensor = test_preprocess(img)
@@ -110,7 +110,7 @@ if __name__ == "__main__":
     )
     parser.add_argument(
         '--input',
-        default='test.jpg',
+        default='test.jpeg',
         help='path of data for prediction (insert your data in ./data/)'
     )
 

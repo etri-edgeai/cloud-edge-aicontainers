@@ -34,7 +34,7 @@ classes = ['plane', 'car', 'bird', 'cat',
 
 def get_weights_list(model_type):
 
-    weights_dir = './best_model'
+    weights_dir = './home/best_model'
 
     if model_type == 'resnet':
         weights = os.listdir(weights_dir + '/resnet')
