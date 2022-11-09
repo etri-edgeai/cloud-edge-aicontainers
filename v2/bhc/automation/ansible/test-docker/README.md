@@ -26,7 +26,6 @@ cmd는 shell 명령을 동일하게 입력합니다.<br>
 
 #### build test
 ```bash
-$ ansible rpi6401 -m command -a "docker images"
 $ ansible rpi6401 -m command -a "docker build --tag dockerfile-test-rpi:1.0 dockerfile/"
 
 ## check result
@@ -36,14 +35,20 @@ $ ansible rpi6401 -m command -a "docker images"
 
 #### run test
 ```bash
+## run container
 $ ansible rpi6401 -m command -a "docker run -d --name test-model -it dockerfile-test-rpi:1.0"
+
+## run model
 $ ansible rpi6401 -m command -a "docker exec test-model python home/classifier.py"
 ```
 ![](./img4doc/run-model.png)
 
 #### push test
 ```bash
+## rename image
 $ ansible rpi6401 -m command -a "docker tag dockerfile-test-rpi:1.0 192.168.1.18:5000/dockerfile-test-rpi:1.0"
+
+## push
 $ ansible rpi6401 -m command -a "docker push 192.168.1.18:5000/dockerfile-test-rpi:1.0"
 ```
 ![](./img4doc/push-list.png)
@@ -52,8 +57,13 @@ $ ansible rpi6401 -m command -a "docker push 192.168.1.18:5000/dockerfile-test-r
 user node에서 원하는 모델을 불러와서 구동하는 상황을 가정합니다.<br>
 - USER_HOST : rpi6402
 ```bash
+## pull
 $ ansible rpi6402 -m command -a "docker pull 192.168.1.18:5000/dockerfile-test-rpi:1.0"
+
+## run container
 $ ansible rpi6402 -m command -a "docker run -d --name test -it 192.168.1.18:5000/dockerfile-test-rpi:1.0"
+
+## run model
 $ ansible rpi6402 -m command -a "docker exec test python home/classifier.py"
 ```
 ![](./img4doc/user-run.png)
