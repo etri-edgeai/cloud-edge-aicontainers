@@ -1,4 +1,4 @@
-## dockerfile
+## Dockerfile
 새로운 노드와 호환, 다른 종류의 모델이 요구될 때 자동으로 이미지를 구축하기 위한 image build 용 스크립트입니다.<br>
 
 ### 스크립트 구성
