@@ -49,11 +49,12 @@ $ ansible rpi6401 -m command -a "docker push 192.168.1.18:5000/dockerfile-test-r
 ![](./img4doc/push-list.png)
 
 #### pull test
-user node에서 원하는 모델을 불러와서 구동하는 상황을 가정합니다.
+user node에서 원하는 모델을 불러와서 구동하는 상황을 가정합니다.<br>
+- USER_HOST : rpi6402
 ```bash
-$ ansible rpi6401 -m command -a "docker pull 192.168.1.18:5000/dockerfile-test-rpi:1.0"
-$ ansible rpi6401 -m command -a "docker run -d --name test -it 192.168.1.18:5000/dockerfile-test-rpi:1.0"
-$ ansible rpi6401 -m command -a "docker exec test python home/classifier.py"
+$ ansible rpi6402 -m command -a "docker pull 192.168.1.18:5000/dockerfile-test-rpi:1.0"
+$ ansible rpi6402 -m command -a "docker run -d --name test -it 192.168.1.18:5000/dockerfile-test-rpi:1.0"
+$ ansible rpi6402 -m command -a "docker exec test python home/classifier.py"
 ```
 ![](./img4doc/user-run.png)
 
