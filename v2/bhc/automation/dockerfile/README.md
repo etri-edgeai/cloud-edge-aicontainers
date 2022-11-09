@@ -11,7 +11,7 @@
 <br>
 
 ### 스크립트 실행
-반드시 Dockerfile과 model.tar.gz가 위치한 경로에서 수행합니다.<br>
+Dockerfile과 model.tar.gz가 위치한 경로에서 수행합니다.<br>
 ```bash
 $ docker build --tag dockerfile-test:1.0 .
 $ docker run -d --name dockerfile-test -it dockerfile-test:1.0
