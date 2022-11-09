@@ -13,7 +13,9 @@ ansible을 통해 원격의 노드에 일련의 작업 명령을 전달하고 �
 
 ### 빌더-노드 세팅
 builder로 사용될 노드는 Dockerfile과 model.tar.gz를 보유하고 있습니다.<br>
-![](./img4doc/builder.png)
+![](./img4doc/builder.png)<br>
+model 파일은 추후 별도의 웹 서버로 관리할 수 있습니다.<br>
+새로운 모델을 기반으로 이미지를 구축하고자 할 때 더욱 편리할 것입니다.
 
 ### 테스트 수행
 ansible 명령은 다음과 같은 형태입니다.
@@ -69,4 +71,5 @@ $ ansible rpi6402 -m command -a "docker exec test python home/classifier.py"
 ![](./img4doc/user-run.png)
 
 <br><br><br>
-연동성 확보를 위한 작업 중입니다. ```2022.11.10```
+연동성 확보를 위한 작업 중입니다. ```2022.11.10```<br>
+ansible-playbook 모듈을 활용한 스크립트 테스트 작업 중입니다. ```2022.11.10```
