@@ -1,0 +1,16 @@
+- name: run container & test model
+  hosts: builders
+
+  tasks:
+
+  - name: run container
+    command: docker run -d --name model -it cifar-rpi-model:1.0
+    register: command_output
+  - debug:
+      var: command_output.stdout_lines
+  
+  - name: run model
+    command: docker exec model python home/classifier.py --input test.jpg
+    register: command_output
+  - debug:
+      var: command_output.stdout_lines

@@ -45,21 +45,21 @@ hosts 파일 작성
 
 ```bash
 [builders]
-rpi6401 keti@192.168.1.241
+  rpi6401 keti@192.168.1.241
+  rpi6402 keti@192.168.1.242
 
 :w !sudo tee % > /dev/null
 :q!
 ```
 
-<br>
-테스트 수행
-
-```$ ansible builders -m ping```<br>
+테스트 수행<br>
+```$ ansible builders -m ping```
 
 #### sending files | directories
 
 ```bash
-$ 
+$ vi copy.yaml
+$ ansible-playbook copy.yaml
 ```
-
+<br>
 지속 테스트 및 작업 중입니다.

@@ -4,8 +4,7 @@ WORKDIR .
 ADD ./model.tar.gz ./home/
 
 
-RUN pip install --upgrade pip
-RUN pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cpu
-RUN pip install -r home/requirements.txt
+RUN pip3 install --upgrade pip
+RUN pip3 install -r home/requirements.txt
 
 ENTRYPOINT ["bash"]

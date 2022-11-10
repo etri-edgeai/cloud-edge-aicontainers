@@ -2,6 +2,47 @@
 각 노드가 모델을 구축하고 명령을 수행하는 과정을 간소화, 자동화합니다.<br>
 그 외 작업의 편의성을 확보하기 위한 모든 기술과 방법론을 포함합니다.
 
+## ref. pipeline 예상도
+```mermaid
+classDiagram
+
+nuc_builder -- rpi_builder
+rpi_builder -- win_builder
+SERVER *-- nuc_builder
+
+SERVER : + model.py
+SERVER : + requirements.txt
+SERVER : image_builder()
+
+rpi_builder : Dockerfile
+nuc_builder : Dockerfile
+win_builder : Dockerfile
+
+win_builder ..|> Registry : 
+nuc_builder ..|> Registry : push
+rpi_builder ..|> Registry : 
+
+SERVER *-- Registry : 
+
+Registry : ++ model-images \n\n rpi-fruits \n window-animals \n nuc-cars \n \n 
+
+Registry --> rpi_user
+
+Registry --> nuc_user : pull
+Registry --> win_user
+
+
+
+rpi_user : pred()
+rpi_user : + docker-model
+
+nuc_user : pred()
+nuc_user : + docker-model
+
+win_user : pred()
+win_user : + docker-model
+```
+
 ## 1. shell script
 ```$ sh run-model.sh```<br>
 <br>
