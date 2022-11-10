@@ -1,0 +1,23 @@
+- name: push model image to registry
+  hosts: builders
+
+  tasks:
+  - name: rename model image...
+    command: docker tag cifar-rpi-model:1.0 192.168.1.18:5000/cifar-rpi-model:1.0
+    register: command_output
+  - debug:
+      var: command_output.stdout_lines
+
+  - name: push image...
+    command: docker push 192.168.1.18:5000/cifar-rpi-model:1.0
+    register: command_output
+  - debug:
+      var: command_output.stdout_lines
+  
+  - name: check result...
+    command: 
+      curl -X GET http://192.168.1.18:5000/v2/_catalog
+      curl -X GET http://192.168.1.18:5000/v2/cifar-rpi-model/tags/list
+    register: command_output
+  - debug:
+      var: command_output.stdout_lines
