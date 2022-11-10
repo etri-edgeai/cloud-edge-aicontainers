@@ -1,4 +1,4 @@
-## 도커 명령 수행 테스트
+## 1. 도커 명령 수행 테스트
 ansible을 통해 원격의 노드에 일련의 작업 명령을 전달하고 수행하는 절차를 구체화하고 발생되는 문제점을 해결합니다.<br>
 
 ### 테스트 목록
@@ -73,3 +73,13 @@ $ ansible rpi6402 -m command -a "docker exec test python home/classifier.py"
 <br><br><br>
 연동성 확보를 위한 작업 중입니다. ```2022.11.10```<br>
 ansible-playbook 모듈을 활용한 스크립트 테스트 작업 중입니다. ```2022.11.10```
+
+## 2. ansible-playbook script 작성
+
+### 2-1. docker_list.yaml
+
+### 2-2. img_build.yaml
+
+### 2-3. test_model.yaml
+
+### 2-4. push.yaml
