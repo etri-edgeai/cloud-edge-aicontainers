@@ -83,3 +83,7 @@ ansible-playbook 모듈을 활용한 스크립트 테스트 작업 중입니다.
 ### 2-3. test_model.yaml
 
 ### 2-4. push.yaml
+
+## 3. playbook 고도화
+
+### 3-1. autorun.yaml
