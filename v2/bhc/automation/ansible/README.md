@@ -61,5 +61,7 @@ hosts 파일 작성
 $ vi copy.yaml
 $ ansible-playbook copy.yaml
 ```
-<br>
-지속 테스트 및 작업 중입니다.
+
+### copy.yaml
+
+### autorun.yaml
