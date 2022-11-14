@@ -75,15 +75,28 @@ $ ansible rpi6402 -m command -a "docker exec test python home/classifier.py"
 ansible-playbook 모듈을 활용한 스크립트 테스트 작업 중입니다. ```2022.11.10```
 
 ## 2. ansible-playbook script 작성
+ansible command를 수행하는 스크립트를 작성합니다.<br>
+여러 기능을 통해 절차를 간소화할 수 있습니다.
 
 ### 2-1. docker_list.yaml
+docker images | docker ps -a | docker ps 명령을 수행하는 스크립트입니다.<br>
+도커 이미지와 생성된 컨테이너 리스트를 출력합니다.
 
-### 2-2. img_build.yaml
+### 2-2. build_image.yaml
+docker build 명령을 수행하는 스크립트입니다. Dockerfile로 정의된 이미지를 구축합니다.<br>
+정상 작동 여부를 확인하기 위해 docker images로 결과를 확인합니다.
 
 ### 2-3. test_model.yaml
+docker run | docker exec 명령을 수행하는 스크립트입니다.<br>
+컨테이너를 생성하고 컨테이너에 작업 명령을 전달합니다.
 
 ### 2-4. push.yaml
+docker tag | docker push 명령을 수행하는 스크립트입니다.<br>
+레지스트리에 업로드할 수 있는 형태로 이미지의 이름을 변경한 뒤 레지스트리에 해당 이미지를 업로드합니다.<br>
+정상 작동 여부 확인을 위해 curl 명령을 통해 레지스트리 리스트를 출력합니다.
 
 ## 3. playbook 고도화
 
 ### 3-1. autorun.yaml
+필요한 절차를 통합한 playbook입니다.<br>
+../에 업로드 되었습니다.
