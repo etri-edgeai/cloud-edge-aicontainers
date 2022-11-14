@@ -1,4 +1,4 @@
-- name: cmd test
+- name: Docker model Generation && Distribution
   hosts: builders
   
   vars_prompt:
@@ -8,7 +8,7 @@
   
   vars:
     image_name: "{{ ansible_facts['architecture'] }}-model"
-    registry_ip: 192.168.1.18:5000
+    registry_ip: 192.168.1.8:5000
 
   tasks:
 
@@ -17,7 +17,7 @@
     debug:
       msg: cpu architecture is {{ ansible_facts['architecture'] }}
   - name: build test
-    command: docker build --tag {{ image_name }}:{{ tag }} dockerfile/
+    command: docker build --tag {{ image_name }}:{{ tag }} build-image/
     register: command_output
   - debug:
       var: command_output.stdout_lines
@@ -38,7 +38,7 @@
 
   ## rename & push model image
   - name: rename model image...
-    command: docker tag {{ image_name }}:{{ tag }} {{ registry_ip }}/{{ image_name }}{{ tag }}
+    command: docker tag {{ image_name }}:{{ tag }} {{ registry_ip }}/{{ image_name }}:{{ tag }}
     register: command_output
   - debug:
       var: command_output.stdout_line
