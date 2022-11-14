@@ -1,12 +1,13 @@
 - name: copy file
-  hosts: rpi6401
-  tasks:
-          - name: Copying Dockerfile from server
-            copy:
-              src: "Dockerfile"
-              dest: "./dockerfile/"
+  hosts: builders
 
-          - name: Copying model from server
-            copy:
-              src: "model.tar.gz"
-              dest: "./dockerfile/"
+  tasks:
+    - name: Copying Dockerfile from server
+      copy:
+        src: "./dockerfile/Dockerfile"
+        dest: "./build-image/Dockerfile"
+
+    - name: Copying model from server
+      copy:
+        src: "./dockerfile/model.tar.gz"
+        dest: "./build-image/model.tar.gz"
