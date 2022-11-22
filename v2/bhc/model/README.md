@@ -25,8 +25,6 @@ $ python classifier.py
 #### requirements.txt
 ``` pip install -r requirements.txt ```
 - 모델 동작을 위한 package 목록입니다.
-- pytorch를 각 환경에 맞는 버전을 수동으로 설치해야 합니다.
-  - pytorch installation : https://pytorch.org/get-started/locally/
   
 #### data
 - 예측 수행 테스트를 위한 이미지 파일
