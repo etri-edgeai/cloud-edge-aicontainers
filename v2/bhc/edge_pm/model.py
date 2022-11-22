@@ -1,3 +1,13 @@
+import warnings
+import os
+
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = '2'
+
+import tensorflow as tf
+
+tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
+warnings.filterwarnings("ignore")
+
 import tensorflow.keras.applications as kerasapp
 from tensorflow.keras.preprocessing import image
 from tensorflow.keras.layers import Input
@@ -6,7 +16,7 @@ from tensorflow.keras.applications.resnet50 import preprocess_input, decode_pred
 import numpy as np
 import matplotlib.pyplot as plt
 
-warnings.filterwarnings("ignore")
+
 
 
 def model_selection():
@@ -82,22 +92,23 @@ def model_selection():
         model = kerasapp.EfficientNetV2B3(input_tensor=input_tensor, weights='imagenet', include_top=True)
     elif model_type == 'EfficientNetV2S':
         model = kerasapp.EfficientNetV2S(input_tensor=input_tensor, weights='imagenet', include_top=True)
-    elif model_type == 'EfficientNetV2BM':
-        model = kerasapp.ResNet101(input_tensor=input_tensor, weights='imagenet', include_top=True)
-    elif model_type == 'EfficientNetV2BL':
-        model = kerasapp.EfficientNetV2BL(input_tensor=input_tensor, weights='imagenet', include_top=True)
+    elif model_type == 'EfficientNetV2M':
+        model = kerasapp.EfficientNetV2M(input_tensor=input_tensor, weights='imagenet', include_top=True)
+    elif model_type == 'EfficientNetV2L':
+        model = kerasapp.EfficientNetV2L(input_tensor=input_tensor, weights='imagenet', include_top=True)
     elif model_type == 'ConvNeXtTiny':
-        model = kerasapp.ConvNeXtTiny(input_tensor=input_tensor, weights='imagenet', include_top=True)
+        model = kerasapp.ConvNeXtTiny(weights='imagenet', include_top=True)
     elif model_type == 'ConvNeXtSmall':
-        model = kerasapp.ConvNeXtSmall(input_tensor=input_tensor, weights='imagenet', include_top=True)
+        model = kerasapp.ConvNeXtSmall(weights='imagenet', include_top=True)
     elif model_type == 'ConvNeXtBase':
-        model = kerasapp.ConvNeXtBase(input_tensor=input_tensor, weights='imagenet', include_top=True)
+        model = kerasapp.ConvNeXtBase(weights='imagenet', include_top=True)
     elif model_type == 'ConvNeXtLarge':
-        model = kerasapp.ConvNeXtLarge(input_tensor=input_tensor, weights='imagenet', include_top=True)
+        model = kerasapp.ConvNeXtLarge(weights='imagenet', include_top=True)
     elif model_type == 'ConvNeXtXLarge':
-        model = kerasapp.ConvNeXtXLarge(input_tensor=input_tensor, weights='imagenet', include_top=True)
+        model = kerasapp.ConvNeXtXLarge(weights='imagenet', include_top=True)
     
     return model
+
 
 
 def pred():
@@ -111,20 +122,22 @@ def pred():
     ## get prediction
     preds = model.predict(x)
 
-    ## output origin image & top x predictions
-
-    ## origin image
-    data = plt.imread(img_path)
-    plt.imshow(data)
-    # image = Image.open(img_path)
-    # image.show()
-
     ## top 5
     print('Prediction : ', decode_predictions(preds, top=5)[0])
 
 
 if __name__ == "__main__" :
+
+    import webbrowser
     
     model = model_selection()
-    img_path = 'path'
+
+    ## origin image
+    img_path = './data/ant.jpeg'
+
+    ## show image
+    # data = plt.imread(img_path)
+    # plt.imshow(data)
+    webbrowser.open(img_path)
+
     pred()
