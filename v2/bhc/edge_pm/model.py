@@ -14,15 +14,16 @@ from tensorflow.keras.layers import Input
 from tensorflow.keras.applications.resnet50 import preprocess_input, decode_predictions
 
 import numpy as np
-import matplotlib.pyplot as plt
+import webbrowser
+import argparse
+import textwrap
 
 
 
 
 def model_selection():
 
-    ## get model name & change input layer
-    model_type = str(input('insert your model : '))
+    ## change input layer
     input_tensor = Input(shape=(224,224,3))
 
     ## load
@@ -128,12 +129,38 @@ def pred():
 
 if __name__ == "__main__" :
 
-    import webbrowser
-    
+    parser = argparse.ArgumentParser(
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        description=textwrap.dedent('''\
+        ========== config your model ===========
+
+        * model_type : lists on website https://keras.io/api/applications/
+        * input : what you want to predict(./home/data/*)
+
+        '''))
+
+    parser.add_argument(
+        '--model_type',
+        default='ResNet50',
+        type=str,
+        help='ResNet50 for default'
+    )
+    parser.add_argument(
+        '--input',
+        default='ant.jpeg',
+        type=str,
+        help='path : ./home/data/'
+    )
+
+    args = parser.parse_args()
+    print(args)
+
+    model_type = args.model_type
     model = model_selection()
 
     ## origin image
-    img_path = './data/ant.jpeg'
+    input = args.input
+    img_path = './home/data/{input}'.format(input=input)
 
     ## show image
     # data = plt.imread(img_path)
