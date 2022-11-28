@@ -1,6 +1,10 @@
 from bs4 import BeautifulSoup as bs
 import requests
-import argpaser
+import argparse
+import textwrap
+
+
+
 
 def main():
 
@@ -13,14 +17,24 @@ def main():
     model = "{arch}-model".format(arch=arch)
 
     if model in search.text:
+
         search2 = requests.get('{url}/v2/{model}/tags/list'.format(url=reg_url, model=model))
         print(search2.text)
+
         if task in search2.text:
+
             image_name = "{model}:{task}".format(model=model, task=task)
+            
             print('we already have the model.')
             print("download command : 'docker pull {url}/{image_name}'".format(url=reg_url, image_name=image_name))
+
         else:
+
             print('activate distribution sequence.')
+
+
+
+
 
 
 if __name__ == "__main__" :
@@ -30,18 +44,19 @@ if __name__ == "__main__" :
         description=textwrap.dedent('''\
         ========== config your model ===========
 
-        * arch : your CPU architecture
-        * type : your model's task
+
         * url : docker registry address
+        * arch : your CPU architecture
+        * task : your model's task
+
 
         '''))
     parser.add_argument(
         '--url',
-        default='localhost:5000',
+        default='http://localhost:5000',
         type=str,
         help='default : localhost:5000'
     )
-
     parser.add_argument(
         '--arch',
         type=str,
