@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QLineEdit
+from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout, QLineEdit
 
 
 class MyApp(QWidget):
@@ -9,19 +9,35 @@ class MyApp(QWidget):
         self.initUI()
 
     def initUI(self):
-        self.lbl = QLabel(self)
-        self.lbl.move(60, 40)
+        lbl1 = QLabel('Enter your CPU Architecture.', self)
+        lbl1.move(10, 10)
+        font1 = lbl1.font()
+        lbl1.setFont(font1)
 
-        qle = QLineEdit(self)
-        qle.move(60, 100)
+        lbl2 = QLabel('Enter your Model Task.', self)
+        lbl2.move(10, 70)
+        font2 = lbl2.font()
+        lbl2.setFont(font2)
 
-        self.setWindowTitle('QLineEdit')
+        layout = QVBoxLayout()
+        layout.addWidget(lbl1)
+        layout.addWidget(lbl2)
+
+        te = QLineEdit(self)
+        te.move(10, 30)
+        te.textChanged[str].connect(self.onChanged)
+        
+        te2 = QLineEdit(self)
+        te2.move(10, 90)
+        te2.textChanged[str].connect(self.onChanged)
+
+
+        self.setWindowTitle('Edge container tool')
         self.setGeometry(300, 300, 300, 200)
         self.show()
 
     def onChanged(self, text):
-        self.lbl.setText(text)
-        self.lbl.adjustSize()
+        pass
 
 
 if __name__ == '__main__':
