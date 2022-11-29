@@ -30,7 +30,7 @@
   - debug:
       var: command_output.stdout_lines
   - name: model prediction test
-    command: docker exec model python home/classifier.py --input test.jpg
+    command: docker exec model python home/model.py
     register: command_output
   - debug:
       var: command_output.stdout_lines

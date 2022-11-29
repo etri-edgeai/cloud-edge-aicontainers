@@ -1,0 +1,8 @@
+- name: copy model
+  hosts: builders
+
+  tasks:
+          - name: copy model.tar.gz
+            copy:
+                    src: "./model.tar.gz"
+                    dest: "./build-image/model.tar.gz"
