@@ -11,6 +11,9 @@ class Ui_Dialog(object):
         self.Registry_list = QtWidgets.QListView(Dialog)
         self.Registry_list.setGeometry(QtCore.QRect(20, 160, 231, 251))
         self.Registry_list.setObjectName("Registry_list")
+        self.listWidget = QtWidgets.QListWidget(Dialog)
+        self.listWidget.setGeometry(QtCore.QRect(270, 200, 191, 211))
+        self.listWidget.setObjectName("listWidget")
         
         search = requests.get('{url}/v2/_catalog'.format(url='http://172.26.64.1:5000'))
         nodes = eval(search.text)
