@@ -7,23 +7,32 @@ import requests
 
 
 class Ui_Dialog(object):
+
     def setupUi(self, Dialog):
-        self.Registry_list = QtWidgets.QListView(Dialog)
-        self.Registry_list.setGeometry(QtCore.QRect(20, 160, 231, 251))
-        self.Registry_list.setObjectName("Registry_list")
-        self.listWidget = QtWidgets.QListWidget(Dialog)
-        self.listWidget.setGeometry(QtCore.QRect(270, 200, 191, 211))
-        self.listWidget.setObjectName("listWidget")
+        self.repo_list = QtWidgets.QListWidget(Dialog)
+        self.repo_list.setGeometry(QtCore.QRect(20, 160, 231, 251))
+        self.repo_list.setObjectName("repo_list")
+        self.model_list = QtWidgets.QListView(Dialog)
+        self.model_list.setGeometry(QtCore.QRect(270, 200, 191, 211))
+        self.model_list.setObjectName("model_list")
         
         search = requests.get('{url}/v2/_catalog'.format(url='http://172.26.64.1:5000'))
         nodes = eval(search.text)
         nodes = nodes['repositories']
-        model = QStandardItemModel()
         for n in nodes:
+            self.repo_list.addItem(str(n))
+        
+        self.repo_list.itemClicked.connect(self.show_models)
+    
+
+    def show_models(self, item):
+        search2 = requests.get('{url}/v2/{repo}/tags/list'.format(url='http://172.26.64.1:5000', repo=str(item.text())))
+        tasks = eval(search2.text)
+        tasks = tasks['tags']
+        model = QStandardItemModel()
+        for n in tasks:
             model.appendRow(QStandardItem(n))
-        self.Registry_list.setModel(model)
-
-
+        self.model_list.setModel(model)
 
 
 
