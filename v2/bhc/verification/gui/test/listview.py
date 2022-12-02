@@ -12,6 +12,7 @@ class Ui_Dialog(object):
         self.repo_list = QtWidgets.QListWidget(Dialog)
         self.repo_list.setGeometry(QtCore.QRect(20, 160, 231, 251))
         self.repo_list.setObjectName("repo_list")
+        
         self.model_list = QtWidgets.QListView(Dialog)
         self.model_list.setGeometry(QtCore.QRect(270, 200, 191, 211))
         self.model_list.setObjectName("model_list")
@@ -27,10 +28,10 @@ class Ui_Dialog(object):
 
     def show_models(self, item):
         search2 = requests.get('{url}/v2/{repo}/tags/list'.format(url='http://172.26.64.1:5000', repo=str(item.text())))
-        tasks = eval(search2.text)
-        tasks = tasks['tags']
+        tags = eval(search2.text)
+        tags = tags['tags']
         model = QStandardItemModel()
-        for n in tasks:
+        for n in tags:
             model.appendRow(QStandardItem(n))
         self.model_list.setModel(model)
 
