@@ -56,7 +56,7 @@ demonstration application의 메인 화면으로 사용될 예정인 GUI 레이�
 ### 초기화면 구축
 
 #### 레이아웃
-[][./img4doc/init.png]
+![](./img4doc/init.png)
 
 #### 기능 구현
 - **레지스트리 등록된 모델 정보 수신**<br>
