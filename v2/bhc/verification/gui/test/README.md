@@ -6,7 +6,7 @@
 ### ```EdgeTool.ui```
 Qt Designer 편집기를 활용하여 작성한 레이아웃 XML 문서입니다.
 >초기화면
-[](./img4doc/
+[](./img4doc/designer.png)
 
 ### ```Input.py```
 사용자가 정보를 입력하여 전달할 수 있는 텍스트박스 구현 테스트 코드입니다.
