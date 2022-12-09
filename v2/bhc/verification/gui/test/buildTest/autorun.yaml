@@ -1,14 +1,10 @@
 - name: Docker model Generation && Distribution
   hosts: builders
   
-  vars_prompt:
-    - name: tag
-      prompt: please enter the type of model.
-      private: no
-  
   vars:
     image_name: "{{ ansible_facts['architecture'] }}-model"
-    registry_ip: 192.168.1.8:5000
+    registry: None
+    tag: None
 
   tasks:
 
@@ -30,7 +26,7 @@
   - debug:
       var: command_output.stdout_lines
   - name: model prediction test
-    command: docker exec model python home/model.py
+    command: docker exec model python home/classifier.py --input test.jpg
     register: command_output
   - debug:
       var: command_output.stdout_lines
@@ -38,19 +34,19 @@
 
   ## rename & push model image
   - name: rename model image...
-    command: docker tag {{ image_name }}:{{ tag }} {{ registry_ip }}/{{ image_name }}:{{ tag }}
+    command: docker tag {{ image_name }}:{{ tag }} {{ registry }}/{{ image_name }}:{{ tag }}
     register: command_output
   - debug:
       var: command_output.stdout_line
   - name: push image...
-    command: docker push {{ registry_ip }}/{{ image_name }}:{{ tag }}
+    command: docker push {{ registry }}/{{ image_name }}:{{ tag }}
     register: command_output
   - debug:
       var: command_output.stdout_lines
   - name: check result...
     command: 
-      curl -X GET http://{{ registry_ip }}/v2/_catalog
-      curl -X GET http://{{ registry_ip }}/v2/{{ image_name }}/tags/list
+      curl -X GET http://{{ registry }}/v2/_catalog
+      curl -X GET http://{{ registry }}/v2/{{ image_name }}/tags/list
     register: command_output
   - debug:
       var: command_output.stdout_lines

@@ -91,20 +91,15 @@ class Main(QWidget):
             model.appendRow(QStandardItem(n))
         self.model_list.setModel(model)
 
-    def msgVerify(self, result):
-        QMessageBox.information(self, "ALERT", result)
-
     def verify(self):
         reg_url = "http://172.26.64.1:5000"
         arch = self.comboBox.currentText()
         task = self.lineEdit.text()
         search = requests.get('{url}/v2/_catalog'.format(url=reg_url))
-        print(search.text)
         model = "{arch}-model".format(arch=arch)
 
         if model in search.text:
             search2 = requests.get('{url}/v2/{model}/tags/list'.format(url=reg_url, model=model))
-            print(search2.text)
 
             if task in search2.text:
                 image_name = "{model}:{task}".format(model=model, task=task)
@@ -114,12 +109,15 @@ We already have the model.
 < download command >
 docker pull {url}/{image_name}
                 """.format(url=reg_url, image_name=image_name)
-                self.msgVerify(result)
+                QtWidgets.QMessageBox.information(self, "ALERT", result)
 
                 
             else:
                 result = 'We need to build a new one. Please activate distribution sequence.'
-                QtWidgets.QMessageBox.information(self, "NOTICE", result)
+                QtWidgets.QMessageBox.information(self, "ALERT", result)
+
+
+
 
 
 if __name__ == "__main__":

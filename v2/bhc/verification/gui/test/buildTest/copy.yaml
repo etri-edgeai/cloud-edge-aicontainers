@@ -1,0 +1,13 @@
+- name: copy file
+  hosts: builders
+
+  tasks:
+    - name: Copying Dockerfile from server
+      copy:
+        src: "Dockerfile"
+        dest: "./buildimg/"
+
+    - name: Copying model from server
+      copy:
+        src: "model.tar.gz"
+        dest: "./buildimg/"

@@ -5,9 +5,9 @@
     - name: Copying Dockerfile from server
       copy:
         src: "./dockerfile/Dockerfile"
-        dest: "./build-image/Dockerfile"
+        dest: "./buildimg/Dockerfile"
 
     - name: Copying model from server
       copy:
         src: "./dockerfile/model.tar.gz"
-        dest: "./build-image/model.tar.gz"
+        dest: "./buildimg/model.tar.gz"
