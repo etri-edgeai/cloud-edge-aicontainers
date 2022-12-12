@@ -1,13 +1,17 @@
 - name: copy file
   hosts: builders
 
+  vars:
+    Dockerfile_path: None
+    zipModel_path: None
+
   tasks:
     - name: Copying Dockerfile from server
       copy:
-        src: "Dockerfile"
+        src: {{ Dockerfile_path }}
         dest: "./buildimg/"
 
     - name: Copying model from server
       copy:
-        src: "model.tar.gz"
+        src: {{ zipModel_path }}
         dest: "./buildimg/"
