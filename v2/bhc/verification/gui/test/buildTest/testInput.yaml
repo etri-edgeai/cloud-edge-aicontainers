@@ -1,0 +1,18 @@
+- name: Docker model Generation && Distribution
+  hosts: builders
+
+  vars:
+    image_name: "{{ ansible_facts['architecture'] }}-model"
+    registry_ip: 192.168.1.8:5000
+    tag: None
+
+  tasks:
+  ## build new model image
+  - name: cpu-arch detection
+    debug:
+      msg: cpu architecture is {{ ansible_facts['architecture'] }}
+  - name: build test
+    command: docker build --tag {{ image_name }}:{{ tag }} buildimg/
+    register: command_output
+  - debug:
+      var: command_output.stdout_lines
