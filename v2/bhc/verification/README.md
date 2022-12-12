@@ -39,7 +39,7 @@ b --> |reg_url, arch, task|i([verify.py])
 i --- |repo_list|c{VERIFICATION}
 c --> |True|d([docker pull])
 c --> |False|e([copy.yaml, autorun.yaml])
-e --> |model.tar.gz|f((BUILDERS))
+e --> |model.tar.gz, Dockerfile|f((BUILDERS))
 f --> |push new model image|h
 h((registry)) --> |model_image|a
 d --> h
