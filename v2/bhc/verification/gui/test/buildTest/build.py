@@ -1,6 +1,6 @@
 import os
 ## test network
-print("test if network available...")
+print("test if network is available...")
 print()
 os.system('ansible builders -m ping')
 os.system('ansible builders -m command -a "ls -l"')
