@@ -78,16 +78,16 @@ Registry Server에 존재하는 레포지토리 목록( == image_names list )를
 
 #### ```upload files```
 QFileDialog 메서드를 활용하여 파일을 탐색 업로드하는 기능입니다.<br>
-![](./img4doc/qfiledialog)
+![](./img4doc/qfiledialog.png)
 
 화면에 선택한 파일의 경로가 QListView로 보여집니다.<br>
-![](./img4doc/fpathlistview)
+![](./img4doc/fpathlistview.png)
 
 #### ```copy files```
-ansible-playbook copy.yaml script를 동작합니다.<br>
+**ansible-playbook copy.yaml** script를 동작합니다.<br>
 
 #### ```start build```
-ansible-playbook autorun.yaml script를 동작합니다.<br>
+**ansible-playbook autorun.yaml** script를 동작합니다.<br>
 
 #### ```Cancel```
 ```self.close()```<br>
