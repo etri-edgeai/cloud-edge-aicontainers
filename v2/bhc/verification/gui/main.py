@@ -6,6 +6,68 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 import requests
 
+class BuildWindow(QDialog,QWidget):
+
+    def __init__(self):
+        super().__init__()
+        self.setupUI()
+
+    def setupUI(self):
+        self.setGeometry(800, 200, 500, 300)
+
+        btn1 = QPushButton("upload files", self)
+        btn1.setGeometry(390, 50, 100, 30)
+        btn1.clicked.connect(self.btn_fun_FileLoad)
+        
+        btn2 = QPushButton('copy files', self)
+        btn2.setGeometry(390, 100, 100, 30)
+        btn2.clicked.connect(self.copy_files)
+
+        self.fileview = QListView(self)
+        self.fileview.setGeometry(10, 50, 370, 180)
+
+        btn3 = QPushButton('start build', self)
+        btn3.setGeometry(200, 250, 100, 30)
+        btn3.clicked.connect(self.build)
+
+        btn4 = QPushButton('Cancel', self)
+        btn4.setGeometry(330, 250, 100, 30)
+        btn4.clicked.connect(self.home)
+
+
+    def btn_fun_FileLoad(self):
+        
+        global Dockerfile_path, zipModel_path
+
+        fname = QFileDialog.getOpenFileNames(self)
+        model = QStandardItemModel()
+        for f in fname[0]:
+            if 'Dockerfile' in f:
+                Dockerfile_path = f
+                model.appendRow(QStandardItem(Dockerfile_path))
+            else:
+                zipModel_path = f
+                model.appendRow(QStandardItem(zipModel_path))
+        self.fileview.setModel(model)
+
+
+    def copy_files(self):
+        os.system('ansible-playbook copy.yaml -e "Dockerfile_path={Dockerfile_path} zipModel_path={zipModel_path}"'.format(Dockerfile_path=Dockerfile_path, zipModel_path=zipModel_path))
+
+    def build(self):
+        print('check network session...')
+        print()
+        os.system('ansible builders -m ping')
+        os.system('ansible builders -m command -a "ls -alF"')
+        print()
+        print()
+        print("start image build & distribution...")
+        print()
+        os.system('ansible-playbook autorun.yaml -e "tag={tag} registry={reg_url}"'.foramt(tag=tag, reg_url=reg_url))
+
+    def home(self):
+        self.close()
+
 class Main(QWidget):
 
     def __init__(self):
@@ -13,7 +75,6 @@ class Main(QWidget):
         self.initUI()
 
     def initUI(self):
-        
         # repo list
         self.comboBox = QComboBox(self)
         self.comboBox.setGeometry(QtCore.QRect(30, 60, 111, 31))
@@ -22,7 +83,7 @@ class Main(QWidget):
         self.comboBox.addItem("x64")
         self.comboBox.addItem("x86_64")
         # texts
-        label = QLabel('label1', self)
+        label = QLabel('ARCH', self)
         label.setGeometry(QtCore.QRect(30, 30, 101, 21))
         font = QtGui.QFont()
         font.setPointSize(12)
@@ -30,7 +91,7 @@ class Main(QWidget):
         font.setWeight(75)
         label.setFont(font)
 
-        label2 = QLabel('label2', self)
+        label2 = QLabel('TAG', self)
         label2.setGeometry(QtCore.QRect(170,30,91,21))
         font = QtGui.QFont()
         font.setPointSize(12)
@@ -54,7 +115,7 @@ class Main(QWidget):
         for n in nodes:
             repo_list.addItem(str(n))
 
-        label3 = QLabel('label3', self)
+        label3 = QLabel('REPOSITORIES', self)
         label3.setGeometry(QtCore.QRect(50,130,161,20))
         font = QtGui.QFont()
         font.setPointSize(12)
@@ -63,7 +124,7 @@ class Main(QWidget):
         label3.setFont(font)
         label3.setAlignment(QtCore.Qt.AlignCenter)
 
-        label4 = QLabel('label4', self)
+        label4 = QLabel('MODEL_LIST', self)
         label4.setGeometry(QtCore.QRect(290,159,141,31))
         font = QtGui.QFont()
         font.setPointSize(12)
@@ -114,7 +175,17 @@ docker pull {url}/{image_name}
                 
             else:
                 result = 'We need to build a new one. Please activate distribution sequence.'
-                QtWidgets.QMessageBox.information(self, "ALERT", result)
+                reply = QtWidgets.QMessageBox.question(self, "ALERT", result, QMessageBox.Yes | QMessageBox.No)
+                if reply == QMessageBox.Yes:
+                    self.show_BuildWindow()
+                    
+
+    def show_BuildWindow(self):
+        self.hide()
+        self.second = BuildWindow()
+        self.second.exec()
+        self.show()
+                    
 
 
 
