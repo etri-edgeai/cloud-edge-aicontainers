@@ -19,7 +19,7 @@
 **기능 구성 및 동작 테스트**
 환명 구성, 시그널 연결 및 동작 내용을 테스트하기 위한 코드들입니다.<br>
 
-### build.py
+### ```build.py```
 ansible-playbook script를 동작시킵니다.<br>
 **동작 과정에서 필요한 인자값을 받아( ``` -e ``` ) 전달합니다.**<br>
 ```python
@@ -34,7 +34,14 @@ os.system('ansible-playbook copy.yaml -e "Dockerfile_path={Dockerfile_path}
 os.system('ansible-playbook autorun.yaml -e "tag={tag} registry={reg_url}"'.format(tag=tag, reg_url=reg_url))
 ```
 
-### upload.py
+### ```upload.py```
+
+#### ```MainWindow```
+![](./img4doc/upload_main.png)
+
+#### ```QFileDialog```
+![](./img4doc/qfiledialog.png)
+
 system 내에 있는 파일, 폴더를 선택할 수 있는 QFileDialog 기능을 사용합니다.<br>
 파일을 경로를 리스트로 저장하여 필요에 따라 사용합니다.<br>
 ```python
