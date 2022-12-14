@@ -52,18 +52,48 @@ PyQt5의 클래스 구조와 기능 구현에 필요한 내용 이해를 위해 
 
 ## main.py
 demonstration application의 메인 화면으로 사용될 예정인 GUI 레이아웃입니다.<br>
+```./test/``` ```./test/buildTest/``` 의 작업 내용을 적용하였습니다.<br>
+상기 실험된 테스트 기능들과 기타 인터페이스를 적용하고 연동했습니다.<br>
 
-### 초기화면 구축
+### 초기화면 구축 ```class Main()```
 
 #### 레이아웃
 ![](./img4doc/init.png)
 
-#### 기능 구현
-- **레지스트리 등록된 모델 정보 수신**<br>
-  레지스트리에 등록된 모델 정보를 불러옵니다.<br>
-  repository 정보를 받고 repository 당 등록된 이미지 종류를 오른쪽 리스트뷰에 송출합니다.
-- **모델 존재 여부 검증 기능**<br>
-  CPU 구조 종류와 수행 태스크를 입력하여 전달하면 모델 존재 여부를 검증하고 다음 수행 절차를 유도합니다.
+#### ```TAG```
+존재하는 모델 입력 시 docker pull 명령어를 보여줍니다.<br>
+![](./img4doc/tag1.png)
+<br>
+
+미존재 모델 입력 시 배포 기능 수행 여부를 묻습니다.<br>
+![](./img4doc/tag2.png)
+
+#### ```REPOSITORIES```
+Registry Server에 존재하는 레포지토리 목록( == image_names list )를 띄웁니다. (requests 모듈 활용)<br>
+![](./img4doc/repos.png)
+
+### 배포 기능 수행 화면 ```class BuildWindow```
+
+#### 레이아웃
+![](./img4doc/buildwindow.png)
+
+#### ```upload files```
+QFileDialog 메서드를 활용하여 파일을 탐색 업로드하는 기능입니다.<br>
+![](./img4doc/qfiledialog.png)
+
+화면에 선택한 파일의 경로가 QListView로 보여집니다.<br>
+![](./img4doc/fpathlistview.png)
+
+#### ```copy files```
+**ansible-playbook copy.yaml** script를 동작합니다.<br>
+
+#### ```start build```
+**ansible-playbook autorun.yaml** script를 동작합니다.<br>
+
+#### ```Cancel```
+```self.close()```<br>
+Main 화면으로 돌아갑니다.<br>
+
 
 > 지속 고도화 작업 중에 있으며 레이아웃 및 화면 구성은 변경될 수 있습니다.
 

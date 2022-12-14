@@ -1,5 +1,13 @@
 # GUI programming test code
 
+## buildTest
+**모델 구축 및 배포 기능과 GUI를 연결하기 위한 테스트, 작업 내용입니다.**<br>
+ansible-playbook script 파일을 python에서 os.system을 이용해 builder-nodes에 전달 및 수행합니다.<br>
+학습 모델 압축파일 등 필요한 파일 불러오기, 인자 변경 및 전달 등 기능이 추가될 예정입니다.<br>
+<br>
+상세 내용을 ```buildTest/``` 내부에 기재합니다.
+
+
 ## PyQt5 test
 **클래스 구성, 생김새, 동작 방식 등 테스트를 위한 코드들입니다.**
 

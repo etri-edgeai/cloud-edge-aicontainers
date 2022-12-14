@@ -21,12 +21,12 @@
 
   ## run container & test model
   - name: run container
-    command: docker run -d --name model -it {{ image_name }}:{{ tag }}
+    command: docker run -d --name {{ tag }}-model -it {{ image_name }}:{{ tag }}
     register: command_output
   - debug:
       var: command_output.stdout_lines
   - name: model prediction test
-    command: docker exec model python home/classifier.py --input test.jpg
+    command: docker exec {{ tag }}-model python home/classifier.py --input test.jpg
     register: command_output
   - debug:
       var: command_output.stdout_lines

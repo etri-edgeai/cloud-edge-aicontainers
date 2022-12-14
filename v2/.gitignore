@@ -28,3 +28,7 @@ _templates
 
 # javascript
 .vscode/symbols.json
+
+# bhc
+# 실험, 작업에 사용한 model | weights 파일은 커밋에서 제외합니다.
+model.tar.gz
