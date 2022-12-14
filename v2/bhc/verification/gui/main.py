@@ -1,4 +1,5 @@
 import sys
+import os
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
@@ -144,15 +145,21 @@ class Main(QWidget):
             
         
     def show_models(self, item):
+
+        global tag
+
         search2 = requests.get('{url}/v2/{repo}/tags/list'.format(url='http://172.26.64.1:5000', repo=str(item.text())))
-        tags = eval(search2.text)
-        tags = tags['tags']
+        tag = eval(search2.text)
+        tag = tag['tags']
         model = QStandardItemModel()
-        for n in tags:
+        for n in tag:
             model.appendRow(QStandardItem(n))
         self.model_list.setModel(model)
 
     def verify(self):
+
+        global reg_url
+
         reg_url = "http://172.26.64.1:5000"
         arch = self.comboBox.currentText()
         task = self.lineEdit.text()
