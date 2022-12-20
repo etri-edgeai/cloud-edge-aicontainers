@@ -2,6 +2,8 @@ import sqlite3
 import json
 import numpy as np
 
+## getting Edge nodes list from ansible/hosts file
+
 ## parsing hosts.ini
 nodes = []
 file = open('/etc/ansible/hosts', 'r')
