@@ -60,6 +60,6 @@ SQLite를 사용하여 데이터베이스를 구축했습니다.<br>
 ```SQL
 create table nodes;
 
-insert into nodes (id, name, ip)
-values (01, 'rpi6401', 'keti@192.168.1.241');
+insert into nodes (id, name, ip, type)
+values (01, 'rpi6401', 'keti@192.168.1.241', 'builders');
 ```
