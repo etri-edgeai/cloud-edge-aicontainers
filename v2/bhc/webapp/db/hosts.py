@@ -53,6 +53,7 @@ con = sqlite3.connect('nodes.db3')
 cur = con.cursor()
 query = "insert into nodes values(?,?,?,?);"
 
+cur.execute('delete from nodes;')
 cur.executemany(query, nodes)
 con.commit()
 

@@ -25,6 +25,7 @@ elif platform.system() == 'Linux':
     os.system('ls')
 
 
+
 ## make new data
 data = []
 tmp = []
@@ -43,6 +44,6 @@ query = "insert into temp values(?,?,?);"
 cur.executemany(query, data)
 con.commit()
 
-cur.execute('select * from nodes')
+cur.execute('select * from temp')
 print(cur.fetchall())
 con.close()
