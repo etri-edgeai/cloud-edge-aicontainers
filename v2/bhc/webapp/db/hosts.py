@@ -2,6 +2,8 @@ import sqlite3
 import json
 import numpy as np
 
+## getting Edge nodes list from ansible/hosts file
+
 ## parsing hosts.ini
 nodes = []
 file = open('/etc/ansible/hosts', 'r')
@@ -51,6 +53,7 @@ con = sqlite3.connect('nodes.db3')
 cur = con.cursor()
 query = "insert into nodes values(?,?,?,?);"
 
+cur.execute('delete from nodes;')
 cur.executemany(query, nodes)
 con.commit()
 
