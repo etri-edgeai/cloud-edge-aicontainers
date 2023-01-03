@@ -1,3 +1,4 @@
+# Find files in source code
 # by JPark @ 2022 Fall
 
 query=$1

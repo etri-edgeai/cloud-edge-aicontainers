@@ -39,9 +39,13 @@ def get_temp_data():
             line = str(line)
             tmp.append(line.strip())
 
-            # save datetime
-            # now = datetime.now() # .strftime('%Y-%m-%d %H:%M:%S')
-            # tmp.insert(0, now)
+            ## save as float, unix timestamp
+            now = round(time.time())
+
+            ## save as string, datetime
+            # now = datetime.now()
+            
+            tmp.insert(0, now)
 
             # manipulate data type for db.log
             tmp = tuple(tmp)
