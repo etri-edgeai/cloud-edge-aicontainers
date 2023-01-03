@@ -40,8 +40,8 @@ def get_temp_data():
             tmp.append(line.strip())
 
             # save datetime
-            now = datetime.now() # .strftime('%Y-%m-%d %H:%M:%S')
-            tmp.insert(0, now)
+            # now = datetime.now() # .strftime('%Y-%m-%d %H:%M:%S')
+            # tmp.insert(0, now)
 
             # manipulate data type for db.log
             tmp = tuple(tmp)
@@ -55,7 +55,7 @@ def get_temp_data():
     ## db manipulation
     con = sqlite3.connect('nodes.db3')
     cur = con.cursor()
-    query = "insert into temp values(?,?,?);"
+    query = "insert into temp values(datetime('now'),?,?);"
     cur.executemany(query, data)
     con.commit()
 
