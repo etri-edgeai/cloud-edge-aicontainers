@@ -5,12 +5,14 @@ from typing import Union
 
 from fastapi import FastAPI
 
+import json
+
 app = FastAPI()
 
 
 @app.get("/a")
 def read_root():
-    con = sqlite3.connect('./nodes.db3')
+    con = sqlite3.connect('../db/nodes.db3')
     cur = con.cursor()
 
     cur.execute('select * from temp_convrt')
@@ -52,19 +54,19 @@ def read_root():
             idx += 1
     return rtn
 
-@app.get("/f/{field}")
-def read_root(field):
-    con = sqlite3.connect('./nodes.db3')
-    cur = con.cursor()
+# @app.get("/f/{field}")
+# def read_root(field):
+#     con = sqlite3.connect('./nodes.db3')
+#     cur = con.cursor()
 
-    cur.execute('select * from temp_convrt')
-    test = cur.fetchall()
+#     cur.execute('select * from temp_convrt')
+#     test = cur.fetchall()
 
-    rtn = {}
-    for data in test:
-        data = list(data)
-        if not data[1] in rtn :
-            rtn[data[1]] = []
-        rtn[data[1]].append([data[0], data[2]])
-    return rtn[field]
+#     rtn = {}
+#     for data in test:
+#         data = list(data)
+#         if not data[1] in rtn :
+#             rtn[data[1]] = []
+#         rtn[data[1]].append([data[0], data[2]])
+#     return rtn[field]
 

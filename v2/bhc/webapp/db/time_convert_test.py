@@ -1,7 +1,7 @@
 import sqlite3
 import datetime
 
-con = sqlite3.connect('./db/nodes.db3')
+con = sqlite3.connect('nodes.db3')
 cur = con.cursor()
 
 cur.execute('select * from temp')
