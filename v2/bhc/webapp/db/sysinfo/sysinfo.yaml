@@ -1,0 +1,8 @@
+- name: get sysinfo
+  hosts: users
+  
+  tasks:
+  - name: cpu usage
+    shell: top -b -n 1 | grep -Po '[0-9.]+ id'
+    register: command_output
+  - debug: msg="{{command_output.stdout}}"

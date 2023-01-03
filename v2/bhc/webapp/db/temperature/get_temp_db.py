@@ -57,13 +57,13 @@ def get_temp_data():
     # print(data)
 
     ## db manipulation
-    con = sqlite3.connect('nodes.db3')
+    con = sqlite3.connect('../nodes.db3')
     cur = con.cursor()
-    query = "insert into temp values(datetime('now'),?,?);"
+    query = "insert into temp_convrt values(?,?,?);"
     cur.executemany(query, data)
     con.commit()
 
-    cur.execute('select * from temp')
+    cur.execute('select * from temp_convrt')
     data = cur.fetchall()
 
     for col in data:
