@@ -49,7 +49,7 @@ print(nodes)
 
 
 ## db manipulation
-con = sqlite3.connect('nodes.db3')
+con = sqlite3.connect('../nodes.db3')
 cur = con.cursor()
 query = "insert into nodes values(?,?,?,?);"
 

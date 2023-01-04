@@ -28,38 +28,18 @@ Edge Container 제작, 배포 및 모니터링 기능을 수행할 수 있는 Ed
   - 로그 데이터를 연동을 통한 시각화
 
 ## ```Grafana```
-데이터 시각화 웹 어플리케이션
+**데이터 시각화 웹 어플리케이션**<br>
+<br>
+> 저장된 데이터를 적절한 대시보드와 연결하여 사용자, 혹은 관리자가 편리하게 조회할 수 있도록 돕는 프레임워크입니다.<br>
+초기 설치와 기초적인 사용 방법, 나아가 데이터 구축에 따른 고도화, 자체 프레임워크 제작을 위한 환경 구성 등의 내용을 포함합니다.<br>
 
-### installation
-ubuntu 20.04 기준 설치 방법입니다<br>
-```bash
-sudo apt-get update && sudo apt-get upgrade -y
-sudo apt-get install -y apt-transport-https
-sudo apt-get install -y software-properties-common wget
-wget -q -O - https://packages.grafana.com/gpg.key | sudo apt-key add -
-echo "deb https://packages.grafana.com/oss/deb stable main" | sudo tee -a /etc/apt/sources.list.d/grafana.list
-sudo apt-get update
-sudo apt-get install grafana
-```
-
-### start grafana
-```bash
-sudo service grafana-server start
-```
-3000번 포트로 연결됩니다.<br>
->**Default 계정**
->- username : admin
->- password : admin
-
-### Pannel Test
-Table pannel을 테스트했습니다.<br>
-![](./img4doc/table.png)
+상세 내용을 ```./grafana``` 내부에 기재합니다.
 
 ## ```DB```
-SQLite를 사용하여 데이터베이스를 구축했습니다.<br>
-```SQL
-create table nodes;
+**로그 등 필요 데이터 수집 및 정리**<br>
+<br>
+> 노드 정보, 추론 정보, 시스템 정보 등을 조회하기 위해 로그 형태 등으로 데이터화하여 수집, 보관합니다.<br>
+저장한 데이터를 토대로 grafana에 연결하여 시각화하는 용도로 또한 사용할 수 있습니다.<br>
+DB 구축, 데이터 조작 및 전처리 등 작업을 모두 포함합니다.<br>
 
-insert into nodes (id, name, ip, type)
-values (01, 'rpi6401', 'keti@192.168.1.241', 'builders');
-```
+상세 내용을 ```./db``` 내부에 기재합니다.
