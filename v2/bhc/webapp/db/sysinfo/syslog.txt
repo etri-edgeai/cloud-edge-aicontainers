@@ -1,41 +1,34 @@
 
 PLAY [get sysinfo] *************************************************************
 
-TASK [Gathering Facts] *********************************************************
-ok: [rpi6405]
-ok: [rpi6403]
-ok: [rpi6402]
-ok: [rpi6404]
-ok: [rpi6406]
-
-TASK [cpu usage] ***************************************************************
-changed: [rpi6403]
-changed: [rpi6405]
+TASK [storage capacity] ********************************************************
 changed: [rpi6406]
+changed: [rpi6405]
 changed: [rpi6402]
+changed: [rpi6403]
 changed: [rpi6404]
 
 TASK [debug] *******************************************************************
 ok: [rpi6402] => {
-    "msg": "97.1 id"
+    "msg": "47.4556"
 }
 ok: [rpi6403] => {
-    "msg": "95.7 id"
+    "msg": "51.2226"
 }
 ok: [rpi6404] => {
-    "msg": "95.7 id"
+    "msg": "211.958"
 }
 ok: [rpi6405] => {
-    "msg": "97.1 id"
+    "msg": "54.9104"
 }
 ok: [rpi6406] => {
-    "msg": "97.1 id"
+    "msg": "55.8832"
 }
 
 PLAY RECAP *********************************************************************
-rpi6402                    : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
-rpi6403                    : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
-rpi6404                    : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
-rpi6405                    : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
-rpi6406                    : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+rpi6402                    : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+rpi6403                    : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+rpi6404                    : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+rpi6405                    : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+rpi6406                    : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
