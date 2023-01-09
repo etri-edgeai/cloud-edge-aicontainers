@@ -6,16 +6,23 @@
 ## 개별 엣지 노드 정보 추출 및 시각화
 
 ### 호스트 정보 ```hosts.py```
+![](./img4doc/nodes.png)
 > ansible hosts 파일에 명시된 등록된 사용자 정보를 파싱하여 DB에 저장합니다.<br>
 > Table panel을 활용하여 목록을 시각화합니다.
 
+### 온도 정보 ```get_temp_db.py```
+![](./img4doc/temp.png)
 
-### 온도 정보
+### cpu 사용률 정보```get_sysinfo_db.py```
+![](./img4doc/cpuinfo.png)
 
-### 스토리지 잔여 용량
+### 스토리지 잔여 용량```get_sysinfo_db.py```
+![](./img4doc/strginfo.png)
 
-### 실 위치 정보
+### 실 위치 정보```./geoloc/get_geoloc_db.py```
+
 
 
 ## DB 현황
-![](./img4doc)
+![](./img4doc/db_tables.png)
+지속 업데이트 예정
