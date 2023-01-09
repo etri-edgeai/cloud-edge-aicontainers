@@ -18,7 +18,7 @@ warnings.filterwarnings(action='ignore')
 ## define data output function
 def get_temp_data():
     ## write file
-    os.system('ansible users -m command -a "cat /sys/devices/virtual/thermal/thermal_zone0/temp" > templog.txt')
+    os.system('ansible users -i ../../edge-hosts.ini -m command -a "cat /sys/devices/virtual/thermal/thermal_zone0/temp" > templog.txt')
 
     ## data processing
     file = open('templog.txt', 'r')

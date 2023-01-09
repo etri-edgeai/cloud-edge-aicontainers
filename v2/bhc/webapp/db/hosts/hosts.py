@@ -1,65 +1,100 @@
 import sqlite3
 import json
 import numpy as np
+import re
 
 ## getting Edge nodes list from ansible/hosts file
 
 ## parsing hosts.ini
-nodes = []
-file = open('/etc/ansible/hosts', 'r')
+# file = open('/etc/ansible/hosts', 'r')
+file = open('../../edge-hosts.ini', 'r')
 line_num = 1
-line = file.readline()
+f = file.readlines()
 
-if "builders" in line:
+## preprocessing
+clean = []
+p =  re.compile(' [ansible].+')
 
-    while line:
-        line = file.readline()
+for w in f:
+    w = re.sub(p, "", w)
+    w = w.strip('\n')
+    clean.append(w)
 
-        if len(line.split()) == 2:
-            node = line.split()
-            node[1] = node[1].strip('ansible_host=')
-            node.append('builders')
+clean = [v for v in clean if v]
+
+print(clean)
+
+data = []
+idx = 0
+
+for w in clean:
+    print(w)
+    print(type(w))
+    idx += 1
+    print(idx)
+
+    if "[builders]" in w:
+        save = True
+
+        while save:
+            tmp = []
+            print(idx)
+            print(data)
             node_id = np.random.randint(100)
-            node.insert(0, node_id)
-            node = tuple(node)
-            nodes.append(node)
+            tmp.append(node_id)
+            tmp.append(clean[idx])
+            tmp.append('builder')
+            tmp = tuple(tmp)
+            data.append(tmp)
+            idx += 1
 
-        line_num += 1
+            if clean[idx] == '[users]':
+                break
 
-        if "users" in line:
+idx = 0
 
-            while line:
-                line = file.readline()
+for w in clean:
+    idx += 1
 
-                if len(line.split()) == 2:
-                    node = line.split()
-                    node[1] = node[1].strip('ansible_host=')
-                    node.append('users')
-                    node_id = np.random.randint(100)
-                    node.insert(0, node_id)
-                    node = tuple(node)
-                    nodes.append(node)
+    if "[users]" in w:
+        save = True
 
-                line_num += 1
+        while save:
+
+            try:
+                tmp = []
+                node_id = np.random.randint(100)
+                tmp.append(node_id)
+                tmp.append(clean[idx])
+                tmp.append('user')
+                tmp = tuple(tmp)
+                data.append(tmp)
+                idx += 1
+
+            except:
+                break
 
 file.close()
 
-print(nodes)
-
+print()
+print(data)
 
 
 ## db manipulation
+
+# connect to db
 con = sqlite3.connect('../nodes.db3')
 cur = con.cursor()
-query = "insert into nodes values(?,?,?,?);"
+query = "insert into nodes values(?,?,?);"
 
+# insert data
 cur.execute('delete from nodes;')
-cur.executemany(query, nodes)
+cur.executemany(query, data)
 con.commit()
 
+# show result
 cur.execute('select * from nodes')
 print(cur.fetchall())
 con.close()
-
 
 

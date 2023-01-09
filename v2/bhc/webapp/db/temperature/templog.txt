@@ -1,25 +1,10 @@
-rpi6404 | UNREACHABLE! => {
-    "changed": false,
-    "msg": "Failed to connect to the host via ssh: mux_client_request_session: read from master failed: Broken pipe\r\nssh: connect to host 192.168.1.244 port 22: Connection timed out",
-    "unreachable": true
-}
-rpi6403 | UNREACHABLE! => {
-    "changed": false,
-    "msg": "Failed to connect to the host via ssh: mux_client_request_session: read from master failed: Broken pipe\r\nssh: connect to host 192.168.1.243 port 22: Connection timed out",
-    "unreachable": true
-}
-rpi6405 | UNREACHABLE! => {
-    "changed": false,
-    "msg": "Failed to connect to the host via ssh: mux_client_request_session: read from master failed: Broken pipe\r\nssh: connect to host 192.168.1.245 port 22: Connection timed out",
-    "unreachable": true
-}
-rpi6402 | UNREACHABLE! => {
-    "changed": false,
-    "msg": "Failed to connect to the host via ssh: mux_client_request_session: read from master failed: Broken pipe\r\nssh: connect to host 192.168.1.242 port 22: Connection timed out",
-    "unreachable": true
-}
-rpi6406 | UNREACHABLE! => {
-    "changed": false,
-    "msg": "Failed to connect to the host via ssh: mux_client_request_session: read from master failed: Broken pipe\r\nssh: connect to host 192.168.1.246 port 22: Connection timed out",
-    "unreachable": true
-}
+rpi6406 | CHANGED | rc=0 >>
+44303
+rpi6405 | CHANGED | rc=0 >>
+44303
+rpi6403 | CHANGED | rc=0 >>
+47225
+rpi6402 | CHANGED | rc=0 >>
+48686
+rpi6404 | CHANGED | rc=0 >>
+44303

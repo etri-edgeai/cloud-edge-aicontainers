@@ -13,9 +13,10 @@ warnings.filterwarnings(action='ignore')
 
 def get_cpurat_data():
     ## write temporary log file
-    os.system("ansible-playbook sysinfo.yaml -t cpu > syslog.txt")
+    os.system("ansible-playbook sysinfo.yaml -i ../../edge-hosts.ini -t cpu > syslog.txt")
 
     ## regexs
+    rows = []
     p_start = re.compile('TASK \[cpu usage].+')
     p_end = re.compile('PLAY RECAP.+')
 
@@ -32,7 +33,6 @@ def get_cpurat_data():
                 idx = lines.index(line)
                 run = True
                 i = 0
-                rows = []
 
                 while run:
                     ## drop no-useful strings and characters
@@ -61,7 +61,7 @@ def get_cpurat_data():
     ## load current nodes info from hosts table
     con = sqlite3.connect('../nodes.db3')
     cur = con.cursor()
-    cur.execute('select name from nodes where type = "users"')
+    cur.execute('select name from nodes where type = "user"')
     tmp = cur.fetchall()
 
     ## save node lists
@@ -151,9 +151,10 @@ def get_storage_data():
     #                 if end:
     #                     run = False
     ## write log file
-    os.system("ansible-playbook sysinfo.yaml -t storage2 > syslog.txt")
+    os.system("ansible-playbook sysinfo.yaml -i ../../edge-hosts.ini -t storage2 > syslog.txt")
 
-    ## regexs
+    ## regexs & var
+    rows_inuse = []
     p_start = re.compile('TASK \[storage inuse].+')
     p_end = re.compile('PLAY RECAP.+')
 
@@ -170,7 +171,6 @@ def get_storage_data():
                 idx = lines.index(line)
                 run = True
                 i = 0
-                rows_inuse = []
 
                 while run:
                     ## drop no-useful strings and characters
@@ -186,9 +186,10 @@ def get_storage_data():
                     if end:
                         run = False
     ## write log file
-    os.system("ansible-playbook sysinfo.yaml -t storage3 > syslog.txt")
+    os.system("ansible-playbook sysinfo.yaml -i ../../edge-hosts.ini -t storage3 > syslog.txt")
 
-    ## regexs
+    ## regexs & var
+    rows_cap = []
     p_start = re.compile('TASK \[storage capacity].+')
     p_end = re.compile('PLAY RECAP.+')
 
@@ -205,7 +206,6 @@ def get_storage_data():
                 idx = lines.index(line)
                 run = True
                 i = 0
-                rows_cap = []
 
                 while run:
                     ## drop no-useful strings and characters
@@ -242,7 +242,7 @@ def get_storage_data():
     ## load current nodes info from hosts table
     con = sqlite3.connect('../nodes.db3')
     cur = con.cursor()
-    cur.execute('select name from nodes where type = "users"')
+    cur.execute('select name from nodes where type = "user"')
     tmp = cur.fetchall()
 
     ## save node lists
