@@ -26,6 +26,6 @@ sudo service grafana-server start
 >- username : admin
 >- password : admin
 
-### Pannel Test
+### Panel Test
 Table pannel을 테스트했습니다.<br>
 ![](./img4doc/table.png)
