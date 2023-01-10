@@ -26,6 +26,11 @@ sudo service grafana-server start
 >- username : admin
 >- password : admin
 
-### Panel Test
-Table pannel을 테스트했습니다.<br>
-![](./img4doc/table.png)
+## Panel Test
+
+### Table
+Table panel을 테스트했습니다.<br>
+ansible inventory에 등록된 hosts 정보를 출력합니다.
+
+![](./img4doc/table_hosts.png)
+
