@@ -26,7 +26,7 @@
 ```bash
 $ cat /sys/devices/virtual/thermal/thermal_zone0/temp
 ```
-출력된 온도 정보는 Kelvin 단위입니다. Celcius로 환산해줍니다.
+출력된 온도 정보는 Kelvin 단위입니다. Celsius로 환산해줍니다.
 ```python
 output = round(output / 10 - 273.15, 2)
 ```
