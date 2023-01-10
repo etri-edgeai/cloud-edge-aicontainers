@@ -1,5 +1,6 @@
 # 현재위치 좌표 얻기
 import requests, json
+from geopy.geocoders import Nominatim
 
 
 ## 위치 좌표 얻어주는 사이트 활용
@@ -14,8 +15,8 @@ def current_location():
 
     return crd
 
-crd = current_location()
-print(crd)
+# crd = current_location()
+# print(crd)
 
 
 
@@ -27,7 +28,6 @@ def geocoding(address):
 
     return crd
 
-crd = geocoding("대구 태전동")
+crd = geocoding("여수시 중앙동 246-1")
 print(crd['lat'])
 print(crd['lng'])
-
