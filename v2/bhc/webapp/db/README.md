@@ -8,7 +8,6 @@
 ### 호스트 정보 from ```hosts.py```
 >ansible hosts 파일에 명시된 등록된 사용자 정보를 파싱하여 DB에 저장합니다.<br>
 >Table panel을 활용하여 목록을 시각화합니다.
-<br>
 
 ![](./img4doc/nodes.png)
 
