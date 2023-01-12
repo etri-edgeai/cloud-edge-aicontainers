@@ -82,8 +82,25 @@ df -P | grep -v ^Filesystem | awk '{sum += $4} END { print sun/1024/1024 }
 {sum += $x}의 필드값을 변경하면 총 용량, 사용 중 용량, 잔여 용량을 각각 확인할 수 있습니다. (```db/sysinfo/sysinfo.yaml``` 참조)
 
 ### 위치 정보 from ```geoloc/get_geoloc_db.py```
->작업 진행중입니다.
+>입력된 한글 주소를 위치 정보(위도, 경도)로 변환합니다.<br>
+>위·경도 정보를 토대로 지도에 해당 위치를 표시합니다.
 
+![](./img4doc/location.png)
+
+#### geopy
+파이썬 지오코딩 라이브러리 geopy의 기능을 사용합니다.
+```python
+from geopy.geocoders import Nominatim
+
+geolocoder = Nominatim(user_agent = 'South Korea', timeout=None)
+geo = goelocoder.geocode(address)
+crd = {'lat':geo.latitude, 'lng':geo.longitude}
+
+print(crd['lat'])
+print(crd['lng'])
+```
+자세한 내용은 공식 문서에서 확인할 수 있습니다.<br>
+* [Geopy Docs](https://geopy.readthedocs.io/en/stable/)
 
 ## DB 현황
 > 지속 업데이트 예정

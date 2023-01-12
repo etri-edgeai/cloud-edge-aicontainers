@@ -7,94 +7,96 @@ import re
 
 ## parsing hosts.ini
 # file = open('/etc/ansible/hosts', 'r')
-file = open('../../edge-hosts.ini', 'r')
-line_num = 1
-f = file.readlines()
 
-## preprocessing
-clean = []
-p =  re.compile(' [ansible].+')
+def get_hosts():
+    file = open('../edge-hosts.ini', 'r')
+    line_num = 1
+    f = file.readlines()
 
-for w in f:
-    w = re.sub(p, "", w)
-    w = w.strip('\n')
-    clean.append(w)
+    ## preprocessing
+    clean = []
+    p =  re.compile(' [ansible].+')
 
-clean = [v for v in clean if v]
+    for w in f:
+        w = re.sub(p, "", w)
+        w = w.strip('\n')
+        clean.append(w)
 
-print(clean)
+    clean = [v for v in clean if v]
 
-data = []
-idx = 0
+    print(clean)
 
-for w in clean:
-    print(w)
-    print(type(w))
-    idx += 1
-    print(idx)
+    data = []
+    idx = 0
 
-    if "[builders]" in w:
-        save = True
+    for w in clean:
+        print(w)
+        print(type(w))
+        idx += 1
+        print(idx)
 
-        while save:
-            tmp = []
-            print(idx)
-            print(data)
-            node_id = np.random.randint(100)
-            tmp.append(node_id)
-            tmp.append(clean[idx])
-            tmp.append('builder')
-            tmp = tuple(tmp)
-            data.append(tmp)
-            idx += 1
+        if "[builders]" in w:
+            save = True
 
-            if clean[idx] == '[users]':
-                break
-
-idx = 0
-
-for w in clean:
-    idx += 1
-
-    if "[users]" in w:
-        save = True
-
-        while save:
-
-            try:
+            while save:
                 tmp = []
+                print(idx)
+                print(data)
                 node_id = np.random.randint(100)
                 tmp.append(node_id)
                 tmp.append(clean[idx])
-                tmp.append('user')
+                tmp.append('builder')
                 tmp = tuple(tmp)
                 data.append(tmp)
                 idx += 1
 
-            except:
-                break
+                if clean[idx] == '[users]':
+                    break
 
-file.close()
+    idx = 0
 
-print()
-print(data)
+    for w in clean:
+        idx += 1
+
+        if "[users]" in w:
+            save = True
+
+            while save:
+
+                try:
+                    tmp = []
+                    node_id = np.random.randint(100)
+                    tmp.append(node_id)
+                    tmp.append(clean[idx])
+                    tmp.append('user')
+                    tmp = tuple(tmp)
+                    data.append(tmp)
+                    idx += 1
+
+                except:
+                    break
+
+    file.close()
+
+    print()
+    print(data)
 
 
-## db manipulation
+    ## db manipulation
 
-# connect to db
-con = sqlite3.connect('../nodes.db3')
-cur = con.cursor()
-query = "insert into nodes values(?,?,?);"
+    # connect to db
+    con = sqlite3.connect('nodes.db3')
+    cur = con.cursor()
+    query = "insert into nodes values(?,?,?);"
 
-# insert data
-cur.execute('delete from nodes;')
-cur.executemany(query, data)
-con.commit()
+    # insert data
+    cur.execute('delete from nodes;')
+    cur.executemany(query, data)
+    con.commit()
 
-# show result
-cur.execute('select * from nodes')
-print(cur.fetchall())
-con.close()
+    # show result
+    cur.execute('select * from nodes')
+    print(cur.fetchall())
+    con.close()
 
 
