@@ -14,7 +14,7 @@ warnings.filterwarnings(action='ignore')
 
 
 def get_geo_data():
-    con = sqlite3.connect('../nodes.db3')
+    con = sqlite3.connect('nodes.db3')
     cur = con.cursor()
     cur.execute("select name from nodes where type = 'user';")
     nodes = []
@@ -53,7 +53,7 @@ def get_geo_data():
 
     print(data)
 
-    con = sqlite3.connect('../nodes.db3')
+    con = sqlite3.connect('nodes.db3')
     cur = con.cursor()
     query = 'insert into location values(?,?,?,?);'
     cur.executemany(query, data)

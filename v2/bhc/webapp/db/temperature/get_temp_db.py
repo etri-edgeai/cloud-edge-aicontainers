@@ -18,10 +18,10 @@ warnings.filterwarnings(action='ignore')
 ## define data output function
 def get_temp_data():
     ## write file
-    os.system('ansible users -i ../../edge-hosts.ini -m command -a "cat /sys/devices/virtual/thermal/thermal_zone0/temp" > templog.txt')
+    os.system('ansible users -i ../edge-hosts.ini -m command -a "cat /sys/devices/virtual/thermal/thermal_zone0/temp" > tmp/templog.txt')
 
     ## data processing
-    file = open('templog.txt', 'r')
+    file = open('tmp/templog.txt', 'r')
     line = file.readline()
     p = re.compile('rpi[\d]+')
     data = []
@@ -57,7 +57,7 @@ def get_temp_data():
     # print(data)
 
     ## db manipulation
-    con = sqlite3.connect('../nodes.db3')
+    con = sqlite3.connect('nodes.db3')
     cur = con.cursor()
     query = "insert into temp_convrt values(?,?,?);"
     cur.executemany(query, data)
@@ -72,11 +72,11 @@ def get_temp_data():
     con.close()
 
 
-if __name__ == '__main__':
+# if __name__ == '__main__':
 
-    ## make scheduler
-    schedule.every(5).seconds.do(get_temp_data)
+#     ## make scheduler
+#     schedule.every(5).seconds.do(get_temp_data)
 
-    while True:
-        schedule.run_pending()
-        time.sleep(1)
+#     while True:
+#         schedule.run_pending()
+#         time.sleep(1)

@@ -9,7 +9,7 @@ import re
 # file = open('/etc/ansible/hosts', 'r')
 
 def get_hosts():
-    file = open('../../edge-hosts.ini', 'r')
+    file = open('../edge-hosts.ini', 'r')
     line_num = 1
     f = file.readlines()
 
@@ -85,7 +85,7 @@ def get_hosts():
     ## db manipulation
 
     # connect to db
-    con = sqlite3.connect('../nodes.db3')
+    con = sqlite3.connect('nodes.db3')
     cur = con.cursor()
     query = "insert into nodes values(?,?,?);"
 
