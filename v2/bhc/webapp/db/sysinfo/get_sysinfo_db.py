@@ -319,7 +319,7 @@ def get_storage_data():
 
 def get_mem_data():
 
-    os.system("ansible-playbook sysinfo.yaml -i ../../edge-hosts.ini -t storage3 > syslog.txt")
+    os.system("ansible-playbook sysinfo.yaml -i ../edge-hosts.ini -t storage3 > syslog.txt")
 
     rows = []
     p_start = re.compile('TASK \[memory usage].+')
@@ -363,7 +363,7 @@ def get_mem_data():
 
     nodes = []
 
-    con = sqlite3.connect('../nodes.db3')
+    con = sqlite3.connect('nodes.db3')
     cur = con.cursor()
     cur.execute('select name from nodes where type = "user"')
     tmp = cur.fetchall()
@@ -436,7 +436,7 @@ def get_mem_data():
 
 
     ## insert data into DB
-    con = sqlite3.connect('../nodes.db3')
+    con = sqlite3.connect('nodes.db3')
     cur = con.cursor()
     query = "insert into meminfo values(?,?,?);"
     cur.executemany(query, log)

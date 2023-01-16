@@ -10,7 +10,7 @@ import re
 
 def get_pred():
     
-    os.system("ansible-playbook run_model.yaml -i ../../edge-hosts.ini -t pred > predlog.txt")
+    os.system("ansible-playbook run_model.yaml -i ../edge-hosts.ini -t pred > predlog.txt")
 
     rows = []
     p_start = re.compile('Prediction :.+')
@@ -50,7 +50,7 @@ def get_pred():
     nodes = []
 
     ## load current nodes info from hosts table
-    con = sqlite3.connect('../nodes.db3')
+    con = sqlite3.connect('nodes.db3')
     cur = con.cursor()
     cur.execute('select name from nodes where type = "builder"')
     tmp = cur.fetchall()
@@ -75,7 +75,7 @@ def get_pred():
         log.append(tmp)
 
     ## insert data into DB
-    con = sqlite3.connect('../nodes.db3')
+    con = sqlite3.connect('nodes.db3')
     cur = con.cursor()
     query = "insert into modelpred values(?,?,?,?);"
     cur.executemany(query, log)
