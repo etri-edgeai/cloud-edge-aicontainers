@@ -17,6 +17,7 @@ def get_system_informations():
     ## make scheduler
     schedule.every(5).seconds.do(sys.get_cpurat_data)
     schedule.every(5).seconds.do(sys.get_storage_data)
+    schedule.every(5).seconds.do(sys.get_mem_data)
     schedule.every(5).seconds.do(temp.get_temp_data)
 
     while True:
@@ -33,4 +34,3 @@ def get_prediction():
 if __name__ == '__main__':
 
     get_system_informations()
-    
