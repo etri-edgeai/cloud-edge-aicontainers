@@ -317,6 +317,142 @@ def get_storage_data():
 
 
 
+def get_mem_data():
+
+    os.system("ansible-playbook sysinfo.yaml -i ../../edge-hosts.ini -t storage3 > syslog.txt")
+
+    rows = []
+    p_start = re.compile('TASK \[memory usage].+')
+    p_end = re.compile('PLAY RECAP.+')
+
+    with open('syslog.txt', 'r') as f:
+
+        lines = f.readlines()
+
+    ## search task start line
+        for line in lines:
+            start = p_start.search(str(line))
+
+            ## save index of string data
+            if start:
+                idx = lines.index(line)
+                run = True
+                i = 0
+
+                while run:
+                    ## drop no-useful strings and characters
+                    lines[idx+i] = re.sub(r"[^\uAC00-\uD7A30-9a-zA-Z\s\.]", "", lines[idx+i])
+                    lines[idx+i] = re.sub(" +", " ", lines[idx+i])
+                    lines[idx+i] = re.sub("\n", "", lines[idx+i])
+                    lines[idx+i] = re.sub("changed.+", "", lines[idx+i])
+
+                    rows.append(lines[idx+i])
+                    ## search end of task
+                    end = p_end.search(lines[idx+i])
+
+                    i += 1
+
+                    if end:
+                        run = False
+
+    rows = [v for v in rows if v]
+
+    for row in rows:
+        rows[rows.index(row)] = row.strip()
+
+
+    nodes = []
+
+    con = sqlite3.connect('../nodes.db3')
+    cur = con.cursor()
+    cur.execute('select name from nodes where type = "user"')
+    tmp = cur.fetchall()
+
+    for node in tmp:
+        node = str(node)
+        node = re.sub(r"[^\uAC00-\uD7A30-9a-zA-Z\s]", "", node)
+        nodes.append(node)
+
+    # print(nodes)
+
+
+    data = []
+
+    p_total = re.compile('MemTotal \d+')
+    p_free = re.compile('MemFree \d+')
+    p_aval = re.compile('MemAvailable \d+')
+
+    for node in nodes:
+            for row in rows:
+                if node in row:
+                    idx = rows.index(row)
+                    idx += 1
+                    print(idx)
+                    
+                    tmp = []
+                    
+                    if 'msg' in rows[idx]:
+                        total = p_total.findall(rows[idx])
+    #                     free = p_free.findall(rows[idx])
+                        aval = p_aval.findall(rows[idx])
+                        
+                        total = re.sub(r"[^0-9]", "", str(total))
+    #                     free = re.sub("[^0-9]", "", str(free))
+                        aval = re.sub("[^0-9]", "", str(aval))
+                        
+                        tmp.append(total)
+    #                     tmp.append(free)
+                        tmp.append(aval)
+                        
+                        d = []
+                        
+                        for i in range(len(tmp)):
+                            d.append(tmp[i])
+                        
+                        data.append(d)
+                        
+    # print(data)
+
+
+    for i in range(len(data)):
+        for j in range(len(data[i])):
+            data[i][j] = int(data[i][j])
+            
+    # print(type(data[0][0]))
+
+
+    now = round(time.time())
+    log = []
+
+    for i in range(len(nodes)):
+        tmp = []
+        tmp.append(now)
+        tmp.append(nodes[i])
+        tmp.append(round(((data[i][0] - data[i][1]) / data[i][0]) * 100, 2))
+        tmp = tuple(tmp)
+        log.append(tmp)
+
+    # print(log)
+
+
+    ## insert data into DB
+    con = sqlite3.connect('../nodes.db3')
+    cur = con.cursor()
+    query = "insert into meminfo values(?,?,?);"
+    cur.executemany(query, log)
+    con.commit()
+
+    ## show result
+    cur.execute('select * from meminfo')
+    out = cur.fetchall()
+
+    for col in out:
+        print(col)
+
+    con.close()
+
+
+
 
 ## scheduling
 if __name__ == '__main__':

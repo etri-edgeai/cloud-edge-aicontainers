@@ -1,0 +1,23 @@
+
+PLAY [Docker model run && show output] *****************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [rpi6401]
+
+TASK [model prediction] ********************************************************
+changed: [rpi6401]
+
+TASK [debug] *******************************************************************
+ok: [rpi6401] => {
+    "msg": [
+        "Namespace(input='ant.jpeg', model_type='ResNet50')",
+        "",
+        "1/1 [==============================] - ETA: 0s\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b",
+        "1/1 [==============================] - 4s 4s/step",
+        "Prediction :  [('n02219486', 'ant', 0.9818205), ('n02165105', 'tiger_beetle', 0.00959373), ('n02168699', 'long-horned_beetle', 0.0039857603), ('n02268443', 'dragonfly', 0.00078227365), ('n02229544', 'cricket', 0.00072638784)]"
+    ]
+}
+
+PLAY RECAP *********************************************************************
+rpi6401                    : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
