@@ -13,7 +13,7 @@ warnings.filterwarnings(action='ignore')
 
 def get_cpurat_data():
     ## write temporary log file
-    os.system("ansible-playbook sysinfo.yaml -i ../../edge-hosts.ini -t cpu > syslog.txt")
+    os.system("ansible-playbook sysinfo/sysinfo.yaml -i ../edge-hosts.ini -t cpu > tmp/syslog.txt")
 
     ## regexs
     rows = []
@@ -21,7 +21,7 @@ def get_cpurat_data():
     p_end = re.compile('PLAY RECAP.+')
 
     ## read file
-    with open('syslog.txt', 'r') as f:
+    with open('tmp/syslog.txt', 'r') as f:
         lines = f.readlines()
 
         ## search task start line
@@ -59,7 +59,7 @@ def get_cpurat_data():
     data = []
 
     ## load current nodes info from hosts table
-    con = sqlite3.connect('../nodes.db3')
+    con = sqlite3.connect('nodes.db3')
     cur = con.cursor()
     cur.execute('select name from nodes where type = "user"')
     tmp = cur.fetchall()
@@ -96,7 +96,7 @@ def get_cpurat_data():
         log.append(tmp)
 
     ## insert data into DB
-    con = sqlite3.connect('../nodes.db3')
+    con = sqlite3.connect('nodes.db3')
     cur = con.cursor()
     query = "insert into cpuinfo values(?,?,?);"
     cur.executemany(query, log)
@@ -151,7 +151,7 @@ def get_storage_data():
     #                 if end:
     #                     run = False
     ## write log file
-    os.system("ansible-playbook sysinfo.yaml -i ../../edge-hosts.ini -t storage2 > syslog.txt")
+    os.system("ansible-playbook sysinfo/sysinfo.yaml -i ../edge-hosts.ini -t storage2 > tmp/syslog.txt")
 
     ## regexs & var
     rows_inuse = []
@@ -159,7 +159,7 @@ def get_storage_data():
     p_end = re.compile('PLAY RECAP.+')
 
     ## read file
-    with open('syslog.txt', 'r') as f:
+    with open('tmp/syslog.txt', 'r') as f:
         lines = f.readlines()
 
         ## search task start line
@@ -186,7 +186,7 @@ def get_storage_data():
                     if end:
                         run = False
     ## write log file
-    os.system("ansible-playbook sysinfo.yaml -i ../../edge-hosts.ini -t storage3 > syslog.txt")
+    os.system("ansible-playbook sysinfo/sysinfo.yaml -i ../edge-hosts.ini -t storage3 > tmp/syslog.txt")
 
     ## regexs & var
     rows_cap = []
@@ -194,7 +194,7 @@ def get_storage_data():
     p_end = re.compile('PLAY RECAP.+')
 
     ## read file
-    with open('syslog.txt', 'r') as f:
+    with open('tmp/syslog.txt', 'r') as f:
         lines = f.readlines()
 
         ## search task start line
@@ -240,7 +240,7 @@ def get_storage_data():
     data_cap = []
     
     ## load current nodes info from hosts table
-    con = sqlite3.connect('../nodes.db3')
+    con = sqlite3.connect('nodes.db3')
     cur = con.cursor()
     cur.execute('select name from nodes where type = "user"')
     tmp = cur.fetchall()
@@ -299,7 +299,7 @@ def get_storage_data():
 
 
     ## insert data into DB
-    con = sqlite3.connect('../nodes.db3')
+    con = sqlite3.connect('nodes.db3')
     cur = con.cursor()
     query = "insert into strginfo values(?,?,?,?);"
     cur.executemany(query, log)
@@ -454,13 +454,13 @@ def get_mem_data():
 
 
 
-## scheduling
-if __name__ == '__main__':
+# ## scheduling
+# if __name__ == '__main__':
 
-    ## make scheduler
-    schedule.every(5).seconds.do(get_cpurat_data)
-    schedule.every(5).seconds.do(get_storage_data)
+#     ## make scheduler
+#     schedule.every(5).seconds.do(get_cpurat_data)
+#     schedule.every(5).seconds.do(get_storage_data)
 
-    while True:
-        schedule.run_pending()
-        time.sleep(1)
+#     while True:
+#         schedule.run_pending()
+#         time.sleep(1)
