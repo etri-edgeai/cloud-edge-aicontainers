@@ -81,6 +81,18 @@ df -P | grep -v ^Filesystem | awk '{sum += $4} END { print sun/1024/1024 }
 ```
 {sum += $x}의 필드값을 변경하면 총 용량, 사용 중 용량, 잔여 용량을 각각 확인할 수 있습니다. (```db/sysinfo/sysinfo.yaml``` 참조)
 
+### 메모리 사용률 from ```sysinfo/get_sysinfo_db.py```
+
+```python
+def get_mem_data():
+```
+
+>커널 명령을 통해 메모리 사용률 정보를 출력합니다.<br>
+>ansible-playbook으로 커맨드를 전달합니다.<br>
+>시간 정보를 포함합니다.
+
+![](./img4doc/meminfo.png)
+
 ### 위치 정보 from ```geoloc/get_geoloc_db.py```
 >입력된 한글 주소를 위치 정보(위도, 경도)로 변환합니다.<br>
 >위·경도 정보를 토대로 지도에 해당 위치를 표시합니다.
@@ -103,7 +115,27 @@ print(crd['lng'])
 * [Geopy Docs](https://geopy.readthedocs.io/en/stable/)
 
 ## DB 현황
-> 지속 업데이트 예정
+### init_db.py
+db 파일 미존재 시 db를 자동으로 생성합니다.<br>
+기존 db에 테이블 등 추가 및 구조 변경이 용이하도록 python 파일을 따로 제작했습니다.
 
 ![](./img4doc/db_tables.png)
+
+
+## run.py
+각 코드를 모듈화하여 모든 로그 수집을 일괄 수행합니다.<br>
+
+```python
+python run.py
+```
+
+### 수행 동작
+- DB 생성
+- 노드 리스트 정보 수집
+- 위치 정보 수집
+- 온도 정보 수집
+- CPU 사용률 정보 수집
+- 메모리 사용률 정보 수집
+- 디스크 용량 정보 수집
+- 추론 수행 결과 수집
 
