@@ -1,0 +1,30 @@
+- name: Docker model run && show output
+  hosts: builders
+  
+  # vars_prompt:
+  #   - name: tag
+  #     prompt: please enter the type of model.
+  #     private: no
+  
+  vars:
+    image_name: "{{ ansible_facts['architecture'] }}-model"
+    model_tag: "imagenet"
+
+  
+  tasks:
+
+  ## run container
+  # - name: run container
+  #   command: docker run -d --name model -it {{ image_name }}:{{ model_tag }}
+  #   register: command_output
+  # - debug:
+  #     var: command_output.stdout_lines
+
+
+  ## run model
+  - name: model prediction
+    tags: pred
+    command: docker exec model python home/model.py
+    register: command_output
+  - debug: msg="{{command_output.stdout_lines}}"
+    tags: pred
