@@ -75,7 +75,7 @@ def get_storage_data():
 
 ![](./img4doc/strginfo.png)
 
-#### command line
+#### 디스크 용량 정보 확인 명령어
 ```bash
 df -P | grep -v ^Filesystem | awk '{sum += $4} END { print sun/1024/1024 }
 ```
@@ -92,6 +92,16 @@ def get_mem_data():
 >시간 정보를 포함합니다.
 
 ![](./img4doc/meminfo.png)
+
+#### 메모리 사용률 정보 확인 명령어
+
+```bash
+cat /proc/meminfo | grep Mem
+```
+세가지 필드값을 가집니다.
+- MemTotal
+- MemFree
+- MemAvailable
 
 ### 위치 정보 from ```geoloc/get_geoloc_db.py```
 >입력된 한글 주소를 위치 정보(위도, 경도)로 변환합니다.<br>
