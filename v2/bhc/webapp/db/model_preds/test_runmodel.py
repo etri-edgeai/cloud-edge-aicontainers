@@ -10,13 +10,13 @@ import re
 
 def get_pred(hosts_file, conn):
     
-    os.system("ansible-playbook run_model.yaml -i {hosts_file} -t pred > predlog.txt".format(hosts_file=hosts_file))
+    os.system("ansible-playbook model_preds/run_model.yaml -i {hosts_file} -t pred > tmp/predlog.txt".format(hosts_file=hosts_file))
 
     rows = []
     p_start = re.compile('Prediction :.+')
     p_end = re.compile('PLAY RECAP.+')
 
-    with open ("predlog.txt", 'r') as f:
+    with open ("tmp/predlog.txt", 'r') as f:
         lines = f.readlines()
 
         for line in lines:
