@@ -131,3 +131,18 @@ select CAST(latitude as real) as lat, CAST(longitude as real) as lng, name from 
 
 #### Result
 ![](./img4doc/location.png)
+
+### Table - prediction
+table panel을 활용해 모델이 추론한 결과를 시각화합니다.<br>
+top5 추론 결과 중 최대값을 가지는 클래스만 호출합니다.
+
+>추론 결과의 시각화 가능 여부 자체에 초점을 맞춘 작업입니다.<br>
+>추론 결과 시각화 방안은 지속 고도화 중입니다.
+
+#### Query
+```sql
+select name, class, max(probability) from modelpred;
+```
+
+#### Result
+![](./img4doc/pred.png)
