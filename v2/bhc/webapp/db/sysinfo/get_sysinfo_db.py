@@ -11,9 +11,9 @@ import warnings
 warnings.filterwarnings(action='ignore')
 
 
-def get_cpurat_data():
+def get_cpurat_data(hosts_file, conn):
     ## write temporary log file
-    os.system("ansible-playbook sysinfo/sysinfo.yaml -i ../edge-hosts.ini -t cpu > tmp/syslog.txt")
+    os.system("ansible-playbook sysinfo/sysinfo.yaml -i {hosts_file} -t cpu > tmp/syslog.txt".format(hosts_file=hosts_file))
 
     ## regexs
     rows = []
@@ -59,7 +59,7 @@ def get_cpurat_data():
     data = []
 
     ## load current nodes info from hosts table
-    con = sqlite3.connect('nodes.db3')
+    con = conn
     cur = con.cursor()
     cur.execute('select name from nodes where type = "user"')
     tmp = cur.fetchall()
@@ -89,14 +89,14 @@ def get_cpurat_data():
     ## save and arrange data before inserting into DB
     for i in range(len(nodes)):
         tmp = []
+        tmp.append(now)
         tmp.append(nodes[i])
         tmp.append(data[i])
-        tmp.append(now)
         tmp = tuple(tmp)
         log.append(tmp)
 
     ## insert data into DB
-    con = sqlite3.connect('nodes.db3')
+    con = conn
     cur = con.cursor()
     query = "insert into cpuinfo values(?,?,?);"
     cur.executemany(query, log)
@@ -108,13 +108,11 @@ def get_cpurat_data():
 
     for col in out:
         print(col)
-    
-    con.close()
 
 
 
 
-def get_storage_data():
+def get_storage_data(hosts_file, conn):
     ## write log file
     # os.system("ansible-playbook sysinfo.yaml -t storage1 > syslog.txt")
 
@@ -150,8 +148,11 @@ def get_storage_data():
 
     #                 if end:
     #                     run = False
+
+
+    # ============= storage inuse =============
     ## write log file
-    os.system("ansible-playbook sysinfo/sysinfo.yaml -i ../edge-hosts.ini -t storage2 > tmp/syslog.txt")
+    os.system("ansible-playbook sysinfo/sysinfo.yaml -i {hosts_file} -t storage2 > tmp/syslog.txt".format(hosts_file=hosts_file))
 
     ## regexs & var
     rows_inuse = []
@@ -185,8 +186,11 @@ def get_storage_data():
 
                     if end:
                         run = False
+
+
+    # ============ storage cap ================
     ## write log file
-    os.system("ansible-playbook sysinfo/sysinfo.yaml -i ../edge-hosts.ini -t storage3 > tmp/syslog.txt")
+    os.system("ansible-playbook sysinfo/sysinfo.yaml -i {hosts_file} -t storage3 > tmp/syslog.txt".format(hosts_file=hosts_file))
 
     ## regexs & var
     rows_cap = []
@@ -240,7 +244,7 @@ def get_storage_data():
     data_cap = []
     
     ## load current nodes info from hosts table
-    con = sqlite3.connect('nodes.db3')
+    con = conn
     cur = con.cursor()
     cur.execute('select name from nodes where type = "user"')
     tmp = cur.fetchall()
@@ -299,7 +303,7 @@ def get_storage_data():
 
 
     ## insert data into DB
-    con = sqlite3.connect('nodes.db3')
+    con = conn
     cur = con.cursor()
     query = "insert into strginfo values(?,?,?,?);"
     cur.executemany(query, log)
@@ -311,21 +315,19 @@ def get_storage_data():
 
     for col in out:
         print(col)
-    
-    con.close()
 
 
 
 
-def get_mem_data():
+def get_mem_data(hosts_file, conn):
 
-    os.system("ansible-playbook sysinfo.yaml -i ../edge-hosts.ini -t storage3 > syslog.txt")
+    os.system("ansible-playbook sysinfo/sysinfo.yaml -i {hosts_file} -t mem > tmp/syslog.txt".format(hosts_file=hosts_file))
 
     rows = []
     p_start = re.compile('TASK \[memory usage].+')
     p_end = re.compile('PLAY RECAP.+')
 
-    with open('syslog.txt', 'r') as f:
+    with open('tmp/syslog.txt', 'r') as f:
 
         lines = f.readlines()
 
@@ -363,7 +365,7 @@ def get_mem_data():
 
     nodes = []
 
-    con = sqlite3.connect('nodes.db3')
+    con = conn
     cur = con.cursor()
     cur.execute('select name from nodes where type = "user"')
     tmp = cur.fetchall()
@@ -373,13 +375,12 @@ def get_mem_data():
         node = re.sub(r"[^\uAC00-\uD7A30-9a-zA-Z\s]", "", node)
         nodes.append(node)
 
-    # print(nodes)
 
 
     data = []
 
     p_total = re.compile('MemTotal \d+')
-    p_free = re.compile('MemFree \d+')
+    # p_free = re.compile('MemFree \d+')
     p_aval = re.compile('MemAvailable \d+')
 
     for node in nodes:
@@ -411,8 +412,7 @@ def get_mem_data():
                         
                         data.append(d)
                         
-    # print(data)
-
+    print(data)
 
     for i in range(len(data)):
         for j in range(len(data[i])):
@@ -436,7 +436,7 @@ def get_mem_data():
 
 
     ## insert data into DB
-    con = sqlite3.connect('nodes.db3')
+    con = conn
     cur = con.cursor()
     query = "insert into meminfo values(?,?,?);"
     cur.executemany(query, log)
@@ -448,8 +448,6 @@ def get_mem_data():
 
     for col in out:
         print(col)
-
-    con.close()
 
 
 

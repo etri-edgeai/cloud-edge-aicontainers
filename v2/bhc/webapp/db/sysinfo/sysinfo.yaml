@@ -31,3 +31,10 @@
     register: command_output
   - debug: msg="{{command_output.stdout}}"
     tags: storage3
+
+  - name: memory usage
+    tags: mem
+    shell: cat /proc/meminfo | grep Mem
+    register: command_output
+  - debug: msg="{{command_output.stdout}}"
+    tags: mem

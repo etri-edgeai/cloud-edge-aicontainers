@@ -16,9 +16,9 @@ warnings.filterwarnings(action='ignore')
 ## getting temperature data from Edge nodes
 
 ## define data output function
-def get_temp_data():
+def get_temp_data(hosts_file, conn):
     ## write file
-    os.system('ansible users -i ../edge-hosts.ini -m command -a "cat /sys/devices/virtual/thermal/thermal_zone0/temp" > tmp/templog.txt')
+    os.system('ansible users -i {hosts_file} -m command -a "cat /sys/devices/virtual/thermal/thermal_zone0/temp" > tmp/templog.txt'.format(hosts_file=hosts_file))
 
     ## data processing
     file = open('tmp/templog.txt', 'r')
@@ -57,19 +57,18 @@ def get_temp_data():
     # print(data)
 
     ## db manipulation
-    con = sqlite3.connect('nodes.db3')
+    con = conn
     cur = con.cursor()
-    query = "insert into temp_convrt values(?,?,?);"
+    query = "insert into time_temp values(?,?,?);"
     cur.executemany(query, data)
     con.commit()
 
-    cur.execute('select * from temp_convrt')
+    cur.execute('select * from time_temp')
     data = cur.fetchall()
 
     for col in data:
         print(col)
 
-    con.close()
 
 
 # if __name__ == '__main__':

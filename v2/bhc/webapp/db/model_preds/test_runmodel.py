@@ -8,15 +8,15 @@ import re
 
 
 
-def get_pred():
+def get_pred(hosts_file, conn):
     
-    os.system("ansible-playbook run_model.yaml -i ../edge-hosts.ini -t pred > predlog.txt")
+    os.system("ansible-playbook model_preds/run_model.yaml -i {hosts_file} -t pred > tmp/predlog.txt".format(hosts_file=hosts_file))
 
     rows = []
     p_start = re.compile('Prediction :.+')
     p_end = re.compile('PLAY RECAP.+')
 
-    with open ("predlog.txt", 'r') as f:
+    with open ("tmp/predlog.txt", 'r') as f:
         lines = f.readlines()
 
         for line in lines:
@@ -50,7 +50,7 @@ def get_pred():
     nodes = []
 
     ## load current nodes info from hosts table
-    con = sqlite3.connect('nodes.db3')
+    con = conn
     cur = con.cursor()
     cur.execute('select name from nodes where type = "builder"')
     tmp = cur.fetchall()
@@ -75,8 +75,6 @@ def get_pred():
         log.append(tmp)
 
     ## insert data into DB
-    con = sqlite3.connect('nodes.db3')
-    cur = con.cursor()
     query = "insert into modelpred values(?,?,?,?);"
     cur.executemany(query, log)
     con.commit()
@@ -94,7 +92,7 @@ def get_pred():
 
 if __name__ == "__main__":
 
-    schedule.every(20).seconds.do(get_pred)
+    schedule.every(30).seconds.do(get_pred)
 
     while True:
         schedule.run_pending()
