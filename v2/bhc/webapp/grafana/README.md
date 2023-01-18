@@ -107,3 +107,27 @@ clock panel을 테스트했습니다.<br>
 >별도의 쿼리가 없습니다.
 
 ![](./img4doc/clock.png)
+
+### Time-series - Memory Usage
+time series panel을 활용한 메모리 사용률 정보 시각화입니다.<br>
+난 노드의 메모리 사용률 변화를 출력합니다.
+
+#### Query
+```sql
+select time, name, CAST(memratio as real) from meminfo;
+```
+
+#### Result
+![](./img4doc/meminfo.png)
+
+### Map - Location
+map panel을 활용하여 노드의 위치 정보를 시각화합니다.<br>
+한글 주소를 미리 입력받고 주소를 위도, 경도값으로 변환하여 지도에 해당 위치를 표시합니다. (python geopy)
+
+#### Query
+```sql
+select CAST(latitude as real) as lat, CAST(longitude as real) as lng, name from location;
+```
+
+#### Result
+![](./img4doc/location.png)
