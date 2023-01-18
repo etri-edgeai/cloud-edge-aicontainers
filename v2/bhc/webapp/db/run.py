@@ -37,13 +37,6 @@ def get_system_informations(hosts_file, conn):
     schedule.every(5).seconds.do(sys.get_mem_data, hosts_file=hosts_file, conn=conn)
     schedule.every(5).seconds.do(temp.get_temp_data, hosts_file=hosts_file, conn=conn)
 
-    while True:
-        schedule.run_pending()
-        time.sleep(1)
-
-
-def get_prediction(hosts_file, conn):
-
     schedule.every(30).seconds.do(pred.get_pred, hosts_file=hosts_file, conn=conn)
 
     while True:
@@ -61,7 +54,8 @@ def main():
     hosts_file = '../edge-hosts.ini'
 
     get_system_informations(hosts_file, conn)
-    get_prediction(hosts_file, conn)
+
+
 
 if __name__ == '__main__':
 

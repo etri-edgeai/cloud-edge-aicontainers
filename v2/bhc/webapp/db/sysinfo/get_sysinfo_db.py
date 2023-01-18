@@ -388,7 +388,6 @@ def get_mem_data(hosts_file, conn):
                 if node in row:
                     idx = rows.index(row)
                     idx += 1
-                    print(idx)
                     
                     tmp = []
                     

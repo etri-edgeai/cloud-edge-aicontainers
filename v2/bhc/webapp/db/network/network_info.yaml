@@ -1,0 +1,16 @@
+- name: Get networks informations between nodes
+  hosts: users
+  become: true
+
+  tasks:
+
+  - name: install vnstat module
+    apt:
+      name: vnstat
+      state: present
+      force_apt_get: yes
+  
+  - name: get current traffic
+    shell: vnstat -tr
+    register: command_output
+  - debug: msg="{{command_output.stdout}}"
