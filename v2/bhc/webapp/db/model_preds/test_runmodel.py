@@ -86,14 +86,12 @@ def get_pred(hosts_file, conn):
     for col in out:
         print(col)
 
-    con.close()
 
 
+# if __name__ == "__main__":
 
-if __name__ == "__main__":
+#     schedule.every(30).seconds.do(get_pred)
 
-    schedule.every(30).seconds.do(get_pred)
-
-    while True:
-        schedule.run_pending()
-        time.sleep(1)
+#     while True:
+#         schedule.run_pending()
+#         time.sleep(1)
