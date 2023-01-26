@@ -54,6 +54,7 @@ def get_geo_data(conn):
     print(data)
 
     query = 'insert into location values(?,?,?,?);'
+    cur.execute('delete from location;')
     cur.executemany(query, data)
     con.commit()
 

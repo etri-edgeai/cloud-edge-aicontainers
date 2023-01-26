@@ -65,7 +65,7 @@ def get_system_informations(playbook, hosts_file, conn):
     )
 
     schedule.every(5).seconds.do(
-        ntw.get_current_traffic,
+        ntw.get_traffic_json,
         playbook=playbook,
         hosts_file=hosts_file,
         conn=conn
