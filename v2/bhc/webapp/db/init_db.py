@@ -76,6 +76,13 @@ def main(file_path):
                         probability real NOT NULL
                     );"""
 
+    traffic_table = """ CREATE TABLE IF NOT EXISTS traffic (
+                        time NOT NULL,
+                        name text NOT NULL,
+                        rx_bps real NOT NULL,
+                        tx_bps real NOT NULL
+                    );"""
+
     conn = create_db(database)
 
     if conn is not None:
@@ -86,6 +93,7 @@ def main(file_path):
         create_table(conn, strginfo_table)
         create_table(conn, meminfo_table)
         create_table(conn, modelpred_table)
+        create_table(conn, traffic_table)
     
     else:
         print("Cannot connect database.")

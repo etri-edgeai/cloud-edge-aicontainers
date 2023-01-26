@@ -1,6 +1,7 @@
 - name: Get networks informations between nodes
   hosts: users
   become: true
+  tags: network
 
   tasks:
 
@@ -11,6 +12,6 @@
       force_apt_get: yes
   
   - name: get current traffic
-    shell: vnstat -tr
+    shell: vnstat -tr --json
     register: command_output
   - debug: msg="{{command_output.stdout}}"

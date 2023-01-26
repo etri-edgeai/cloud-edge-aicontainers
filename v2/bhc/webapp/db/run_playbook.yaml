@@ -1,0 +1,97 @@
+- name: Get networks informations between nodes
+  hosts: users
+  become: true
+  tags: network
+
+  tasks:
+  - name: install vnstat module
+    tags: traffic
+    apt:
+      name: vnstat
+      state: present
+      force_apt_get: yes
+  
+  - name: get current traffic
+    tags: traffic
+    shell: vnstat -tr
+    register: command_output
+  - debug: msg="{{command_output.stdout}}"
+
+
+
+
+
+
+- name: Docker model run && show output
+  tags: model
+  hosts: builders
+  # vars_prompt:
+  #   - name: tag
+  #     prompt: please enter the type of model.
+  #     private: no
+  vars:
+    image_name: "{{ ansible_facts['architecture'] }}-model"
+    model_tag: "imagenet"
+
+  tasks:
+  # - name: run container
+  #   command: docker run -d --name model -it {{ image_name }}:{{ model_tag }}
+  #   register: command_output
+  # - debug:
+  #     var: command_output.stdout_lines
+
+  - name: model prediction
+    tags: pred
+    command: docker exec model python home/model.py
+    register: command_output
+  - debug: msg="{{command_output.stdout_lines}}"
+    tags: pred
+
+
+
+
+
+
+- name: Get System-Informations
+  tags: system
+  hosts: users
+  gather_facts: no
+  
+  tasks:
+  - name: cpu usage
+    tags: cpu
+    shell: top -b -n 1 | grep -Po '[0-9.]+ id'
+    register: command_output
+  - debug: msg="{{command_output.stdout}}"
+    tags: cpu
+
+  - name: storage total
+    tags: storage1
+    shell: df -P | grep -v ^Filesystem | awk '{sum += $2} END {print sum/1024/1024}'
+    register: command_output
+  - debug: msg="{{command_output.stdout}}"
+    tags: storage1
+
+  - name: storage inuse
+    tags: storage2
+    shell: df -P | grep -v ^Filesystem | awk '{sum += $3} END {print sum/1024/1024}'
+    register: command_output
+  - debug: msg="{{command_output.stdout}}"
+    tags: storage2
+
+  - name: storage capacity
+    tags: storage3
+    shell: df -P | grep -v ^Filesystem | awk '{sum += $4} END {print sum/1024/1024}'
+    register: command_output
+  - debug: msg="{{command_output.stdout}}"
+    tags: storage3
+
+  - name: memory usage
+    tags: mem
+    shell: cat /proc/meminfo | grep Mem
+    register: command_output
+  - debug: msg="{{command_output.stdout}}"
+    tags: mem
+
+
+  
