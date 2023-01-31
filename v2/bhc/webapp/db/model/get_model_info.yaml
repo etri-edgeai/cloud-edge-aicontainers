@@ -1,0 +1,18 @@
+- name: model activation
+  hosts: users
+  vars:
+    registry: "ethicsense"
+    image_name: "{{ ansible_facts['architecture'] }}-model"
+    model_tag: "imagenet"
+
+  tasks:
+
+  - name: get model image from server
+    shell: docker pull {{ registry }}/{{ image_name }}:{{ model_tag }}
+    register: output
+  - debug: msg="{{ output.stdout_lines }}"
+
+  - name: start container
+    shell: docker run -d --name model -it {{ registry }}/{{ image_name }}:{{ model_tag }}
+    register: output
+  - debug: msg="{{ output.stdout_lines }}"

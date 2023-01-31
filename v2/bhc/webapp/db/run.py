@@ -4,7 +4,7 @@ from sysinfo import get_sysinfo_db as sys
 from geoloc import get_geoloc_db as geo
 from hosts import hosts 
 from temperature import get_temp_db as temp
-from model_preds import test_runmodel as pred
+from model import test_runmodel as pred
 from network import get_network_db as ntw
 import init_db
 
