@@ -4,7 +4,7 @@ from sysinfo import get_sysinfo_db as sys
 from geoloc import get_geoloc_db as geo
 from hosts import hosts 
 from temperature import get_temp_db as temp
-from model_preds import test_runmodel as pred
+from model import test_runmodel as pred
 from network import get_network_db as ntw
 import init_db
 
@@ -65,7 +65,7 @@ def get_system_informations(playbook, hosts_file, conn):
     )
 
     schedule.every(5).seconds.do(
-        ntw.get_current_traffic,
+        ntw.get_traffic_json,
         playbook=playbook,
         hosts_file=hosts_file,
         conn=conn

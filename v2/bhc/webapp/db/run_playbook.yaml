@@ -13,9 +13,31 @@
   
   - name: get current traffic
     tags: traffic
-    shell: vnstat -tr
+    shell: vnstat -tr 10 --json
     register: command_output
-  - debug: msg="{{command_output.stdout}}"
+
+  - name: get json data
+    tags: traffic
+    set_fact:
+      jsondata: "{{ command_output.stdout | from_json }}"
+
+  - name: rx
+    tags: traffic
+    set_fact:
+      rx: "{{ jsondata | json_query(jmesquery) }}"
+    vars:
+      jmesquery: 'rx.bytespersecond'
+
+  - name: tx
+    tags: traffic
+    set_fact:
+      tx: "{{ jsondata | json_query(jmesquery) }}"
+    vars:
+      jmesquery: 'tx.bytespersecond'
+
+  - name: Debug
+    tags: traffic
+    debug: msg=" RX={{ rx }}, TX={{ tx }}"
 
 
 
