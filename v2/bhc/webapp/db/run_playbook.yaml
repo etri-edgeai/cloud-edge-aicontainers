@@ -1,7 +1,6 @@
 - name: Get networks informations between nodes
   hosts: users
   become: true
-  tags: network
 
   tasks:
   - name: install vnstat module
@@ -45,7 +44,6 @@
 
 
 - name: Docker model run && show output
-  tags: model
   hosts: builders
   # vars_prompt:
   #   - name: tag
@@ -75,7 +73,6 @@
 
 
 - name: Get System-Informations
-  tags: system
   hosts: users
   gather_facts: no
   

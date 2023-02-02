@@ -13,7 +13,7 @@ warnings.filterwarnings(action='ignore')
 
 def get_cpurat_data(playbook, hosts_file, conn):
     ## write temporary log file
-    os.system("ansible-playbook {playbook} -i {hosts_file} -t system,cpu > tmp/syslog.txt".format(playbook=playbook, hosts_file=hosts_file))
+    os.system("ansible-playbook {playbook} -i {hosts_file} -t cpu > tmp/syslog.txt".format(playbook=playbook, hosts_file=hosts_file))
 
     ## regexs
     rows = []
@@ -152,7 +152,7 @@ def get_storage_data(playbook, hosts_file, conn):
 
     # ============= storage inuse =============
     ## write log file
-    os.system("ansible-playbook {playbook} -i {hosts_file} -t system,storage2 > tmp/syslog.txt".format(playbook=playbook, hosts_file=hosts_file))
+    os.system("ansible-playbook {playbook} -i {hosts_file} -t storage2 > tmp/syslog.txt".format(playbook=playbook, hosts_file=hosts_file))
 
     ## regexs & var
     rows_inuse = []
@@ -190,7 +190,7 @@ def get_storage_data(playbook, hosts_file, conn):
 
     # ============ storage cap ================
     ## write log file
-    os.system("ansible-playbook {playbook} -i {hosts_file} -t system,storage3 > tmp/syslog.txt".format(playbook=playbook, hosts_file=hosts_file))
+    os.system("ansible-playbook {playbook} -i {hosts_file} -t storage3 > tmp/syslog.txt".format(playbook=playbook, hosts_file=hosts_file))
 
     ## regexs & var
     rows_cap = []
@@ -321,7 +321,7 @@ def get_storage_data(playbook, hosts_file, conn):
 
 def get_mem_data(playbook, hosts_file, conn):
 
-    os.system("ansible-playbook {playbook} -i {hosts_file} -t system,mem > tmp/syslog.txt".format(playbook=playbook, hosts_file=hosts_file))
+    os.system("ansible-playbook {playbook} -i {hosts_file} -t mem > tmp/syslog.txt".format(playbook=playbook, hosts_file=hosts_file))
 
     rows = []
     p_start = re.compile('TASK \[memory usage].+')
