@@ -108,7 +108,7 @@ clock panel을 테스트했습니다.<br>
 
 ![](./img4doc/clock.png)
 
-### Time-series - Memory Usage
+### Time series - Memory Usage
 time series panel을 활용한 메모리 사용률 정보 시각화입니다.<br>
 난 노드의 메모리 사용률 변화를 출력합니다.
 
@@ -146,3 +146,18 @@ select name, class, max(probability) from modelpred;
 
 #### Result
 ![](./img4doc/pred.png)
+
+### Time series - Traffic
+실시간 네트워크 트래픽량을 시각화합니다.<br>
+vnstat module을 활용했습니다.
+
+#### Query
+```sql
+select time, name, cast(tx_bps as real) from traffic;
+select time, name, cast(rx_bps as real) from traffic;
+```
+tx : transmit data - 전송되는 데이터<br>
+rx : receive data - 수신받는 데이터
+
+#### result
+![](./img4doc/time_traffic.png)
