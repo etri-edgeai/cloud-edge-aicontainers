@@ -10,7 +10,6 @@ import re
 
 def get_hosts(hosts_file, conn):
     file = open('{hosts_file}'.format(hosts_file=hosts_file), 'r')
-    line_num = 1
     f = file.readlines()
 
     ## preprocessing
@@ -24,16 +23,11 @@ def get_hosts(hosts_file, conn):
 
     clean = [v for v in clean if v]
 
-    print(clean)
-
     data = []
     idx = 0
 
     for w in clean:
-        print(w)
-        print(type(w))
         idx += 1
-        print(idx)
 
         if "[builders]" in w:
             save = True
@@ -77,9 +71,6 @@ def get_hosts(hosts_file, conn):
                     break
 
     file.close()
-
-    print()
-    print(data)
 
 
     ## db manipulation

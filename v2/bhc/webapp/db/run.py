@@ -5,6 +5,7 @@ from geoloc import get_geoloc_db as geo
 from hosts import hosts 
 from temperature import get_temp_db as temp
 from model import run_model as pred
+from model import get_model as distrb
 from network import get_network_db as ntw
 import init_db
 
@@ -27,11 +28,14 @@ def connect_db(db_file):
 
 
 ## scheduling
-def get_system_informations(playbook, hosts_file, conn):
+def get_system_informations(registry_ip, playbook, hosts_file, conn):
+
 
     hosts.get_hosts(hosts_file, conn)
     geo.get_geo_data(conn)
-
+    distrb.get_model_info(registry_ip, conn)
+    distrb.init_progress(conn)
+    
     ## make scheduler
     schedule.every(5).seconds.do(
         sys.get_cpurat_data,
@@ -80,13 +84,14 @@ def get_system_informations(playbook, hosts_file, conn):
 def main():
 
     db_path = 'edge_logs.db3'
-
     init_db.main(db_path)
     conn = connect_db(db_path)
+
+    registry_ip = '123.214.186.252:39500'
     hosts_file_path = '../edge-hosts.ini'
     playbook_path = 'run_playbook.yaml'
 
-    get_system_informations(playbook_path, hosts_file_path, conn)
+    get_system_informations(registry_ip, playbook_path, hosts_file_path, conn)
 
 
 
