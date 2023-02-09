@@ -82,6 +82,23 @@ def main(file_path):
                         rx_bps real NOT NULL,
                         tx_bps real NOT NULL
                     );"""
+    
+    model_list_table = """ CREATE TABLE IF NOT EXISTS model_list (
+                        name text NOT NULL,
+                        tag text NOT NULL
+                    );"""
+
+    model_desc_table = """ CREATE TABLE IF NOT EXISTS model_desc (
+                        node text NOT NULL,
+                        tag text NOT NULL,
+                        desc text NOT NULL
+                    );"""
+
+    dstrb_progress_table = """ CREATE TABLE IF NOT EXISTS dstrb_progress (
+                        time NOT NULL,
+                        name text NOT NULL,
+                        status text NOT NULL
+                    );"""
 
     conn = create_db(database)
 
@@ -94,6 +111,9 @@ def main(file_path):
         create_table(conn, meminfo_table)
         create_table(conn, modelpred_table)
         create_table(conn, traffic_table)
+        create_table(conn, model_list_table)
+        create_table(conn, model_desc_table)
+        create_table(conn, dstrb_progress_table)
     
     else:
         print("Cannot connect database.")
@@ -103,7 +123,7 @@ def main(file_path):
 
 # if __name__ == "__main__":
 
-#     main(file_path)
+#     main('edge_logs.db3')
 
 
 

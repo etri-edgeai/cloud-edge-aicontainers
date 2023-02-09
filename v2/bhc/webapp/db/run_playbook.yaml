@@ -1,6 +1,6 @@
 - name: Get networks informations between nodes
   hosts: users
-  become: true
+  # become: true
 
   tasks:
   - name: install vnstat module

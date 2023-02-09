@@ -10,7 +10,7 @@ import re
 
 def get_pred(playbook, hosts_file, conn):
     
-    os.system("ansible-playbook {playbook} -i {hosts_file} -t model,pred > tmp/predlog.txt".format(playbook=playbook, hosts_file=hosts_file))
+    os.system("ansible-playbook {playbook} -i {hosts_file} -t pred > tmp/predlog.txt".format(playbook=playbook, hosts_file=hosts_file))
 
     rows = []
     p_start = re.compile('Prediction :.+')
