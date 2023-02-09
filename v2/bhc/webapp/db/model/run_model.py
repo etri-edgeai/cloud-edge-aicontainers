@@ -2,9 +2,30 @@ import os
 import sqlite3
 import schedule
 import time
+import base64
 
 import re
 
+
+def get_input(host, path, conn):
+
+    with open(path, 'rb') as img:
+        base64_str = base64.b64encode(img.read())
+
+    data = []
+    tmp = []
+
+    tmp.append(round(time.time()))
+    tmp.append(host)
+    tmp.append(base64_str)
+    
+    tmp = tuple(tmp)
+    data.append(tmp)
+    
+    cur = conn.cursor()
+    query = "insert into input_image values(?,?,?);"
+    cur.executemany(query, data)
+    conn.commit()
 
 
 

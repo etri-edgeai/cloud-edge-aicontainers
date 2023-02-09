@@ -85,6 +85,7 @@ def get_desc(host, tag, conn):
 
 
 def model_download(playbook, hosts_file, registry, hosts, tag):
+    
     data = []
     tmp = []
 

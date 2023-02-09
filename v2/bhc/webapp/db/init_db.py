@@ -99,6 +99,12 @@ def main(file_path):
                         name text NOT NULL,
                         status text NOT NULL
                     );"""
+    
+    input_image_table = """ CREATE TABLE IF NOT EXISTS input_image (
+                        time NOT NULL,
+                        name text NOT NULL,
+                        img NOT NULL
+                    );"""
 
     conn = create_db(database)
 
@@ -114,6 +120,7 @@ def main(file_path):
         create_table(conn, model_list_table)
         create_table(conn, model_desc_table)
         create_table(conn, dstrb_progress_table)
+        create_table(conn, input_image_table)
     
     else:
         print("Cannot connect database.")
