@@ -9,29 +9,37 @@ import re
 
 def get_input(host, path, conn):
 
-    with open(path, 'rb') as img:
-        base64_str = base64.b64encode(img.read())
-
+    img_list = os.listdir(path)
+    encoded_list = []
     data = []
-    tmp = []
 
-    tmp.append(round(time.time()))
-    tmp.append(host)
-    tmp.append(base64_str)
-    
-    tmp = tuple(tmp)
-    data.append(tmp)
+    for f in img_list:
+        print(f)
+        # img_path = (path+'/'+f)
+        tmp = []
+
+        # with open(img_path, 'rb') as img:
+        #     base64_str = base64.b64encode(img.read())
+        #     encoded_list.append(base64_str)
+
+        tmp.append(round(time.time()))
+        tmp.append(host)
+        tmp.append(f)
+        # tmp.append(base64_str)
+
+        tmp = tuple(tmp)
+        data.append(tmp)
     
     cur = conn.cursor()
-    query = "insert into input_image values(?,?,?);"
+    query = "insert or ignore into input_image values(?,?,?);"
     cur.executemany(query, data)
     conn.commit()
 
 
 
-def get_pred(playbook, hosts_file, conn):
+def get_pred(playbook, hosts_file, host, conn):
     
-    os.system("ansible-playbook {playbook} -i {hosts_file} -t pred > tmp/predlog.txt".format(playbook=playbook, hosts_file=hosts_file))
+    os.system("ansible-playbook {playbook} -l {host_name} -i {hosts_file} -t pred > tmp/predlog.txt".format(playbook=playbook, host_name=host, hosts_file=hosts_file))
 
     rows = []
     p_start = re.compile('Prediction :.+')
@@ -109,10 +117,10 @@ def get_pred(playbook, hosts_file, conn):
 
 
 
-# if __name__ == "__main__":
+if __name__ == "__main__":
 
-#     schedule.every(30).seconds.do(get_pred)
+    host = 'rpi6402'
+    path = '/var/www/html/tmp'
+    conn = sqlite3.connect('../edge_logs.db3')
 
-#     while True:
-#         schedule.run_pending()
-#         time.sleep(1)
+    get_input(host, path, conn)

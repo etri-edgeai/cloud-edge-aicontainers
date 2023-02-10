@@ -102,8 +102,8 @@ def main(file_path):
     
     input_image_table = """ CREATE TABLE IF NOT EXISTS input_image (
                         time NOT NULL,
-                        name text NOT NULL,
-                        img NOT NULL
+                        name_node text NOT NULL,
+                        name_img text PRIMARY KEY
                     );"""
 
     conn = create_db(database)
@@ -128,9 +128,9 @@ def main(file_path):
 
 
 
-# if __name__ == "__main__":
+if __name__ == "__main__":
 
-#     main('edge_logs.db3')
+    main('edge_logs.db3')
 
 
 

@@ -1,5 +1,5 @@
 - name: Docker model run && show output
-  hosts: builders
+  hosts: all
   
   # vars_prompt:
   #   - name: tag
@@ -9,6 +9,8 @@
   vars:
     image_name: "{{ ansible_facts['architecture'] }}-model"
     model_tag: "imagenet"
+    input: "test.jpg"
+    server_ip: keti@ketiabcs.iptime.org
 
   
   tasks:
@@ -21,10 +23,30 @@
   #     var: command_output.stdout_lines
 
 
+  ## get input
+  - name: input from server to node
+    tags: input
+    copy:
+      src: "/var/www/html/tmp/{{ input }}"
+      dest: data/
+
+  - name: input from node to model container
+    tags: input
+    command: docker cp data/{{ input }} model:/home/data/
+    register: command_output
+  - debug: msg="{{command_output.stdout_lines}}"
+    tags: input
+
+
+
   ## run model
   - name: model prediction
     tags: pred
-    command: docker exec model python home/model.py
+    command: docker exec model python home/model.py --input {{ input }}
     register: command_output
   - debug: msg="{{command_output.stdout_lines}}"
     tags: pred
+
+
+
+
