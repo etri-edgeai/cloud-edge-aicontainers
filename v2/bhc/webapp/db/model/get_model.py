@@ -131,7 +131,7 @@ if __name__ == "__main__":
     )
     parser.add_argument(
         '--playbook',
-        default='get_model.yaml',
+        default='run_model.yaml',
         type=str,
         help='ansible-playbook file path'
     )

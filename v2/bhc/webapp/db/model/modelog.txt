@@ -1,1 +1,0 @@
-{"name":"amd64-model","tags":["cifar10"]}

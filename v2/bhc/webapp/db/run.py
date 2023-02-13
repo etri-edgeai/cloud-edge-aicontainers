@@ -100,8 +100,4 @@ def main():
 
 if __name__ == '__main__':
 
-    host = 'rpi6402'
-    img_path = 'tmp/data'
-    conn = connect_db('edge_logs.db3')
-    
-    pred.get_input(host, img_path, conn)
+    main()
