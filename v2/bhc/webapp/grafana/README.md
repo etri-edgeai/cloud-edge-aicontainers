@@ -3,7 +3,7 @@ data source를 연결하여 다양한 대시보드를 통해 시각화하는 툴
 구축한 데이터베이스 파일을 연결하여 데이터 포맷과 수집 목적에 맞는 방식으로 시각화하고 분석하는 방안을 제시합니다.<br>
 자체 프레임워크 제작을 위한 환경 구성에 대한 내용을 포함합니다.
 
-## Start Grafana
+## Grafana Tutorial
 
 ### installation
 ubuntu 20.04 기준 설치 방법입니다<br>
@@ -25,3 +25,15 @@ sudo service grafana-server start
 >**Default 계정**
 >- username : admin
 >- password : admin
+
+### Panel Test
+각 패널의 기능과 사용법을 테스트합니다.<br>
+> 상세 내용을 ```panel_test```에 기재합니다.<br>
+
+## Dashboards
+
+### admin_monitor
+
+### single_node_monitor
+
+### inference_monitor
