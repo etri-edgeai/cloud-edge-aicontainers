@@ -11,6 +11,7 @@ import init_db
 
 import schedule
 import time
+import re
 
 
 def connect_db(db_file):
@@ -28,7 +29,7 @@ def connect_db(db_file):
 
 
 ## scheduling
-def get_system_informations(registry_ip, playbook, hosts_file, conn):
+def get_system_informations(registry_ip, playbook, hosts_file, host, conn):
 
 
     hosts.get_hosts(hosts_file, conn)
@@ -61,12 +62,13 @@ def get_system_informations(registry_ip, playbook, hosts_file, conn):
         conn=conn
     )
 
-    schedule.every(30).seconds.do(
-        pred.get_pred,
-        playbook=playbook,
-        hosts_file=hosts_file,
-        conn=conn
-    )
+    # schedule.every(30).seconds.do(
+    #     pred.get_pred,
+    #     playbook=playbook,
+    #     hosts_file=hosts_file,
+    #     host=host,
+    #     conn=conn
+    # )
 
     schedule.every(5).seconds.do(
         ntw.get_traffic_json,
@@ -90,8 +92,9 @@ def main():
     registry_ip = '123.214.186.252:39500'
     hosts_file_path = '../edge-hosts.ini'
     playbook_path = 'run_playbook.yaml'
+    host = 'rpi6402'
 
-    get_system_informations(registry_ip, playbook_path, hosts_file_path, conn)
+    get_system_informations(registry_ip, playbook_path, hosts_file_path, host, conn)
 
 
 

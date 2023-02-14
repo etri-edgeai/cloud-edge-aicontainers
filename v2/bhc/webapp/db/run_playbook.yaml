@@ -44,7 +44,7 @@
 
 
 - name: Docker model run && show output
-  hosts: builders
+  hosts: all
   # vars_prompt:
   #   - name: tag
   #     prompt: please enter the type of model.
