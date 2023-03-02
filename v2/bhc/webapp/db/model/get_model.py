@@ -10,7 +10,7 @@ def get_model_info(registry, conn):
     
     os.system("curl -s https://{registry}/v2/_catalog -k > tmp/modelog.txt".format(registry=registry))
 
-    with open('modelog.txt', 'r') as f:
+    with open('tmp/modelog.txt', 'r') as f:
         data = json.load(f)
     
     model_list = []
@@ -18,7 +18,7 @@ def get_model_info(registry, conn):
     for repo in data['repositories']:
         os.system("curl -s https://{registry}/v2/{data}/tags/list -k > tmp/modelog.txt".format(registry=registry, data=repo))
 
-        with open('modelog.txt', 'r') as f:
+        with open('tmp/modelog.txt', 'r') as f:
             tmp = json.load(f)
 
         model_list.append(tmp)

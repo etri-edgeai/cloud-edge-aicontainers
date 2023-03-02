@@ -106,6 +106,16 @@ def main(file_path):
                         name_img text PRIMARY KEY
                     );"""
 
+    modelinfo_detail_table = """ CREATE TABLE IF NOT EXISTS modelinfo_detail (
+                        time NOT NULL,
+                        owner_name text NOT NULL,
+                        model_name text NOT NULL,
+                        size_GB real NOT NULL,
+                        task text NOT NULL,
+                        dataset text NOT NULL,
+                        version text NOT NULL
+                    );"""
+
     conn = create_db(database)
 
     if conn is not None:
@@ -121,6 +131,7 @@ def main(file_path):
         create_table(conn, model_desc_table)
         create_table(conn, dstrb_progress_table)
         create_table(conn, input_image_table)
+        create_table(conn, modelinfo_detail_table)
     
     else:
         print("Cannot connect database.")
