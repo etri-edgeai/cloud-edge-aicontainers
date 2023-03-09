@@ -30,13 +30,9 @@ if __name__ == '__main__':
         formatter_class=argparse.RawDescriptionHelpFormatter,
         description=textwrap.dedent('''\
         ========== config your model ===========
-
         pretrained YOLOv5 detection models for test
         from pytorch-hub
-
-
         models list :
-
             * yolov5n (nano)
             * yolov5s (small)
             * yolov5m (medium)
