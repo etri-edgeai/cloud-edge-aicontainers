@@ -32,9 +32,14 @@ def main(file_path):
     database = file_path
 
     nodes_table = """ CREATE TABLE IF NOT EXISTS nodes (
-                        id integer,
+                        time NOT NULL,
+                        group text NOT NULL,
                         name text NOT NULL,
-                        type text NOT NULL
+                        type text NOT NULL,
+                        owner text NOT NULL,
+                        hw text,
+                        os text,
+                        gpu text
                     );"""
 
     location_table = """ CREATE TABLE IF NOT EXISTS location (
