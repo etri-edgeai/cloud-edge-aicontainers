@@ -1,0 +1,40 @@
+- name: copy CA files & keys
+  hosts: all
+  become: true
+  vars:
+    host_name: keti
+    ansible_sudo_pass: ketiabcs
+
+
+  tasks:
+
+    - name: copy registry CA from server to node
+      copy:
+        src: "/home/keti/certs/registry.crt"
+        dest: "/home/{{ host_name }}/"
+
+    - name: register CA keys step 1
+      command: cp certs/registry.crt /usr/local/share/ca-certificates/registry.crt
+
+      register: output
+    - debug: msg="{{output.stdout_lines}}"
+    
+    - name: register CA keys step 2
+      command: echo registry.crt | sudo tee -a /etc/ca-certificates.conf
+      register: output
+    - debug: msg="{{output.stdout_lines}}"
+    
+    - name: register CA keys step 3
+      command: update-ca-certificates
+      register: output
+    - debug: msg="{{output.stdout_lines}}"
+    
+    - name: register CA keys step 4
+      command: sudo systemctl restart docker
+      register: output
+    - debug: msg="{{output.stdout_lines}}"
+
+    - name: Registry connection test
+      command : curl -k https://123.214.186.252:39500/v2/_catalog
+      register: output
+    - debug: msg="{{output.stdout_lines}}"
