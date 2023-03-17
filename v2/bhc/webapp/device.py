@@ -3,6 +3,7 @@ import argparse
 import os
 import time
 import textwrap
+import pandas as pd
 
 
 class device_manager:
@@ -21,9 +22,8 @@ class device_manager:
         
 
     def view(self):
-        cur = self.con.cursor()
-        cur.execute("select * from nodes;")
-        print(cur.fetchall())
+        query = "select DATETIME(time, 'unixepoch') as date, affiliation, name, ip, port type, owner, hw, os, gpu from nodes;"
+        print(pd.read_sql_query(query, self.con))
 
     def insert(self):
         try:
@@ -69,18 +69,80 @@ class device_manager:
 
     def delete(self):
         cur = self.con.cursor()
-        query = "delete from nodes where name={name}".format(name=self.name)
+        query = 'delete from nodes where name="{name}"'.format(name=self.name)
         cur.execute(query)
         self.con.commit()
 
 
     def file_config(self):
         cur = self.con.cursor()
-        cur.execute('select name, ip, port from nodes where type=builder;')
-        print(cur.fetchall())
 
-        with open("hosts.ini", "w") as f:
-            pass
+        query = 'select distinct type from nodes'
+        cur.execute(query)
+        tmp = cur.fetchall()
+
+        type = []
+        for i in tmp:
+            i = list(i)
+            type.append(i[0])
+
+        
+        for t in type:
+            if t == 'builder':
+                query = 'select name, ip, port from nodes where type="{type}"'.format(type=t)
+                cur.execute(query)
+                tmp = cur.fetchall()
+
+                builder_data = []
+
+                for i in range(len(tmp)):
+                    tmp[i] = list(tmp[i])
+                    builder_data.append(tmp[i])
+
+            elif t == 'user':
+                query = 'select distinct affiliation from nodes'
+                cur.execute(query)
+                tmp = cur.fetchall()
+
+                group = []
+
+                for i in tmp:
+                    i = list(i)
+                    group.append(i[0])
+
+                user_data = {}
+
+                for g in group:
+                    query = 'select name, ip, port from nodes where affiliation="{group}" and type="{type}"'.format(group=g, type=t)
+                    cur.execute(query)
+                    tmp = cur.fetchall()
+                    user_data[g] = tmp
+
+        
+
+        with open('hosts.ini','w') as f:
+
+            f.write('[builder]')
+            f.write('\n')
+
+            for s in builder_data:
+                f.write('{name} ansible_host={ip} ansible_port={port}'.format(name=s[0],ip=s[1],port=s[2]))
+                f.write('\n')
+
+            f.write('[user:children]')
+            f.write('\n')
+
+            for s in group:
+                f.write('{group}'.format(group=s))
+                f.write('\n')
+
+            for s in group:
+                f.write('[{group}]'.format(group=s))
+                f.write('\n')
+                for d in user_data[s]:
+                    f.write('{name} ansible_host={ip} ansible_port={port}'.format(name=d[0],ip=d[1],port=d[2]))
+                    f.write('\n')
+
 
 
 if __name__ == "__main__":
@@ -157,7 +219,7 @@ if __name__ == "__main__":
         help=''
     )
     args = parser.parse_args()
-    print(args)
+    # print(args)
 
 
     db_file = 'db/edge_logs.db3'
@@ -181,3 +243,6 @@ if __name__ == "__main__":
     elif args.mode == 'delete':
         dm.delete()
         dm.file_config()
+
+    elif args.mode == 'view':
+        dm.view()
