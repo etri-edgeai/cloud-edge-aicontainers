@@ -1,0 +1,1 @@
+python m_device.py -a keti_test -n n01 -i 123.214.186.192 -p 33312 -t user -o keti --hw nuc_pc --os ubuntu --gpu rtx2080 --mode register
