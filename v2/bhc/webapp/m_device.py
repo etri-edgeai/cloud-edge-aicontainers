@@ -22,16 +22,23 @@ class device_manager:
         
 
     def view(self):
+
         query = "select DATETIME(time, 'unixepoch') as date, affiliation, name, ip, port type, owner, hw, os, gpu from nodes;"
         print(pd.read_sql_query(query, self.con))
 
     def insert(self):
+
+        done = True
+
         try:
             cmd = "ssh-copy-id {host_name}@{ip} -p {port}".format(host_name=self.owner, ip=self.ip, port=self.port)
             if os.system(cmd) != 0:
                 raise Exception('Error')
-        except:
-            print("wrong command.")
+            
+        except Exception as e:
+            done = False
+            print(e, "wrong command.")
+
         else:
             with open('/home/keti/tmp_host.ini', 'w') as f:
                 f.write('{name} ansible_host={ip} ansible_port={port}'.format(name=self.name, ip=self.ip, port=self.port))
@@ -41,8 +48,10 @@ class device_manager:
             cmd = 'ansible-playbook copy_cert.yaml -l {name} -i /home/keti/tmp_host.ini -e "host_name={host_name}"'.format(name=self.name, host_name=self.owner)
             if os.system(cmd) != 0:
                 raise Exception('Error')
-        except:
-            print("wrong command.")
+            
+        except Exception as e:
+            print(e, "wrong command.")
+
         else:
             now = round(time.time())
 
@@ -65,9 +74,12 @@ class device_manager:
             query = "insert into nodes values(?,?,?,?,?,?,?,?,?,?);"
             cur.execute(query, data)
             self.con.commit()
+
+        return done
         
 
     def delete(self):
+
         cur = self.con.cursor()
         query = 'delete from nodes where name="{name}"'.format(name=self.name)
         cur.execute(query)
@@ -75,8 +87,8 @@ class device_manager:
 
 
     def file_config(self):
-        cur = self.con.cursor()
 
+        cur = self.con.cursor()
         query = 'select distinct type from nodes'
         cur.execute(query)
         tmp = cur.fetchall()
@@ -237,8 +249,10 @@ if __name__ == "__main__":
     )
 
     if args.mode == 'register':
-        dm.insert()
-        dm.file_config()
+        new = dm.insert()
+        
+        if new:
+            dm.file_config()
         
     elif args.mode == 'delete':
         dm.delete()
