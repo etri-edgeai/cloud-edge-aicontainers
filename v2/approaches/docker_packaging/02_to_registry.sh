@@ -19,8 +19,10 @@ docker push $URL/$IMAGE_NAME:$IMAGE_TAG
 
 docker tag image_classification:latest ketiabcs.iptime.org:35050:latest
 
+# TODO
 ## Docker registry 로그아웃
 #docker logout registry.aaa.com
+
 
 curl -X GET $URL/v2/_catalog
 # curl -X GET $URL/v2/hello-world/tags/list
