@@ -119,7 +119,6 @@ def main(file_path):
                         model_name text NOT NULL,
                         size_GB real NOT NULL,
                         task text NOT NULL,
-                        dataset text NOT NULL,
                         version text NOT NULL
                     );"""
 

@@ -12,6 +12,7 @@
     input: "test.jpg"
     registry: "123.214.186.252:39500"
     server: keti@ketiabcs.iptime.org
+    version: v1.0
 
   
   tasks:
@@ -22,14 +23,14 @@
 
   - name: get model image from server
     tags: distrb
-    shell: docker pull {{ registry }}/{{ image_name }}:{{ model_tag }}
+    shell: docker pull {{ registry }}/{{ image_name }}:{{ model_tag }}_{{ version }}
     register: output
   - debug: msg="{{ output.stdout_lines }}"
     tags: distrb
 
   - name: create new container
     tags: distrb
-    shell: docker run -d --name model -it {{ registry }}/{{ image_name }}:{{ model_tag }}
+    shell: docker run -d --name model -it {{ registry }}/{{ image_name }}:{{ model_tag }}_{{ version }}
     register: output
   - debug: msg="{{ output.stdout_lines }}"
     tags: distrb

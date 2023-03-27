@@ -1,0 +1,17 @@
+- name: copy file
+  hosts: all
+  vars:
+    path: /home/keti/cloud-edge-aicontainers/v2/bhc/webapp/db/model/build/buildimg/
+    model_file: model.tar.gz
+    dockerfile: Dockerfile
+
+  tasks:
+    - name: Copying Dockerfile from server
+      copy:
+        src: "{{ path }}{{ dockerfile }}"
+        dest: "/home/keti/buildimg/"
+
+    - name: Copying model from server
+      copy:
+        src: "{{ path }}{{ model_file }}"
+        dest: "/home/keti/buildimg/"
