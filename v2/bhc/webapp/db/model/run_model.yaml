@@ -30,7 +30,7 @@
 
   - name: create new container
     tags: distrb
-    shell: docker run -d --name model -it {{ registry }}/{{ image_name }}:{{ model_tag }}_{{ version }}
+    shell: docker run -d --name {{ model_tag }}_model -it {{ registry }}/{{ image_name }}:{{ model_tag }}_{{ version }}
     register: output
   - debug: msg="{{ output.stdout_lines }}"
     tags: distrb
@@ -63,7 +63,7 @@
 
   - name: input from node to model container
     tags: input
-    command: docker cp data/{{ input }} model:/home/data/
+    command: docker cp data/{{ input }} {{ model_tag }}_model:/home/data/
     register: command_output
   - debug: msg="{{command_output.stdout_lines}}"
     tags: input
@@ -76,7 +76,7 @@
   ## run model
   - name: model prediction
     tags: pred
-    command: docker exec model python home/model.py --input {{ input }}
+    command: docker exec {{ model_tag }}_model python home/model.py --input {{ input }}
     register: command_output
   - debug: msg="{{command_output.stdout_lines}}"
     tags: pred
