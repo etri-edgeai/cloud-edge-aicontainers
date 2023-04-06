@@ -121,7 +121,7 @@ class model_manager:
 
         try:
             ## copy
-            cmd = 'ansible-playbook {playbook} -l rpi6401 -i {hosts_file} -e "model_file={model_file} model_dir={model_dir}"'.format(playbook=self.copy_playbook, hosts_file=self.hosts_file, model_file=self.model_file, model_dir=model_dir)
+            cmd = 'ansible-playbook {playbook} -l {builder} -i {hosts_file} -e "model_file={model_file} model_dir={model_dir}"'.format(playbook=self.copy_playbook, builder=self.builder, hosts_file=self.hosts_file, model_file=self.model_file, model_dir=model_dir)
 
             if os.system(cmd) != 0:
                 raise Exception('Wrong Command.')
@@ -221,7 +221,53 @@ class model_manager:
 
     def update(self):
 
-        pass
+        done = True
+
+        query = 'select version from modelinfo_detail where owner_name="{owner}" and model_name="{model_name}" and task="{task}"'.format(owner=self.owner, model_name=self.model_name, task=self.task)
+        cur = self.con.cursor()
+        cur.execute(query)
+        sent = cur.fetchone()
+
+        print(sent[0])
+
+        if sent[0] == self.version:
+            raise Exception('already have the version. please double-check the model list.')
+
+        else:
+            print(
+                '''
+                ================================================================
+                =================== start AI model update ======================
+                ================================================================
+                '''
+            )
+
+        try:
+            ## copy
+            cmd = 'ansible-playbook {playbook} -l {builder} -i {hosts_file} -e "model_file={model_file} model_dir={model_dir}"'.format(playbook=self.copy_playbook, builder=self.builder, hosts_file=self.hosts_file, model_file=self.model_file, model_dir=model_dir)
+
+            if os.system(cmd) != 0:
+                raise Exception('Wrong Command.')
+
+        except Exception as e:
+            done = False
+            raise
+        
+
+        try:
+            ## build
+            cmd = 'ansible-playbook {playbook} -i {hosts_file} -l {host_name} -t build,test,push -e "tag={tag} ver={version} model_file={model_file}"'.format(playbook=self.build_playbook, hosts_file=self.hosts_file, host_name=self.builder, tag=self.model_name, version=self.version, model_file=self.model_file)
+
+            if os.system(cmd) != 0:
+                raise Exception('Wrong Command.')
+            
+        except Exception as e:
+            done = False
+            raise
+
+        return done
+
+
 
 
     def download(self):
@@ -361,6 +407,7 @@ if __name__ == "__main__":
             manager.insert_db()
             manager.view()
     
+
     elif args.mode == 'delete':
         done = manager.delete(args.repo)
 
@@ -368,8 +415,18 @@ if __name__ == "__main__":
             manager.delete_db()
             manager.view()
 
+
     elif args.mode == 'view':
         manager.view()
 
+
     elif args.mode == 'download':
         manager.download()
+
+
+    elif args.mode == 'update':
+        done = manager.update()
+
+        if done:
+            manager.insert_db()
+            manager.view()
