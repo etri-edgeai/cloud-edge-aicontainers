@@ -5,6 +5,7 @@
     image_name: "{{ ansible_facts['architecture'] }}-model"
     registry_ip: 123.214.186.252:39500
     tag: classification
+    model_file: from_input
     ver: 1.0
 
   tasks:
@@ -17,7 +18,7 @@
 
   - name: build test
     tags: build
-    command: docker build --tag {{ image_name }}:{{ tag }}_{{ ver }} buildimg/
+    command: docker build --tag {{ image_name }}:{{ tag }}_{{ ver }} --build-arg model_file={{ model_file }} buildimg/
     register: command_output
   - debug: msg="{{ command_output.stdout_lines }}"
     tags: build

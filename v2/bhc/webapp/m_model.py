@@ -105,6 +105,7 @@ class model_manager:
     def register(self):
 
         done = True
+
         query = 'select owner_name, model_name, version from modelinfo_detail'
         cur = self.con.cursor()
         cur.execute(query)
@@ -112,66 +113,161 @@ class model_manager:
         
         for rows in sent:
             for i in range(len(rows)):
-                if self.host in rows[i] and self.model_name in rows[i+1] and self.arch in rows[i+2]:
+                if self.owner in rows[i] and self.model_name in rows[i+1] and self.version in rows[i+2]:
                     print('host : ', rows[i])
                     print('model name : ', rows[i+1])
                     print('architecture : ', rows[i+2])
                     raise Exception('model already exist. check model list or use "--mode update".')
 
         try:
-            cmd = 'ansible-playbook {playbook} -l rpi6401 -i {hosts_file} -e "model_name={model_file}"'.format(playbook=self.copy_playbook, hosts_file=self.hosts_file, model_file=self.model_file)
+            ## copy
+            cmd = 'ansible-playbook {playbook} -l {builder} -i {hosts_file} -e "model_file={model_file} model_dir={model_dir}"'.format(playbook=self.copy_playbook, builder=self.builder, hosts_file=self.hosts_file, model_file=self.model_file, model_dir=model_dir)
+
             if os.system(cmd) != 0:
-                raise Exception('Error')
+                raise Exception('Wrong Command.')
 
         except Exception as e:
             done = False
-            print(e, "wrong command.")
+            raise
         
         print('build start')
 
         try:
-            cmd = 'ansible-playbook {playbook} -i {hosts_file} -l {host_name} -t build,test,push -e "tag={tag} ver={version}"'.format(playbook=self.build_playbook, hosts_file=self.hosts_file, host_name=self.builder, tag=self.model_name, version=self.version)
+            ## build
+            cmd = 'ansible-playbook {playbook} -i {hosts_file} -l {host_name} -t build,test,push -e "tag={tag} ver={version} model_file={model_file}"'.format(playbook=self.build_playbook, hosts_file=self.hosts_file, host_name=self.builder, tag=self.model_name, version=self.version, model_file=self.model_file)
+
             if os.system(cmd) != 0:
-                raise Exception('Error')
+                raise Exception('Wrong Command.')
             
         except Exception as e:
             done = False
-            print(e, "wrong command")
+            raise
 
         return done
 
         
     def delete(self, repo):
 
-        hash = "'{print ($3)}'"
-        cmd = '''
-        curl -v --silent -H "Accept: application/vnd/docker/distribution.manifest.v2+json" https://{registry}/v2/{repo}/manifests/{model_name}_{version} -k 2>&1 | grep docker-content-digest | awk {hash} > tmp_reg.txt
-        '''.format(registry=registry, repo=repo, model_name=self.model_name, version=self.version, hash=hash)
+        # done = True
+        # hash = "'{print ($3)}'"
+        # cmd = '''
+        # curl -v --silent -H "Accept: application/vnd/docker/distribution.manifest.v2+json" https://{registry}/v2/{repo}/manifests/{model_name}_{version} -k 2>&1 | grep docker-content-digest | awk {hash} > tmp_reg.txt
+        # '''.format(registry=registry, repo=repo, model_name=self.model_name, version=self.version, hash=hash)
 
-        os.system(cmd)
+        # os.system(cmd)
 
-        with open('tmp_reg.txt', 'r') as f:
-            data = f.readline()
+        # with open('tmp_reg.txt', 'r') as f:
+        #     data = f.readline()
 
-        cmd = '''
-        curl -v --silent -H "Accept: application/vnd.docker.distribution.manifest.v2+json" -X DELETE https://{registry}/v2/{repo}/manifests/{content} -k
-        '''.format(registry=registry, repo=repo, content=data)
+        # data = data.replace("\n", "")
+        # print(data)
 
-        os.system(cmd)
+        # try:
+        #     cmd = '''
+        #     curl -X DELETE -v https://{registry}/v2/{repo}/manifests/{content}
+        #     '''.format(registry=registry, repo=repo, content=data)
 
-        cmd = 'docker exec -it edge-registry bin/registry garbage-collect /etc/docker/registry/config.yml'
-        os.system(cmd)
-        os.system('docker restart edge-registry')
+        #     if os.system(cmd) != 0:
+        #         raise Exception('Wrong Command.')
+            
+        # except Exception as e:
+        #     done = False
+        #     raise
 
-        query = 'delete from modelinfo_detail where owner_name="{owner}" and model_name="{model_name}" and version="{version}"'.format(owner=self.owner, model_name=self.model_name, version=self.version)
+        done = True
+        path = '/var/lib/registry/docker/registry/v2/repositories'
+
+        try:
+            cmd = 'docker exec -it edge-registry rm -rf {path}/{repo}/_manifests/tags/{model_name}_{version}'.format(path=path, repo=repo, model_name=self.model_name, version=self.version)
+
+            if os.system(cmd) != 0:
+                raise Exception('Wrong Command.')
+            
+            else:
+                print()
+                print('deletion done.')
+                print()
+                print('start grabage-collection.')
+                print()
+        
+        except Exception as e:
+            done = False
+            raise
+
+        try:
+            cmd = 'docker exec -it edge-registry bin/registry garbage-collect /etc/docker/registry/config.yml'
+            
+            if os.system(cmd) != 0:
+                raise Exception('Wrong Command.')
+            
+            else:
+                os.system('docker restart edge-registry')
+        
+        except Exception as e:
+            done = False
+            raise
+
+        return done
+
+    def delete_db(self):
+
+        query = 'delete from modelinfo_detail where owner_name="{owner}" and model_name="{model_name}" and version="{version}";'.format(owner=self.owner, model_name=self.model_name, version=self.version)
+
         cur = self.con.cursor()
         cur.execute(query)
+
         self.con.commit()
 
 
     def update(self):
 
-        pass
+        done = True
+
+        query = 'select version from modelinfo_detail where owner_name="{owner}" and model_name="{model_name}" and task="{task}"'.format(owner=self.owner, model_name=self.model_name, task=self.task)
+        cur = self.con.cursor()
+        cur.execute(query)
+        sent = cur.fetchone()
+
+        print(sent[0])
+
+        if sent[0] == self.version:
+            raise Exception('already have the version. please double-check the model list.')
+
+        else:
+            print(
+                '''
+                ================================================================
+                =================== start AI model update ======================
+                ================================================================
+                '''
+            )
+
+        try:
+            ## copy
+            cmd = 'ansible-playbook {playbook} -l {builder} -i {hosts_file} -e "model_file={model_file} model_dir={model_dir}"'.format(playbook=self.copy_playbook, builder=self.builder, hosts_file=self.hosts_file, model_file=self.model_file, model_dir=model_dir)
+
+            if os.system(cmd) != 0:
+                raise Exception('Wrong Command.')
+
+        except Exception as e:
+            done = False
+            raise
+        
+
+        try:
+            ## build
+            cmd = 'ansible-playbook {playbook} -i {hosts_file} -l {host_name} -t build,test,push -e "tag={tag} ver={version} model_file={model_file}"'.format(playbook=self.build_playbook, hosts_file=self.hosts_file, host_name=self.builder, tag=self.model_name, version=self.version, model_file=self.model_file)
+
+            if os.system(cmd) != 0:
+                raise Exception('Wrong Command.')
+            
+        except Exception as e:
+            done = False
+            raise
+
+        return done
+
+
 
 
     def download(self):
@@ -189,19 +285,19 @@ class model_manager:
                     print('version : ', rows[i+2])
                     print()
                     print('Model found. start distribution.')
+                    break
+
                 else:
                     raise Exception('Model not found. please check models-list.')
-                
-        print()
-        print('Start downloading.')
-        print()
-        
+
+        ## model download to user_node
         os.system('ansible-playbook {playbook} -l {host_name} -t distrb -i {hosts_file} -e "registry={registry} model_tag={tag}"'.format(playbook=self.distrb_playbook, hosts_file=self.hosts_file, host_name=self.user, registry=registry, tag=self.model_name))
 
         print()
         print('Show result')
         print()
 
+        ## docker image list to user_node
         os.system('ansible-playbook {playbook} -t search -i {hosts_file} -l {host_name}'.format(playbook=self.distrb_playbook, hosts_file=self.hosts_file, host_name=self.user))
 
 
@@ -284,9 +380,9 @@ if __name__ == "__main__":
 
     registry = '123.214.186.252:39500'
     db_file = '/home/keti/cloud-edge-aicontainers/v2/bhc/webapp/db/edge_logs.db3'
-    model_file = 'model.tar.gz'
-    copy_playbook_path = '/home/keti/cloud-edge-aicontainers/v2/bhc/webapp/db/model/build/copy_model.yaml'
-    build_playbook_path = '/home/keti/cloud-edge-aicontainers/v2/bhc/webapp/db/model/build/autorun.yaml'
+    model_dir = '/home/keti/cloud-edge-aicontainers/v2/bhc/webapp/db/model/img_build/buildimg/'
+    copy_playbook_path = '/home/keti/cloud-edge-aicontainers/v2/bhc/webapp/db/model/img_build/copy_model.yaml'
+    build_playbook_path = '/home/keti/cloud-edge-aicontainers/v2/bhc/webapp/db/model/img_build/autorun.yaml'
     distrb_playbook_path = '/home/keti/cloud-edge-aicontainers/v2/bhc/webapp/db/model/run_model.yaml'
     hosts_file_path = '/home/keti/cloud-edge-aicontainers/v2/bhc/webapp/hosts.ini'
 
@@ -305,15 +401,32 @@ if __name__ == "__main__":
     manager.config(copy_playbook_path, build_playbook_path, distrb_playbook_path, hosts_file_path)
 
     if args.mode == 'register':
-        new = manager.register()
-        if new:
+        done = manager.register()
+
+        if done:
             manager.insert_db()
+            manager.view()
     
+
     elif args.mode == 'delete':
-        manager.delete(args.repo)
+        done = manager.delete(args.repo)
+
+        if done:
+            manager.delete_db()
+            manager.view()
+
 
     elif args.mode == 'view':
         manager.view()
 
+
     elif args.mode == 'download':
         manager.download()
+
+
+    elif args.mode == 'update':
+        done = manager.update()
+
+        if done:
+            manager.insert_db()
+            manager.view()
