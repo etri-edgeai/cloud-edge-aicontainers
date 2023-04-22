@@ -1,0 +1,18 @@
+# ignore zip file
+*.zip
+
+# ignore coco dataset
+coco/
+
+# ignore any dataset file & dir
+dataset/
+datasets/
+
+# ignore weight files
+*.pt
+
+# ignore model logs
+runs/
+
+# ignore other ultralytics git repo
+yolov5/
