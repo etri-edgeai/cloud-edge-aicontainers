@@ -1,6 +1,6 @@
-path : ../dataset
-train : coco128_dark/images
-val : coco128_dark/images
+path : ../datasets/coco12500
+train : images/dark/train/
+val : images/dark/val/
 test :
 
 
