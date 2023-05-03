@@ -1,0 +1,70 @@
+## initial configuration file for EVC activation
+# please check out annotations below
+
+activations:
+  - &model_construction register
+  - &model_distribute download
+  - &model_train train
+  - &model_inference pred
+  - &monitor_node mon_d
+  - &monitor_model mon_m
+
+# choose action and write into "runs" below.
+
+where: &nodes
+  - n02
+# - your node
+# add your nodes where run the task.
+
+path:
+  &files_path # path to files you need for operations
+  # path to dockerfile
+  dockerfile: /home/keti/cloud-edge-aicontainers/v2/bhc/webapp/run_cfg/Dockerfile
+
+  # path_to_model_file
+  modelfile: /home/keti/cloud-edge-aicontainers/v2/bhc/webapp/run_cfg/model.tar.gz
+
+  # path to model copy playbook (server -> edge node)
+  copy_playbook: /home/keti/cloud-edge-aicontainers/v2/bhc/webapp/db/model/img_build/copy_model.yaml
+
+  # path to model build playbook
+  build_playbook: /home/keti/cloud-edge-aicontainers/v2/bhc/webapp/db/model/img_build/autorun.yaml
+
+  # path to distribution playbook
+  distrb_palybook: /home/keti/cloud-edge-aicontainers/v2/bhc/webapp/db/model/run_model.yaml
+
+  # path to ansible hosts file
+  hosts_file: /home/keti/cloud-edge-aicontainers/v2/bhc/webapp/hosts.ini
+
+  # path to logs.db
+  db: /home/keti/cloud-edge-aicontainers/v2/bhc/webapp/db/edge_logs.db3
+
+
+vars:
+  &vars # informations to define your model
+  # registry address
+  registry: 123.214.186.252:39500
+
+  # owner of the model
+  owner: keti
+
+  # what model do
+  task: detection
+
+  # name of the model
+  model_name: plate_detector
+
+  # model version
+  version: v1.0
+
+## activation configs
+runs:
+  - name: my_run_config 1
+    activation: *model_construction
+    node: *nodes
+    path:
+      *files_path
+    vars:
+      *vars
+
+

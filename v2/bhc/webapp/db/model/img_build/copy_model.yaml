@@ -1,17 +1,16 @@
 - name: copy file
   hosts: all
   vars:
-    model_dir: from input
     model_file: model.tar.gz
     dockerfile: Dockerfile
 
   tasks:
     - name: Copying Dockerfile from server
       copy:
-        src: "{{ model_dir }}{{ dockerfile }}"
+        src: "{{ dockerfile }}"
         dest: "/home/keti/buildimg/"
 
     - name: Copying model from server
       copy:
-        src: "{{ model_dir }}{{ model_file }}"
+        src: "{{ model_file }}"
         dest: "/home/keti/buildimg/"

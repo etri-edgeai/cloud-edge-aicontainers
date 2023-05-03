@@ -9,7 +9,7 @@ from datetime import datetime
 
 class model_manager:
 
-    def __init__(self, db_file, owner, model_name, task, version, model_file, builder, user):
+    def __init__(self, db_file, owner, model_name, task, version, model_file, dockerfile, builder, user):
 
         self.con = sqlite3.connect(db_file)
         self.owner = owner
@@ -17,6 +17,7 @@ class model_manager:
         self.task = task
         self.version = version
         self.model_file = model_file
+        self.dockerfile = dockerfile
         self.builder = builder
         self.user = user
 
@@ -121,7 +122,7 @@ class model_manager:
 
         try:
             ## copy
-            cmd = 'ansible-playbook {playbook} -l {builder} -i {hosts_file} -e "model_file={model_file} model_dir={model_dir}"'.format(playbook=self.copy_playbook, builder=self.builder, hosts_file=self.hosts_file, model_file=self.model_file, model_dir=model_dir)
+            cmd = 'ansible-playbook {playbook} -l {builder} -i {hosts_file} -e "model_file={model_file} dockerfile={dockerfile}"'.format(playbook=self.copy_playbook, builder=self.builder, hosts_file=self.hosts_file, model_file=self.model_file, dockerfile=self.dockerfile)
 
             if os.system(cmd) != 0:
                 raise Exception('Wrong Command.')
@@ -244,7 +245,7 @@ class model_manager:
 
         try:
             ## copy
-            cmd = 'ansible-playbook {playbook} -l {builder} -i {hosts_file} -e "model_file={model_file} model_dir={model_dir}"'.format(playbook=self.copy_playbook, builder=self.builder, hosts_file=self.hosts_file, model_file=self.model_file, model_dir=model_dir)
+            cmd = 'ansible-playbook {playbook} -l {builder} -i {hosts_file} -e "model_file={model_file} dockerfile={dockerfile}"'.format(playbook=self.copy_playbook, builder=self.builder, hosts_file=self.hosts_file, model_file=self.model_file, dockerfile=self.dockerfile)
 
             if os.system(cmd) != 0:
                 raise Exception('Wrong Command.')
@@ -380,7 +381,6 @@ if __name__ == "__main__":
 
     registry = '123.214.186.252:39500'
     db_file = '/home/keti/cloud-edge-aicontainers/v2/bhc/webapp/db/edge_logs.db3'
-    model_dir = '/home/keti/cloud-edge-aicontainers/v2/bhc/webapp/db/model/img_build/buildimg/'
     copy_playbook_path = '/home/keti/cloud-edge-aicontainers/v2/bhc/webapp/db/model/img_build/copy_model.yaml'
     build_playbook_path = '/home/keti/cloud-edge-aicontainers/v2/bhc/webapp/db/model/img_build/autorun.yaml'
     distrb_playbook_path = '/home/keti/cloud-edge-aicontainers/v2/bhc/webapp/db/model/run_model.yaml'
