@@ -1,0 +1,46 @@
+
+PLAY [Docker model Generation && Distribution] *********************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [n02]
+
+TASK [get model data] **********************************************************
+changed: [n02]
+
+TASK [data processing] *********************************************************
+ok: [n02]
+
+TASK [debug] *******************************************************************
+ok: [n02] => {
+    "msg": {
+        "Containers": "N/A",
+        "CreatedAt": "2023-05-04 11:17:58 +0900 KST",
+        "CreatedSince": "9 minutes ago",
+        "Digest": "<none>",
+        "ID": "74a21bb17be3",
+        "Repository": "x86_64-model",
+        "SharedSize": "N/A",
+        "Size": "8.68GB",
+        "Tag": "plate_detector_v1.0",
+        "UniqueSize": "N/A",
+        "VirtualSize": "8.681GB"
+    }
+}
+
+TASK [get date] ****************************************************************
+ok: [n02]
+
+TASK [get size] ****************************************************************
+ok: [n02]
+
+TASK [get result] **************************************************************
+ok: [n02] => {
+    "msg": [
+        "date=2023-05-04 11:17:58 +0900 KST",
+        "size=8.68GB"
+    ]
+}
+
+PLAY RECAP *********************************************************************
+n02                        : ok=7    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+

@@ -31,7 +31,7 @@ path:
   build_playbook: /home/keti/cloud-edge-aicontainers/v2/bhc/webapp/db/model/img_build/autorun.yaml
 
   # path to distribution playbook
-  distrb_palybook: /home/keti/cloud-edge-aicontainers/v2/bhc/webapp/db/model/run_model.yaml
+  distrb_playbook: /home/keti/cloud-edge-aicontainers/v2/bhc/webapp/db/model/run_model.yaml
 
   # path to ansible hosts file
   hosts_file: /home/keti/cloud-edge-aicontainers/v2/bhc/webapp/hosts.ini

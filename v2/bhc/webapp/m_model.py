@@ -9,7 +9,7 @@ from datetime import datetime
 
 class model_manager:
 
-    def __init__(self, db_file, owner, model_name, task, version, model_file, dockerfile, builder, user):
+    def __init__(self, db_file, owner, model_name, task, version, model_file, dockerfile, user=None, builder=None):
 
         self.con = sqlite3.connect(db_file)
         self.owner = owner

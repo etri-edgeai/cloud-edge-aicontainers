@@ -7,11 +7,13 @@ import textwrap
 
 class plate_detector:
 
-    def __init__(self, model, data, url=None):
+    def __init__(self, model, data, url=None, project=None, name=None):
 
         self.model = YOLO(model)
         self.data = data
         self.url = url
+        self.project = project
+        self.name = name
 
     
     def train(self, epochs, batch):
@@ -24,13 +26,13 @@ class plate_detector:
         )
 
 
-    def pred(self):
+    def pred(self, project, name):
 
         if self.data:
-            result = self.model.predict(self.data, save=args.save)
+            result = self.model.predict(self.data, save=args.save, project=self.project, name=self.name)
 
         elif self.url:
-            result = self.model(self.url, stream=True)
+            result = self.model(self.url, stream=True, project=self.project, name=self.name)
         
         return result
     
@@ -53,6 +55,9 @@ if __name__ == "__main__":
 
                 you have to edit codes below self.model.train() in order to manipulate any hyper-parameters.
 
+                results saved in project/name/predict/...
+                    default : runs/task(i.e. detect)/predict/...
+
                 detailed informations about model :
                     https://docs.ultralytics.com/modes/
          
@@ -62,13 +67,13 @@ if __name__ == "__main__":
     parser.add_argument(
         '--model',
         type=str,
-        default='pd_base.pt',
+        default='/home/pd_base.pt',
         help='model file'
     )
     parser.add_argument(
         '--data',
         type=str,
-        default='data/test.jpg',
+        default='/home/data/test.jpg',
         help='data path'
     )
     parser.add_argument(
@@ -100,10 +105,20 @@ if __name__ == "__main__":
         type=str,
         help='predict input url'
     )
+    parser.add_argument(
+        '--project',
+        type=str,
+        help='name of project (parent dir)'
+    )
+    parser.add_argument(
+        '--name',
+        type=str,
+        help='name of work (current dir)'
+    )
     args = parser.parse_args()
 
     pd = plate_detector(
-        args.path,
+        args.model,
         args.data
     )
 
