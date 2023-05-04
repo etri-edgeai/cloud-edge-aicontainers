@@ -89,7 +89,7 @@ AI 모델을 조작하는 기능을 수행하기 위한 인터페이스입니다
 >AI 모델 제어 인터페이스를 동작하기 위한 예시 스크립트입니다.
 
 
-## ```Configuration file```
+## ```Configuration file Based EVC Activation```
 **동작 구성을 정의한 파일을 사용한 EVC 구동 방안**<br>
 <br>
 > yaml 포맷을 사용하여 동작을 정의합니다.<br>
