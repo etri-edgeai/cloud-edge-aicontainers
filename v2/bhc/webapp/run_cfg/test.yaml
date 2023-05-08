@@ -4,6 +4,7 @@
 activations:
   - &model_construction register
   - &model_distribute download
+  - &model_deletion delete
   - &model_train train
   - &model_inference pred
   - &monitor_node mon_d
@@ -11,60 +12,120 @@ activations:
 
 # choose action and write into "runs" below.
 
-where: &nodes
-  - n02
-# - your node
-# add your nodes where run the task.
+where:
+  &nodes_1
+    - n02
+    # - your node
+    # add your nodes where run the task.
+
+where2:
+  &nodes_2
+    - rpi6401
+  #   - your node
+  # add list for another task.
+
 
 path:
-  &files_path # path to files you need for operations
+  ## path to files you need for operations
   # path to dockerfile
-  dockerfile: /home/keti/cloud-edge-aicontainers/v2/bhc/webapp/run_cfg/Dockerfile
+  dockerfile: &dockerfile /home/keti/cloud-edge-aicontainers/v2/bhc/webapp/run_cfg/Dockerfile
 
   # path_to_model_file
-  modelfile: /home/keti/cloud-edge-aicontainers/v2/bhc/webapp/run_cfg/model.tar.gz
+  modelfile: &modelfile /home/keti/cloud-edge-aicontainers/v2/bhc/webapp/run_cfg/model.tar.gz
 
   # path to model copy playbook (server -> edge node)
-  copy_playbook: /home/keti/cloud-edge-aicontainers/v2/bhc/webapp/db/model/img_build/copy_model.yaml
+  copy_playbook: &copy_playbook /home/keti/cloud-edge-aicontainers/v2/bhc/webapp/db/model/img_build/copy_model.yaml
 
   # path to model build playbook
-  build_playbook: /home/keti/cloud-edge-aicontainers/v2/bhc/webapp/db/model/img_build/autorun.yaml
+  build_playbook: &build_playbook /home/keti/cloud-edge-aicontainers/v2/bhc/webapp/db/model/img_build/autorun.yaml
 
   # path to distribution playbook
-  distrb_playbook: /home/keti/cloud-edge-aicontainers/v2/bhc/webapp/db/model/run_model.yaml
+  distrb_playbook: &distrb_playbook /home/keti/cloud-edge-aicontainers/v2/bhc/webapp/db/model/run_model.yaml
 
   # path to ansible hosts file
-  hosts_file: /home/keti/cloud-edge-aicontainers/v2/bhc/webapp/hosts.ini
+  hosts_file: &hosts_file /home/keti/cloud-edge-aicontainers/v2/bhc/webapp/hosts.ini
 
   # path to logs.db
-  db: /home/keti/cloud-edge-aicontainers/v2/bhc/webapp/db/edge_logs.db3
+  db: &db /home/keti/cloud-edge-aicontainers/v2/bhc/webapp/db/edge_logs.db3
 
 
 vars:
-  &vars # informations to define your model
+  ## informations to define your model
   # registry address
-  registry: 123.214.186.252:39500
+  registry: &registry 123.214.186.252:39500
 
   # owner of the model
-  owner: keti
+  owner: &owner keti
 
   # what model do
-  task: detection
+  task: &task detection
 
   # name of the model
-  model_name: plate_detector
+  model_name: &model_name plate_detector
 
   # model version
-  version: v1.0
+  version: &version v1.0
+
+  # model image repository
+  repo: &repo x86_64-model
+
 
 ## activation configs
 runs:
+  - name: delete_config 1
+    activation: *model_deletion
+    node: *nodes_1
+    path:
+      dockerfile: *dockerfile
+      modelfile: *modelfile
+      copy_playbook: *copy_playbook
+      build_playbook: *build_playbook
+      distrb_playbook: *distrb_playbook
+      hosts_file: *hosts_file
+      db: *db
+    vars:
+      repo: *repo
+      model_name: *model_name
+      version: *version
+
+
+
   - name: my_run_config 1
     activation: *model_construction
-    node: *nodes
+    node: *nodes_1
     path:
-      *files_path
+      dockerfile: *dockerfile
+      modelfile: *modelfile
+      copy_playbook: *copy_playbook
+      build_playbook: *build_playbook
+      distrb_playbook: *distrb_playbook
+      hosts_file: *hosts_file
+      db: *db
     vars:
-      *vars
+      registry: *registry
+      owner: *owner
+      task: *task
+      model_name: *model_name
+      version: *version
 
-
+  - name: my_run_config 2
+    activation: *model_construction 
+    # your action
+    node: *nodes_2
+    # your nodes
+    path:
+      dockerfile: *dockerfile
+      modelfile: *modelfile
+      copy_playbook: *copy_playbook
+      build_playbook: *build_playbook
+      distrb_playbook: *distrb_playbook
+      hosts_file: *hosts_file
+      db: *db
+      # your file path: *path
+    vars:
+      registry: *registry
+      owner: *owner
+      task: *task
+      model_name: *model_name
+      version: *version
+      # your args: *args
