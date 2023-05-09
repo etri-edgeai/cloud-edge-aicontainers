@@ -84,9 +84,9 @@ runs:
       hosts_file: *hosts_file
       db: *db
     vars:
-      registry:
-      owner:
-      task:
+      registry: *registry
+      owner: *owner
+      task: *task
       model_name: *model_name
       version: *version
       repo: *repo
@@ -110,6 +110,7 @@ runs:
       task: *task
       model_name: *model_name
       version: *version
+      repo: *repo
 
 
 
@@ -133,4 +134,5 @@ runs:
       task: *task
       model_name: *model_name
       version: *version
+      repo: *repo
       # your args: *args

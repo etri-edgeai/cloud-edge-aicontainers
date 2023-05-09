@@ -40,6 +40,7 @@ for run in cfg:
         man = model_manager(
             db_file=db,
             owner=owner,
+            repo=repo,
             model_name=model_name,
             task=task,
             version=version,
@@ -68,7 +69,7 @@ for run in cfg:
 
 
         elif mode == 'delete':
-            done = man.delete(repo)
+            done = man.delete()
 
             if done:
                 man.delete_db()

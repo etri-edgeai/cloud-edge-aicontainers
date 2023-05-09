@@ -2,45 +2,49 @@
 PLAY [Docker model Generation && Distribution] *********************************
 
 TASK [Gathering Facts] *********************************************************
-ok: [n02]
+ok: [rpi6401]
 
 TASK [get model data] **********************************************************
-changed: [n02]
+changed: [rpi6401]
 
 TASK [data processing] *********************************************************
-ok: [n02]
+ok: [rpi6401]
 
 TASK [debug] *******************************************************************
-ok: [n02] => {
+ok: [rpi6401] => {
     "msg": {
         "Containers": "N/A",
-        "CreatedAt": "2023-05-04 11:17:58 +0900 KST",
-        "CreatedSince": "9 minutes ago",
+        "CreatedAt": "2023-05-09 17:26:29 +0900 KST",
+        "CreatedSince": "3 minutes ago",
         "Digest": "<none>",
-        "ID": "74a21bb17be3",
-        "Repository": "x86_64-model",
+        "ID": "d83d4e27f3f3",
+        "Repository": "aarch64-model",
         "SharedSize": "N/A",
-        "Size": "8.68GB",
+        "Size": "2.14GB",
         "Tag": "plate_detector_v1.0",
         "UniqueSize": "N/A",
-        "VirtualSize": "8.681GB"
+        "VirtualSize": "2.144GB"
     }
 }
 
 TASK [get date] ****************************************************************
-ok: [n02]
+ok: [rpi6401]
 
 TASK [get size] ****************************************************************
-ok: [n02]
+ok: [rpi6401]
+
+TASK [get repo] ****************************************************************
+ok: [rpi6401]
 
 TASK [get result] **************************************************************
-ok: [n02] => {
+ok: [rpi6401] => {
     "msg": [
-        "date=2023-05-04 11:17:58 +0900 KST",
-        "size=8.68GB"
+        "date=2023-05-09 17:26:29 +0900 KST",
+        "size=2.14GB",
+        "repo=aarch64-model"
     ]
 }
 
 PLAY RECAP *********************************************************************
-n02                        : ok=7    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+rpi6401                    : ok=8    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
