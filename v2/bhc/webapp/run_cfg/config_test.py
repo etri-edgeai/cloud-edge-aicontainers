@@ -17,7 +17,9 @@ for run in cfg:
     print()
     print()
 
-    pp.pprint(run)
+    # pp.pprint(run)
+    mode = run['activation']
+    print('mode : ', mode)
     print()
     print()
 

@@ -27,12 +27,12 @@ for run in cfg:
     for vars in run['path']:
         if vars:
             globals()[vars] = (run['path'][vars])
-            print(f'{vars} : {globals()[vars]}')
+            # print(f'{vars} : {globals()[vars]}')
     
     for vars in run['vars']:
         if vars:
             globals()[vars] = (run['vars'][vars])
-            print(f'{vars} : {globals()[vars]}')
+            # print(f'{vars} : {globals()[vars]}')
 
 
     # run EVC
@@ -66,3 +66,22 @@ for run in cfg:
         elif mode == 'download':
             man.download()
 
+
+        elif mode == 'delete':
+            done = man.delete(repo)
+
+            if done:
+                man.delete_db()
+                man.view()
+
+        
+        elif mode == 'view':
+            man.view()
+        
+
+        elif mode == 'update':
+            done = man.update()
+
+            if done:
+                man.insert_db()
+                man.view()

@@ -84,9 +84,12 @@ runs:
       hosts_file: *hosts_file
       db: *db
     vars:
-      repo: *repo
+      registry:
+      owner:
+      task:
       model_name: *model_name
       version: *version
+      repo: *repo
 
 
 
@@ -107,6 +110,8 @@ runs:
       task: *task
       model_name: *model_name
       version: *version
+
+
 
   - name: my_run_config 2
     activation: *model_construction 
