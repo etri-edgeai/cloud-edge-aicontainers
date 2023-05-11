@@ -1,0 +1,195 @@
+## initial configuration file for EVC activation
+# please check out annotations below
+# 멀티 시퀀트 작업 처리를 위한 구성 스크립트 파일
+# 개별 시스템 구축, 시스템 이식 등을 위한 커스터마이즈가 목표인 개발자, 사용자를 위해 제작됨.
+
+# 수행할 작업
+activations:
+  - &model_construction register
+  - &model_distribute download
+  - &model_deletion delete
+  - &model_train train
+  - &model_inference pred
+  - &monitor_node mon_d
+  - &monitor_model mon_m
+
+# choose action and write into "runs" below.
+
+# 타겟 노드 (대상)
+where:
+  &nodes_1
+    - n02
+    # - your node
+    # add your nodes where run the task.
+
+where2:
+  &nodes_2
+    - rpi6401
+  #   - your node
+  # add list for another task.
+
+# 작업 처리를 위한 각종 파일 경로
+path:
+  ## path to files you need for operations
+  # path to dockerfile
+  dockerfile: &dockerfile /home/keti/cloud-edge-aicontainers/v2/bhc/webapp/run_cfg/Dockerfile
+
+  # path_to_model_file
+  modelfile: &modelfile /home/keti/cloud-edge-aicontainers/v2/bhc/webapp/run_cfg/model.tar.gz
+
+  # path to model copy playbook (server -> edge node)
+  copy_playbook: &copy_playbook /home/keti/cloud-edge-aicontainers/v2/bhc/webapp/db/model/img_build/copy_model.yaml
+
+  # path to model build playbook
+  build_playbook: &build_playbook /home/keti/cloud-edge-aicontainers/v2/bhc/webapp/db/model/img_build/autorun.yaml
+
+  # path to distribution playbook
+  distrb_playbook: &distrb_playbook /home/keti/cloud-edge-aicontainers/v2/bhc/webapp/db/model/run_model.yaml
+
+  # path to ansible hosts file
+  hosts_file: &hosts_file /home/keti/cloud-edge-aicontainers/v2/bhc/webapp/hosts.ini
+
+  # path to logs.db
+  db: &db /home/keti/cloud-edge-aicontainers/v2/bhc/webapp/db/edge_logs.db3
+
+# 전달할 인자 목록
+vars:
+  ## informations to define your model
+  # registry address
+  registry: &registry 123.214.186.252:39500
+
+  # owner of the model
+  owner: &owner keti
+
+  # what model do
+  task: &task detection
+
+  # name of the model
+  model_name: &model_name plate_detector
+
+  # model version
+  version: &version v1.0
+
+  # model image repository
+  repo: &repo x86_64-model
+  repo2: &repo2 aarch64-model
+
+
+## activation configs
+# 수행할 작업 정의
+customized_runs: # 다중 명령 정의 예시
+  - name: delete_config 1
+    activation: *model_deletion
+    node: *nodes_1
+    path:
+      dockerfile: *dockerfile
+      modelfile: *modelfile
+      copy_playbook: *copy_playbook
+      build_playbook: *build_playbook
+      distrb_playbook: *distrb_playbook
+      hosts_file: *hosts_file
+      db: *db
+    vars:
+      registry: *registry
+      owner: *owner
+      task: *task
+      model_name: *model_name
+      version: *version
+      repo: *repo
+
+
+  - name: delete_config 2
+    activation: *model_deletion
+    node: *nodes_1
+    path:
+      dockerfile: *dockerfile
+      modelfile: *modelfile
+      copy_playbook: *copy_playbook
+      build_playbook: *build_playbook
+      distrb_playbook: *distrb_playbook
+      hosts_file: *hosts_file
+      db: *db
+    vars:
+      registry: *registry
+      owner: *owner
+      task: *task
+      model_name: *model_name
+      version: *version
+      repo: *repo2
+
+
+  - name: my_run_config 1
+    activation: *model_construction
+    node: *nodes_1
+    path:
+      dockerfile: *dockerfile
+      modelfile: *modelfile
+      copy_playbook: *copy_playbook
+      build_playbook: *build_playbook
+      distrb_playbook: *distrb_playbook
+      hosts_file: *hosts_file
+      db: *db
+    vars:
+      registry: *registry
+      owner: *owner
+      task: *task
+      model_name: *model_name
+      version: *version
+      repo: *repo
+
+
+
+  - name: my_run_config 2
+    activation: *model_construction 
+    # your action
+    node: *nodes_2
+    # your nodes
+    path:
+      dockerfile: *dockerfile
+      modelfile: *modelfile
+      copy_playbook: *copy_playbook
+      build_playbook: *build_playbook
+      distrb_playbook: *distrb_playbook
+      hosts_file: *hosts_file
+      db: *db
+      # your file path: *path
+    vars:
+      registry: *registry
+      owner: *owner
+      task: *task
+      model_name: *model_name
+      version: *version
+      repo: *repo
+      # your args: *args
+
+
+autorun: # 모델 구축 - 배포 - 실행 기본 절차 수행
+  # - name: build AI model image
+  #   activation: register
+  #   path:
+  #     copy_playbook: *copy_playbook
+  #     build_playbook: *build_playbook
+  #     distrb_playbook: *distrb_playbook
+  #     hosts_file: *hosts_file
+  #     db: *db
+  #     registry: *registry
+
+  - name: deploy AI model image
+    activation: download
+    path:
+      copy_playbook: *copy_playbook
+      build_playbook: *build_playbook
+      distrb_playbook: *distrb_playbook
+      hosts_file: *hosts_file
+      db: *db
+      registry: *registry
+  
+  # - name: activate AI model
+  #   activation: run
+  #   path:
+  #     copy_playbook: *copy_playbook
+  #     build_playbook: *build_playbook
+  #     distrb_playbook: *distrb_playbook
+  #     hosts_file: *hosts_file
+  #     db: *db
+  #     registry: *registry
