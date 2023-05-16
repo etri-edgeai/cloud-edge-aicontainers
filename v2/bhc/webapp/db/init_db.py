@@ -116,6 +116,7 @@ def main(file_path):
     modelinfo_detail_table = """ CREATE TABLE IF NOT EXISTS modelinfo_detail (
                         time NOT NULL,
                         owner_name text NOT NULL,
+                        repo text NOT NULL,
                         model_name text NOT NULL,
                         size_GB real NOT NULL,
                         task text NOT NULL,

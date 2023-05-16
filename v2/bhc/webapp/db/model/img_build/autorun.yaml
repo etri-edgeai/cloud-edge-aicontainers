@@ -100,9 +100,18 @@
     vars:
       jmesquery: 'Size'
 
+  - name: get repo
+    tags: log
+    set_fact:
+      repo: "{{ json_data | json_query(jmesquery) }}"
+    vars:
+      jmesquery: 'Repository'
+
+
   - name: get result
     tags: log
     debug:
       msg:
         - "date={{ date }}"
         - "size={{ size }}"
+        - "repo={{ repo }}"

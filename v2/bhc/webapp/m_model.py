@@ -9,14 +9,16 @@ from datetime import datetime
 
 class model_manager:
 
-    def __init__(self, db_file, owner, model_name, task, version, model_file, builder, user):
+    def __init__(self, db_file, owner, model_name, task, version, model_file, dockerfile, user=None, builder=None, repo=None):
 
         self.con = sqlite3.connect(db_file)
         self.owner = owner
+        self.repo = repo
         self.model_name = model_name
         self.task = task
         self.version = version
         self.model_file = model_file
+        self.dockerfile = dockerfile
         self.builder = builder
         self.user = user
 
@@ -49,7 +51,7 @@ class model_manager:
                     run = True
 
                     while run:
-                        lines[idx] = re.sub(r"[^\uAC00-\uD7A30-9a-zA-Z\s\.\-\:]", "", lines[idx])
+                        lines[idx] = re.sub(r"[^\uAC00-\uD7A30-9a-zA-Z\s\.\-\:\_]", "", lines[idx])
                         lines[idx] = re.sub(" +", " ", lines[idx])
                         lines[idx] = re.sub("\n", "", lines[idx])
                         lines[idx] = re.sub("changed.+", "", lines[idx])
@@ -76,12 +78,17 @@ class model_manager:
                 row = row.strip('GB')
                 data.append(row)
 
+            elif 'repo' in row:
+                row = row.strip(' repo')
+                data.append(row)
+
         tmp = []
         log = []
         time_format = "%Y-%m-%d %H:%M:%S"
 
         tmp.append(time.mktime(datetime.strptime(data[0], time_format).timetuple()))
         tmp.append(self.owner)
+        tmp.append(data[2])
         tmp.append(self.model_name)
         tmp.append(data[1])
         tmp.append(self.task)
@@ -91,7 +98,7 @@ class model_manager:
         log.append(tmp)
 
         cur = self.con.cursor()
-        query = "insert into modelinfo_detail values(?,?,?,?,?,?)"
+        query = "insert into modelinfo_detail values(?,?,?,?,?,?,?)"
         cur.executemany(query, log)
         self.con.commit()
         
@@ -113,15 +120,16 @@ class model_manager:
         
         for rows in sent:
             for i in range(len(rows)):
-                if self.owner in rows[i] and self.model_name in rows[i+1] and self.version in rows[i+2]:
+                if self.owner in rows[i] and self.repo in rows[i+1] and self.model_name in rows[i+2] and self.version in rows[i+3]:
                     print('host : ', rows[i])
-                    print('model name : ', rows[i+1])
-                    print('architecture : ', rows[i+2])
+                    print('repository : ', rows[i+1])
+                    print('model name : ', rows[i+2])
+                    print('architecture : ', rows[i+3])
                     raise Exception('model already exist. check model list or use "--mode update".')
 
         try:
             ## copy
-            cmd = 'ansible-playbook {playbook} -l {builder} -i {hosts_file} -e "model_file={model_file} model_dir={model_dir}"'.format(playbook=self.copy_playbook, builder=self.builder, hosts_file=self.hosts_file, model_file=self.model_file, model_dir=model_dir)
+            cmd = 'ansible-playbook {playbook} -l {builder} -i {hosts_file} -e "model_file={model_file} dockerfile={dockerfile}"'.format(playbook=self.copy_playbook, builder=self.builder, hosts_file=self.hosts_file, model_file=self.model_file, dockerfile=self.dockerfile)
 
             if os.system(cmd) != 0:
                 raise Exception('Wrong Command.')
@@ -146,7 +154,7 @@ class model_manager:
         return done
 
         
-    def delete(self, repo):
+    def delete(self):
 
         # done = True
         # hash = "'{print ($3)}'"
@@ -178,7 +186,7 @@ class model_manager:
         path = '/var/lib/registry/docker/registry/v2/repositories'
 
         try:
-            cmd = 'docker exec -it edge-registry rm -rf {path}/{repo}/_manifests/tags/{model_name}_{version}'.format(path=path, repo=repo, model_name=self.model_name, version=self.version)
+            cmd = 'docker exec -it edge-registry rm -rf {path}/{repo}/_manifests/tags/{model_name}_{version}'.format(path=path, repo=self.repo, model_name=self.model_name, version=self.version)
 
             if os.system(cmd) != 0:
                 raise Exception('Wrong Command.')
@@ -211,7 +219,7 @@ class model_manager:
 
     def delete_db(self):
 
-        query = 'delete from modelinfo_detail where owner_name="{owner}" and model_name="{model_name}" and version="{version}";'.format(owner=self.owner, model_name=self.model_name, version=self.version)
+        query = 'delete from modelinfo_detail where owner_name="{owner}" and repo="{repo}" and model_name="{model_name}" and version="{version}";'.format(owner=self.owner, repo=self.repo, model_name=self.model_name, version=self.version)
 
         cur = self.con.cursor()
         cur.execute(query)
@@ -244,7 +252,7 @@ class model_manager:
 
         try:
             ## copy
-            cmd = 'ansible-playbook {playbook} -l {builder} -i {hosts_file} -e "model_file={model_file} model_dir={model_dir}"'.format(playbook=self.copy_playbook, builder=self.builder, hosts_file=self.hosts_file, model_file=self.model_file, model_dir=model_dir)
+            cmd = 'ansible-playbook {playbook} -l {builder} -i {hosts_file} -e "model_file={model_file} dockerfile={dockerfile}"'.format(playbook=self.copy_playbook, builder=self.builder, hosts_file=self.hosts_file, model_file=self.model_file, dockerfile=self.dockerfile)
 
             if os.system(cmd) != 0:
                 raise Exception('Wrong Command.')
@@ -308,7 +316,7 @@ class model_manager:
 
     def view(self):
 
-        query = "select DATETIME(time, 'unixepoch') as date, owner_name, model_name, size_GB, task, version from modelinfo_detail"
+        query = "select DATETIME(time, 'unixepoch') as date, owner_name, repo, model_name, size_GB, task, version from modelinfo_detail"
         print(pd.read_sql_query(query, self.con))
 
 
@@ -380,7 +388,6 @@ if __name__ == "__main__":
 
     registry = '123.214.186.252:39500'
     db_file = '/home/keti/cloud-edge-aicontainers/v2/bhc/webapp/db/edge_logs.db3'
-    model_dir = '/home/keti/cloud-edge-aicontainers/v2/bhc/webapp/db/model/img_build/buildimg/'
     copy_playbook_path = '/home/keti/cloud-edge-aicontainers/v2/bhc/webapp/db/model/img_build/copy_model.yaml'
     build_playbook_path = '/home/keti/cloud-edge-aicontainers/v2/bhc/webapp/db/model/img_build/autorun.yaml'
     distrb_playbook_path = '/home/keti/cloud-edge-aicontainers/v2/bhc/webapp/db/model/run_model.yaml'
@@ -409,7 +416,7 @@ if __name__ == "__main__":
     
 
     elif args.mode == 'delete':
-        done = manager.delete(args.repo)
+        done = manager.delete()
 
         if done:
             manager.delete_db()
