@@ -20,6 +20,9 @@ class device_manager:
         self.op_sys = op_sys
         self.gpu = gpu
         
+    def config(self, playbook):
+
+        self.playbook = playbook
 
     def view(self):
 
@@ -45,7 +48,7 @@ class device_manager:
 
 
         try:
-            cmd = 'ansible-playbook copy_cert.yaml -l {name} -i /home/keti/tmp_host.ini -e "host_name={host_name}"'.format(name=self.name, host_name=self.owner)
+            cmd = 'ansible-playbook {playbook} -l {name} -i /home/keti/tmp_host.ini -e "host_name={host_name}"'.format(playbook=self.playbook, name=self.name, host_name=self.owner)
             if os.system(cmd) != 0:
                 raise Exception('Error')
             
@@ -71,7 +74,7 @@ class device_manager:
             data = tuple(data) 
 
             cur = self.con.cursor()
-            query = "insert into nodes values(?,?,?,?,?,?,?,?,?,?);"
+            query = "insert or ignore into nodes values(?,?,?,?,?,?,?,?,?,?);"
             cur.execute(query, data)
             self.con.commit()
 
@@ -112,7 +115,7 @@ class device_manager:
                     builder_data.append(tmp[i])
 
             elif t == 'user':
-                query = 'select distinct affiliation from nodes'
+                query = 'select distinct affiliation from nodes where type="{type}"'.format(type=t)
                 cur.execute(query)
                 tmp = cur.fetchall()
 

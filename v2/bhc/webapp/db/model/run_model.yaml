@@ -70,17 +70,22 @@
 
 
 
-#===================================== inference =======================================
-#=======================================================================================
+#===================================== AI model run =======================================#
+#==========================================================================================#
 
-  ## run model
+  ## run model predictor
   - name: model prediction
     tags: pred
-    command: docker exec {{ model_tag }}_model python home/model.py --input {{ input }}
+    command: docker exec {{ model_tag }}_model python home/model.py --input {{ input }} --mod pred
     register: command_output
   - debug: msg="{{command_output.stdout_lines}}"
     tags: pred
 
-
-
+  ## run model trainer
+  - name: model train
+    tags: train
+    command: docker exec {{ model_tag }}_model python home/model.py --input {{ input }} --mod train
+    register: command_output
+  - debug: msg="{{ command_ouput.stdout_lines }}"
+    tags: train
 

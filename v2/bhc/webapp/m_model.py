@@ -9,7 +9,7 @@ from datetime import datetime
 
 class model_manager:
 
-    def __init__(self, db_file, owner, model_name, task, version, model_file, dockerfile, user=None, builder=None, repo=None):
+    def __init__(self, db_file, owner, model_name, task, version, model_file, dockerfile=None, builder=None, repo=None):
 
         self.con = sqlite3.connect(db_file)
         self.owner = owner
@@ -20,7 +20,9 @@ class model_manager:
         self.model_file = model_file
         self.dockerfile = dockerfile
         self.builder = builder
-        self.user = user
+
+
+
 
     def config(self, copy_playbook, build_playbook, distrb_playbook, hosts_file):
 
@@ -28,10 +30,13 @@ class model_manager:
         self.build_playbook = build_playbook
         self.distrb_playbook = distrb_playbook
         self.hosts_file = hosts_file
-    
+
+
+
+
     def insert_db(self):
 
-        os.system('ansible-playbook {playbook} -i {hosts_file} -l {host_name} -t log -e "tag={tag} ver={version}" > modelinfo.txt'.format(playbook=self.build_playbook, hosts_file=self.hosts_file, host_name=self.builder, tag=self.model_name, version=self.version))
+        os.system('ansible-playbook {playbook} -i {hosts_file} -l builder -t log -e "tag={tag} ver={version}" > modelinfo.txt'.format(playbook=self.build_playbook, hosts_file=self.hosts_file, tag=self.model_name, version=self.version))
 
         rows = []
         p_start = re.compile('TASK \[get result].+')
@@ -55,6 +60,7 @@ class model_manager:
                         lines[idx] = re.sub(" +", " ", lines[idx])
                         lines[idx] = re.sub("\n", "", lines[idx])
                         lines[idx] = re.sub("changed.+", "", lines[idx])
+                        lines[idx] = re.sub("ok.+", "", lines[idx])
 
                         rows.append(lines[idx])
 
@@ -109,11 +115,13 @@ class model_manager:
             print(row)
 
 
+
+
     def register(self):
 
         done = True
 
-        query = 'select owner_name, model_name, version from modelinfo_detail'
+        query = 'select owner_name, repo, model_name, version from modelinfo_detail'
         cur = self.con.cursor()
         cur.execute(query)
         sent = cur.fetchall()
@@ -129,7 +137,7 @@ class model_manager:
 
         try:
             ## copy
-            cmd = 'ansible-playbook {playbook} -l {builder} -i {hosts_file} -e "model_file={model_file} dockerfile={dockerfile}"'.format(playbook=self.copy_playbook, builder=self.builder, hosts_file=self.hosts_file, model_file=self.model_file, dockerfile=self.dockerfile)
+            cmd = 'ansible-playbook {playbook} -l builder -i {hosts_file} -e "model_file={model_file} dockerfile={dockerfile}"'.format(playbook=self.copy_playbook, hosts_file=self.hosts_file, model_file=self.model_file, dockerfile=self.dockerfile)
 
             if os.system(cmd) != 0:
                 raise Exception('Wrong Command.')
@@ -142,7 +150,7 @@ class model_manager:
 
         try:
             ## build
-            cmd = 'ansible-playbook {playbook} -i {hosts_file} -l {host_name} -t build,test,push -e "tag={tag} ver={version} model_file={model_file}"'.format(playbook=self.build_playbook, hosts_file=self.hosts_file, host_name=self.builder, tag=self.model_name, version=self.version, model_file=self.model_file)
+            cmd = 'ansible-playbook {playbook} -i {hosts_file} -l builder -t build,test,push -e "tag={tag} ver={version} model_file={model_file}"'.format(playbook=self.build_playbook, hosts_file=self.hosts_file, tag=self.model_name, version=self.version, model_file=self.model_file)
 
             if os.system(cmd) != 0:
                 raise Exception('Wrong Command.')
@@ -153,7 +161,9 @@ class model_manager:
 
         return done
 
-        
+
+
+
     def delete(self):
 
         # done = True
@@ -217,14 +227,19 @@ class model_manager:
 
         return done
 
+
+
+
     def delete_db(self):
 
         query = 'delete from modelinfo_detail where owner_name="{owner}" and repo="{repo}" and model_name="{model_name}" and version="{version}";'.format(owner=self.owner, repo=self.repo, model_name=self.model_name, version=self.version)
 
+        print(query)
         cur = self.con.cursor()
         cur.execute(query)
-
         self.con.commit()
+
+
 
 
     def update(self):
@@ -278,7 +293,7 @@ class model_manager:
 
 
 
-    def download(self):
+    def download(self, registry, node):
 
         query = 'select owner_name, model_name, version from modelinfo_detail'
         cur = self.con.cursor()
@@ -295,23 +310,27 @@ class model_manager:
                     print('Model found. start distribution.')
                     break
 
-                else:
-                    raise Exception('Model not found. please check models-list.')
+                # else:
+                #     raise Exception('Model not found. please check models-list.')
 
         ## model download to user_node
-        os.system('ansible-playbook {playbook} -l {host_name} -t distrb -i {hosts_file} -e "registry={registry} model_tag={tag}"'.format(playbook=self.distrb_playbook, hosts_file=self.hosts_file, host_name=self.user, registry=registry, tag=self.model_name))
+        os.system('ansible-playbook {playbook} -l {node_name} -t distrb -i {hosts_file} -e "registry={registry} model_tag={tag}"'.format(playbook=self.distrb_playbook, hosts_file=self.hosts_file, node_name=node, registry=registry, tag=self.model_name))
 
         print()
         print('Show result')
         print()
 
         ## docker image list to user_node
-        os.system('ansible-playbook {playbook} -t search -i {hosts_file} -l {host_name}'.format(playbook=self.distrb_playbook, hosts_file=self.hosts_file, host_name=self.user))
+        os.system('ansible-playbook {playbook} -t search -i {hosts_file} -l {host_name}'.format(playbook=self.distrb_playbook, hosts_file=self.hosts_file, host_name=node))
 
 
-    def run(self):
 
-        pass
+
+    def run(self, mode, node, data=None):
+
+        os.system('ansible-playbook {playbook} -l {node_name} -t {mode} -i {hosts_file} -e "model_tag={model_name} input={data}"'.format(playbook=self.distrb_playbook, hosts_file=self.hosts_file, mode=mode, node_name=node, model_name=self.model_name, data=data))
+
+
 
 
     def view(self):
@@ -394,14 +413,14 @@ if __name__ == "__main__":
     hosts_file_path = '/home/keti/cloud-edge-aicontainers/v2/bhc/webapp/hosts.ini'
 
     manager = model_manager(
-        db_file,
-        args.owner,
-        args.model_name,
-        args.task,
-        args.version,
-        args.model_file,
-        args.builder,
-        args.user
+        db_file=db_file,
+        owner=args.owner,
+        repo=args.repo,
+        model_name=args.model_name,
+        task=args.task,
+        version=args.version,
+        model_file=args.model_file,
+        builder=args.builder
     )
     print(args)
 
@@ -428,7 +447,7 @@ if __name__ == "__main__":
 
 
     elif args.mode == 'download':
-        manager.download()
+        manager.download(node=args.user)
 
 
     elif args.mode == 'update':
