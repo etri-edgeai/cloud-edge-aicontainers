@@ -12,8 +12,24 @@ activations:
   - &model_inference pred
   - &monitor_node mon_d
   - &monitor_model mon_m
-
 # choose action and write into "runs" below.
+
+# builders config
+builder:
+  - name: rpi6401
+    ip: 123.214.186.192
+    port: 39001
+    hw: rpi
+    os: linux
+    gpu: None
+
+  - name: n01
+    ip: 123.214.186.192
+    port: 33312
+    hw: intel_NUC
+    os: ubuntu
+    gpu: RTX2080
+
 
 # 타겟 노드 (대상)
 where:
@@ -37,6 +53,8 @@ path:
   # path_to_model_file
   modelfile: &modelfile /home/keti/cloud-edge-aicontainers/v2/bhc/webapp/run_cfg/model.tar.gz
 
+  cert_playbook: &cert_playbook /home/keti/cloud-edge-aicontainers/v2/bhc/webapp/copy_cert.yaml
+
   # path to model copy playbook (server -> edge node)
   copy_playbook: &copy_playbook /home/keti/cloud-edge-aicontainers/v2/bhc/webapp/db/model/img_build/copy_model.yaml
 
@@ -47,7 +65,7 @@ path:
   distrb_playbook: &distrb_playbook /home/keti/cloud-edge-aicontainers/v2/bhc/webapp/db/model/run_model.yaml
 
   # path to ansible hosts file
-  hosts_file: &hosts_file /home/keti/cloud-edge-aicontainers/v2/bhc/webapp/hosts.ini
+  hosts_file: &hosts_file /home/keti/cloud-edge-aicontainers/v2/bhc/webapp/EVC_RunTest/hosts.ini
 
   # path to logs.db
   db: &db /home/keti/cloud-edge-aicontainers/v2/bhc/webapp/db/edge_logs.db3
@@ -164,19 +182,21 @@ customized_runs: # 다중 명령 정의 예시
 
 
 autorun: # 모델 구축 - 배포 - 실행 기본 절차 수행
-  # - name: build AI model image
-  #   activation: register
-  #   path:
-  #     copy_playbook: *copy_playbook
-  #     build_playbook: *build_playbook
-  #     distrb_playbook: *distrb_playbook
-  #     hosts_file: *hosts_file
-  #     db: *db
-  #     registry: *registry
+  - name: build AI model image
+    activation: register
+    path:
+      cert_playbook: *cert_playbook
+      copy_playbook: *copy_playbook
+      build_playbook: *build_playbook
+      distrb_playbook: *distrb_playbook
+      hosts_file: *hosts_file
+      db: *db
+      registry: *registry
 
   - name: deploy AI model image
     activation: download
     path:
+      cert_playbook: *cert_playbook
       copy_playbook: *copy_playbook
       build_playbook: *build_playbook
       distrb_playbook: *distrb_playbook
@@ -187,6 +207,7 @@ autorun: # 모델 구축 - 배포 - 실행 기본 절차 수행
   # - name: activate AI model
   #   activation: run
   #   path:
+  #     cert_playbook: *cert_playbook
   #     copy_playbook: *copy_playbook
   #     build_playbook: *build_playbook
   #     distrb_playbook: *distrb_playbook
