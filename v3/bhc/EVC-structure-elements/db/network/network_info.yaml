@@ -1,0 +1,35 @@
+- name: Get networks informations between nodes
+  hosts: users
+  become: true
+  tags: network
+
+  tasks:
+
+  - name: install vnstat module
+    apt:
+      name: vnstat
+      state: present
+      force_apt_get: yes
+  
+  - name: get current traffic
+    shell: vnstat -tr 10 --json
+    register: command_output
+
+  - name: get json data
+    set_fact:
+      jsondata: "{{ command_output.stdout | from_json }}"
+
+  - name: rx
+    set_fact:
+      rx: "{{ jsondata | json_query(jmesquery) }}"
+    vars:
+      jmesquery: 'rx.bytespersecond'
+
+  - name: tx
+    set_fact:
+      tx: "{{ jsondata | json_query(jmesquery) }}"
+    vars:
+      jmesquery: 'tx.bytespersecond'
+
+  - name: Debug
+    debug: msg=" RX={{ rx }}, TX={{ tx }}"

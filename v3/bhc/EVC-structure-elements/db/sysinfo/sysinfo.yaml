@@ -1,0 +1,40 @@
+- name: get sysinfo
+  hosts: users
+  gather_facts: no
+  
+  tasks:
+
+  - name: cpu usage
+    tags: cpu
+    shell: top -b -n 1 | grep -Po '[0-9.]+ id'
+    register: command_output
+  - debug: msg="{{command_output.stdout}}"
+    tags: cpu
+
+  - name: storage total
+    tags: storage1
+    shell: df -P | grep -v ^Filesystem | awk '{sum += $2} END {print sum/1024/1024}'
+    register: command_output
+  - debug: msg="{{command_output.stdout}}"
+    tags: storage1
+
+  - name: storage inuse
+    tags: storage2
+    shell: df -P | grep -v ^Filesystem | awk '{sum += $3} END {print sum/1024/1024}'
+    register: command_output
+  - debug: msg="{{command_output.stdout}}"
+    tags: storage2
+
+  - name: storage capacity
+    tags: storage3
+    shell: df -P | grep -v ^Filesystem | awk '{sum += $4} END {print sum/1024/1024}'
+    register: command_output
+  - debug: msg="{{command_output.stdout}}"
+    tags: storage3
+
+  - name: memory usage
+    tags: mem
+    shell: cat /proc/meminfo | grep Mem
+    register: command_output
+  - debug: msg="{{command_output.stdout}}"
+    tags: mem
