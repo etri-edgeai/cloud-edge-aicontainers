@@ -91,7 +91,7 @@ def main():
 
     registry_ip = '123.214.186.252:39500'
     hosts_file_path = '../edge-hosts.ini'
-    playbook_path = 'run_playbook.yaml'
+    playbook_path = '../playbooks/get_logs.yaml'
     host = 'rpi6402'
 
     get_system_informations(registry_ip, playbook_path, hosts_file_path, host, conn)
