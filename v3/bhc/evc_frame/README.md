@@ -1,9 +1,42 @@
 # Edge Vision Cluster
 분산 환경 디바이스 관측, 관리 및 클러스터링과 기계학습 지원을 수행하기 위한 프레임워크입니다.<br>
 
-## 구조
+## 구성
 
+```
+evc_frame
+│
+├── registry_init.sh
+│
+├── m_device.py
+├── m_model.py
+│
+├── EVC_RunTest
+│   ├── ServerConfig.yaml
+│   ├── get_prj.py
+│   ├── hosts.ini
+│   └── runEVCv2.py
+│
+├── db
+│   ├── edge_logs.db3
+│   ├── init_db.py
+│   └── logger.py
+│       ├── get_geoloc_db.py
+│       ├── hosts.py
+│       ├── get_model.py
+│       ├── run_model.py
+│       ├── get_network_db.py
+│       ├── get_sysinfo_db.py
+│       └── get_temp_db.py
+│
+└── playbooks
+    ├── autorun.yaml
+    ├── copy_cert.yaml
+    ├── copy_model.yaml
+    ├── get_logs.yaml
+    └── run_model.yaml
 
+```
 
 
 ## 기능
