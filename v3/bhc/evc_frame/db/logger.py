@@ -32,8 +32,8 @@ def connect_db(db_file):
 def get_system_informations(registry_ip, playbook, hosts_file, host, conn):
 
 
-    hosts.get_hosts(hosts_file, conn)
-    geo.get_geo_data(conn)
+    # hosts.get_hosts(hosts_file, conn)
+    # geo.get_geo_data(conn)
     distrb.get_model_info(registry_ip, conn)
     distrb.init_progress(conn)
     
@@ -90,7 +90,7 @@ def main():
     conn = connect_db(db_path)
 
     registry_ip = '123.214.186.252:39500'
-    hosts_file_path = '../edge-hosts.ini'
+    hosts_file_path = '../hosts.ini'
     playbook_path = '../playbooks/get_logs.yaml'
     host = 'rpi6402'
 

@@ -135,7 +135,7 @@ class device_manager:
 
         
 
-        with open('hosts.ini','w') as f:
+        with open('../hosts.ini','w') as f:
 
             f.write('[builder]')
             f.write('\n')

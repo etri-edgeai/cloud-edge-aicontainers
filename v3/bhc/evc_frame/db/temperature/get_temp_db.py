@@ -18,7 +18,7 @@ warnings.filterwarnings(action='ignore')
 ## define data output function
 def get_temp_data(hosts_file, conn):
     ## write file
-    os.system('ansible users -i {hosts_file} -m command -a "cat /sys/devices/virtual/thermal/thermal_zone0/temp" > tmp/templog.txt'.format(hosts_file=hosts_file))
+    os.system('ansible user -i {hosts_file} -m command -a "cat /sys/devices/virtual/thermal/thermal_zone0/temp" > tmp/templog.txt'.format(hosts_file=hosts_file))
 
     ## data processing
     file = open('tmp/templog.txt', 'r')
@@ -46,6 +46,7 @@ def get_temp_data(hosts_file, conn):
             # now = datetime.now()
             
             tmp.insert(0, now)
+            print(tmp)
 
             # manipulate data type for db.log
             tmp = tuple(tmp)
@@ -64,18 +65,14 @@ def get_temp_data(hosts_file, conn):
     con.commit()
 
     cur.execute('select * from time_temp')
-    data = cur.fetchall()
+    # data = cur.fetchall()
 
-    for col in data:
-        print(col)
+    # for col in data:
+    #     print(col)
 
 
 
 # if __name__ == '__main__':
 
-#     ## make scheduler
-#     schedule.every(5).seconds.do(get_temp_data)
-
-#     while True:
-#         schedule.run_pending()
-#         time.sleep(1)
+#     conn = sqlite3.connect('../edge_logs.db3')
+#     get_temp_data('../../hosts.ini', conn)

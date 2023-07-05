@@ -13,7 +13,7 @@ warnings.filterwarnings(action='ignore')
 
 def get_cpurat_data(playbook, hosts_file, conn):
     ## write temporary log file
-    os.system("ansible-playbook {playbook} -i {hosts_file} -t cpu > tmp/syslog.txt".format(playbook=playbook, hosts_file=hosts_file))
+    os.system("ansible-playbook -i {hosts_file} -t cpu {playbook} > tmp/syslog.txt".format(playbook=playbook, hosts_file=hosts_file))
 
     ## regexs
     rows = []
@@ -58,10 +58,12 @@ def get_cpurat_data(playbook, hosts_file, conn):
     nodes = []
     data = []
 
+    # print(rows)
+
     ## load current nodes info from hosts table
     con = conn
     cur = con.cursor()
-    cur.execute('select name from nodes where type = "user"')
+    cur.execute('select name from nodes where affiliation != "builder";')
     tmp = cur.fetchall()
 
     ## save node lists
@@ -70,6 +72,8 @@ def get_cpurat_data(playbook, hosts_file, conn):
         node = str(node)
         node = re.sub(r"[^\uAC00-\uD7A30-9a-zA-Z\s]", "", node)
         nodes.append(node)
+
+    # print(nodes)
 
     ## save cpu-ratio data
     for node in nodes:
@@ -95,6 +99,8 @@ def get_cpurat_data(playbook, hosts_file, conn):
         tmp = tuple(tmp)
         log.append(tmp)
 
+    print(log)
+
     ## insert data into DB
     con = conn
     cur = con.cursor()
@@ -104,10 +110,10 @@ def get_cpurat_data(playbook, hosts_file, conn):
 
     ## show result
     cur.execute('select * from cpuinfo')
-    out = cur.fetchall()
+    # out = cur.fetchall()
 
-    for col in out:
-        print(col)
+    # for col in out:
+    #     print(col)
 
 
 
@@ -246,7 +252,7 @@ def get_storage_data(playbook, hosts_file, conn):
     ## load current nodes info from hosts table
     con = conn
     cur = con.cursor()
-    cur.execute('select name from nodes where type = "user"')
+    cur.execute('select name from nodes where affiliation != "builder"')
     tmp = cur.fetchall()
 
     ## save node lists
@@ -301,6 +307,7 @@ def get_storage_data(playbook, hosts_file, conn):
         tmp = tuple(tmp)
         log.append(tmp)
 
+    print(log)
 
     ## insert data into DB
     con = conn
@@ -309,12 +316,12 @@ def get_storage_data(playbook, hosts_file, conn):
     cur.executemany(query, log)
     con.commit()
 
-    ## show result
-    cur.execute('select * from strginfo')
-    out = cur.fetchall()
+    # ## show result
+    # cur.execute('select * from strginfo')
+    # out = cur.fetchall()
 
-    for col in out:
-        print(col)
+    # for col in out:
+    #     print(col)
 
 
 
@@ -367,7 +374,7 @@ def get_mem_data(playbook, hosts_file, conn):
 
     con = conn
     cur = con.cursor()
-    cur.execute('select name from nodes where type = "user"')
+    cur.execute('select name from nodes where affiliation != "builder"')
     tmp = cur.fetchall()
 
     for node in tmp:
@@ -429,7 +436,7 @@ def get_mem_data(playbook, hosts_file, conn):
         tmp = tuple(tmp)
         log.append(tmp)
 
-    # print(log)
+    print(log)
 
 
     ## insert data into DB
@@ -440,22 +447,22 @@ def get_mem_data(playbook, hosts_file, conn):
     con.commit()
 
     ## show result
-    cur.execute('select * from meminfo')
-    out = cur.fetchall()
+    # cur.execute('select * from meminfo')
+    # out = cur.fetchall()
 
-    for col in out:
-        print(col)
+    # for col in out:
+    #     print(col)
 
 
 
 
 # ## scheduling
-# if __name__ == '__main__':
+if __name__ == '__main__':
 
-#     ## make scheduler
-#     schedule.every(5).seconds.do(get_cpurat_data)
-#     schedule.every(5).seconds.do(get_storage_data)
+    playbook = '../../playbooks/get_logs.yaml'
+    inven = '../../hosts.ini'
+    conn = sqlite3.connect('../edge_logs.db3')
 
-#     while True:
-#         schedule.run_pending()
-#         time.sleep(1)
+    get_cpurat_data(playbook, inven, conn)
+    get_storage_data(playbook, inven, conn)
+    get_mem_data(playbook, inven, conn)

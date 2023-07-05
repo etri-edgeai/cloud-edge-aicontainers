@@ -13,7 +13,7 @@ warnings.filterwarnings(action='ignore')
 
 def get_current_traffic(playbook, hosts_file, conn):
 
-    os.system('ansible-playbook {playbook} -i {hosts_file} -t network,traffic --extra-vars "ansible_sudo_pass=ketiabcs" > test.txt'.format(playbook=playbook, hosts_file=hosts_file))
+    os.system('ansible-playbook {playbook} -i {hosts_file} -t traffic --extra-vars "ansible_sudo_pass=ketiabcs" > test.txt'.format(playbook=playbook, hosts_file=hosts_file))
 
     rows = []
     p_start = re.compile('TASK \[get current traffic].+')
@@ -60,7 +60,7 @@ def get_current_traffic(playbook, hosts_file, conn):
 
     con = conn
     cur = con.cursor()
-    cur.execute('select name from nodes where type = "user"')
+    cur.execute('select name from nodes where affiliation != "builder"')
     tmp = cur.fetchall()
 
     for node in tmp:
@@ -135,7 +135,7 @@ def get_current_traffic(playbook, hosts_file, conn):
 
 def get_traffic_json(playbook, hosts_file, conn):
 
-    os.system('ansible-playbook {playbook} -i {hosts_file} -t network,traffic --extra-vars "ansible_sudo_pass=ketiabcs" > tmp/netlog.txt'.format(playbook=playbook, hosts_file=hosts_file))
+    os.system('ansible-playbook {playbook} -i {hosts_file} -t traffic --extra-vars "ansible_sudo_pass=ketiabcs" > tmp/netlog.txt'.format(playbook=playbook, hosts_file=hosts_file))
 
     rows = []
     p_start = re.compile('TASK \[Debug].+')
@@ -179,7 +179,7 @@ def get_traffic_json(playbook, hosts_file, conn):
 
     con = conn
     cur = con.cursor()
-    cur.execute('select name from nodes where type = "user"')
+    cur.execute('select name from nodes where affiliation != "builder"')
     tmp = cur.fetchall()
 
     for node in tmp:
@@ -220,18 +220,18 @@ def get_traffic_json(playbook, hosts_file, conn):
     cur.executemany(query, data)
     con.commit()
     
-    cur.execute('select * from traffic')
-    out = cur.fetchall()
+    # cur.execute('select * from traffic')
+    # out = cur.fetchall()
     
-    for col in out:
-        print(col)
+    # for col in out:
+    #     print(col)
 
 
 
-# if __name__ == "__main__" :
+if __name__ == "__main__" :
 
-#     playbook = "network_info.yaml"
-#     hosts_file = "../../edge-hosts.ini"
-#     conn = sqlite3.connect('../edge_logs.db3')
+    playbook = "../../playbooks/get_logs.yaml"
+    hosts_file = "../../hosts.ini"
+    conn = sqlite3.connect('../edge_logs.db3')
 
-#     get_traffic_json(playbook, hosts_file, conn)
+    get_traffic_json(playbook, hosts_file, conn)

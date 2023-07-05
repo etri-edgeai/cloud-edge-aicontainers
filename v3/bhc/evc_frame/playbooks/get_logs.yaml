@@ -1,5 +1,6 @@
 - name: Get networks informations between nodes
-  hosts: users
+  hosts: user
+  tags: network
   # become: true
 
   tasks:
@@ -45,6 +46,7 @@
 
 - name: Docker model run && show output
   hosts: all
+  tags: model
   # vars_prompt:
   #   - name: tag
   #     prompt: please enter the type of model.
@@ -73,7 +75,8 @@
 
 
 - name: Get System-Informations
-  hosts: users
+  hosts: user
+  tags: sys
   gather_facts: no
   
   tasks:
