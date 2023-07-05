@@ -45,6 +45,8 @@ Edge vision Cluster 구동을 위한 환경을 구성합니다.
 ### Environment Settings
 EVC 구동을 위해 기본적으로 필요한 프레임워크, 패키지, 모듈을 설치합니다.
 
+* python version : 3.8.15
+
 #### Docker install
 Private Registry Server 구축, AI model 리패키징 및 배포를 위해 Docker를 설치합니다.<br>
 
@@ -55,6 +57,17 @@ server, user node 간 통신 및 조작 | 제어를 위한 서버 관리 보조 
 
 ``` pip install ansible ```
 
-#### ...
+#### Package installation
+기타 필요한 패키지를 설치합니다.<br>
+<br>
+사용된 주요 패키지는 다음과 같습니다.
+* geopy
+* pytorch
+* ultralytics
+
+```requirements.txt``` 참고
+
+
+
 
 업데이트 중
