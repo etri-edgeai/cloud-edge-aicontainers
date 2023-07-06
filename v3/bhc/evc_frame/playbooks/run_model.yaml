@@ -1,0 +1,91 @@
+- name: Docker model run && show output
+  hosts: all
+  
+  # vars_prompt:
+  #   - name: tag
+  #     prompt: please enter the type of model.
+  #     private: no
+  
+  vars:
+    image_name: "{{ ansible_facts['architecture'] }}-model"
+    model_tag: "imagenet"
+    input: "test.jpg"
+    registry: "123.214.186.252:39500"
+    server: keti@ketiabcs.iptime.org
+    version: v1.0
+
+  
+  tasks:
+
+
+#==================================== distribution =====================================
+#=======================================================================================
+
+  - name: get model image from server
+    tags: distrb
+    shell: docker pull {{ registry }}/{{ image_name }}:{{ model_tag }}_{{ version }}
+    register: output
+  - debug: msg="{{ output.stdout_lines }}"
+    tags: distrb
+
+  - name: create new container
+    tags: distrb
+    shell: docker run -d --name {{ model_tag }}_model -it {{ registry }}/{{ image_name }}:{{ model_tag }}_{{ version }}
+    register: output
+  - debug: msg="{{ output.stdout_lines }}"
+    tags: distrb
+
+  - name: get image list
+    tags: search
+    shell: docker images
+    register: output
+  - debug: msg="{{ output.stdout_lines }}"
+    tags: search
+
+  - name: get container list
+    tags: search
+    shell: docker ps -a
+    register: output
+  - debug: msg="{{ output.stdout_lines }}"
+    tags: search
+
+
+
+
+#===================================== get input =======================================
+#=======================================================================================
+
+  - name: input from server to node
+    tags: input
+    copy:
+      src: "/var/www/html/tmp/{{ input }}"
+      dest: data/
+
+  - name: input from node to model container
+    tags: input
+    command: docker cp data/{{ input }} {{ model_tag }}_model:/home/data/
+    register: command_output
+  - debug: msg="{{command_output.stdout_lines}}"
+    tags: input
+
+
+
+#===================================== AI model run =======================================#
+#==========================================================================================#
+
+  ## run model predictor
+  - name: model prediction
+    tags: pred
+    command: docker exec {{ model_tag }}_model python home/model.py --input {{ input }} --mod pred
+    register: command_output
+  - debug: msg="{{command_output.stdout_lines}}"
+    tags: pred
+
+  ## run model trainer
+  - name: model train
+    tags: train
+    command: docker exec {{ model_tag }}_model python home/model.py --input {{ input }} --mod train
+    register: command_output
+  - debug: msg="{{ command_ouput.stdout_lines }}"
+    tags: train
+
