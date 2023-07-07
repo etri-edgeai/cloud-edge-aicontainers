@@ -3,6 +3,7 @@
   become: true
   vars:
     host_name: keti
+    registry: 123.214.186.252:39500
     ansible_sudo_pass: ketiabcs
 
 
@@ -34,6 +35,6 @@
     - debug: msg="{{output.stdout_lines}}"
 
     - name: Registry connection test
-      command : curl -k https://123.214.186.252:39500/v2/_catalog
+      command : curl -k https://{{ registry }}/v2/_catalog
       register: output
     - debug: msg="{{output.stdout_lines}}"

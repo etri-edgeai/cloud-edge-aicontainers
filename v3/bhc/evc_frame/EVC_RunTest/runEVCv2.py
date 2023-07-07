@@ -69,7 +69,7 @@ def run_device_manager():
             op_sys=nodes['os'],
             gpu=nodes['gpu']
         )
-        dman.config(cert_playbook)
+        dman.config(cert_playbook, registry)
         dman.insert()
 
 
