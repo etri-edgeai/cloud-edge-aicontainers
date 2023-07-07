@@ -20,9 +20,10 @@ class device_manager:
         self.op_sys = op_sys
         self.gpu = gpu
         
-    def config(self, playbook):
+    def config(self, playbook, registry):
 
         self.playbook = playbook
+        self.registry = registry
 
     def view(self):
 
@@ -48,7 +49,7 @@ class device_manager:
 
 
         try:
-            cmd = 'ansible-playbook {playbook} -l {name} -i /home/keti/tmp_host.ini -e "host_name={host_name}"'.format(playbook=self.playbook, name=self.name, host_name=self.owner)
+            cmd = 'ansible-playbook {playbook} -l {name} -i /home/keti/tmp_host.ini -e "host_name={host_name} registry={registry}"'.format(playbook=self.playbook, name=self.name, host_name=self.owner, registry=self.registry)
             if os.system(cmd) != 0:
                 raise Exception('Error')
             
