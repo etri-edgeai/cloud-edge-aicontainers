@@ -406,11 +406,11 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     registry = '123.214.186.252:39500'
-    db_file = '/home/keti/cloud-edge-aicontainers/v2/bhc/webapp/db/edge_logs.db3'
-    copy_playbook_path = '/home/keti/cloud-edge-aicontainers/v2/bhc/webapp/db/model/img_build/copy_model.yaml'
-    build_playbook_path = '/home/keti/cloud-edge-aicontainers/v2/bhc/webapp/db/model/img_build/autorun.yaml'
-    distrb_playbook_path = '/home/keti/cloud-edge-aicontainers/v2/bhc/webapp/db/model/run_model.yaml'
-    hosts_file_path = '/home/keti/cloud-edge-aicontainers/v2/bhc/webapp/hosts.ini'
+    db_file = "./db/edge_logs.db3"
+    copy_playbook_path = './playbooks/copy_model.yaml'
+    build_playbook_path = './playbooks/autorun.yaml'
+    distrb_playbook_path = './playbooks/run_model.yaml'
+    hosts_file_path = './hosts.ini'
 
     manager = model_manager(
         db_file=db_file,
@@ -421,7 +421,7 @@ if __name__ == "__main__":
         version=args.version,
         model_file=args.model_file,
         builder=args.builder
-    )
+        )
     print(args)
 
     manager.config(copy_playbook_path, build_playbook_path, distrb_playbook_path, hosts_file_path)
@@ -456,3 +456,6 @@ if __name__ == "__main__":
         if done:
             manager.insert_db()
             manager.view()
+
+    elif args.mode == 'db_config':
+        manager.insert_db()
