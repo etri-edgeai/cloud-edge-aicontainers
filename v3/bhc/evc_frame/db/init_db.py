@@ -114,7 +114,7 @@ def main(file_path):
                     );"""
 
     modelinfo_detail_table = """ CREATE TABLE IF NOT EXISTS modelinfo_detail (
-                        time NOT NULL,
+                        time PRIMARY KEY,
                         owner_name text NOT NULL,
                         repo text NOT NULL,
                         model_name text NOT NULL,

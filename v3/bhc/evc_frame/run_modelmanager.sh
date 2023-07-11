@@ -4,7 +4,7 @@ python m_model.py \
 --model_name gitlink_test2_pd \
 --version v1.0 \
 --model_file model.tar.gz \
---builder rpi6401 \
+--builder n01 \
 --user rpi6402 \
 --repo aarch64-model \
 --mode db_config
