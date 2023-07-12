@@ -36,13 +36,13 @@ class model_manager:
 
     def insert_db(self):
 
-        os.system('ansible-playbook {playbook} -i {hosts_file} -l builder -t log -e "tag={tag} ver={version}" > modelinfo.txt'.format(playbook=self.build_playbook, hosts_file=self.hosts_file, tag=self.model_name, version=self.version))
+        os.system('ansible-playbook {playbook} -i {hosts_file} -l builder -t log -e "tag={tag} ver={version}" > tmp/modelinfo.txt'.format(playbook=self.build_playbook, hosts_file=self.hosts_file, tag=self.model_name, version=self.version))
 
         rows = []
         p_start = re.compile('TASK \[get result].+')
         p_end = re.compile('PLAY RECAP.+')
 
-        with open('modelinfo.txt', 'r') as f:
+        with open('tmp/modelinfo.txt', 'r') as f:
 
             lines = f.readlines()
 
@@ -71,40 +71,45 @@ class model_manager:
                         if end:
                             run = False
 
-        data =[]
+        lst = []
         p_date = re.compile('\d+-\d+-\d+ \d+:\d+:\d+')
 
         for row in rows:
             if 'date' in row:
                 tmp = p_date.findall(row)
-                data.append(tmp[0])
+                lst.append(tmp[0])
 
             elif 'size' in row:
                 row = row.strip(' size')
                 row = row.strip('GB')
-                data.append(row)
+                lst.append(row)
 
             elif 'repo' in row:
                 row = row.strip(' repo')
-                data.append(row)
+                lst.append(row)
 
-        tmp = []
+        n = 3
+        data = [lst[i * n:(i + 1) * n] for i in range((len(lst) + n - 1) // n)]
+
         log = []
         time_format = "%Y-%m-%d %H:%M:%S"
 
-        tmp.append(time.mktime(datetime.strptime(data[0], time_format).timetuple()))
-        tmp.append(self.owner)
-        tmp.append(data[2])
-        tmp.append(self.model_name)
-        tmp.append(data[1])
-        tmp.append(self.task)
-        tmp.append(self.version)
-        tmp = tuple(tmp)
+        for d in data:
+            tmp = []
+            tmp.append(time.mktime(datetime.strptime(d[0], time_format).timetuple()))
+            tmp.append(self.owner)
+            tmp.append(d[2])
+            tmp.append(self.model_name)
+            tmp.append(d[1])
+            tmp.append(self.task)
+            tmp.append(self.version)
+            log.append(tmp)
 
-        log.append(tmp)
+        for i in range(len(log)):
+            log[i] = tuple(log[i])
 
         cur = self.con.cursor()
-        query = "insert into modelinfo_detail values(?,?,?,?,?,?,?)"
+        query = "insert or ignore into modelinfo_detail values(?,?,?,?,?,?,?)"
         cur.executemany(query, log)
         self.con.commit()
         
@@ -459,3 +464,4 @@ if __name__ == "__main__":
 
     elif args.mode == 'db_config':
         manager.insert_db()
+        # manager.view()

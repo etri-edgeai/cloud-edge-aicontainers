@@ -1,0 +1,230 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "description": "rpi6402 model running monitor",
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 4,
+  "links": [
+    {
+      "asDropdown": false,
+      "icon": "external link",
+      "includeVars": false,
+      "keepTime": false,
+      "tags": [
+        "bhc"
+      ],
+      "targetBlank": false,
+      "title": "New link",
+      "tooltip": "",
+      "type": "dashboards",
+      "url": ""
+    }
+  ],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "7TiygiTVz"
+      },
+      "description": "",
+      "gridPos": {
+        "h": 12,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "id": 8,
+      "options": {
+        "alt_field": "",
+        "baseUrl": "http://ketiabcs.iptime.org:39180/tmp/",
+        "height": "200",
+        "icon_field": "name_img",
+        "open_url": {
+          "base_url": "",
+          "enable": false,
+          "metric_field": "",
+          "open_in_tab": true,
+          "suffix": ""
+        },
+        "overlay": {
+          "bindings": {
+            "bindings": [],
+            "has_text": true,
+            "unbounded": "#66666620"
+          },
+          "field": "",
+          "height": {
+            "size": 5,
+            "unit": "%"
+          },
+          "position": "Top right",
+          "width": {
+            "size": 5,
+            "unit": "%"
+          }
+        },
+        "shared_cross_hair": {
+          "backgroundColor": "#FFFFFF10",
+          "borderColor": "#FFFFFF20"
+        },
+        "singleFill": true,
+        "slideshow": {
+          "duration": 5000,
+          "enable": false,
+          "infinite": true,
+          "pauseOnHover": true,
+          "transition": "Slide",
+          "transition_duration": 1000
+        },
+        "tooltip": false,
+        "tooltip_date_elapsed": false,
+        "tooltip_field": "",
+        "tooltip_include_date": false,
+        "tooltip_include_field": true,
+        "underline": {
+          "bindings": {
+            "bindings": [],
+            "has_text": true,
+            "unbounded": "#CCCCDCFF"
+          },
+          "bindings_field": "",
+          "field": "",
+          "text_align": "left",
+          "text_size": "14"
+        },
+        "width": "200"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "7TiygiTVz"
+          },
+          "queryText": "select name_img from input_image order by ROWID desc limit 1 ;",
+          "queryType": "table",
+          "rawQueryText": "select name_img from input_image order by ROWID desc limit 1 ;",
+          "refId": "A",
+          "timeColumns": [
+            "time"
+          ]
+        }
+      ],
+      "title": "INPUT",
+      "type": "dalvany-image-panel"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "7TiygiTVz"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 12
+      },
+      "id": 4,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "9.5.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "7TiygiTVz"
+          },
+          "queryText": "select * from modelpred where time=(select max(time) from modelpred);",
+          "queryType": "table",
+          "rawQueryText": "select * from modelpred where time=(select max(time) from modelpred);",
+          "refId": "A",
+          "timeColumns": [
+            "time"
+          ]
+        }
+      ],
+      "title": "RESULT",
+      "type": "table"
+    }
+  ],
+  "refresh": "5s",
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": [
+    "pred"
+  ],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "RPI6402 - Run Model",
+  "uid": "gzqGI804z",
+  "version": 29,
+  "weekStart": ""
+}
