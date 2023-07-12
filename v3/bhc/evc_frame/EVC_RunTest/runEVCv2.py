@@ -95,53 +95,82 @@ def run_device_manager():
         dman.file_config()
         dman.view()
 
-        # set builder
-        if 'rpi' in group:
-            builder = 'rpi6401'
-        elif 'nuc' in group:
-            builder = 'n01'
-
-    return builder
+    return builders
 
 
-def run_model_manager():
+def run_model_manager(builders):
 
     # run EVC
     for run in default_cfg:
         sequence = run['activation']
         
-        man = model_manager(
-            db_file=db,
-            repo=repo,
-            owner=owner,
-            model_name=model_name,
-            task=task,
-            version=version,
-            model_file=modelfile,
-            dockerfile=dockerfile,
-            builder=builder
-        )
-        man.config(
-            copy_playbook=copy_playbook,
-            build_playbook=build_playbook,
-            distrb_playbook=distrb_playbook,
-            hosts_file=hosts_file
-        )
-
         if sequence == 'register':
-            done = man.register()
+            for builder in builders:
+                man = model_manager(
+                    db_file=db,
+                    repo=repo,
+                    owner=owner,
+                    model_name=model_name,
+                    task=task,
+                    version=version,
+                    model_file=modelfile,
+                    dockerfile=dockerfile,
+                    builder=builder
+                )
+                man.config(
+                    copy_playbook=copy_playbook,
+                    build_playbook=build_playbook,
+                    distrb_playbook=distrb_playbook,
+                    hosts_file=hosts_file
+                )
 
-            if done:
-                man.insert_db()
-                man.view()
+                done = man.register()
+
+                if done:
+                    man.insert_db()
+                    man.view()
 
         elif sequence == 'download':
+            man = model_manager(
+                db_file=db,
+                repo=repo,
+                owner=owner,
+                model_name=model_name,
+                task=task,
+                version=version,
+                model_file=modelfile,
+                dockerfile=dockerfile,
+            )
+            man.config(
+                copy_playbook=copy_playbook,
+                build_playbook=build_playbook,
+                distrb_playbook=distrb_playbook,
+                hosts_file=hosts_file
+            )
+            
             for group in user_cfg['group']:
                 man.download(registry, group)
             # for user in user_cfg['target']:
             #     man.download(registry, user)
 
         elif sequence == 'run':
+            man = model_manager(
+                db_file=db,
+                repo=repo,
+                owner=owner,
+                model_name=model_name,
+                task=task,
+                version=version,
+                model_file=modelfile,
+                dockerfile=dockerfile,
+            )
+            man.config(
+                copy_playbook=copy_playbook,
+                build_playbook=build_playbook,
+                distrb_playbook=distrb_playbook,
+                hosts_file=hosts_file
+            )
+                        
             for user in user_cfg['target']:
                 man.run(
                 mode=mode,
@@ -154,5 +183,5 @@ if __name__ == "__main__":
 
     default_set, default_cfg, user_cfg, modelfile, dockerfile, mode, owner, task, version, model_name, repo, data = get_myprj()
 
-    run_device_manager()
-    run_model_manager()
+    builders = run_device_manager()
+    run_model_manager(builders)
