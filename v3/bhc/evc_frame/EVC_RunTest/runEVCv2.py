@@ -68,7 +68,7 @@ def run_device_manager():
             hw=nodes['hw'],
             op_sys=nodes['os'],
             gpu=nodes['gpu']
-        )
+            )
         dman.config(cert_playbook, registry)
         dman.insert()
 
@@ -88,8 +88,8 @@ def run_device_manager():
                 hw=node['hw'],
                 op_sys=node['os'],
                 gpu=node['gpu']
-            )
-            dman.config(cert_playbook)
+                )
+            dman.config(cert_playbook, registry)
             dman.insert()
 
         dman.file_config()

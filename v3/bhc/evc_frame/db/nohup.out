@@ -1,0 +1,41 @@
+Traceback (most recent call last):
+  File "logger.py", line 3, in <module>
+    from sysinfo import get_sysinfo_db as sys
+  File "/home/keti/ethicsense/cloud-edge-aicontainers/v3/bhc/evc_frame/db/sysinfo/get_sysinfo_db.py", line 6, in <module>
+    import schedule
+ModuleNotFoundError: No module named 'schedule'
+Traceback (most recent call last):
+  File "logger.py", line 4, in <module>
+    from geoloc import get_geoloc_db as geo
+  File "/home/keti/ethicsense/cloud-edge-aicontainers/v3/bhc/evc_frame/db/geoloc/get_geoloc_db.py", line 9, in <module>
+    from geopy.geocoders import Nominatim
+ModuleNotFoundError: No module named 'geopy'
+sh: 1: cannot create tmp/modelog.txt: Directory nonexistent
+Traceback (most recent call last):
+  File "logger.py", line 103, in <module>
+    main()
+  File "logger.py", line 97, in main
+    get_system_informations(registry_ip, playbook_path, hosts_file_path, host, conn)
+  File "logger.py", line 37, in get_system_informations
+    distrb.get_model_info(registry_ip, conn)
+  File "/home/keti/ethicsense/cloud-edge-aicontainers/v3/bhc/evc_frame/db/model/get_model.py", line 13, in get_model_info
+    with open('tmp/modelog.txt', 'r') as f:
+FileNotFoundError: [Errno 2] No such file or directory: 'tmp/modelog.txt'
+Traceback (most recent call last):
+  File "logger.py", line 103, in <module>
+    main()
+  File "logger.py", line 97, in main
+    get_system_informations(registry_ip, playbook_path, hosts_file_path, host, conn)
+  File "logger.py", line 81, in get_system_informations
+    schedule.run_pending()
+  File "/home/keti/anaconda3/envs/evc-migrate/lib/python3.8/site-packages/schedule/__init__.py", line 822, in run_pending
+    default_scheduler.run_pending()
+  File "/home/keti/anaconda3/envs/evc-migrate/lib/python3.8/site-packages/schedule/__init__.py", line 100, in run_pending
+    self._run_job(job)
+  File "/home/keti/anaconda3/envs/evc-migrate/lib/python3.8/site-packages/schedule/__init__.py", line 172, in _run_job
+    ret = job.run()
+  File "/home/keti/anaconda3/envs/evc-migrate/lib/python3.8/site-packages/schedule/__init__.py", line 693, in run
+    ret = self.job_func()
+  File "/home/keti/ethicsense/cloud-edge-aicontainers/v3/bhc/evc_frame/db/sysinfo/get_sysinfo_db.py", line 98, in get_cpurat_data
+    tmp.append(data[i])
+IndexError: list index out of range

@@ -74,7 +74,7 @@ path:
 vars:
   ## informations to define your model
   # registry address
-  registry: &registry 123.214.186.252:39500
+  registry: &registry deepcase.mynetgear.com:20093
 
   # owner of the model
   owner: &owner keti
