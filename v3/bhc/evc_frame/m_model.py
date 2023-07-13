@@ -24,12 +24,13 @@ class model_manager:
 
 
 
-    def config(self, copy_playbook, build_playbook, distrb_playbook, hosts_file):
+    def config(self, copy_playbook, build_playbook, distrb_playbook, hosts_file, registry):
 
         self.copy_playbook = copy_playbook
         self.build_playbook = build_playbook
         self.distrb_playbook = distrb_playbook
         self.hosts_file = hosts_file
+        self.registry = registry
 
 
 
@@ -155,7 +156,7 @@ class model_manager:
 
         try:
             ## build
-            cmd = 'ansible-playbook {playbook} -i {hosts_file} -l builder -t build,test,push -e "tag={tag} ver={version} model_file={model_file}"'.format(playbook=self.build_playbook, hosts_file=self.hosts_file, tag=self.model_name, version=self.version, model_file=self.model_file)
+            cmd = 'ansible-playbook {playbook} -i {hosts_file} -l {builder} -t build,test,push -e "tag={tag} ver={version} model_file={model_file} registry_ip={registry}"'.format(playbook=self.build_playbook, hosts_file=self.hosts_file, tag=self.model_name, version=self.version, model_file=self.model_file, registry=self.registry, builder=self.builder)
 
             if os.system(cmd) != 0:
                 raise Exception('Wrong Command.')

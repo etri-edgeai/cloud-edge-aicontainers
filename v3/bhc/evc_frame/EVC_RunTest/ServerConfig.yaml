@@ -23,12 +23,12 @@ builder:
     os: linux
     gpu: None
 
-  - name: n01
-    ip: 123.214.186.192
-    port: 33312
-    hw: intel_NUC
-    os: ubuntu
-    gpu: RTX2080
+  # - name: n01
+  #   ip: 123.214.186.192
+  #   port: 33312
+  #   hw: intel_NUC
+  #   os: ubuntu
+  #   gpu: RTX2080
 
 
 # 타겟 노드 (대상)
@@ -70,12 +70,12 @@ path:
   # path to logs.db
   db: &db ../db/edge_logs.db3
 
+  # registry address
+  registry: &registry 123.214.186.192:20093
+
 # 전달할 인자 목록
 vars:
   ## informations to define your model
-  # registry address
-  registry: &registry deepcase.mynetgear.com:20093
-
   # owner of the model
   owner: &owner keti
 

@@ -121,7 +121,8 @@ def run_model_manager(builders):
                     copy_playbook=copy_playbook,
                     build_playbook=build_playbook,
                     distrb_playbook=distrb_playbook,
-                    hosts_file=hosts_file
+                    hosts_file=hosts_file,
+                    registry=registry
                 )
 
                 done = man.register()
@@ -145,7 +146,8 @@ def run_model_manager(builders):
                 copy_playbook=copy_playbook,
                 build_playbook=build_playbook,
                 distrb_playbook=distrb_playbook,
-                hosts_file=hosts_file
+                hosts_file=hosts_file,
+                registry=registry
             )
             
             for group in user_cfg['group']:
@@ -168,7 +170,8 @@ def run_model_manager(builders):
                 copy_playbook=copy_playbook,
                 build_playbook=build_playbook,
                 distrb_playbook=distrb_playbook,
-                hosts_file=hosts_file
+                hosts_file=hosts_file,
+                registry=registry
             )
                         
             for user in user_cfg['target']:
