@@ -148,8 +148,10 @@ dockerhub에서 제공하는 기본 registry image를 사용합니다.<br>
      인증서가 저장된 디렉터리를 컨테이너에 마운트해야 합니다.<br>
      ```shell
      cd cloud-edge-aicontainers/v3/bhc/evc_frame
-     sh registry_init.sh
-     ## 내부 내용 참고
+     sh registry_init.sh # 내부 내용 참고
+
+     # 구동 여부 확인
+     docker ps -a
      ```
 <br>
 <br>
