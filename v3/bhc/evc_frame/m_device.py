@@ -35,7 +35,7 @@ class device_manager:
         done = True
 
         try:
-            cmd = "ssh-copy-id {host_name}@{ip} -p {port}".format(host_name=self.owner, ip=self.ip, port=self.port)
+            cmd = "ssh-copy-id -p {port} {host_name}@{ip}".format(host_name=self.owner, ip=self.ip, port=self.port)
             if os.system(cmd) != 0:
                 raise Exception('Error')
             
@@ -44,12 +44,12 @@ class device_manager:
             print(e, "wrong command.")
 
         else:
-            with open('/home/keti/tmp_host.ini', 'w') as f:
+            with open('tmp/tmp_host.ini', 'w') as f:
                 f.write('{name} ansible_host={ip} ansible_port={port}'.format(name=self.name, ip=self.ip, port=self.port))
 
 
         try:
-            cmd = 'ansible-playbook {playbook} -l {name} -i /home/keti/tmp_host.ini -e "host_name={host_name} registry={registry}"'.format(playbook=self.playbook, name=self.name, host_name=self.owner, registry=self.registry)
+            cmd = 'ansible-playbook {playbook} -l {name} -i tmp/tmp_host.ini -e "host_name={host_name} registry={registry}"'.format(playbook=self.playbook, name=self.name, host_name=self.owner, registry=self.registry)
             if os.system(cmd) != 0:
                 raise Exception('Error')
             

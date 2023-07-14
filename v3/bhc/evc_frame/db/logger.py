@@ -1,7 +1,7 @@
 import sqlite3
 from sqlite3 import Error
 from sysinfo import get_sysinfo_db as sys
-from geoloc import get_geoloc_db as geo
+# from geoloc import get_geoloc_db as geo
 from hosts import hosts 
 from temperature import get_temp_db as temp
 from model import run_model as pred
@@ -89,7 +89,7 @@ def main():
     init_db.main(db_path)
     conn = connect_db(db_path)
 
-    registry_ip = '123.214.186.252:39500'
+    registry_ip = 'deepcase.mynetgear.com:20093'
     hosts_file_path = '../hosts.ini'
     playbook_path = '../playbooks/get_logs.yaml'
     host = 'rpi6402'

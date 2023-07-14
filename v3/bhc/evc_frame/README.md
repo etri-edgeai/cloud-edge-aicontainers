@@ -1,8 +1,8 @@
 # Edge Vision Cluster
 분산 환경 디바이스 관측, 관리 및 클러스터링과 기계학습 지원을 수행하기 위한 프레임워크입니다.<br>
 
-## 구성
 
+## 구성
 ```
 evc_frame
 │
@@ -42,25 +42,66 @@ evc_frame
 ## Get start with EVC
 Edge vision Cluster 구동을 위한 환경을 구성합니다.
 
+
 ### Environment Settings
 EVC 구동을 위해 기본적으로 필요한 프레임워크, 패키지, 모듈을 설치합니다.
 
 * python version : 3.8.15
+
 
 #### Docker install
 Private Registry Server 구축, AI model 리패키징 및 배포를 위해 Docker를 설치합니다.<br>
 
 도커 설치 참고 : [Docker isntallation Guidance](https://docs.docker.com/engine/install/ubuntu/)
 
+
 #### Ansible install
 server, user node 간 통신 및 조작 | 제어를 위한 서버 관리 보조 어플리케이션 Ansible을 설치합니다.<br>
 
-``` pip install ansible ```
+``` pip install ansible ```<br>
+
+
+#### Grafana install
+클러스터 및 AI 모델 정보 시각화 관측을 위한 툴입니다. [Grafana Installation Guide](https://grafana.com/grafana/download)<br>
+
+```bash
+sudo apt-get install -y adduser libfontconfig1
+wget https://dl.grafana.com/enterprise/release/grafana-enterprise_10.0.1_amd64.deb
+sudo dpkg -i grafana-enterprise_10.0.1_amd64.deb
+```
+
+
+##### 대시보드 Export - Import
+* Export
+  grafana dashboard -> share click<br>
+  export tab -> .json format download
+* Import
+  dashboard -> import tab<br>
+  다운로드 받은 .json 파일 drag & drop
+
+
+##### Datasource Permission 문제 해결
+SQLite datasource 버전 업데이트 이후 권한 문제로 DB파일에 접근할 수 없는 문제 발생<br>
+* config file 수정 적용 [sqlite datasource docs](https://github.com/fr-ser/grafana-sqlite-datasource/blob/main/docs/faq.md#i-have-a-permission-denied-error-for-my-database)
+  ```bash
+  # edit (override) the grafana systemd configuration
+  systemctl edit grafana-server
+  
+  # add the following lines
+  [Service]
+  ProtectHome=false
+  
+  # reload the systemd config and restart the app
+  systemctl daemon-reload
+  systemctl restart grafana-server
+  ```
+
 
 #### Package installation
 기타 필요한 패키지를 설치합니다.<br>
 <br>
 사용된 주요 패키지는 다음과 같습니다.
+* schedule
 * geopy
 * pytorch
 * ultralytics
@@ -75,8 +116,9 @@ dockerhub에서 제공하는 기본 registry image를 사용합니다.<br>
 <br>
 ```docker pull registry```<br>
 <br>
-##### registry 접근 설정
 
+
+##### registry 접근 설정
 * SSL 인증서 설정<br>
   <br>
   보안성 확립과 원활한 접근을 위해 SSL 사설 인증서로 관리합니다.<br>
@@ -127,4 +169,17 @@ dockerhub에서 제공하는 기본 registry image를 사용합니다.<br>
 <br>
 
 
-업데이트 중
+### Run EVC
+EVC를 구동하여 모델 구축, 배포 및 모니터링 실행
+
+
+#### 호스트 등록, 모델 구축 및 배포
+```python runEVCv2.py```<br>
+
+호스트 정보 등록과 저장, AI 모델 리패키징을 통한 docker image 생성 및 클러스터 배포를 일괄적으로 수행합니다.
+
+
+#### 관측 및 모니터링
+```python logger.py```<br>
+
+각 클러스터의 다양한 상태 정보 및 AI 모델 관련 정보를 시각화하여 그라파나 서버로 송출합니다.
