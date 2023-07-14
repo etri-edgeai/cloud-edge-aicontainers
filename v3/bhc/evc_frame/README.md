@@ -39,29 +39,40 @@ evc_frame
 ```
 
 
-## Get start with EVC
-Edge vision Cluster 구동을 위한 환경을 구성합니다.
-
-
-### Environment Settings
+## EVC 환경 구성 및 요구사항
+Edge vision Cluster 구동을 위한 환경을 구성합니다.<br>
 EVC 구동을 위해 기본적으로 필요한 프레임워크, 패키지, 모듈을 설치합니다.
 
+
+### Python && pip
+
+conda 등 가상환경을 구성하는 것을 권장합니다.
+
 * python version : 3.8.15
+* schdule version : latest
+* geopy version : latest
 
+```bash
+conda create -n evc python==3.8.15
 
-#### Docker install
+pip install schedule
+pip install geopy
+```
+> ```requirements.txt``` 참고
+
+### Docker install
 Private Registry Server 구축, AI model 리패키징 및 배포를 위해 Docker를 설치합니다.<br>
 
-도커 설치 참고 : [Docker isntallation Guidance](https://docs.docker.com/engine/install/ubuntu/)
+도커 설치 참고 : [Docker isntallation Guide](https://docs.docker.com/engine/install/ubuntu/)
 
 
-#### Ansible install
+### Ansible install
 server, user node 간 통신 및 조작 | 제어를 위한 서버 관리 보조 어플리케이션 Ansible을 설치합니다.<br>
 
 ``` pip install ansible ```<br>
 
 
-#### Grafana install
+### Grafana install
 클러스터 및 AI 모델 정보 시각화 관측을 위한 툴입니다. [Grafana Installation Guide](https://grafana.com/grafana/download)<br>
 
 ```bash
@@ -71,7 +82,7 @@ sudo dpkg -i grafana-enterprise_10.0.1_amd64.deb
 ```
 
 
-##### 대시보드 Export - Import
+#### 대시보드 Export - Import
 * Export
   grafana dashboard -> share click<br>
   export tab -> .json format download
@@ -80,7 +91,7 @@ sudo dpkg -i grafana-enterprise_10.0.1_amd64.deb
   다운로드 받은 .json 파일 drag & drop
 
 
-##### Datasource Permission 문제 해결
+#### Datasource Permission 문제 해결
 SQLite datasource 버전 업데이트 이후 권한 문제로 DB파일에 접근할 수 없는 문제 발생<br>
 * config file 수정 적용 [sqlite datasource docs](https://github.com/fr-ser/grafana-sqlite-datasource/blob/main/docs/faq.md#i-have-a-permission-denied-error-for-my-database)
   ```bash
@@ -97,19 +108,7 @@ SQLite datasource 버전 업데이트 이후 권한 문제로 DB파일에 접근
   ```
 
 
-#### Package installation
-기타 필요한 패키지를 설치합니다.<br>
-<br>
-사용된 주요 패키지는 다음과 같습니다.
-* schedule
-* geopy
-* pytorch
-* ultralytics
-
-```requirements.txt``` 참고
-
-
-#### Build Private Registry
+### Private Registry
 AI 모델 이미지 저장, 관리 및 배포를 위한 사설 레지스트리 서버를 운영합니다.<br>
 <br>
 dockerhub에서 제공하는 기본 registry image를 사용합니다.<br>
@@ -118,7 +117,7 @@ dockerhub에서 제공하는 기본 registry image를 사용합니다.<br>
 <br>
 
 
-##### registry 접근 설정
+#### Registry 접근 설정
 * SSL 인증서 설정<br>
   <br>
   보안성 확립과 원활한 접근을 위해 SSL 사설 인증서로 관리합니다.<br>
@@ -144,7 +143,21 @@ dockerhub에서 제공하는 기본 registry image를 사용합니다.<br>
 
      sudo systemctl restart docker
      ```
-  2. Reigstry Server Container 생성 <br>
+
+     >**SSL 설정을 원치 않을 경우**
+     >* insecure-registry <br>
+     >docker config file을 수정하여 http 프로토콜로 접근할 수 있습니다.<br>
+     > ```shell
+     > # 파일이 존재하지 않을 경우 생성
+     > vi /etc/docker/daemon.json
+     >  
+     > # 내용 삽입 및 저장
+     > {
+     >    "insecure-registries" : ["localhost:5000"]
+     > }
+     > ```
+
+  1. Reigstry Server Container 생성 <br>
      인증서가 저장된 디렉터리를 컨테이너에 마운트해야 합니다.<br>
      ```shell
      cd cloud-edge-aicontainers/v3/bhc/evc_frame
@@ -164,21 +177,6 @@ dockerhub에서 제공하는 기본 registry image를 사용합니다.<br>
 <br>
 <br>
 
-* insecure-registry <br>
-  <br>
-  SSL 인증서 설정을 원치 않을 경우 config file을 수정하여 http 프로토콜로 접근할 수 있습니다.<br>
-  <br>
-  ```shell
-  # 파일이 존재하지 않을 경우 생성
-  vi /etc/docker/daemon.json
-  
-  # 내용 삽입 및 저장
-  {
-     "insecure-registries" : ["localhost:5000"]
-  }
-  ```
-<br>
-
 
 ### Run EVC
 EVC를 구동하여 모델 구축, 배포 및 모니터링 실행
@@ -194,3 +192,102 @@ EVC를 구동하여 모델 구축, 배포 및 모니터링 실행
 ```python logger.py```<br>
 
 각 클러스터의 다양한 상태 정보 및 AI 모델 관련 정보를 시각화하여 그라파나 서버로 송출합니다.
+
+
+## EVC 설치 안내서
+> EVC 설치 및 동작 테스트를 위한 절차 안내
+
+### Background
+하기 네 가지 요소가 충족되었다는 것을 전제 하에 진행됩니다.<br>
+
+* python 기반 가상 환경
+* docker
+* ansible
+* grafana
+
+### EVC Tutorial
+EVC 설치 시작
+```bash
+git clone git@github.com:againeureka/cloud-edge-aicontainers.git
+```
+
+1. Build Registry
+   
+   1-1. CA certificate 등록
+   
+        ```bash
+        pwd
+        ## > /home/{my_account}
+        
+        ## CA key, Certificate 생성
+        mkdir certs && cd certs
+        openssl genrsa -out rootca.key 2048
+        openssl req -x509 -new -nodes -key rootca.key -days 365 -out rootca.crt
+        
+        ## extfile 생성
+        echo subjectAltName = IP:{my_ip},IP:127.0.0.1 > extfile.cnf  # my_ip : 공인 아이피 주소 (외부 접속 주소)
+        
+        ## registry key, Private Certificate 생성
+        openssl genrsa -out registry.key 2048
+        openssl req -new -key registry.key -out registry.csr
+        openssl x509 -req -in registry.csr -CA rootca.crt -CAkey rootca.key -CAcreateserial -out registry.crt -days 365 -extfile extfile.cnf
+        
+        ## 인증서 등록 및 docker 재실행
+        sudo cp registry.crt /usr/local/share/ca-certificates/registry.crt
+        sudo update-ca-certificates
+        
+        sudo systemctl restart docker
+        ```
+
+    1-2. Registry 컨테이너 생성
+   
+         ```bash
+         ## pull from dockerhub
+         docker pull registry
+         
+         ## get list
+         docker images
+         
+         ## run registry container
+         cd cloud-edge-aicontainers/v3/bhc/evc_frame
+         
+         vi registry_init.sh
+         # 인증서 마운트 디렉터리 수정
+         
+         sh registry_init.sh
+         
+         ## get containers list
+         docker ps -a
+         
+         ### registry test
+         ## connection test
+         curl https://localhost:5000/v2/_catalog -k
+         
+         ## pull & push
+         # pull random image from dockerhub
+         docker pull python
+         # rename image
+         docker tag python localhost:5000/python
+         # push to the registry
+         docker push localhost:5000/python
+         # get list
+         curl https://localhost:5000/v2/_catalog -k
+         curl https://localhost:5000/v2/python/tags/list
+         ```
+         >포트 포워딩 설정 후 외부로부터 접속 가능
+
+2. set Grafana Dashboard
+
+   dashboard.json 다운로드 위치 : ```evc_frame/dashboards/grafana/```
+
+   2-1. Import dashboards
+   
+   그라파나 접속<br>
+   Dashboards -> New -> Import <br>
+   .json 파일 drag & drop
+
+   2-2. Datasource 연결
+   
+   Administration -> Plugins (state : all) <br>
+   해당 플러그인 설치 (SQLite) <br>
+   Connections -> Datasource <br>
