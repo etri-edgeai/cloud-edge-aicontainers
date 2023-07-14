@@ -131,7 +131,7 @@ dockerhub에서 제공하는 기본 registry image를 사용합니다.<br>
      openssl req -x509 -new -nodes -key rootca.key -days 365 -out rootca.crt
 
      ## extfile 생성
-     echo subjectAltName = IP:123.214.186.252:IP:127.0.0.1 > extfile.cnf
+     echo subjectAltName = IP:123.214.186.252,IP:127.0.0.1 > extfile.cnf
 
      ## registry key, Private Certificate 생성
      openssl genrsa -out registry.key 2048
