@@ -149,9 +149,17 @@ dockerhub에서 제공하는 기본 registry image를 사용합니다.<br>
      ```shell
      cd cloud-edge-aicontainers/v3/bhc/evc_frame
      sh registry_init.sh # 내부 내용 참고
+     # 결과 확인
+     docker ps -a # 컨테이너 생셩 여부
+     curl https://localhost:5000/v2/_catalog -k # 컨테이너 응답 여부
 
-     # 구동 여부 확인
-     docker ps -a
+     ## pull && push test
+     docker pull python
+     docker tag python localhost:5000/python
+     docker push localhost:5000/python
+     # 결과 확인
+     curl https://localhost:5000/v2/_catalog -k
+     curl https://localhost:5000/v2/python/tags/list -k
      ```
 <br>
 <br>
