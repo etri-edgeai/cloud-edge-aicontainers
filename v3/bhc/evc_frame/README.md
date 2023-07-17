@@ -93,7 +93,7 @@ sudo dpkg -i grafana-enterprise_10.0.1_amd64.deb
 
 #### Datasource Permission 문제 해결
 SQLite datasource 버전 업데이트 이후 권한 문제로 DB파일에 접근할 수 없는 문제 발생<br>
-* config file 수정 적용 [sqlite datasource docs](https://github.com/fr-ser/grafana-sqlite-datasource/blob/main/docs/faq.md#i-have-a-permission-denied-error-for-my-database)
+* config file 수정 적용 [sqlite datasource docs](https://github.com/fr-ser/grafana-sqlite-datasource/blob/main/docs/faq.md#i-have-a-permission-denied-error-for-my-database)<br>
   ```bash
   # edit (override) the grafana systemd configuration
   systemctl edit grafana-server
@@ -197,7 +197,7 @@ EVC를 구동하여 모델 구축, 배포 및 모니터링 실행
 ## EVC 설치 안내서
 > EVC 설치 및 동작 테스트를 위한 절차 안내
 
-### Background
+### Backgrounds
 하기 네 가지 요소가 충족되었다는 것을 전제 하에 진행됩니다.<br>
 
 * python 기반 가상 환경
@@ -302,18 +302,19 @@ git clone git@github.com:againeureka/cloud-edge-aicontainers.git
 
    3-1. Import dashboards
    
-   그라파나 접속<br>
-   Dashboards -> New -> Import <br>
-   .json 파일 drag & drop
+   * 그라파나 접속<br>
+     ```http://localhost:3000/  # default port 3000``` 
+   * 대시보드 JSON model import 기능을 사용하여 대시보드 업데이트 <br>
+     ```Dashboards -> New -> Import  # .json 파일 drag & drop```
 
    3-2. Datasource 연결
    
-   Administration -> Plugins (state : all) <br>
-   해당 플러그인 설치 (SQLite) <br>
-   Connections -> Datasource -> Add new datasource <br>
-   경로 입력 및 저장<br>
+   * Plugin 설치 <br>
+     ```Administration -> Plugins (state : all) -> SQLite plugin 검색 및 설치```
+   * Datasource 생성 및 적용 <br>
+     ```Connections -> Datasource -> Add new datasource -> db파일 경로 입력 및 저장```
 
-   * Permission error 해결
+   * (Optional) Permission error 해결
   
      간헐적으로 Grafana 계정의 권한 문제로 DB 파일에 접근할 수 없는 문제가 발생합니다.<br>
      
@@ -340,6 +341,7 @@ git clone git@github.com:againeureka/cloud-edge-aicontainers.git
     * model repackage
     * model deploy
     * model run<br>
+    <br>
 
     ```bash
     cd $PATH
