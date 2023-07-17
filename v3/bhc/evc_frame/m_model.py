@@ -143,7 +143,7 @@ class model_manager:
 
         try:
             ## copy
-            cmd = 'ansible-playbook {playbook} -l builder -i {hosts_file} -e "model_file={model_file} dockerfile={dockerfile}"'.format(playbook=self.copy_playbook, hosts_file=self.hosts_file, model_file=self.model_file, dockerfile=self.dockerfile)
+            cmd = 'ansible-playbook {playbook} -l {builder} -i {hosts_file} -e "model_file={model_file} dockerfile={dockerfile}"'.format(playbook=self.copy_playbook, hosts_file=self.hosts_file, model_file=self.model_file, dockerfile=self.dockerfile, builder=self.builder)
 
             if os.system(cmd) != 0:
                 raise Exception('Wrong Command.')
