@@ -209,6 +209,9 @@ EVC를 구동하여 모델 구축, 배포 및 모니터링 실행
 EVC 설치 시작
 ```bash
 git clone git@github.com:againeureka/cloud-edge-aicontainers.git
+
+## default path
+# $PATH = $HOME/cloud-edge-aicontainers/v3/bhc/evc_frame/
 ```
 
 1. Build Registry
@@ -263,7 +266,7 @@ git clone git@github.com:againeureka/cloud-edge-aicontainers.git
          ## connection test
          curl https://localhost:5000/v2/_catalog -k
          
-         ## pull & push
+         ## pull & push test
          # pull random image from dockerhub
          docker pull python
          # rename image
@@ -276,18 +279,79 @@ git clone git@github.com:againeureka/cloud-edge-aicontainers.git
          ```
          >포트 포워딩 설정 후 외부로부터 접속 가능
 
-2. set Grafana Dashboard
+2. Database initialize (optional)
 
-   dashboard.json 다운로드 위치 : ```evc_frame/dashboards/grafana/```
+   EVC github 프로젝트는 edge_logs.db3 파일을 포함하고 있습니다.<br>
+   필요에 따라 새로운 DB를 생성하여 초기화할 수 있습니다.<br>
+   SQLite3 DB를 사용합니다.<br>
 
-   2-1. Import dashboards
+   ```bash
+   cd $PATH/db/
+   
+   ## 기존 db 삭제
+   rm edge_logs.db3
+
+   ## 빈 db 파일 생성
+   python init_db.py
+   ```
+
+
+3. set Grafana Dashboard
+
+   dashboard.json 다운로드 위치 : ```$PATH/dashboards/grafana/```
+
+   3-1. Import dashboards
    
    그라파나 접속<br>
    Dashboards -> New -> Import <br>
    .json 파일 drag & drop
 
-   2-2. Datasource 연결
+   3-2. Datasource 연결
    
    Administration -> Plugins (state : all) <br>
    해당 플러그인 설치 (SQLite) <br>
-   Connections -> Datasource <br>
+   Connections -> Datasource -> Add new datasource <br>
+   경로 입력 및 저장<br>
+
+   * Permission error 해결
+  
+     간헐적으로 Grafana 계정의 권한 문제로 DB 파일에 접근할 수 없는 문제가 발생합니다.<br>
+     
+     ```bash
+     # edit (override) the grafana systemd configuration
+     systemctl edit grafana-server
+     
+     # add the following lines
+     [Service]
+     ProtectHome=false
+     
+     # reload the systemd config and restart the app
+     systemctl daemon-reload
+     systemctl restart grafana-server
+     ```
+
+
+4. Run EVC
+
+    EVC를 구동합니다. 하기 절차를 수행합니다.<br>
+    
+    * download user project
+    * edge hosts config
+    * model repackage
+    * model deploy
+    * model run<br>
+
+    ```bash
+    cd $PATH
+    python runEVCv2.py
+    ```
+
+5. Monitor
+
+   엣지 클러스터를 모니터링합니다.
+
+   ```bash
+   cd $PATH/db
+
+   python logger.py
+   ```
