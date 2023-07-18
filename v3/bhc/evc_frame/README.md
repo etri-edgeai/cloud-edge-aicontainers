@@ -344,7 +344,7 @@ git clone git@github.com:againeureka/cloud-edge-aicontainers.git
     <br>
 
     ```bash
-    cd $PATH
+    cd $PATH/EVC_RunTest
     python runEVCv2.py
     ```
 
