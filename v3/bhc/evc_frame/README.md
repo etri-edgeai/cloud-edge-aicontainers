@@ -345,6 +345,8 @@ git clone git@github.com:againeureka/cloud-edge-aicontainers.git
 
     ```bash
     cd $PATH/EVC_RunTest
+
+    mkdir tmp # tmp dir 생성
     python runEVCv2.py
     ```
 
