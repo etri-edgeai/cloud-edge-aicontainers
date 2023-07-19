@@ -37,7 +37,7 @@ class model_manager:
 
     def insert_db(self):
 
-        os.system('ansible-playbook {playbook} -i {hosts_file} -l builder -t log -e "tag={tag} ver={version}" > tmp/modelinfo.txt'.format(playbook=self.build_playbook, hosts_file=self.hosts_file, tag=self.model_name, version=self.version))
+        os.system('ansible-playbook {playbook} -i {hosts_file} -l {builder} -t log -e "tag={tag} ver={version}" > tmp/modelinfo.txt'.format(playbook=self.build_playbook, hosts_file=self.hosts_file, tag=self.model_name, version=self.version, builder=self.builder ))
 
         rows = []
         p_start = re.compile('TASK \[get result].+')
@@ -202,7 +202,7 @@ class model_manager:
         path = '/var/lib/registry/docker/registry/v2/repositories'
 
         try:
-            cmd = 'docker exec -it edge-registry rm -rf {path}/{repo}/_manifests/tags/{model_name}_{version}'.format(path=path, repo=self.repo, model_name=self.model_name, version=self.version)
+            cmd = 'docker exec -it evc-registry rm -rf {path}/{repo}/_manifests/tags/{model_name}_{version}'.format(path=path, repo=self.repo, model_name=self.model_name, version=self.version)
 
             if os.system(cmd) != 0:
                 raise Exception('Wrong Command.')
@@ -219,13 +219,13 @@ class model_manager:
             raise
 
         try:
-            cmd = 'docker exec -it edge-registry bin/registry garbage-collect /etc/docker/registry/config.yml'
+            cmd = 'docker exec -it evc-registry bin/registry garbage-collect /etc/docker/registry/config.yml'
             
             if os.system(cmd) != 0:
                 raise Exception('Wrong Command.')
             
             else:
-                os.system('docker restart edge-registry')
+                os.system('docker restart evc-registry')
         
         except Exception as e:
             done = False
