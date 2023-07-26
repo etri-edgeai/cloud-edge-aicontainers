@@ -3,3 +3,6 @@ EVC_RunTest/EVC_test2/
 
 # ginore auth keys
 certs/
+
+# ignore tar files
+*.tar.gz
