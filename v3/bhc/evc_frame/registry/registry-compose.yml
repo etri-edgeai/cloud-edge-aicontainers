@@ -11,7 +11,7 @@ services:
       - REGISTRY_TITLE=Docker Registry UI
       - DELETE_IMAGES=true
       - SHOW_CONTENT_DIGEST=true
-      - NGINX_PROXY_PASS_URL=http://evc-registry:5000
+      - NGINX_PROXY_PASS_URL=http://deepcase.mynetgear.com:20093
       - SHOW_CATALOG_NB_TAGS=true
       - CATALOG_MIN_BRANCHES=1
       - CATALOG_MAX_BRANCHES=1
@@ -25,11 +25,7 @@ services:
     restart: always
     environment:
       REGISTRY_HTTP_HEADERS_Access-Control-Allow-Origin: '[*]'
-      REGISTRY_HTTP_ADDR: 0.0.0.0:5000
-      REGISTRY_HTTP_TLS_CERTIFICATE: ./certs/registry.crt
-      REGISTRY_HTTP_TLS_KEY: ./certs/registry.key
       REGISTRY_STORAGE_DELETE_ENABLED: 'true'
     volumes:
       - ./data:/var/lib/registry
-      - /home/keti/cert:/certs
     container_name: evc-registry

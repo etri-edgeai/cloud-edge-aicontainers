@@ -71,7 +71,7 @@ path:
   db: &db ../db/edge_logs.db3
 
   # registry address
-  registry: &registry 123.214.186.192:20093
+  registry: &registry deepcase.mynetgear.com:20093
 
 # 전달할 인자 목록
 vars:
