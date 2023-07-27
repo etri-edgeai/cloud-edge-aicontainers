@@ -368,6 +368,7 @@ git clone git@github.com:againeureka/cloud-edge-aicontainers.git
 <br>
 <br>
 test
+
 ```bash
 docker run -d -p 5000:5000 --restart=always --name evc-registry \
 -v ./data/registry:/var/lib/registry/Docker/registry/v2 \
