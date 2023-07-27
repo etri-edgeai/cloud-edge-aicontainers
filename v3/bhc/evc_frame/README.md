@@ -359,3 +359,33 @@ git clone git@github.com:againeureka/cloud-edge-aicontainers.git
 
    python logger.py
    ```
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+test
+```bash
+docker run -d -p 5000:5000 --restart=always --name evc-registry \
+-v ./data/registry:/var/lib/registry/Docker/registry/v2 \
+registry:latest
+
+
+
+docker run -d -p 5000:5000 --restart=always --name evc-registry \
+-v ./data/registry:/var/lib/registry/Docker/registry/v2 \
+registry:latest
+
+
+
+
+docker pull joixt/docker-registry-ui
+
+docker run -d -p 8879:80 --name registry-ui \
+-e REGISTRY_URL=http://deepcase.mynetgear.com:20093 \
+-e DELETE_IMAGES=true \
+joxit/docker-registry-ui
+```
