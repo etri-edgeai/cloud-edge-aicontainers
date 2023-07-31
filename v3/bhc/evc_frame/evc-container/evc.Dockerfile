@@ -19,7 +19,11 @@ RUN chmod -w /etc/sudoers
 RUN sudo apt-get install -y libgl1-mesa-glx
 RUN sudo apt-get install -y python3-pip
 RUN pip install --upgrade pip
+
 RUN pip install ansible
 RUN sh get-docker.sh
 RUN sudo apt-get install -y adduser libfontconfig1
 RUN sudo dpkg -i grafana-enterprise_10.0.1_amd64.deb
+
+RUN pip install pandas
+RUN pip install sqlite3

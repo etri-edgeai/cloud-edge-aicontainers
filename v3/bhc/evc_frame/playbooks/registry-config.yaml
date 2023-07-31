@@ -1,11 +1,11 @@
 - name: copy CA files & keys
   hosts: all
+  tags: https
   become: true
   vars:
     host_name: keti
     registry: 123.214.186.252:39500
     ansible_sudo_pass: ketiabcs
-
 
   tasks:
 
@@ -38,3 +38,35 @@
       command : curl -k https://{{ registry }}/v2/_catalog
       register: output
     - debug: msg="{{output.stdout_lines}}"
+
+
+
+
+- name: insecure-registry config update
+  hosts: all
+  tags: http
+  become: true
+  vars:
+    host_name: keti
+    registry: deepcase.mynetgear.com:20093
+    ansbile_sudo_pass: ketiabcs
+
+  tasks:
+
+    - name: configuration update
+      become: true
+      become_user: root
+      copy: 
+        content: |
+          {"insecure-registries":["deepcase.mynetgear.com:20093"]}
+        dest: "/etc/docker/daemon.json"
+
+    - name: restart docker demon
+      command: sudo systemctl restart docker
+      register: output
+    - debug: msg="{{ output.stdout_lines }}"
+
+    - name: connection test
+      command: docker pull deepcase.mynetgear.com:20093/hello-world:test
+      register: output
+    - debug: msg="{{ output.stdout_lines }}"

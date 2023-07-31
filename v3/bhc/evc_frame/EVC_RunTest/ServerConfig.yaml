@@ -17,7 +17,7 @@ activations:
 # builders config
 builder:
   - name: rpi6401
-    ip: 123.214.186.192
+    ip: deepcase.mynetgear.com
     port: 39001
     hw: rpi
     os: linux
@@ -53,7 +53,7 @@ path:
   # # path_to_model_file
   # modelfile: &modelfile /home/keti/cloud-edge-aicontainers/v2/bhc/webapp/run_cfg/model.tar.gz
 
-  cert_playbook: &cert_playbook ../playbooks/copy_cert.yaml
+  cert_playbook: &cert_playbook ../playbooks/registry-config.yaml
 
   # path to model copy playbook (server -> edge node)
   copy_playbook: &copy_playbook ../playbooks/copy_model.yaml
