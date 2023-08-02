@@ -3,8 +3,9 @@
 - 참고 : https://github.com/shahbaz17/php-rest-api
 - 수정 : JPark, 2023
 
+## 참고
 
-## 참고 : apache2 삭제
+### apache2 삭제
 
 ```bash
 $ service --status-all
@@ -30,13 +31,13 @@ $ apt update
 $ apt upgrade
 ```
 
-## nginx 삭제
+### nginx 삭제
 
 ```bash
 sudo apt-get remove --purge nginx nginx-full nginx-common 
 ```
 
-## 포트 상태 확인
+### 포트 상태 확인
 
 ```bash
 netstat -anot | grep :80
@@ -44,6 +45,19 @@ netstat -anot | grep :80
 -a :  모든 port를 나타내는 옵션
 -n : IP주소뒤에 port 번호까지 보여주는 옵션
 -o : PID(프로세스ID) 를 보여주는 옵션
+
+### 서비스 목록
+
+```bash
+service --status-all
+```
+
+
+
+docker run -d --name nginx_mount -p 5555:80 -v /root/webdata:/usr/share/nginx/html:ro nginx
+
+
+
 
 
 
