@@ -53,5 +53,6 @@ services:
             MYSQL_DATABASE: "${DB_NAME}"
             MYSQL_ROOT_PASSWORD: "${DB_PASSWORD}"
 
+
 volumes:
     db_data:
