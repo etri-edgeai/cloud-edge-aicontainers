@@ -47,7 +47,8 @@ services:
         command: "mysqld --init-file /data/application/init.sql"
         volumes:
             - ./data/init.sql:/data/application/init.sql
-            - db_data:/var/lib/mysql
+            #- db_data:/var/lib/mysql
+            - /home/jpark/.evc/mariadb:/var/lib/mysql
         environment:
             MYSQL_DATABASE: "${DB_NAME}"
             MYSQL_ROOT_PASSWORD: "${DB_PASSWORD}"
