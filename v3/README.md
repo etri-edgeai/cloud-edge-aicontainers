@@ -20,6 +20,9 @@ $ apt-get remove apache2*
 $ apt-get --purge remove apache2*
 $ apt-get autoremove
 
+sudo apt purge  apache2*
+
+
 ; 아파치 웹서버 캐시 클리닝 대몬 삭제
 $ service apache-htcacheclean stop
 $ apt-get remove apache*
@@ -52,7 +55,15 @@ netstat -anot | grep :80
 service --status-all
 ```
 
+### 특정 포트 프로세스 제거
 
+sudo lsof -i :80
+sudo fuser -n tcp -k 80
+
+
+### nginx docker 빌드 및 실행
+
+docker run -d -p 81:80 -v /home/jpark/www/cloud-edge-aicontainers/v3:/usr/share/nginx/html localhost:5000/evc-nginx
 
 docker run -d --name nginx_mount -p 5555:80 -v /root/webdata:/usr/share/nginx/html:ro nginx
 
