@@ -80,7 +80,9 @@ https://www.daleseo.com/docker-compose/
 
 
 
+### docker bash 접속
 
+docker exec -it  c456623003b1 /bin/bash
 
 
 
