@@ -38,7 +38,8 @@ services:
             - 8000:80 # 임시
         links:
             - db:db
-
+            
+            
     db:
         image: mysql:latest    
         ports:
