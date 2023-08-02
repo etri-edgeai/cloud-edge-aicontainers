@@ -1,6 +1,11 @@
 - name: Get networks informations between nodes
   hosts: user
   tags: network
+  vars:
+    ansible_become: true
+    ansible_user: keti
+    ansible_become_method: sudo
+    ansible_become_pass: ketiabcs
   # become: true
 
   tasks:
@@ -54,6 +59,10 @@
   vars:
     image_name: "{{ ansible_facts['architecture'] }}-model"
     model_tag: "imagenet"
+    ansible_become: true
+    ansible_user: keti
+    ansible_become_method: sudo
+    ansible_become_pass: ketiabcs
 
   tasks:
   # - name: run container
@@ -78,6 +87,11 @@
   hosts: user
   tags: sys
   gather_facts: no
+  vars:
+    ansible_become: true
+    ansible_user: keti
+    ansible_become_method: sudo
+    ansible_become_pass: ketiabcs
   
   tasks:
   - name: cpu usage

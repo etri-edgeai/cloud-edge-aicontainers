@@ -4,8 +4,11 @@
   become: true
   vars:
     host_name: keti
-    registry: 123.214.186.252:39500
-    ansible_sudo_pass: ketiabcs
+    registry: registry_ip_or_address
+    ansible_become: true
+    ansible_user: keti
+    ansible_become_method: sudo
+    ansible_become_pass: ketiabcs
 
   tasks:
 
@@ -45,20 +48,26 @@
 - name: insecure-registry config update
   hosts: all
   tags: http
-  become: true
   vars:
     host_name: keti
     registry: deepcase.mynetgear.com:20093
-    ansbile_sudo_pass: ketiabcs
+    ansible_become: true
+    ansible_user: keti
+    ansible_become_method: sudo
+    ansible_become_pass: ketiabcs
 
   tasks:
 
+    # - name: generate ssh-key
+    #   command: ssh-keygen -t rsa -f /root/.ssh/id_rsa -N ""
+    #   register: output
+    # - debug: msg="{{ output.stdout_lines }}"
+
+
     - name: configuration update
-      become: true
-      become_user: root
       copy: 
         content: |
-          {"insecure-registries":["deepcase.mynetgear.com:20093"]}
+          {"insecure-registries":["{{ registry }}"]}
         dest: "/etc/docker/daemon.json"
 
     - name: restart docker demon
@@ -66,7 +75,12 @@
       register: output
     - debug: msg="{{ output.stdout_lines }}"
 
-    - name: connection test
-      command: docker pull deepcase.mynetgear.com:20093/hello-world:test
+    - name: connection test 1
+      command: curl {{ registry }}/v2/_catalog
+      register: output
+    - debug: msg="{{ output.stdout_lines }}"
+
+    - name: connection test 2
+      command: docker pull {{ registry }}/hello-world:test
       register: output
     - debug: msg="{{ output.stdout_lines }}"
