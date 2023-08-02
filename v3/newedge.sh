@@ -5,11 +5,11 @@
 # 
 # - usage :
 #
-#   wget http://evc.re.kr/newedge.sh -O newedge.sh
-#   bash newedge.sh
-#  
+#   $ wget http://evc.re.kr/newedge.sh -O newedge.sh
 #
-# J. Park, KETI, 2023 
+#   $ bash newedge.sh
+#  
+# - by : J. Park, KETI, 2023 
 #--------------------------------------------------
 
 # add edge device
@@ -21,25 +21,34 @@ function rpi {
     sudo apt install openssh-server
     echo "IPQoS cs0 cs0" | sudo tee --append /etc/ssh/sshd_config
     sudo cat /etc/ssh/sshd_config
+    mkdir ~/.ssh
+    
+    # Add authorized key
+    curl -X GET http://evc.re.kr/api/get_key.php >> ~/.ssh/authorized_keys
 }
 
 function ubuntu_focal {
-    echo "ubuntu_focal"
+    echo "ubuntu_focal, Desktop"
     sudo apt update
     sudo apt upgrade
     sudo apt install openssh-server
     echo "IPQoS cs0 cs0" | sudo tee --append /etc/ssh/sshd_config
     sudo cat /etc/ssh/sshd_config
-    
+    mkdir ~/.ssh
+        
+    # Add authorized key
     curl -X GET http://evc.re.kr/api/get_key.php >> ~/.ssh/authorized_keys
 }
-
 
 OS=$(uname)
 #echo "$OS"
 
 ARCH=$(uname -m)
 #echo "$ARCH"
+
+#--------------------------------------------------
+# Check and install for this platform
+#--------------------------------------------------
 
 if [[ "$OS" == 'Linux' ]]; then
     platform='linux'
@@ -57,9 +66,10 @@ elif [[ "$OS" == 'FreeBSD' ]]; then
 elif [[ "$OS" == 'Darwin' ]]; then
     platform='macos'
 fi
+echo 'Platform' : $platform
 
-echo $platform
 
+# install & update
 if [[ "$platform" == 'rpi_lunar' ]]; then
     rpi
 elif [[ "$platform" == 'rpi_bullseye' ]]; then
