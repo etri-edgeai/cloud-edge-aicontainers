@@ -34,21 +34,21 @@ services:
             PMA_PORT: 3306
             MYSQL_ROOT_PASSWORD: "${DB_PASSWORD}"
         ports:
-            #- ${IP}:8000:80
-            - 8000:80
+            #- ${IP}:8000:80 # 보안 강력 (실제 서비스에 적용)
+            - 8000:80 # 임시
         links:
             - db:db
 
     db:
         image: mysql:latest
         ports:
-            #- ${IP}:3300:3306
-            - 3300:3306
+            #- ${IP}:3300:3306 # 보안 강력 (실제 서비스에 적용) 
+            - 3300:3306 # 임시 
         command: "mysqld --init-file /data/application/init.sql"
         volumes:
             - ./data/init.sql:/data/application/init.sql
-            #- db_data:/var/lib/mysql
-            - /home/jpark/.evc/mariadb:/var/lib/mysql
+            #- db_data:/var/lib/mysql # volume
+            - /home/jpark/.evc/mariadb:/var/lib/mysql # maridadb data
         environment:
             MYSQL_DATABASE: "${DB_NAME}"
             MYSQL_ROOT_PASSWORD: "${DB_PASSWORD}"
