@@ -1,5 +1,5 @@
 <?php
-define("DB_SERVER", "localhost");
+define("DB_SERVER", "db");
 define("DB_USERNAME", "evc");
 define("DB_PASSWORD", "evc");
 define("DB_NAME", "evc");
