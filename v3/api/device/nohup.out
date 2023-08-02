@@ -1,0 +1,5 @@
+INFO:     Will watch for changes in these directories: ['/home/jpark/www/cloud-edge-framework/v3/api/device']
+ERROR:    [Errno 98] Address already in use
+INFO:     Will watch for changes in these directories: ['/home/jpark/www/cloud-edge-framework/v3/api/device']
+ERROR:    [Errno 98] Address already in use
+/home/jpark/www/rasa/venv/bin/python: No module named uvicorn
