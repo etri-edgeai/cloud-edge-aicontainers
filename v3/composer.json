@@ -1,0 +1,20 @@
+{
+	"name": "againeureka/evc",
+	"description": "A Simple REST API in PHP",
+	"type": "project",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "J. Park",
+			"email": "feynmanc@naver.com"
+		}
+	],
+	"require": {
+		"vlucas/phpdotenv": "^5.3"
+	},
+	"autoload": {
+		"psr-4": {
+			"Src\\": "api/"
+		}
+	}
+}

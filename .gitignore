@@ -12,6 +12,8 @@ __pycache__/
 **/data
 
 v2/doc/figures
+v3/padmin
+v3/vender
 
 # model
 *.onnx
