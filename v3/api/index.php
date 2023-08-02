@@ -1,39 +1,55 @@
 <?php
-require "./start.php";
-use Src\Post;
+include('lib/functions.php');
+header('content-type: application/json');
 
-header("Access-Control-Allow-Origin: *");
-header("Content-Type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Methods: OPTIONS,GET,POST,PUT,DELETE");
-header("Access-Control-Max-Age: 3600");
-header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
-$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-$uri = explode( '/', $uri );
-
-// endpoints starting with `/post` or `/posts` for GET shows all posts
-// everything else results in a 404 Not Found
-if ($uri[1] !== 'post') {
-  if($uri[1] !== 'posts'){
+if($_SERVER['REQUEST_METHOD']=="GET")
+{
+  if(isset($_GET['id']))
+  {
+    $id =  $_GET['id'];
+    $json = get_single_user_info($id);
+    if(empty($json))
     header("HTTP/1.1 404 Not Found");
-    exit();
+    echo json_encode($json);
+  }
+  else{
+    $json = get_all_user_list();
+    echo json_encode($json);
   }
 }
 
-// endpoints starting with `/posts` for POST/PUT/DELETE results in a 404 Not Found
-if ($uri[1] == 'posts' and isset($uri[2])) {
-    header("HTTP/1.1 404 Not Found");
-    exit();
+
+if($_SERVER['REQUEST_METHOD']=="POST")
+{
+  $data = json_decode( file_get_contents( 'php://input' ), true );
+  
+  $name = $data['name'];
+  $email = $data['email'];
+  
+  $json = add_user_info($name,$email);
+  echo json_encode($json);
 }
 
-// the post id is, of course, optional and must be a number
-$postId = null;
-if (isset($uri[2])) {
-    $postId = (int) $uri[2];
+if($_SERVER['REQUEST_METHOD']=="PUT")
+{
+  $data = json_decode( file_get_contents( 'php://input' ), true );
+  
+  $id = $data['id'];
+  $name = $data['name'];
+  $email = $data['email'];
+  
+  $json = update_user_info($id,$name,$email);
+  echo json_encode($json);
 }
 
-$requestMethod = $_SERVER["REQUEST_METHOD"];
-
-// pass the request method and post ID to the Post and process the HTTP request:
-$controller = new Post($dbConnection, $requestMethod, $postId);
-$controller->processRequest();
+if($_SERVER['REQUEST_METHOD']=="DELETE")
+{
+  $data = json_decode( file_get_contents( 'php://input' ), true );
+  
+  $id = $data['id'];
+  
+  $json = delete_user_info($id);
+  echo json_encode($json);
+}
+?>

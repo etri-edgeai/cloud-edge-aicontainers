@@ -4,7 +4,46 @@
 - 수정 : JPark, 2023
 
 
+## 참고 : apache2 삭제
 
+```bash
+$ service --status-all
+...
+[ + ]  apache-htcacheclean
+[ + ]  apache2
+...
+
+; 아파치 웹서버 삭제
+$ service apache2 stop
+$ apt-get remove apache2*
+$ apt-get --purge remove apache2*
+$ apt-get autoremove
+
+; 아파치 웹서버 캐시 클리닝 대몬 삭제
+$ service apache-htcacheclean stop
+$ apt-get remove apache*
+$ apt-get --purge remove apache*
+$ apt-get autoremove
+
+; 마지막으로 OS를 최신상태로
+$ apt update
+$ apt upgrade
+```
+
+## nginx 삭제
+
+```bash
+sudo apt-get remove --purge nginx nginx-full nginx-common 
+```
+
+## 포트 상태 확인
+
+```bash
+netstat -anot | grep :80
+```
+-a :  모든 port를 나타내는 옵션
+-n : IP주소뒤에 port 번호까지 보여주는 옵션
+-o : PID(프로세스ID) 를 보여주는 옵션
 
 
 
