@@ -65,7 +65,19 @@ sudo fuser -n tcp -k 80
 
 docker run -d -p 81:80 -v /home/jpark/www/cloud-edge-aicontainers/v3:/usr/share/nginx/html localhost:5000/evc-nginx
 
+docker run -d -p 81:80 -v /home/jpark/www/cloud-edge-aicontainers/v3:/var/www/html localhost:5000/evc-nginx
+
+
+
+
+
 docker run -d --name nginx_mount -p 5555:80 -v /root/webdata:/usr/share/nginx/html:ro nginx
+
+
+### docker-compose 명령어
+
+https://www.daleseo.com/docker-compose/
+
 
 
 
