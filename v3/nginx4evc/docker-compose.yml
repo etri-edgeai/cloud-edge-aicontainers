@@ -34,14 +34,16 @@ services:
             PMA_PORT: 3306
             MYSQL_ROOT_PASSWORD: "${DB_PASSWORD}"
         ports:
-            - ${IP}:8000:80
+            #- ${IP}:8000:80
+            - 8000:80
         links:
             - db:db
 
     db:
         image: mysql:latest
         ports:
-            - ${IP}:3300:3306
+            #- ${IP}:3300:3306
+            - 3300:3306
         command: "mysqld --init-file /data/application/init.sql"
         volumes:
             - ./data/init.sql:/data/application/init.sql
