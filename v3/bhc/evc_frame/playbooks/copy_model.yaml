@@ -3,6 +3,10 @@
   vars:
     model_file: model.tar.gz
     dockerfile: Dockerfile
+    ansible_become: true
+    ansible_user: keti
+    ansible_become_method: sudo
+    ansible_become_pass: ketiabcs
 
   tasks:
     - name: Copying Dockerfile from server

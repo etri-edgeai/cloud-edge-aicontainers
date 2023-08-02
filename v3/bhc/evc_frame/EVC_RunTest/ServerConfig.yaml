@@ -73,24 +73,24 @@ path:
   # registry address
   registry: &registry deepcase.mynetgear.com:20093
 
-# 전달할 인자 목록
-vars:
-  ## informations to define your model
-  # owner of the model
-  owner: &owner keti
+# # 전달할 인자 목록
+# vars:
+#   ## informations to define your model
+#   # owner of the model
+#   owner: &owner keti
 
-  # what model do
-  task: &task detection
+#   # what model do
+#   task: &task detection
 
-  # name of the model
-  model_name: &model_name plate_detector
+#   # name of the model
+#   model_name: &model_name plate_detector
 
-  # model version
-  version: &version v1.0
+#   # model version
+#   version: &version v1.0
 
-  # model image repository
-  repo: &repo x86_64-model
-  repo2: &repo2 aarch64-model
+#   # model image repository
+#   repo: &repo x86_64-model
+#   repo2: &repo2 aarch64-model
 
 
 ## activation configs

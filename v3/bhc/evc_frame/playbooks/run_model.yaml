@@ -13,6 +13,10 @@
     registry: "123.214.186.252:39500"
     server: keti@ketiabcs.iptime.org
     version: v1.0
+    ansible_become: true
+    ansible_user: keti
+    ansible_become_method: sudo
+    ansible_become_pass: ketiabcs
 
   
   tasks:

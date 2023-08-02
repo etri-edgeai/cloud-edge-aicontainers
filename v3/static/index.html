@@ -1,0 +1,175 @@
+<html>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <head>
+      <link href="style.css" rel="stylesheet" type="text/css">
+    </head>
+
+    <body>
+        <div class="container">
+
+            <h2>Edge Vision Cluster(EVC) dev. page, KETI</h2>
+            <!-- 
+                <p> http://deepcase.mynetgear.com:20080/cloud-edge-framework/v3 </p>
+            -->
+            
+            <div class="tabs">
+
+                <div class="tabby-tab">
+                  <input type="radio" id="tab-1" name="tabby-tabs" checked>
+                  <label for="tab-1">new edge</label>
+                  <div class="tabby-content">
+                      <p> <font color = "black"> 😊 EVC를 통해 서비스 하려는 Edge 장치에서 아래 명령어를 실행합니다. </font> </p>
+                      <p> <font color = "black"> $ wget http://evc.re.kr/newedge.sh </font> </p>
+                      <p> <font color = "black"> $ sh newedge.sh </font> </p>
+                      
+                      <p> <font color = "black"> vi ~/new_user/.ssh/authorized_keys </font> </p>
+                  </div>
+                </div>                
+
+                
+                <div class="tabby-tab">
+                  <input type="radio" id="tab-2" name="tabby-tabs">
+                  <label for="tab-2">device api</label>
+                  <div class="tabby-content">
+                      <iframe src="http://deepcase.mynetgear.com:28004/docs" width=100% height=100%> </iframe>
+                  </div>
+                </div>
+                
+
+                <div class="tabby-tab">
+                  <input type="radio" id="tab-3" name="tabby-tabs">
+                  <label for="tab-3">cluster</label>
+                  <div class="tabby-content">
+                    
+                    <p>
+                    <a href="http://ketiabcs.iptime.org:39080/d/yr9KziTVk/edgeframework_admin?orgId=1&from=1686731955352&to=1686753555352" target="_blank"> cluster UI
+                    </a>
+                    </p>
+                    <p> <font color = "black"> - 집접 연결 </font> </p>
+                    <p> <font color = "black"> - Container 기반 연결 </font> </p>
+                    <p> <font color = "black"> - k3s 클러스터 연결 : 초경량 에지 지향 </font> </p>
+                    <p> <font color = "black"> - k8s 클러스터 연결 : 고성능 에지 지향 </font> </p>
+
+                    </div>
+                </div>
+
+                
+                <div class="tabby-tab">
+                  <input type="radio" id="tab-4" name="tabby-tabs">
+                  <label for="tab-4">grafana</label>
+                  <div class="tabby-content">
+                      
+                      
+                      
+                      <p> <a href="http://deepcase.mynetgear.com:23001/d/yr9KziTVk/edgeframework-admin?orgId=1&from=1689733790163&to=1689755390163" target="_blank"> Admin </a> </p>
+                      
+                      
+                      <p> <a href="http://deepcase.mynetgear.com:23001/d/sP0nIDTVz/rpi-6402?orgId=1&refresh=5s&from=1689733815936&to=1689755415936" target="_blank"> edge 6402 </a> </p>
+                      
+                      <p> <a href="http://deepcase.mynetgear.com:23001/d/gzqGI804z/rpi6402-run-model?orgId=1&refresh=5s&from=1689733837580&to=1689755437580" target="_blank"> run model 6402 </a> </p>
+                      
+                      <p> <a href="http://deepcase.mynetgear.com:23001/d/KTkDshJ4z/registry?orgId=1&from=1689733714957&to=1689755314957" target="_blank"> Registry </a> </p>
+                      
+                      
+                      <iframe src="http://deepcase.mynetgear.com:23001/d/yr9KziTVk/edgeframework-admin?orgId=1&from=1689732778028&to=1689754378028" width=100% height=100%> </iframe>
+                      
+                      <!-- <iframe src="http://deepcase.mynetgear.com:20088/lab/tree/www/cloud-edge-framework/v3" width=100% height=100%> </iframe> -->
+                  </div>
+                </div>
+
+                <div class="tabby-tab">
+                  <input type="radio" id="tab-5" name="tabby-tabs">
+                  <label for="tab-5">gitlab ci/cd</label>
+                  <div class="tabby-content">
+                      
+                      <!--
+                      <iframe src="http://deepcase.mynetgear.com:28081" width=100% height=100%>  </iframe>
+                       -->
+                          
+                      <p><a href="http://deepcase.mynetgear.com:28081" target="_blank"> 지속 통합/배포 (CI/CD)</a></p>
+                      <p> <font color = "black"> - Git LFS (Large File Storage) </font> </p>
+                      <p> <font color = "black"> - CI/CD </font> </p>
+                  </div>
+                </div>
+                
+                <div class="tabby-tab">
+                    <input type="radio" id="tab-6" name="tabby-tabs">
+                    <label for="tab-6">train/infer</label>
+                    <div class="tabby-content">
+                        <iframe src="http://deepcase.mynetgear.com:28001" width=100% height=100%> </iframe>
+                    </div>
+                </div>
+                
+               
+                <div class="tabby-tab">
+                  <input type="radio" id="tab-7" name="tabby-tabs">
+                  <label for="tab-7">monitoring</label>
+                  <div class="tabby-content">
+                    
+                    <a href="http://ketiabcs.iptime.org:39080/d/sP0nIDTVz/rpi-6402?orgId=1&refresh=5s&from=1687109419697&to=1687131019697&theme=light" target="_blank"> 모니터링 UI
+                    </a>
+                      
+                    </div>
+                </div>
+
+                <div class="tabby-tab">
+                    <input type="radio" id="tab-8" name="tabby-tabs">
+                    <label for="tab-8">registry</label>
+                    <div class="tabby-content">
+                        
+                        <p><a href="https://deepcase.mynetgear.com:20050/v2/_catalog" target="_blank"> [pass] Docker Registry Catalog </a></p>
+                        
+                        <p><a href="https://deepcase.mynetgear.com:20050/v2/python/tags/list" target="_blank"> [pass] Docker Registry tags list </a></p>
+                        
+                        <p><a href="http://deepcase.mynetgear.com:28083/" target="_blank"> [not yet] Docker Registry Browser </a></p>
+                        
+                        <p><a href="http://ketiabcs.iptime.org:39080/d/KTkDshJ4z/registry?orgId=1&from=1687114419389&to=1687136019389&theme=light" target="_blank"> [not yet] Docker Registry + Grafana </a></p>
+                        
+                        
+                        
+                        
+                        <p> <a href="https://huggingface.co/facebook" target="_blank"> Model Registry (e.g. Huggingface)</a></p>
+                        <img src='img4doc/model.jpg' width=100%>
+                    </div>
+                </div>
+
+                
+                
+                <div class="tabby-tab">
+                    <input type="radio" id="tab-9" name="tabby-tabs">
+                    <label for="tab-9">admin.cmdb</label>
+                    <div class="tabby-content">
+                   
+                    <iframe src="http://deepcase.mynetgear.com:20080/cloud-edge-framework/v3/admin/overview.html" width=100% height=100%> </iframe>
+                        
+                    </div>
+                </div>
+
+                <div class="tabby-tab">
+                    <input type="radio" id="tab-10" name="tabby-tabs">
+                    <label for="tab-10">semaphore</label>
+                    <div class="tabby-content">
+                   
+                    <iframe src="http://deepcase.mynetgear.com:23000" width=100% height=100%> </iframe>
+                        
+                    </div>
+                </div> 
+                
+                
+                <div class="tabby-tab">
+                    <input type="radio" id="tab-11" name="tabby-tabs">
+                    <label for="tab-11">rev</label>
+                    <div class="tabby-content">
+                   
+                    <iframe src="http://deepcase.mynetgear.com:20080/cloud-edge-framework/v3/admin/overview.html" width=100% height=100%> </iframe>
+                        
+                    </div>
+                </div>     
+               
+                
+            </div>
+        </div>
+    </body>
+</html>

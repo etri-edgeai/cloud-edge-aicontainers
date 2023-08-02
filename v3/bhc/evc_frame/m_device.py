@@ -49,7 +49,7 @@ class device_manager:
 
 
         try:
-            cmd = 'ansible-playbook {playbook} -l {name} -i tmp/tmp_host.ini -e "host_name={host_name} registry={registry}"'.format(playbook=self.playbook, name=self.name, host_name=self.owner, registry=self.registry)
+            cmd = 'ansible-playbook {playbook} -l {name} -i tmp/tmp_host.ini -t http -e "host_name={host_name} registry={registry}"'.format(playbook=self.playbook, name=self.name, host_name=self.owner, registry=self.registry)
             if os.system(cmd) != 0:
                 raise Exception('Error')
             
