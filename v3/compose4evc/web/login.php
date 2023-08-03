@@ -107,7 +107,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <script defer src="./js/script.js"></script>
 </head>
 
-<body>
+<body style="background-color:#222325;">
   <div class="container">
     <div class="row min-vh-100 justify-content-center align-items-center">
       <div class="col-lg-5">
@@ -116,10 +116,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           echo "<div class='alert alert-danger'>" . $login_err . "</div>";
         }
         ?>
-        <div class="form-wrap border rounded p-4">
-          <h1>EVC Log In</h1>
+        <div class="form-wrap border rounded p-4" style='color:white'>
+          <h1>Log In</h1>
+          <h5>클라우드-엣지 연동분석 프레임워크, EVC</h5>
+          <br/><br/>
           <p>Please login to continue </p>
-          <p>developer id and password is <b><font color='blue'> {id : 'test', pw : 'test'} </font></b> </p>
+          <p>developer id and password is <b><font color='orange'> {id : 'test', pw : 'test'} </font></b> </p>
           <!-- form starts here -->
           <form action="<?= htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" novalidate>
             <div class="mb-3">

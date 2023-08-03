@@ -139,8 +139,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <script defer src="./js/script.js"></script>
 </head>
 
-<body>
-  <div class="container">
+<body style="background-color:#222325;">
+  <div class="container" style="color:white">
     <div class="row min-vh-100 justify-content-center align-items-center">
       <div class="col-lg-5">
         <div class="form-wrap border rounded p-4">
