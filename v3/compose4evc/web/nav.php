@@ -1,4 +1,6 @@
-                    <div class="container">
+
+<td style="background-color:lightlime; color:gray; width:20%">
+    <div class="container">
                         <!-- 로그인 인증 -->
                         <!--
                         <div class="alert alert-success my-5">
@@ -10,8 +12,9 @@
                         <div class="row justify-content-center">
                             <div class="col-lg-7 text-center">
                                 <img src="./img/blank-avatar.jpg" class="img-fluid rounded" alt="User avatar" width="180">
-                                <h4 class="my-1">Hello, <?= htmlspecialchars($_SESSION["username"]); ?></h4>
-                                <a href="./logout.php" class="btn btn-primary">Log Out</a>
+                                <h7 class="my-1">Hello, <?= htmlspecialchars($_SESSION["username"]); ?></h7><br/>
+    
+                                <a href="./logout.php" class="btn btn-primary"> Log Out </a>
                             </div>
                         </div>
                         
@@ -27,4 +30,5 @@
                             <li class="list-group-item"> <a href='page_empty.php'> [EMPTY] </a> 
                         </ul>
     
-                    </div>
+    </div>
+</td>

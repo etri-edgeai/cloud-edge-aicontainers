@@ -1,5 +1,5 @@
 <!-- body_footer_section -->
 
-<td colspan="2" style="background-color:#FFCC00">
-    <h5> footer 영역 </h5>
+<td colspan="2" style="background-color:lightgray">
+    <p> <font color='white'> 능동적 즉시 대응 </font> </p>
 </td>
