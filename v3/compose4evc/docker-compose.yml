@@ -44,17 +44,17 @@ services:
         image: mysql:latest    
         ports:
             #- ${IP}:3300:3306 # 보안 강력 (실제 서비스에 적용) 
-            - 3300:3306 # 임시 
+            - 3306:3306 # 임시로 '${IP}:' 헤더를 제거
         command: "mysqld --init-file /data/application/init.sql"
-        command: --default-authentication-plugin=mysql_native_password
         volumes:
             - ./data/init.sql:/data/application/init.sql
             #- db_data:/var/lib/mysql # volume
             - /home/jpark/.evc/mariadb:/var/lib/mysql # maridadb data
         environment:
+            MYSQL_ROOT_PASSWORD: "${DB_ROOT_PASSWORD}"
             MYSQL_DATABASE: "${DB_NAME}"
-            MYSQL_ROOT_PASSWORD: "${DB_PASSWORD}"
-
+            MYSQL_USER: "${DB_USER}"
+            MYSQL_PASSWORD: "${DB_USER_PASSWORD}"
 
 volumes:
     db_data:
