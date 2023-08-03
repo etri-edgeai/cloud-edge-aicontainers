@@ -53,17 +53,18 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== TRUE) {
                         <br/><br/>
                         <!-- 메뉴 -->
                         <ul class="list-group">
-                            <li class="list-group-item"> <a href='page_newdevice.php'> 신규 에지 장치 등록 </a> </li>
-                            <li class="list-group-item"> <a href='page_admin.php'> 관리자 UI </a> </li>
-                            <li class="list-group-item">A third item</li>
-                            <li class="list-group-item">A fourth item</li>
-                            <li class="list-group-item">And a fifth one</li>
+                            <li class="list-group-item"> <a href='page_admin.php'> [관리자 UI] </a> </li>
+                            <li class="list-group-item"> <a href='page_chatbot.php'> [챗봇 도우미] </a> </li>
+                            <li class="list-group-item"> <a href='page_newdevice.php'> [신규 에지 장치 등록] </a> </li>
+                            <li class="list-group-item"> todo </li>
+                            <li class="list-group-item"> todo </li>
                         </ul>
     
                     </div>
                 </td>
 
                 <td style="color:white; text-align:left">
+                    <h2> EVC 디바이스 등록방법 </h2>
                     <div class="container">
                         <div class="tabs">
                             <div class="tabby-tab">
