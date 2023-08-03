@@ -2,7 +2,6 @@
 # Initialize session
 session_start();
 
-echo ('[hi01]');
     
 # Check if user is already logged in, If yes then redirect him to index page
 if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] == TRUE) {
@@ -10,13 +9,9 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] == TRUE) {
   exit;
 }
 
-echo ('[hi02]');
-
 # Include connection
 require_once "./config.php";
 
-
-echo ('[hi03]');
 
 # Define variables and initialize with empty values
 $user_login_err = $user_password_err = $login_err = "";
@@ -95,6 +90,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
+    
+    
+    
 <!DOCTYPE html>
 <html lang="en">
 
@@ -102,7 +100,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>User login system</title>
+  <title>Edge Vision Cluster : evc.re.kr </title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
   <link rel="stylesheet" href="./css/main.css">
   <link rel="shortcut icon" href="./img/favicon-16x16.png" type="image/x-icon">
@@ -119,8 +117,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         ?>
         <div class="form-wrap border rounded p-4">
-          <h1>Log In</h1>
-          <p>Please login to continue</p>
+          <h1>EVC Log In</h1>
+          <p>Please login to continue </p>
+          <p>developer id and password is <b><font color='blue'> {id : 'test', pw : 'test'} </font></b> </p>
           <!-- form starts here -->
           <form action="<?= htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" novalidate>
             <div class="mb-3">
