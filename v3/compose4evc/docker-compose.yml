@@ -44,7 +44,7 @@ services:
         image: mysql:latest    
         ports:
             #- ${IP}:3300:3306 # 보안 강력 (실제 서비스에 적용) 
-            - 3306:3306 # 임시로 '${IP}:' 헤더를 제거
+            - 3300:3306 # 임시로 '${IP}:' 헤더를 제거
         command: "mysqld --init-file /data/application/init.sql"
         volumes:
             - ./data/init.sql:/data/application/init.sql
