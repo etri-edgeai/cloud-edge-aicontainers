@@ -25,14 +25,10 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== TRUE) {
             </tr>
             
             <tr>
-                <td style="background-color:gray; color:white; width:20%">
-                    <?php include 'nav.php'; ?>
-                </td>
-
+                <?php include 'nav.php'; ?>
                 <td style="color:white; text-align:left">
                     <div class="container">
                         <div class="tabs">
-
 
                             <div class="tabby-tab">
                                 <input type="radio" id="tab-1" name="tabby-tabs" checked>

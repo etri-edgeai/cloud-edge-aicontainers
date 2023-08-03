@@ -25,12 +25,9 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== TRUE) {
             </tr>
             
             <tr>
-                <td style="background-color:gray; color:white; width:20%">
-                    <?php include 'nav.php'; ?>
-                </td>
+                <?php include 'nav.php'; ?>
 
                 <td style="color:white; text-align:left">
-                    <h2> EVC 디바이스 등록방법 </h2>
                     <div class="container">
                         <div class="tabs">
                             <div class="tabby-tab">
