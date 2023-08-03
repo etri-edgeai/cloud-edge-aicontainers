@@ -31,9 +31,16 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== TRUE) {
 
                 <td style="color:white; text-align:left">
                     <div class="container">
+
                         <div class="tabs">
-    
-    
+                            <div class="tabby-tab">
+                            <input type="radio" id="tab-1" name="tabby-tabs" checked>
+                            <label for="tab-1">monitoring</label>
+                            <div class="tabby-content">
+
+                                <a href="http://ketiabcs.iptime.org:39080/d/sP0nIDTVz/rpi-6402?orgId=1&refresh=5s&from=1687109419697&to=1687131019697&theme=light" target="_blank"> 모니터링 UI</a>
+                            </div>
+                        </div>    
                         </div>
                     </div>
                 </td>   
