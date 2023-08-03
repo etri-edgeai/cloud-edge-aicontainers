@@ -2,14 +2,21 @@
 # Initialize session
 session_start();
 
+echo ('[hi01]');
+    
 # Check if user is already logged in, If yes then redirect him to index page
 if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] == TRUE) {
   echo "<script>" . "window.location.href='./'" . "</script>";
   exit;
 }
 
+echo ('[hi02]');
+
 # Include connection
 require_once "./config.php";
+
+
+echo ('[hi03]');
 
 # Define variables and initialize with empty values
 $user_login_err = $user_password_err = $login_err = "";

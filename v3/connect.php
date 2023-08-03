@@ -1,7 +1,7 @@
 <?php
-$host = 'localhost';
-$user = 'root';
-$pass = 'mypass';
+$host = 'db';
+$user = 'evc';
+$pass = 'evc';
  
 $conn = mysqli_connect($host, $user, $pass, 3300);
 if (!$conn) {
