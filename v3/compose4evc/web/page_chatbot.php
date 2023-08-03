@@ -19,7 +19,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== TRUE) {
     </head>
 
     <body>
-        <table width="100%" style="text-align:center; border:none">
+        <table style="text-align:center; border:none; width: 100%; height: 100vh; ">
             <tr>
                 <?php include 'body_header.php'; ?>
             </tr>
@@ -27,7 +27,12 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== TRUE) {
             <tr>
                 <?php include 'body_navi.php'; ?>
 
+                
                 <td style="background-color:#222325; color:white; text-align:left">
+                    <div style='width:100%; height:100%'>
+                    <iframe src="http://evc.re.kr/chatbot" width=100% height=100%> </iframe>
+                    </div>
+                    <!--
                     <div class="container">
                         <div class="tabs">
 
@@ -42,6 +47,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== TRUE) {
                             
                         </div>
                     </div>
+                    -->
                 </td>   
             </tr>
                     
