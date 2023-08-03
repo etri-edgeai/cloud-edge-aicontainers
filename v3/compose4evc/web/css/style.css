@@ -34,7 +34,7 @@ a:hover { color: tomato; }
 .tabs {
   position: relative;
   display: flex;
-  min-height: 620px;
+  min-height: 645px;
   border-radius: 8px 8px 0 0;
   overflow: hidden;
 }
@@ -51,7 +51,10 @@ a:hover { color: tomato; }
   
   padding: 10px;
   text-align: center;
-  background: #9768D1;
+  /* background: #9768D1; */
+  /* background: #000000; */
+  background: #222325;
+    
   cursor: pointer;
   transition: background 0.5s ease;
   
@@ -71,7 +74,10 @@ a:hover { color: tomato; }
   padding: 20px;
   border-radius: 0 0 8px 8px;
   /* background: #553285; */
-  background: #FFFFFF;
+  /* background: #FFFFFF; */
+  /* background-color: #384053; */
+  background-color: #EEEEEE;
+
   
   transition: 
     opacity 0.8s ease,

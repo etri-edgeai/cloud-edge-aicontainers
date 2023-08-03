@@ -25,9 +25,9 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== TRUE) {
             </tr>
             
             <tr>
-                <?php include 'nav.php'; ?>
+                <?php include 'body_navi.php'; ?>
 
-                <td style="color:white; text-align:left">
+                <td style="background-color:#222325; color:white; text-align:left">
                     <div class="container">
                         <div class="tabs">
                             <div class="tabby-tab">

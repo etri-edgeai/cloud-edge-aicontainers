@@ -23,6 +23,7 @@ services:
             - 81:80
         volumes:
             - ./web:/var/www/html
+            - ./config/nginx/nginx.conf:/etc/nginx/nginx.conf
             - ./config/nginx/default.conf:/etc/nginx/conf.d/default.conf
         depends_on:
             - php
