@@ -19,7 +19,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== TRUE) {
     </head>
 
     <body>
-        <table width="100%" style="text-align:center; border:none">
+        <table style="text-align:center; border:none; width: 100%; height: 100vh; ">
             <tr>
                 <?php include 'body_header.php'; ?>
             </tr>
