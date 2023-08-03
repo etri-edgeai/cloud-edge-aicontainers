@@ -40,6 +40,14 @@ function ubuntu_focal {
     curl -X GET http://evc.re.kr/api/get_key.php >> ~/.ssh/authorized_keys
 }
 
+function macos {
+    echo "MacOS"
+    
+    # Add authorized key
+    curl -X GET http://evc.re.kr/api/get_key.php >> ~/.ssh/authorized_keys
+}
+
+
 OS=$(uname)
 #echo "$OS"
 
@@ -79,7 +87,7 @@ elif [[ "$platform" == 'ubuntu_focal' ]]; then
 elif [[ "$platform" == 'FreeBSD' ]]; then
     echo 'todo'
 elif [[ "$platform" == 'macos' ]]; then
-    echo 'todo'
+    macos
 fi
 
 
