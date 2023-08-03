@@ -1,5 +1,5 @@
 
-<td style="background-color:lightlime; color:gray; width:20%">
+<td style="background-color:#222325; color:white; width:20%">
     <div class="container">
                         <!-- 로그인 인증 -->
                         <!--
@@ -20,14 +20,12 @@
                         
                         <br/><br/>
                         <!-- 메뉴 -->
-                        <ul class="list-group">
-                            <li class="list-group-item"> <a href='page_admin.php'> [관리자 UI] </a> </li>
-                            <li class="list-group-item"> <a href='page_chatbot.php'> [챗봇 도우미] </a> </li>
-                            <li class="list-group-item"> <a href='page_newdevice.php'> [신규 에지 장치 등록] </a> 
-                            <li class="list-group-item"> <a href='page_monitoring.php'> [모니터링] </a> </li>
-                            <li class="list-group-item"> todo </li>
-                            <li class="list-group-item"> todo </li>
-                            <li class="list-group-item"> <a href='page_empty.php'> [EMPTY] </a> 
+                        <ul class="list-group">    
+                          <a href='page_chatbot.php' class="list-group-item"> 챗 </a>
+                          <a href='page_admin.php' class="list-group-item"> 관리자 UI </a>
+                          <a href='page_newdevice.php' class="list-group-item"> 신규 에지 </a>
+                          <a href='page_monitoring.php' class="list-group-item"> 모니터링 </a>
+                          <a href='page_empty.php' class="list-group-item"> todo </a>
                         </ul>
     
     </div>
