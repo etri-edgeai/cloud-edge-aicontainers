@@ -3,7 +3,7 @@ $host = 'db';
 $user = 'evc';
 $pass = 'evc';
  
-$conn = mysqli_connect($host, $user, $pass, 3300);
+$conn = mysqli_connect($host, $user, $pass);
 if (!$conn) {
     exit('Connection failed: '.mysqli_connect_error().PHP_EOL);
 }
