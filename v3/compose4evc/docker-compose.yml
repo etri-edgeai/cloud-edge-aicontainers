@@ -65,17 +65,18 @@ services:
         volumes:
           - ./config/grafana/grafana.ini:/etc/grafana/grafana.ini
           - ./config/grafana/defaults.ini:/usr/share/grafana/conf/defaults.ini
+          - ./config/grafana/provisioning/:/etc/grafana/provisioning/
           - ~/.evc/grafana:/var/lib/grafana
         restart: always    
         environment:
-          - GF_SERVER_ROOT_URL=http://evc.re.kr
+          - GF_SERVER_ROOT_URL=http://192.168.1.6:3000/grafana/
           - GF_INSTALL_PLUGINS=grafana-clock-panel
           - GF_INSTALL_PLUGINS=grafana-worldmap-panel
           - GF_INSTALL_PLUGINS=marcusolsson-csv-datasource
           - GF_INSTALL_PLUGINS=frser-sqlite-datasource
           - GF_INSTALL_PLUGINS=grafana-simple-json-datasource
-          - GF_SECURITY_ADMIN_USER=evc
-          - GF_SECURITY_ADMIN_PASSWORD=evc
+          - GF_SECURITY_ADMIN_USER=admin
+          - GF_SECURITY_ADMIN_PASSWORD=admin
           - GF_AUTH_ANONYMOUS_ENABLED=true
           - GF_SECURITY_ALLOW_EMBEDDING=true
           #- GF_PATHS_CONFIG=/etc/grafana/grafana.ini
