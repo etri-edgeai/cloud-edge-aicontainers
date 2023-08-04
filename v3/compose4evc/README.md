@@ -104,3 +104,8 @@ Open Semaphore UI in browser by address
 http://server456:3000
 
 ```
+
+
+## docker-compose 에서 사용자 접근 권한 문제
+
+- https://github.com/prometheus/prometheus/issues/5976
