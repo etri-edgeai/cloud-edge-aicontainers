@@ -64,21 +64,24 @@ services:
           - 3000:3000 # 접근 포트 설정 (컨테이너 외부:컨테이너 내부)
         volumes:
           - ./config/grafana/grafana.ini:/etc/grafana/grafana.ini
+          - ./config/grafana/defaults.ini:/usr/share/grafana/conf/defaults.ini
           - ~/.evc/grafana:/var/lib/grafana
         restart: always    
         environment:
-          - GF_SERVER_ROOT_URL=http://evc.re.kr/
+          - GF_SERVER_ROOT_URL=http://evc.re.kr
           - GF_INSTALL_PLUGINS=grafana-clock-panel
           - GF_INSTALL_PLUGINS=grafana-worldmap-panel
           - GF_INSTALL_PLUGINS=marcusolsson-csv-datasource
           - GF_INSTALL_PLUGINS=frser-sqlite-datasource
-          - GF_AUTH_ANONYMOUS_ENABLED='true'
-          - GF_SECURITY_ALLOW_EMBEDDING='true'
-          - GF_SECURITY_COOKIE_SAMESITE=none
-          - GF_SECURITY_COOKIE_SECURE='true'
-          - GF_SECURITY_LOGIN_REMEMBER_DAYS='365'
-          - GF_AUTH_BASIC_ENABLED='false'
-          - plugins:"grafana-worldmap-panel,marcusolsson-csv-datasource,frser-sqlite-datasource,grafana-clock-panel"
+          - GF_INSTALL_PLUGINS=grafana-simple-json-datasource
+          - GF_SECURITY_ADMIN_USER=evc
+          - GF_SECURITY_ADMIN_PASSWORD=evc
+          - GF_AUTH_ANONYMOUS_ENABLED=true
+          - GF_SECURITY_ALLOW_EMBEDDING=true
+          #- GF_PATHS_CONFIG=/etc/grafana/grafana.ini
+          - GF_SECURITY_LOGIN_REMEMBER_DAYS=365
+          - GF_SERVER_SERVE_FROM_SUB_PATH=true
+          - plugins:"grafana-worldmap-panel,marcusolsson-csv-datasource,frser-sqlite-datasource,grafana-clock-panel,grafana-simple-json-datasource"
         networks:
           - promnet
         user: "$UID:$GID"
