@@ -69,6 +69,9 @@ $ sudo gitlab-rake gitlab:check
 $ sudo gitlab-ctl status
 
 ```
+### 그라파나 데시보드 + docker-compose
+
+- https://bobocomi.tistory.com/103
 
 ### 앤서블 세마포어
 
