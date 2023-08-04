@@ -77,7 +77,7 @@ services:
           - GF_SECURITY_COOKIE_SAMESITE=none
           - GF_SECURITY_COOKIE_SECURE='true'
           - GF_SECURITY_LOGIN_REMEMBER_DAYS='365'
-          - GF_AUTH_BASIC_ENABLED='false'
+          - GF_AUTH_BASIC_ENABLED='true'
           - plugins:"grafana-worldmap-panel,marcusolsson-csv-datasource,frser-sqlite-datasource,grafana-clock-panel"
         networks:
           - promnet
