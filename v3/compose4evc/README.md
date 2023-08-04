@@ -1,113 +1,106 @@
-# Docker NGINX PHP MySQL PhpMyadmin
+# 개발을 위한 리눅스 명령어
 
-- Original : https://github.com/rzrokon/Docker-NGINX-PHP-MySQL-PhpMyadmin
-- Modified by JPark
+### 네트워크
 
+#### 포트 확인
 
+- sudo 권한으로 실행해야 프로그램 이름까지 확인 가능
 
-
-
-
-Easy PHP MySQL development with Docker and Docker Compose.
-
-With this project you can quickly run the following:
-
-- [NGINX](https://hub.docker.com/_/nginx)
-- [PHP](https://hub.docker.com/_/php)
-- [phpMyAdmin](https://hub.docker.com/r/phpmyadmin/phpmyadmin/)
-- [MySQL](https://hub.docker.com/_/mysql/)
-
-Contents:
-
-- [Requirements](#requirements)
-- [Configuration](#configuration)
-- [Installation](#installation)
-- [Usage](#usage)
-
-## Requirements
-
-Make sure you have the latest versions of **Docker** and **Docker Compose** installed on your machine.
-
-Clone this repository or copy the files from this repository into a new folder. In the **docker-compose.yml** file you may change the IP address (in case you run multiple containers) or the database from MySQL to MariaDB.
-
-Make sure to [add your user to the `docker` group](https://docs.docker.com/install/linux/linux-postinstall/#manage-docker-as-a-non-root-user) when using Linux.
-
-## Configuration
-
-Edit the `.env` file to change the default IP address, MySQL root password and Database name.
-
-## Installation
-
-Open a terminal and `cd` to the folder in which `docker-compose.yml` is saved and run:
-
-```
-docker-compose up
+```bash
+sudo netstat -aNp | grep 9090
 ```
 
-This creates two new folders next to your `docker-compose.yml` file.
+### 서비스
 
-* `data` – used to store and restore database dumps and initial databse for import
-* `web` – the location of your php application files
+#### 서비스 확인
 
-The containers are now built and running. You should be able to access the WordPress installation with the configured IP in the browser address. By default it is `http://127.0.0.1`.
-
-For convenience you may add a new entry into your hosts file.
-
-## Usage
-
-### Starting containers
-
-You can start the containers with the `up` command in daemon mode (by adding `-d` as an argument) or by using the `start` command:
-
-```
-docker-compose start
+```bash
+sudo service  --status-all
 ```
 
-### Stopping containers
+### 기타 응용프로그램
 
+#### 깃랩
+
+- 설정 파일 수정
+
+```bash
+sudo vi /etc/gitlab/gitlab.rb
 ```
-docker-compose stop
-```
+- 재시작
 
-### Removing containers
-
-To stop and remove all the containers use the`down` command:
-
-```
-docker-compose down
-```
-
-Use `-v` if you need to remove the database volume which is used to persist the database:
-
-```
-docker-compose down -v
+```bash
+$ sudo gitlab-ctl reconfigure
+$ sudo gitlab-rake gitlab:check
+$ sudo gitlab-ctl status
 ```
 
-### Project from existing source
+- 그라파나 비활성화
 
-Copy the `docker-compose.yml` file into a new directory. In the directory you create two folders:
+```bash
+$ vi /etc/gitlab/gitlab.rb
+  grafana['enable'] = false
 
-* `data` – here you add the database dump or paste to init.sql
-* `web` – here you copy your existing php project files
-
-You can now use the `up` command:
-
-```
-docker-compose up
-```
-
-This will create the containers and populate the database with the given dump.
-
-
-### Creating database dumps
-
-```
-./export.sh
+$ sudo gitlab-ctl reconfigure
+$ sudo gitlab-rake gitlab:check
+$ sudo gitlab-ctl status
 ```
 
 
-### phpMyAdmin
+- 프로메테우스 비활성화
 
-You can also visit `http://127.0.0.1:8000` to access phpMyAdmin after starting the containers.
+```bash
+$ vi /etc/gitlab/gitlab.rb
+  prometheus_monitoring['enable'] = false
 
-The default username is `root`, and the password is the same as supplied in the `.env` file.
+$ sudo gitlab-ctl reconfigure
+$ sudo gitlab-rake gitlab:check
+$ sudo gitlab-ctl status
+```
+
+- gitlab 번들 nginx 비활성화
+
+```bash
+$ vi /etc/gitlab/gitlab.rb
+  nginx['enable'] = false
+  
+$ sudo gitlab-ctl reconfigure
+$ sudo gitlab-rake gitlab:check
+$ sudo gitlab-ctl status
+
+```
+
+### 앤서블 세마포어
+
+- 중요 참고문서 : https://www.ansible-semaphore.com/blog/installation-and-removal/
+
+
+```bash
+Connect to the server where Semaphore will run
+$ ssh user123@server456
+
+Switch to root user
+$ sudo -s
+
+Update packages
+$ apt update
+
+Install snap
+$ apt install snapd
+
+Install Semaphore using snap
+$ snap install semaphore
+
+Stop Semaphore service, it is required to manage Semaphore via CLI
+$ snap stop semaphore
+
+Add admin user
+$ semaphore user add --admin --login admin --name Admin --email admin@example.com --password 123456
+
+Start Semaphore service
+$ snap start semaphore
+
+Open Semaphore UI in browser by address 
+http://server456:3000
+
+```
