@@ -87,7 +87,17 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== TRUE) {
                                     </div>
                                 </div>
 
-                        
+
+                            <div class="tabby-tab">
+                                <input type="radio" id="tab-6" name="tabby-tabs">
+                                <label for="tab-6">phpmyadmin</label>
+                                <div class="tabby-content">
+
+                                    <p><a href="http://evc.re.kr/pma" target="_blank"> phpmyadmin </a></p>
+                                    </div>
+                                </div>
+                                    
+                                    
                         </div>
                     </div>
                 </td>   
