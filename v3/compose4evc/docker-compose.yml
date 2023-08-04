@@ -79,10 +79,12 @@ services:
           - GF_SECURITY_ADMIN_PASSWORD=admin
           - GF_AUTH_ANONYMOUS_ENABLED=true
           - GF_SECURITY_ALLOW_EMBEDDING=true
-          #- GF_PATHS_CONFIG=/etc/grafana/grafana.ini
           - GF_SECURITY_LOGIN_REMEMBER_DAYS=365
           - GF_SERVER_SERVE_FROM_SUB_PATH=true
+          - GF_PATHS_CONFIG=/etc/grafana/grafana.ini
           - plugins:"grafana-worldmap-panel,marcusolsson-csv-datasource,frser-sqlite-datasource,grafana-clock-panel,grafana-simple-json-datasource"
+        expose:
+          - 3000
         networks:
           - promnet
         user: "$UID:$GID"
