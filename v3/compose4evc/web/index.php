@@ -23,7 +23,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== TRUE) {
     <link rel="shortcut icon" href="./img/favicon-16x16.png" type="image/x-icon">
     
   
-    <meta http-equiv="refresh" content="0; url=page_newdevice.php"></meta>
+    <meta http-equiv="refresh" content="0; url=page_device.php"></meta>
     
 </head>
 

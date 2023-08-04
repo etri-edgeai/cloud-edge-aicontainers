@@ -32,7 +32,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== TRUE) {
                         <div class="tabs">
                             <div class="tabby-tab">
                                 <input type="radio" id="tab-1" name="tabby-tabs" checked>
-                                <label for="tab-1">new edge</label>
+                                <label for="tab-1">(단계1) 신규 에지 디바이스 등록</label>
                                 <div class="tabby-content">
 
                                   <p> <font color = "black"> 😊 1. EVC를 통해 서비스 하려는 에지장치(edge device)에 터미널로 진입합니다.</font> </p>
@@ -66,28 +66,23 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== TRUE) {
 
                             <div class="tabby-tab">
                                 <input type="radio" id="tab-2" name="tabby-tabs">
-                                <label for="tab-2">device api</label>
+                                <label for="tab-2">(참고) 디바이스 등록 RESTFul API </label>
                                 <div class="tabby-content">
                                     <iframe src="http://deepcase.mynetgear.com:28004/docs" width=100% height=100%> </iframe>
                                 </div>
                             </div>
 
+
                             <div class="tabby-tab">
                                 <input type="radio" id="tab-3" name="tabby-tabs">
-                                <label for="tab-3">cluster</label>
+                                <label for="tab-3">디바이스 모니터링</label>
                                 <div class="tabby-content">
-                                    <p>
-                                    <a href="http://ketiabcs.iptime.org:39080/d/yr9KziTVk/edgeframework_admin?orgId=1&from=1686731955352&to=1686753555352" target="_blank"> cluster UI
-                                    </a>
-                                    </p>
-                                    <p> <font color = "black"> - 집접 연결 </font> </p>
-                                    <p> <font color = "black"> - Container 기반 연결 </font> </p>
-                                    <p> <font color = "black"> - k3s 클러스터 연결 : 초경량 에지 지향 </font> </p>
-                                    <p> <font color = "black"> - k8s 클러스터 연결 : 고성능 에지 지향 </font> </p>
+                                    <a href="http://ketiabcs.iptime.org:39080/d/sP0nIDTVz/rpi-6402?orgId=1&refresh=5s&from=1687109419697&to=1687131019697&theme=light" target="_blank"> 모니터링 UI</a>
 
                                 </div>
-                            </div>
-
+                            </div>     
+                                   
+                                    
                         </div>
                     </div>
                 </td>   

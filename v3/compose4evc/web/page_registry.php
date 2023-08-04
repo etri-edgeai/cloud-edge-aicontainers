@@ -29,17 +29,25 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== TRUE) {
 
                 <td style="background-color:#222325; color:white; text-align:left">
                     <div class="container">
-
                         <div class="tabs">
+                    
                             <div class="tabby-tab">
-                            <input type="radio" id="tab-1" name="tabby-tabs" checked>
-                            <label for="tab-1">monitoring</label>
-                            <div class="tabby-content">
-
-                                <a href="http://ketiabcs.iptime.org:39080/d/sP0nIDTVz/rpi-6402?orgId=1&refresh=5s&from=1687109419697&to=1687131019697&theme=light" target="_blank"> 모니터링 UI</a>
-                            </div>
+                                <input type="radio" id="tab-1" name="tabby-tabs" checked>
+                                <label for="tab-1"> 배포할 런타임 환경 관리 (e.g. 도커이미지) </label>
+                                <div class="tabby-content">
+                                    todo
+                                </div>
+                            </div>  
+                                    
+                            <div class="tabby-tab">
+                                <input type="radio" id="tab-2" name="tabby-tabs" checked>
+                                <label for="tab-2"> 기계학습 모델관리 (e.g. pytorch 모델) </label>
+                                <div class="tabby-content">
+                                    todo
+                                </div>
+                            </div>  
+                                
                         </div>    
-                        </div>
                     </div>
                 </td>   
             </tr>
