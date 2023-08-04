@@ -112,3 +112,11 @@ http://server456:3000
 ## docker-compose 에서 사용자 접근 권한 문제
 
 - https://github.com/prometheus/prometheus/issues/5976
+
+## 도커
+
+### 도커 컨테이너에 쉘로 접속하기
+
+```bash
+docker exec -it e112cba194f3 /bin/bash
+```
