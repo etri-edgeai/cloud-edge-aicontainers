@@ -32,7 +32,26 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== TRUE) {
 
                             <div class="tabby-tab">
                                 <input type="radio" id="tab-1" name="tabby-tabs" checked>
-                                <label for="tab-1">admin.cmdb</label>
+                                <label for="tab-1">EVC 서버 상태</label>
+                                <div class="tabby-content">
+
+                                    <iframe src="http://evc.re.kr:23000/d/rYdddlPWk/node-exporter-full?orgId=1&from=1691071007551&to=1691157407551" width=100% height=100%> </iframe>
+
+                                </div>
+                            </div>
+                                    
+                            <div class="tabby-tab">
+                                <input type="radio" id="tab-2" name="tabby-tabs">
+                                <label for="tab-2">EVC 프로메테우스</label>
+                                <div class="tabby-content">
+                                    <iframe src="http://localhost:9090" width=100% height=100%> </iframe>
+                                </div>
+                            </div>
+                                    
+                                    
+                            <div class="tabby-tab">
+                                <input type="radio" id="tab-3" name="tabby-tabs">
+                                <label for="tab-3">admin.cmdb</label>
                                 <div class="tabby-content">
 
                                 <iframe src="http://evc.re.kr/admin/overview.html" width=100% height=100%> </iframe>
@@ -41,8 +60,8 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== TRUE) {
                             </div>
 
                             <div class="tabby-tab">
-                                <input type="radio" id="tab-2" name="tabby-tabs">
-                                <label for="tab-2">semaphore</label>
+                                <input type="radio" id="tab-4" name="tabby-tabs">
+                                <label for="tab-4">semaphore</label>
                                 <div class="tabby-content">
                                 <iframe src="http://evc.re.kr:23000" width=100% height=100%> </iframe>
                                 </div>
@@ -50,8 +69,8 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== TRUE) {
 
 
                             <div class="tabby-tab">
-                                <input type="radio" id="tab-3" name="tabby-tabs">
-                                <label for="tab-3">docker registry</label>
+                                <input type="radio" id="tab-5" name="tabby-tabs">
+                                <label for="tab-5">docker registry</label>
                                 <div class="tabby-content">
 
                                     <p><a href="https://deepcase.mynetgear.com:20050/v2/_catalog" target="_blank"> [pass] Docker Registry Catalog </a></p>
