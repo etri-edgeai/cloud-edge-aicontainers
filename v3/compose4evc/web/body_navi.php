@@ -21,11 +21,11 @@
                         <br/><br/>
                         <!-- 메뉴 -->
                         <ul class="list-group">    
-                          <a href='page_chatbot.php' class="list-group-item" style="color:gray-dark"> 챗 </a>
-                          <a href='page_admin.php' class="list-group-item"> 관리자 UI </a>
-                          <a href='page_newdevice.php' class="list-group-item"> 신규 에지 </a>
-                          <a href='page_monitoring.php' class="list-group-item"> 모니터링 </a>
-                          <a href='page_empty.php' class="list-group-item"> todo </a>
+                            <a href='page_newdevice.php' class="list-group-item"> 신규 에지 </a>
+                            <a href='page_chatbot.php' class="list-group-item" style="color:gray-dark"> 챗 도우미 </a>
+                            <a href='page_admin.php' class="list-group-item"> 관리자 UI </a>
+                            <a href='page_monitoring.php' class="list-group-item"> 모니터링 </a>
+                            <a href='page_empty.php' class="list-group-item"> todo </a>
                         </ul>
     
     </div>
