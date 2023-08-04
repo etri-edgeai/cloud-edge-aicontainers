@@ -35,8 +35,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== TRUE) {
                                 <label for="tab-1">EVC 서버 상태</label>
                                 <div class="tabby-content">
 
-                                    <iframe src="http://evc.re.kr:23000/d/rYdddlPWk/node-exporter-full?orgId=1&from=1691071007551&to=1691157407551" width=100% height=100%> </iframe>
-
+                                    <iframe src="http://evc.re.kr/grafana/d/rYdddlPWk/node-exporter-full?orgId=1&from=1691077543579&to=1691163943579" width=100% height=100%> </iframe>
                                 </div>
                             </div>
                                     
