@@ -45,7 +45,7 @@ datasources:
      
   - name: evc-mysql
     type: mysql
-    url: 192.168.1.6:3300
+    url: 192.168.1.6:3306
     user: evc
     jsonData:
       database: evc
@@ -197,7 +197,7 @@ datasources:
 
   - name: gdev-mysql
     type: mysql
-    url: 192.168.1.6:3300
+    url: 192.168.1.6:3306
     user: grafana
     jsonData:
       database: grafana
