@@ -1,6 +1,5 @@
 version: '3'
  
-# JPark @ KETI, 2023
 services:
     php:
         build:
@@ -11,12 +10,13 @@ services:
             - ./web:/var/www/html
             - ./config/php/www.conf:/usr/local/etc/php-fpm.d/www.conf
         environment:
+            #MYSQL_HOST: ${DB_HOST}
             MYSQL_USER: ${DB_USER}
             MYSQL_PASSWORD: ${DB_USER_PASSWORD}
         depends_on:
-            - mariadb
-        networks:
-          - evc_network
+            - db
+        links:
+            - db
  
     nginx:
         image: nginx:1.17
@@ -28,29 +28,30 @@ services:
             - ./config/nginx/default.conf:/etc/nginx/conf.d/default.conf
         depends_on:
             - php
-        networks:
-          - evc_network
  
     pma:
         image: phpmyadmin/phpmyadmin
         environment:
-            PMA_HOST: mariadb
+            PMA_HOST: db
             PMA_PORT: 3306
             MYSQL_ROOT_PASSWORD: "${DB_USER_PASSWORD}"
         ports:
             #- ${IP}:8000:80 # 보안 강력 (실제 서비스에 적용)
             - 8000:80 # 임시
-        networks:
-          - evc_network
+        links:
+            - db:db
 
-    mariadb:
+    db:
         image: mysql:latest    
         ports:
             #- ${IP}:3300:3306 # 보안 강력 (실제 서비스에 적용) 
             - 3300:3306 # 임시로 '${IP}:' 헤더를 제거
-        command: "mysqld --init-file /data/application/init.sql"
+        command: 
+            - "mysqld --init-file /data/application/init.sql"
+            #- "mysqld --init-file /data/application/default_users.sql"
         volumes:
             - ./data/init.sql:/data/application/init.sql
+            - ./data/default_users.sql:/data/application/default_users.sql
             #- db_data:/var/lib/mysql # volume
             - /home/jpark/.evc/mariadb:/var/lib/mysql # maridadb data
         environment:
@@ -58,9 +59,8 @@ services:
             MYSQL_DATABASE: "${DB_NAME}"
             MYSQL_USER: "${DB_USER}"
             MYSQL_PASSWORD: "${DB_USER_PASSWORD}"
-        networks:
-          - evc_network
-            
+
+          
     grafana:
         image: grafana/grafana-oss
         container_name: grafana
@@ -91,7 +91,7 @@ services:
         expose:
           - 3000
         networks:
-          - evc_network
+          - promnet
         user: "$UID:$GID"
 
     node-exporter:
@@ -109,8 +109,6 @@ services:
           - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
         ports:
           - 9100:9100
-        networks:
-          - evc_network
 
     prometheus:
         image: prom/prometheus
@@ -128,16 +126,12 @@ services:
           - '--web.console.templates=/usr/share/prometheus/consoles'
         restart: always
         networks:
-          - evc_network
+          - promnet
         user: "$UID:$GID"
 
 volumes:
     db_data:
 
 networks:
-  evc_network:
+  promnet:
     driver: bridge
-
-
-
-

@@ -1,5 +1,5 @@
 <?php
-$host = 'db';
+$host = 'mariadb';
 $user = 'evc';
 $pass = 'evc';
  
