@@ -5,7 +5,7 @@ apiVersion: 1
 
 deleteDatasources:
   #- name: Prometheus
-  #- name: MySQL
+  - name: evc-mysql
   - name: gdev-influxdb
   - name: gdev-influxdb-telegraf
   - name: gdev-influxdb2
@@ -42,6 +42,15 @@ datasources:
   #    database: evc
   #  secureJsonData:
   #    password: evc
+     
+  - name: evc-mysql
+    type: mysql
+    url: 192.168.1.6:3300
+    user: evc
+    jsonData:
+      database: evc
+    secureJsonData:
+      password: evc
      
      
   - name: gdev-graphite

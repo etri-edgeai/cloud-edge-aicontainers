@@ -3,37 +3,37 @@
 require_once "./config.php";
 
 # Define variables and initialize with empty values
-$username_err = $email_err = $password_err = "";
-$username = $email = $password = "";
+$user_name_err = $email_err = $password_err = "";
+$user_name = $email = $password = "";
 
 # Processing form data when form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  # Validate username
-  if (empty(trim($_POST["username"]))) {
-    $username_err = "Please enter a username.";
+  # Validate user_name
+  if (empty(trim($_POST["user_name"]))) {
+    $user_name_err = "Please enter a user_name.";
   } else {
-    $username = trim($_POST["username"]);
-    if (!ctype_alnum(str_replace(array("@", "-", "_"), "", $username))) {
-      $username_err = "Username can only contain letters, numbers and symbols like '@', '_', or '-'.";
+    $user_name = trim($_POST["user_name"]);
+    if (!ctype_alnum(str_replace(array("@", "-", "_"), "", $user_name))) {
+      $user_name_err = "user_name can only contain letters, numbers and symbols like '@', '_', or '-'.";
     } else {
       # Prepare a select statement
-      $sql = "SELECT id FROM users WHERE username = ?";
+      $sql = "SELECT id FROM users WHERE user_name = ?";
 
       if ($stmt = mysqli_prepare($link, $sql)) {
         # Bind variables to the statement as parameters
-        mysqli_stmt_bind_param($stmt, "s", $param_username);
+        mysqli_stmt_bind_param($stmt, "s", $param_user_name);
 
         # Set parameters
-        $param_username = $username;
+        $param_user_name = $user_name;
 
         # Execute the prepared statement 
         if (mysqli_stmt_execute($stmt)) {
           # Store result
           mysqli_stmt_store_result($stmt);
 
-          # Check if username is already registered
+          # Check if user_name is already registered
           if (mysqli_stmt_num_rows($stmt) == 1) {
-            $username_err = "This username is already registered.";
+            $user_name_err = "This user_name is already registered.";
           }
         } else {
           echo "<script>" . "alert('Oops! Something went wrong. Please try again later.')" . "</script>";
@@ -93,16 +93,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   }
 
   # Check input errors before inserting data into database
-  if (empty($username_err) && empty($email_err) && empty($password_err)) {
+  if (empty($user_name_err) && empty($email_err) && empty($password_err)) {
     # Prepare an insert statement
-    $sql = "INSERT INTO users(username, email, password) VALUES (?, ?, ?)";
+    $sql = "INSERT INTO users(user_name, email, password) VALUES (?, ?, ?)";
 
     if ($stmt = mysqli_prepare($link, $sql)) {
       # Bind varibales to the prepared statement as parameters
-      mysqli_stmt_bind_param($stmt, "sss", $param_username, $param_email, $param_password);
+      mysqli_stmt_bind_param($stmt, "sss", $param_user_name, $param_email, $param_password);
 
       # Set parameters
-      $param_username = $username;
+      $param_user_name = $user_name;
       $param_email = $email;
       $param_password = password_hash($password, PASSWORD_DEFAULT);
 
@@ -149,9 +149,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           <!-- form starts here -->
           <form action="<?= htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" novalidate>
             <div class="mb-3">
-              <label for="username" class="form-label">Username</label>
-              <input type="text" class="form-control" name="username" id="username" value="<?= $username; ?>">
-              <small class="text-danger"><?= $username_err; ?></small>
+              <label for="user_name" class="form-label">user_name</label>
+              <input type="text" class="form-control" name="user_name" id="user_name" value="<?= $user_name; ?>">
+              <small class="text-danger"><?= $user_name_err; ?></small>
             </div>
             <div class="mb-3">
               <label for="email" class="form-label">Email Address</label>

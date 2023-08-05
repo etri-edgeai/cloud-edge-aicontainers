@@ -9,7 +9,6 @@ __pycache__/
 .*.swp
 
 !.gitignore
-**/data
 
 v2/doc/figures
 v3/padmin

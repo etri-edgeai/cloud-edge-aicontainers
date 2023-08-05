@@ -20,7 +20,7 @@ $user_login = $user_password = "";
 # Processing form data when form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if (empty(trim($_POST["user_login"]))) {
-    $user_login_err = "Please enter your username or an email id.";
+    $user_login_err = "Please enter your user_name or an email id.";
   } else {
     $user_login = trim($_POST["user_login"]);
   }
@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   # Validate credentials 
   if (empty($user_login_err) && empty($user_password_err)) {
     # Prepare a select statement
-    $sql = "SELECT id, username, password FROM users WHERE username = ? OR email = ?";
+    $sql = "SELECT id, user_name, password FROM users WHERE user_name = ? OR email = ?";
 
     if ($stmt = mysqli_prepare($link, $sql)) {
       # Bind variables to the statement as parameters
@@ -51,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         # Check if user exists, If yes then verify password
         if (mysqli_stmt_num_rows($stmt) == 1) {
           # Bind values in result to variables
-          mysqli_stmt_bind_result($stmt, $id, $username, $hashed_password);
+          mysqli_stmt_bind_result($stmt, $id, $user_name, $hashed_password);
 
           if (mysqli_stmt_fetch($stmt)) {
             # Check if password is correct
@@ -59,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
               # Store data in session variables
               $_SESSION["id"] = $id;
-              $_SESSION["username"] = $username;
+              $_SESSION["user_name"] = $user_name;
               $_SESSION["loggedin"] = TRUE;
 
               # Redirect user to index page
@@ -72,7 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           }
         } else {
           # If user doesn't exists show an error message
-          $login_err = "Invalid username or password.";
+          $login_err = "Invalid user_name or password.";
         }
       } else {
         echo "<script>" . "alert('Oops! Something went wrong. Please try again later.');" . "</script>";
@@ -125,7 +125,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           <!-- form starts here -->
           <form action="<?= htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" novalidate>
             <div class="mb-3">
-              <label for="user_login" class="form-label">Email or username</label>
+              <label for="user_login" class="form-label">Email or user_name</label>
               <input type="text" class="form-control" name="user_login" id="user_login" value="<?= $user_login; ?>">
               <small class="text-danger"><?= $user_login_err; ?></small>
             </div>

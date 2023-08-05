@@ -32,7 +32,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== TRUE) {
                         <div class="tabs">
                             <div class="tabby-tab">
                                 <input type="radio" id="tab-1" name="tabby-tabs" checked>
-                                <label for="tab-1">(단계1) 신규 에지 디바이스 등록</label>
+                                <label for="tab-1">신규 에지 디바이스 등록</label>
                                 <div class="tabby-content">
 
                                   <p> <font color = "black"> 😊 1. EVC를 통해 서비스 하려는 에지장치(edge device)에 터미널로 진입합니다.</font> </p>
@@ -66,9 +66,9 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== TRUE) {
 
                             <div class="tabby-tab">
                                 <input type="radio" id="tab-2" name="tabby-tabs">
-                                <label for="tab-2">(참고) 디바이스 등록 RESTFul API </label>
+                                <label for="tab-2">등록된 에지 목록</label>
                                 <div class="tabby-content">
-                                    <iframe src="http://deepcase.mynetgear.com:28004/docs" width=100% height=100%> </iframe>
+                                    <iframe src="http://evc.re.kr/grafana/d/ff491d9d-9978-4042-b0c8-41b5b3f8c4d7/device-list?orgId=1&from=1691190187251&to=1691211787251" width=100% height=100%> </iframe>
                                 </div>
                             </div>
 
@@ -78,7 +78,10 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== TRUE) {
                                 <label for="tab-3">디바이스 모니터링</label>
                                 <div class="tabby-content">
                                     <a href="http://ketiabcs.iptime.org:39080/d/sP0nIDTVz/rpi-6402?orgId=1&refresh=5s&from=1687109419697&to=1687131019697&theme=light" target="_blank"> 모니터링 UI</a>
+                                    <iframe src="http://deepcase.mynetgear.com:28004/docs" width=100% height=100%> </iframe>
 
+                                    
+                                    
                                 </div>
                             </div>     
                                    
