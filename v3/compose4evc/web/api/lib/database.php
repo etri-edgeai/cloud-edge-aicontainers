@@ -1,7 +1,7 @@
 <?php
 class Database{
     private static $database_name ='evc';
-    private static $database_host = 'localhost';
+    private static $database_host = '192.168.1.6';
     private static $database_user = 'evc';
     private static $database_user_password = 'evc';
 

@@ -10,7 +10,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] == TRUE) {
 }
 
 # Include connection
-require_once "./database/config.php";
+require_once "../database/config.php";
 
 
 # Define variables and initialize with empty values
