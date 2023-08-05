@@ -10,6 +10,7 @@ services:
         volumes:
             - ./web:/var/www/html
             - ./config/php/www.conf:/usr/local/etc/php-fpm.d/www.conf
+        command: bash -c "docker-php-ext-install pdo pdo_mysql && docker-php-entrypoint php-fpm" # 동적으로 확장모듈 설치
         environment:
             MYSQL_USER: ${DB_USER}
             MYSQL_PASSWORD: ${DB_USER_PASSWORD}
