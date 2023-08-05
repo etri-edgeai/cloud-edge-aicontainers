@@ -1,5 +1,5 @@
 <?php
-include('lib/functions.php');
+include('./lib/functions.php');
 header('content-type: application/json');
 
 
