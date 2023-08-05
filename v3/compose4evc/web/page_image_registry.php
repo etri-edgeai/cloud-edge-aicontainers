@@ -39,13 +39,6 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== TRUE) {
                                 </div>
                             </div>  
                                     
-                            <div class="tabby-tab">
-                                <input type="radio" id="tab-2" name="tabby-tabs" checked>
-                                <label for="tab-2"> 기계학습 모델관리 (e.g. pytorch 모델) </label>
-                                <div class="tabby-content">
-                                    todo
-                                </div>
-                            </div>  
                                 
                         </div>    
                     </div>
