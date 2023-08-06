@@ -1,25 +1,18 @@
 <?php
-include('./lib/functions.php');
+include('./lib/db_user.php');
 header('content-type: application/json');
-
-print('hi01 <br/>');
 
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
-    print('hi02 <br/>');
     if (isset($_GET['id'])) {
-        print('hi03a <br/>');
         $id =  $_GET['id'];
         $json = get_single_user_info($id);
         if (empty($json))
             header("HTTP/1.1 404 Not Found");
         echo json_encode($json);
     } else {
-        print('hi03b <br/>');
         $json = get_all_user_list();
-        print('hi03c <br/>');
         echo json_encode($json);
-        print('hi03d <br/>');
     }
 }
 
@@ -27,10 +20,11 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $data = json_decode(file_get_contents('php://input'), true);
 
-    $name = $data['name'];
+    $user_name = $data['user_name'];
     $email = $data['email'];
+    $password = $data['password'];
 
-    $json = add_user_info($name, $email);
+    $json = add_user_info($user_name, $email, $password);
     echo json_encode($json);
 }
 

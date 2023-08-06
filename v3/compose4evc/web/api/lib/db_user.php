@@ -3,25 +3,21 @@ include 'database.php';
 
 function get_all_user_list()
 {
-    print('fn01 <br/>');
     $pdo = Database::connect();
     $sql = "SELECT * FROM user";
 
     try {
-        print('fn02 <br/>');
         $query = $pdo->prepare($sql);
         $query->execute();
         $all_user_info = $query->fetchAll(PDO::FETCH_ASSOC);
 
     } catch (PDOException $e) {
-        
-        print('fn03 <br/>');
         print "Error!: " . $e->getMessage() . "<br/>";
         die();
     }
 
     Database::disconnect();
-    return $all_user_info;
+    return json_encode($all_user_info);
 }
 
 function get_single_user_info($id)
@@ -42,16 +38,49 @@ function get_single_user_info($id)
     }
 
     Database::disconnect();
-    return $user_info;
+    return json_encode($user_info);
 }
 
 
+function add_user_info($user_name, $email, $password)
+{
+    // echo 'user_name is '.$user_name;
+    // echo 'emaile is '.$email;
+    
+    //echo $password;
+    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+    // hash('sha256', $data['password'] );
+    
+    $pdo = Database::connect();
+    $sql = "INSERT INTO user(`user_name`,`email`,`password`) VALUES('{$user_name}', '{$email}', '{$hashed_password}')";
+    //echo ($sql);
+    $status = [];
+
+    try {
+        $query = $pdo->prepare($sql);
+        $result = $query->execute();
+        if($result)
+        {
+            $status['message'] = "Data inserted";
+        }
+        else{
+            $status['message'] = "Data is not inserted";
+        }
+
+    } catch (PDOException $e) {
+
+        $status['message'] = $e->getMessage(); 
+    }
+
+    Database::disconnect();
+    return json_encode($status);
+}
 
 
-function update_user_info($id,$name,$email)
+function update_user_info($id, $user_name, $email)
 {
     $pdo = Database::connect();
-    $sql = "UPDATE user SET name = '{$name}', email = '{$email}' where id = '{$id}'";
+    $sql = "UPDATE user SET user_name = '{$user_name}', email = '{$email}' where id = '{$id}'";
     $status = [];
 
     try {
@@ -76,32 +105,6 @@ function update_user_info($id,$name,$email)
 }
 
 
-function add_user_info($name,$email)
-{
-    $pdo = Database::connect();
-    $sql = "INSERT INTO user(`name`,`email`) VALUES('{$name}', '{$email}')";
-    $status = [];
-
-    try {
-
-        $query = $pdo->prepare($sql);
-        $result = $query->execute();
-        if($result)
-        {
-            $status['message'] = "Data inserted";
-        }
-        else{
-            $status['message'] = "Data is not inserted";
-        }
-
-    } catch (PDOException $e) {
-
-        $status['message'] = $e->getMessage(); 
-    }
-
-    Database::disconnect();
-    return $status;
-}
 
 function delete_user_info($id)
 {

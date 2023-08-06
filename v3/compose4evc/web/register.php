@@ -1,6 +1,6 @@
 <?php
 # Include connection
-require_once "./database/config.php";
+require_once "./config.php";
 
 # Define variables and initialize with empty values
 $user_name_err = $email_err = $password_err = "";
@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $user_name_err = "user_name can only contain letters, numbers and symbols like '@', '_', or '-'.";
     } else {
       # Prepare a select statement
-      $sql = "SELECT id FROM users WHERE user_name = ?";
+      $sql = "SELECT id FROM user WHERE user_name = ?";
 
       if ($stmt = mysqli_prepare($link, $sql)) {
         # Bind variables to the statement as parameters
@@ -54,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $email_err = "Please enter a valid email address.";
     } else {
       # Prepare a select statement
-      $sql = "SELECT id FROM users WHERE email = ?";
+      $sql = "SELECT id FROM user WHERE email = ?";
 
       if ($stmt = mysqli_prepare($link, $sql)) {
         # Bind variables to the statement as parameters
@@ -95,7 +95,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   # Check input errors before inserting data into database
   if (empty($user_name_err) && empty($email_err) && empty($password_err)) {
     # Prepare an insert statement
-    $sql = "INSERT INTO users(user_name, email, password) VALUES (?, ?, ?)";
+    $sql = "INSERT INTO user(user_name, email, password) VALUES (?, ?, ?)";
 
     if ($stmt = mysqli_prepare($link, $sql)) {
       # Bind varibales to the prepared statement as parameters
