@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == "PUT") {
     $data = json_decode(file_get_contents('php://input'), true);
 
     $id = $data['id'];
-    $name = $data['name'];
+    $name = $data['user_name'];
     $email = $data['email'];
 
     $json = update_user_info($id, $name, $email);
@@ -42,6 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == "PUT") {
 if ($_SERVER['REQUEST_METHOD'] == "DELETE") {
     $data = json_decode(file_get_contents('php://input'), true);
 
+    echo('hohoho');
     $id = $data['id'];
 
     $json = delete_user_info($id);
