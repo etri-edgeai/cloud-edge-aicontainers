@@ -131,6 +131,28 @@ services:
           - evc_network
         user: "$UID:$GID"
 
+
+    gitlab:
+        image: 'gitlab/gitlab-ce:latest'
+        container_name: gitlab
+        restart: always
+        hostname: 'gitlab.example.com'
+        environment:
+          GITLAB_OMNIBUS_CONFIG: |
+            external_url 'https://gitlab.example.com'
+            gitlab_rails['gitlab_shell_ssh_port'] = 8022
+          # Add any other gitlab.rb configuration here, each on its own line
+          TZ: 'Asia/Seoul'
+        ports:
+          - '80:80'
+          - '443:443'
+          - '8022:22' 
+        volumes:
+          - './config:/etc/gitlab'
+          - './logs:/var/log/gitlab'
+          - './data:/var/opt/gitlab'
+      
+      
 volumes:
     db_data:
 
