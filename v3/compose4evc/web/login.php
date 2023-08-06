@@ -32,7 +32,7 @@ echo('h03');
   } else {
     $user_password = trim($_POST["user_password"]);
   }
-
+ 
   # Validate credentials 
   if (empty($user_login_err) && empty($user_password_err)) {
     # Prepare a select statement
