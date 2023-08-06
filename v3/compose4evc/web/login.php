@@ -2,7 +2,8 @@
 # Initialize session
 session_start();
 
-    
+echo('h01');
+
 # Check if user is already logged in, If yes then redirect him to index page
 if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] == TRUE) {
   echo "<script>" . "window.location.href='./'" . "</script>";
@@ -10,7 +11,8 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] == TRUE) {
 }
 
 # Include connection
-require_once "./database/config.php";
+require_once "./config.php";
+echo('h02');
 
 
 # Define variables and initialize with empty values
@@ -24,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   } else {
     $user_login = trim($_POST["user_login"]);
   }
-
+echo('h03');
   if (empty(trim($_POST["user_password"]))) {
     $user_password_err = "Please enter your password.";
   } else {
@@ -34,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   # Validate credentials 
   if (empty($user_login_err) && empty($user_password_err)) {
     # Prepare a select statement
-    $sql = "SELECT id, user_name, password FROM users WHERE user_name = ? OR email = ?";
+    $sql = "SELECT id, user_name, password FROM user WHERE user_name = ? OR email = ?";
 
     if ($stmt = mysqli_prepare($link, $sql)) {
       # Bind variables to the statement as parameters
@@ -42,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
       # Set parameters
       $param_user_login = $user_login;
-
+echo('h04');
       # Execute the statement
       if (mysqli_stmt_execute($stmt)) {
         # Store result
@@ -84,7 +86,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       mysqli_stmt_close($stmt);
     }
   }
-
+  echo('h09');
   # Close connection
   mysqli_close($link);
 }
