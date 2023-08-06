@@ -82,7 +82,10 @@ function update_user_info($id, $user_name, $email)
     $pdo = Database::connect();
     $sql = "UPDATE user SET user_name = '{$user_name}', email = '{$email}' where id = '{$id}'";
     $status = [];
-
+    
+    echo( $id );
+    echo( get_single_user_info($id) );
+    
     try {
 
         $query = $pdo->prepare($sql);
@@ -112,6 +115,9 @@ function delete_user_info($id)
     $sql ="DELETE FROM user where id = '{$id}'";
     $status = [];
 
+    // echo( $id );
+    // echo( get_single_user_info($id) );
+    
     try {
 
         $query = $pdo->prepare($sql);

@@ -10,7 +10,7 @@ services:
         volumes:
             - ./web:/var/www/html
             - ./config/php/www.conf:/usr/local/etc/php-fpm.d/www.conf
-        #command: bash -c "docker-php-ext-install pdo pdo_mysql && docker-php-entrypoint php-fpm" # 동적으로 확장모듈 설치
+        command: bash -c "docker-php-ext-install pdo pdo_mysql && docker-php-entrypoint php-fpm" # 동적으로 확장모듈 설치
         environment:
             MYSQL_USER: ${DB_USER}
             MYSQL_PASSWORD: ${DB_USER_PASSWORD}
@@ -131,28 +131,31 @@ services:
           - evc_network
         user: "$UID:$GID"
 
+    #gitlab:
+    #    image: 'gitlab/gitlab-ce:latest'
+    #    container_name: gitlab
+    #    restart: always
+    #    hostname: 'evc.re.kr'
+    #    environment:
+    #      GITLAB_OMNIBUS_CONFIG: |
+    #        external_url 'http://evc.re.kr'
+    #        gitlab_rails['gitlab_shell_ssh_port'] = 8022
+    #        gitlab_rails['initial_root_password'] = 'AdminAdmin!'
+    #      # Add any other gitlab.rb configuration here, each on its own line
+    #      TZ: 'Asia/Seoul'
+    #    ports:
+    #      - '82:80'
+    #      - '443:443'
+    #      - '8022:22' 
+    #    volumes:
+    #      - './config:/etc/gitlab'
+    #      - './logs:/var/log/gitlab'
+    #      - './data:/var/opt/gitlab'
+    #    shm_size: '256m'
+    #    networks:
+    #      - evc_network
 
-    gitlab:
-        image: 'gitlab/gitlab-ce:latest'
-        container_name: gitlab
-        restart: always
-        hostname: 'gitlab.example.com'
-        environment:
-          GITLAB_OMNIBUS_CONFIG: |
-            external_url 'https://gitlab.example.com'
-            gitlab_rails['gitlab_shell_ssh_port'] = 8022
-          # Add any other gitlab.rb configuration here, each on its own line
-          TZ: 'Asia/Seoul'
-        ports:
-          - '80:80'
-          - '443:443'
-          - '8022:22' 
-        volumes:
-          - './config:/etc/gitlab'
-          - './logs:/var/log/gitlab'
-          - './data:/var/opt/gitlab'
-      
-      
+    
 volumes:
     db_data:
 
