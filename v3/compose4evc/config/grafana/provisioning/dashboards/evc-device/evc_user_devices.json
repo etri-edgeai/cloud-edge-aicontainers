@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 121,
+  "id": 129,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -57,7 +57,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 13,
+        "h": 16,
         "w": 24,
         "x": 0,
         "y": 0
@@ -83,9 +83,10 @@
             "type": "mysql",
             "uid": "PE134FC43876245CB"
           },
-          "editorMode": "builder",
+          "editorMode": "code",
           "format": "table",
-          "rawSql": "SELECT * FROM evc.device LIMIT 50 ",
+          "rawQuery": true,
+          "rawSql": "SELECT * \nFROM `device` \nWHERE `user_apikey`\nLIKE '$user_apikey'",
           "refId": "A",
           "sql": {
             "columns": [
@@ -109,7 +110,7 @@
             ],
             "limit": 50
           },
-          "table": "device"
+          "table": "user"
         }
       ],
       "title": "Panel Title",
@@ -121,7 +122,27 @@
   "style": "dark",
   "tags": [],
   "templating": {
-    "list": []
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "TODO_APIKEY02",
+          "value": "TODO_APIKEY02"
+        },
+        "hide": 0,
+        "name": "user_apikey",
+        "options": [
+          {
+            "selected": true,
+            "text": "TODO_APIKEY02",
+            "value": "TODO_APIKEY02"
+          }
+        ],
+        "query": "TODO_APIKEY02",
+        "skipUrlSync": false,
+        "type": "textbox"
+      }
+    ]
   },
   "time": {
     "from": "now-6h",
@@ -129,8 +150,8 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "device_list",
-  "uid": "ff491d9d-9978-4042-b0c8-41b5b3f8c4d7",
-  "version": 4,
+  "title": "evc_user_devices",
+  "uid": "adddbbaa-6906-4b82-aff6-d308f9825c0a",
+  "version": 13,
   "weekStart": ""
 }

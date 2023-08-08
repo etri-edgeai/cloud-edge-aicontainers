@@ -4,9 +4,10 @@ import re
 class git_downloader:
 
 
-    def __init__(self, url=None):
+    def __init__(self, url=None, account=None):
 
         self.url = url
+        self.account = account
 
 
     def clone(self):
@@ -17,9 +18,10 @@ class git_downloader:
     
     def get_path(self):
         
-        p_repo = re.compile("\/\w+\.git")
+        p_repo = re.compile("\/{account}\/.+\.git".format(account=self.account))
         repo = p_repo.findall(self.url)[0]
         repo = repo.replace('/', '')
+        repo = repo.replace(self.account, '')
         repo = repo.replace('.git', '')
         
         return repo

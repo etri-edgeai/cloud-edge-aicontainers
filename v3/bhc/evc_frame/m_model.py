@@ -320,7 +320,7 @@ class model_manager:
                 #     raise Exception('Model not found. please check models-list.')
 
         ## model download to user_node
-        os.system('ansible-playbook {playbook} -l {node_name} -t distrb -i {hosts_file} -e "registry={registry} model_tag={tag}"'.format(playbook=self.distrb_playbook, hosts_file=self.hosts_file, node_name=node, registry=registry, tag=self.model_name))
+        os.system('ansible-playbook {playbook} -l {node_name} -t distrb -i {hosts_file} -e "registry={registry} model_tag={tag} version={version}"'.format(playbook=self.distrb_playbook, hosts_file=self.hosts_file, node_name=node, registry=registry, tag=self.model_name, version=self.version))
 
         print()
         print('Show result')

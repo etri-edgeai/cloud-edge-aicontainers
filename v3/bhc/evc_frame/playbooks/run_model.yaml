@@ -34,7 +34,7 @@
 
   - name: create new container
     tags: distrb
-    shell: docker run -d --name {{ model_tag }}-model -it {{ registry }}/{{ image_name }}:{{ model_tag }}-{{ version }}
+    shell: docker run -d -p 7860:7860 --name {{ model_tag }}-model -it {{ registry }}/{{ image_name }}:{{ model_tag }}-{{ version }}
     register: output
   - debug: msg="{{ output.stdout_lines }}"
     tags: distrb

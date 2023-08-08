@@ -38,12 +38,12 @@
   - debug: msg="{{ command_output.stdout_lines }}"
     tags: test
 
-  - name: model prediction test
-    tags: test
-    command: docker exec {{ tag }}-model python home/model.py
-    register: command_output
-  - debug: msg="{{ command_output.stdout_lines }}"
-    tags: test
+  # - name: model prediction test
+  #   tags: test
+  #   command: docker exec {{ tag }}-model python home/model.py
+  #   register: command_output
+  # - debug: msg="{{ command_output.stdout_lines }}"
+  #   tags: test
   
 
 
