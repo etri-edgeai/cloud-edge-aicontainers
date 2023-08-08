@@ -22,7 +22,8 @@ def get_myprj():
 
     # load user project
     git_downloader = get_prj.git_downloader(
-        url = "https://github.com/ethicsense/evc-test3.git"
+        url = "https://github.com/ethicsense/evc-test3.git",
+        account = "ethicsense"
     )
     git_downloader.clone()
     prj_name = git_downloader.get_path()

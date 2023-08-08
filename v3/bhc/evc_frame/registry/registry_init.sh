@@ -10,5 +10,4 @@
 
 ## without CA
 docker run -d -p 5000:5000 --restart=always --name evc-registry \
--v ./data/registry:/var/lib/registry/Docker/registry/v2 \
-registry:latest
+evc-registry:1.0
