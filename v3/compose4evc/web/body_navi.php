@@ -30,7 +30,7 @@
             <a href='page_model_repository.php' class="list-group-item"> AI 모델 관리</a> 
             <a href='page_chatbot.php' class="list-group-item" style="color:gray-dark"> [참고] 챗 도우미 </a> 
             <a href='page_admin.php' class="list-group-item"> [어드민] 관리자 기능 </a>
-            <a href='page_admin.php' class="list-group-item"> [TODO] 사용자 정보 수정 </a>
+            <a href='page_user.php' class="list-group-item"> [TODO] 사용자 정보 수정 </a>
         </ul>
 
     </div>
