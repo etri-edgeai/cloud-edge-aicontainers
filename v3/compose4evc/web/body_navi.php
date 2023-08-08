@@ -14,7 +14,9 @@
             <div class="col-lg-7 text-center">
                 <img src="./img/blank-avatar.jpg" class="img-fluid rounded" alt="User avatar" width="180">
                 <h7 class="my-1">Hello, <?= htmlspecialchars($_SESSION["user_name"]); ?></h7><br/>
-
+                <h7> <br/> </h7>
+                <h7 class="my-1">Your API Key : <font color='orange'> <?= htmlspecialchars($_SESSION["user_apikey"]); ?> </font> </h7><br/>
+                <h7> <br/> </h7>
                 <a href="./logout.php" class="btn btn-primary"> Log Out </a>
             </div>
         </div>
@@ -28,6 +30,7 @@
             <a href='page_model_repository.php' class="list-group-item"> AI 모델 관리</a> 
             <a href='page_chatbot.php' class="list-group-item" style="color:gray-dark"> [참고] 챗 도우미 </a> 
             <a href='page_admin.php' class="list-group-item"> [어드민] 관리자 기능 </a>
+            <a href='page_admin.php' class="list-group-item"> [TODO] 사용자 정보 수정 </a>
         </ul>
 
     </div>

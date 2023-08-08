@@ -30,9 +30,25 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== TRUE) {
                 <td style="background-color:#222325; color:white; text-align:left">
                     <div class="container">
                         <div class="tabs">
+                    
+
                             <div class="tabby-tab">
                                 <input type="radio" id="tab-1" name="tabby-tabs" checked>
-                                <label for="tab-1">신규 에지 디바이스 등록</label>
+                                <label for="tab-1">사용자 APIKEY</label>
+                                <div class="tabby-content">
+                                    <h7><font color = 'black'> 
+                                        당신의 APIKEY는 
+                                            <font color='orange'> <b> <?= htmlspecialchars($_SESSION["user_apikey"]); ?> </b> </font>
+                                        입니다. </br>
+                                        APIKEY를 잘 관리하십시요. </br>
+                                        APIKEY를 사용해서 디바이스, 클러스터, 모델배포 등을 수행하게 됩니다.
+                                    </font> </h7>
+                                </div>
+                            </div>
+                                    
+                            <div class="tabby-tab">
+                                <input type="radio" id="tab-2" name="tabby-tabs">
+                                <label for="tab-2">신규 에지 디바이스 등록</label>
                                 <div class="tabby-content">
 
                                   <p> <font color = "black"> 😊 1. EVC를 통해 서비스 하려는 에지장치(edge device)에 터미널로 진입합니다.</font> </p>
@@ -62,20 +78,25 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== TRUE) {
                                       </font>
 
                                 </div>
-                            </div>                
+                            </div>   
 
                             <div class="tabby-tab">
-                                <input type="radio" id="tab-2" name="tabby-tabs">
-                                <label for="tab-2">등록된 에지 목록</label>
+                                <input type="radio" id="tab-3" name="tabby-tabs">
+                                <label for="tab-3">등록된 에지 목록</label>
                                 <div class="tabby-content">
-                                    <iframe src="http://evc.re.kr/grafana/d/ff491d9d-9978-4042-b0c8-41b5b3f8c4d7/device-list?orgId=1&from=1691190187251&to=1691211787251" width=100% height=100%> </iframe>
+                                    
+
+                                    <iframe src=http://evc.re.kr/grafana/d/adddbbaa-6906-4b82-aff6-d308f9825c0a/evc-user-devices?orgId=1&var-user_apikey=<?=htmlspecialchars($_SESSION["user_apikey"]);?>&kiosk width=100% height=100%> </iframe>
+                                    
+                                    
+                                    
                                 </div>
                             </div>
 
 
                             <div class="tabby-tab">
-                                <input type="radio" id="tab-3" name="tabby-tabs">
-                                <label for="tab-3">디바이스 모니터링</label>
+                                <input type="radio" id="tab-4" name="tabby-tabs">
+                                <label for="tab-4">디바이스 모니터링</label>
                                 <div class="tabby-content">
                                     <a href="http://ketiabcs.iptime.org:39080/d/sP0nIDTVz/rpi-6402?orgId=1&refresh=5s&from=1687109419697&to=1687131019697&theme=light" target="_blank"> 모니터링 UI</a>
                                     <iframe src="http://deepcase.mynetgear.com:28004/docs" width=100% height=100%> </iframe>
