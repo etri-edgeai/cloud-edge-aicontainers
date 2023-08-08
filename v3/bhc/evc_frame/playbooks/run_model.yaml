@@ -27,14 +27,14 @@
 
   - name: get model image from server
     tags: distrb
-    shell: docker pull {{ registry }}/{{ image_name }}:{{ model_tag }}_{{ version }}
+    shell: docker pull {{ registry }}/{{ image_name }}:{{ model_tag }}-{{ version }}
     register: output
   - debug: msg="{{ output.stdout_lines }}"
     tags: distrb
 
   - name: create new container
     tags: distrb
-    shell: docker run -d --name {{ model_tag }}_model -it {{ registry }}/{{ image_name }}:{{ model_tag }}_{{ version }}
+    shell: docker run -d --name {{ model_tag }}-model -it {{ registry }}/{{ image_name }}:{{ model_tag }}-{{ version }}
     register: output
   - debug: msg="{{ output.stdout_lines }}"
     tags: distrb
@@ -67,7 +67,7 @@
 
   - name: input from node to model container
     tags: input
-    command: docker cp data/{{ input }} {{ model_tag }}_model:/home/data/
+    command: docker cp data/{{ input }} {{ model_tag }}-model:/home/data/
     register: command_output
   - debug: msg="{{command_output.stdout_lines}}"
     tags: input
@@ -80,7 +80,7 @@
   ## run model predictor
   - name: model prediction
     tags: pred
-    command: docker exec {{ model_tag }}_model python home/model.py --input {{ input }} --mod pred
+    command: docker exec {{ model_tag }}-model python home/model.py --input {{ input }} --mod pred
     register: command_output
   - debug: msg="{{command_output.stdout_lines}}"
     tags: pred
@@ -88,8 +88,20 @@
   ## run model trainer
   - name: model train
     tags: train
-    command: docker exec {{ model_tag }}_model python home/model.py --input {{ input }} --mod train
+    command: docker exec {{ model_tag }}-model python home/model.py --input {{ input }} --mod train
     register: command_output
   - debug: msg="{{ command_ouput.stdout_lines }}"
     tags: train
 
+
+
+
+#===================================== Run Gradio dem0 =======================================#
+#=============================================================================================#
+
+  - name: run gradio server
+    tags: gradio
+    command: docker exec {{ model_tag }}-model python home/app.py
+    register: output
+  - debug: msg="{{ output.stdout_lines }}"
+    tags: gradio

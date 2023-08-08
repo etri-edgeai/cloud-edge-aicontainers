@@ -22,7 +22,7 @@
 
   - name: build test
     tags: build
-    command: docker build --tag {{ image_name }}:{{ tag }}_{{ ver }} --build-arg model_file={{ model_file }} buildimg/
+    command: docker build --tag {{ image_name }}:{{ tag }}-{{ ver }} --build-arg model_file={{ model_file }} buildimg/
     register: command_output
   - debug: msg="{{ command_output.stdout_lines }}"
     tags: build
@@ -33,14 +33,14 @@
   ## run container & test model
   - name: run container
     tags: test
-    command: docker run -d --name {{ tag }}_model -it {{ image_name }}:{{ tag }}_{{ ver }}
+    command: docker run -d --name {{ tag }}-model -it {{ image_name }}:{{ tag }}-{{ ver }}
     register: command_output
   - debug: msg="{{ command_output.stdout_lines }}"
     tags: test
 
   - name: model prediction test
     tags: test
-    command: docker exec {{ tag }}_model python home/model.py
+    command: docker exec {{ tag }}-model python home/model.py
     register: command_output
   - debug: msg="{{ command_output.stdout_lines }}"
     tags: test
@@ -52,14 +52,14 @@
   ## rename & push model image
   - name: rename model image...
     tags: push
-    command: docker tag {{ image_name }}:{{ tag }}_{{ ver }} {{ registry_ip }}/{{ image_name }}:{{ tag }}_{{ ver }}
+    command: docker tag {{ image_name }}:{{ tag }}-{{ ver }} {{ registry_ip }}/{{ image_name }}:{{ tag }}-{{ ver }}
     register: command_output
   - debug: msg="{{ command_output.stdout_lines }}"
     tags: push
 
   - name: push image...
     tags: push
-    command: docker push {{ registry_ip }}/{{ image_name }}:{{ tag }}_{{ ver }}
+    command: docker push {{ registry_ip }}/{{ image_name }}:{{ tag }}-{{ ver }}
     register: command_output
   - debug: msg="{{ command_output.stdout_lines }}"
     tags: push
@@ -78,7 +78,7 @@
 
   - name: get model data
     tags: log
-    command: docker images {{ image_name }}:{{ tag }}_{{ ver }} --format '{{"{{json . }}"}}'
+    command: docker images {{ image_name }}:{{ tag }}-{{ ver }} --format '{{"{{json . }}"}}'
     register: output
   - debug: msg="{{output.stdout}}"
 
