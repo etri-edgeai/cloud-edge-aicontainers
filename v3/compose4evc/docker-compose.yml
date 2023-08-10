@@ -17,7 +17,7 @@ services:
         depends_on:
             - mariadb
         networks:
-          - evc_network
+            - evc_network
  
     nginx:
         image: nginx:1.17
@@ -30,7 +30,7 @@ services:
         depends_on:
             - php
         networks:
-          - evc_network
+            - evc_network
  
     pma:
         image: phpmyadmin/phpmyadmin
@@ -42,7 +42,7 @@ services:
             #- ${IP}:8000:80 # 보안 강력 (실제 서비스에 적용)
             - 8000:80 # 임시
         networks:
-          - evc_network
+            - evc_network
 
     mariadb:
         image: mysql:latest    
@@ -59,39 +59,42 @@ services:
             MYSQL_USER: "${DB_USER}"
             MYSQL_PASSWORD: "${DB_USER_PASSWORD}"
         networks:
-          - evc_network
+            - evc_network
             
     grafana:
         image: grafana/grafana-oss
         container_name: grafana
         # user: "$GRA_UID:$GRA_GID"
         ports:
-          - 3000:3000 # 접근 포트 설정 (컨테이너 외부:컨테이너 내부)
+            - 3000:3000 # 접근 포트 설정 (컨테이너 외부:컨테이너 내부)
         volumes:
-          - ./config/grafana/grafana.ini:/etc/grafana/grafana.ini
-          - ./config/grafana/defaults.ini:/usr/share/grafana/conf/defaults.ini
-          - ./config/grafana/provisioning/:/etc/grafana/provisioning/
-          - ~/.evc/grafana:/var/lib/grafana
-        restart: always    
+            - ./config/grafana/grafana.ini:/etc/grafana/grafana.ini
+            - ./config/grafana/defaults.ini:/usr/share/grafana/conf/defaults.ini
+            - ./config/grafana/provisioning/:/etc/grafana/provisioning/
+            - ~/.evc/grafana:/var/lib/grafana
+        restart: always
+        #depends_on:
+        #    - influxdb
         environment:
-          - GF_SERVER_ROOT_URL=http://192.168.1.6:3000/grafana/
-          - GF_INSTALL_PLUGINS=grafana-clock-panel
-          - GF_INSTALL_PLUGINS=grafana-worldmap-panel
-          - GF_INSTALL_PLUGINS=marcusolsson-csv-datasource
-          - GF_INSTALL_PLUGINS=frser-sqlite-datasource
-          - GF_INSTALL_PLUGINS=grafana-simple-json-datasource
-          - GF_SECURITY_ADMIN_USER=admin
-          - GF_SECURITY_ADMIN_PASSWORD=admin
-          - GF_AUTH_ANONYMOUS_ENABLED=true
-          - GF_SECURITY_ALLOW_EMBEDDING=true
-          - GF_SECURITY_LOGIN_REMEMBER_DAYS=365
-          - GF_SERVER_SERVE_FROM_SUB_PATH=true
-          - GF_PATHS_CONFIG=/etc/grafana/grafana.ini
-          - plugins:"grafana-worldmap-panel,marcusolsson-csv-datasource,frser-sqlite-datasource,grafana-clock-panel,grafana-simple-json-datasource"
+            - GF_SERVER_ROOT_URL=http://192.168.1.6:3000/grafana/
+            - GF_INSTALL_PLUGINS=grafana-clock-panel
+            - GF_INSTALL_PLUGINS=grafana-worldmap-panel
+            - GF_INSTALL_PLUGINS=marcusolsson-csv-datasource
+            - GF_INSTALL_PLUGINS=frser-sqlite-datasource
+            - GF_INSTALL_PLUGINS=grafana-simple-json-datasource
+            - GF_INSTALL_PLUGINS=redis-datasource
+            - GF_SECURITY_ADMIN_USER=admin
+            - GF_SECURITY_ADMIN_PASSWORD=admin
+            - GF_AUTH_ANONYMOUS_ENABLED=true
+            - GF_SECURITY_ALLOW_EMBEDDING=true
+            - GF_SECURITY_LOGIN_REMEMBER_DAYS=365
+            - GF_SERVER_SERVE_FROM_SUB_PATH=true
+            - GF_PATHS_CONFIG=/etc/grafana/grafana.ini
+            - plugins:"grafana-worldmap-panel,marcusolsson-csv-datasource,frser-sqlite-datasource,grafana-clock-panel,grafana-simple-json-datasource,redis-datasource"
         expose:
-          - 3000
+            - 3000
         networks:
-          - evc_network
+            - evc_network
         user: "$UID:$GID"
 
     node-exporter:
@@ -99,36 +102,36 @@ services:
         container_name: node-exporter
         restart: unless-stopped
         volumes:
-          - /proc:/host/proc:ro
-          - /sys:/host/sys:ro
-          - /:/rootfs:ro
+            - /proc:/host/proc:ro
+            - /sys:/host/sys:ro
+            - /:/rootfs:ro
         command:
-          - '--path.procfs=/host/proc'
-          - '--path.rootfs=/rootfs'
-          - '--path.sysfs=/host/sys'
-          - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+            - '--path.procfs=/host/proc'
+            - '--path.rootfs=/rootfs'
+            - '--path.sysfs=/host/sys'
+            - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
         ports:
-          - 9100:9100
+            - 9100:9100
         networks:
-          - evc_network
+            - evc_network
 
     prometheus:
         image: prom/prometheus
         container_name: prometheus
         volumes:
-          - ./config/prometheus:/etc/prometheus
-          - ~/.evc/prometheus:/prometheus
+            - ./config/prometheus:/etc/prometheus
+            - ~/.evc/prometheus:/prometheus
         ports:
-          - 9090:9090 # 접근 포트 설정 (컨테이너 외부:컨테이너 내부)
+            - 9090:9090 # 접근 포트 설정 (컨테이너 외부:컨테이너 내부)
         command: # web.enalbe-lifecycle은 api 재시작없이 설정파일들을 reload 할 수 있게 해줌
-          - '--web.enable-lifecycle'
-          - '--config.file=/etc/prometheus/prometheus.yml'
-          - '--storage.tsdb.path=/prometheus'
-          - '--web.console.libraries=/usr/share/prometheus/console_libraries'
-          - '--web.console.templates=/usr/share/prometheus/consoles'
+            - '--web.enable-lifecycle'
+            - '--config.file=/etc/prometheus/prometheus.yml'
+            - '--storage.tsdb.path=/prometheus'
+            - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+            - '--web.console.templates=/usr/share/prometheus/consoles'
         restart: always
         networks:
-          - evc_network
+            - evc_network
         user: "$UID:$GID"
 
     #gitlab:
@@ -155,13 +158,79 @@ services:
     #    networks:
     #      - evc_network
 
+    #influxdb:
+    #    image: influxdb:latest
+    #    env_file:
+    #        -  ./config/influxdb/influxv2.env
+    #    volumes:
+    #        - ~/.evc/influxdb:/var/lib/influxdb2:rw # Mount for influxdb data directory and configuration
+    #    restart: always
+    #    environment:
+    #        - DOCKER_INFLUXDB_INIT_MODE=setup
+    #        - DOCKER_INFLUXDB_INIT_USERNAME=admin
+    #        - DOCKER_INFLUXDB_INIT_PASSWORD=admin
+    #    ports:
+    #        - 8086:8086
+    #    networks:
+    #        - evc_network
+  
+    #telegraf:
+    #    image: telegraf:latest
+    #    depends_on:
+    #        - influxdb
+    #    volumes:
+    #        # Mount for telegraf config
+    #        - ./config/telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
+    #    env_file:
+    #        - ./config/influxdb/influxv2.env
+    #    networks:
+    #        - evc_network
     
-volumes:
-    db_data:
-
+    
+    # 그라파나 엔터프라이즈 에디션과 연동됨
+    #mongodb:
+    #    image: mongo
+    #    container_name: mongodb
+    #    restart: always
+    #    ports:
+    #        - 27017:27017
+    #    volumes:
+    #        - ./mongodb:/data/db
+    #    environment:
+    #        - MONGO_INITDB_ROOT_USERNAME=root
+    #        - MONGO_INITDB_ROOT_PASSWORD=1234 
+    #        - MONGO_INITDB_DATABASE=mydb  
+    #    networks:
+    #        - evc_network
+    
+    redis:
+        image: redis:alpine
+        container_name: redis_db
+        command: redis-server --appendonly yes
+        ports:
+            - 6379:6379
+        volumes:
+            - ~/.evc/redis/data:/data
+        restart: always
+        networks:
+            - evc_network
+            
+    redis-commander:
+        container_name: redis-commander
+        hostname: redis-commander
+        image: rediscommander/redis-commander:latest
+        restart: always
+        environment:
+            - REDIS_HOSTS=local:redis:6379
+        ports:
+            - 8091:8081
+        networks:
+            - evc_network
+      
+      
 networks:
-  evc_network:
-    driver: bridge
+    evc_network:
+        driver: bridge
 
 
 
