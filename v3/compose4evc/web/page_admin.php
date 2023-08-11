@@ -4,108 +4,130 @@ session_start();
 
 # If user is not logged in then redirect him to login page
 if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== TRUE) {
-  echo "<script>" . "window.location.href='./login.php';" . "</script>";
-  exit;
+    echo "<script>" . "window.location.href='./login.php';" . "</script>";
+    exit;
 }
 ?>
-    
+
 <!DOCTYPE html>
 <html>
 
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-    <head>
-        <?php include 'head.php'; ?>
-    </head>
+<head>
+    <?php include 'head.php'; ?>
+</head>
 
-    <body>
-        <table style="text-align:center; border:none; width: 100%; height: 100vh; ">
-            <tr>
-                <?php include 'body_header.php'; ?>
-            </tr>
-            
-            <tr>
-                <?php include 'body_navi.php'; ?>
-                <td style="background-color:#222325; color:white; text-align:left">
-                    <div class="container">
-                        <div class="tabs">
+<body>
+    <table style="text-align:center; border:none; width: 100%; height: 100vh; ">
+        <tr>
+            <?php include 'body_header.php'; ?>
+        </tr>
 
-                            <div class="tabby-tab">
-                                <input type="radio" id="tab-1" name="tabby-tabs" checked>
-                                <label for="tab-1">EVC 서버 상태</label>
-                                <div class="tabby-content">
+        <tr>
+            <?php include 'body_navi.php'; ?>
+            <td style="background-color:#222325; color:white; text-align:left">
+                <div class="container">
+                    <div class="tabs">
 
-                                    <iframe src="http://evc.re.kr/grafana/d/rYdddlPWk/node-exporter-full?orgId=1&refresh=5s&from=1691083888296&to=1691170288297" width=100% height=100%> </iframe>
-                                </div>
+                        <div class="tabby-tab">
+                            <input type="radio" id="tab-1" name="tabby-tabs" checked>
+                            <label for="tab-1">EVC 서버 상태</label>
+                            <div class="tabby-content">
+
+                                <iframe
+                                    src="http://evc.re.kr/grafana/d/rYdddlPWk/node-exporter-full?orgId=1&refresh=5s&from=1691083888296&to=1691170288297"
+                                    width=100% height=100%> </iframe>
                             </div>
-                                    
-                            <div class="tabby-tab">
-                                <input type="radio" id="tab-2" name="tabby-tabs">
-                                <label for="tab-2">EVC 프로메테우스</label>
-                                <div class="tabby-content">
-                                    <iframe src="http://localhost:9090" width=100% height=100%> </iframe>
-                                </div>
+                        </div>
+
+                        <div class="tabby-tab">
+                            <input type="radio" id="tab-2" name="tabby-tabs">
+                            <label for="tab-2">EVC 프로메테우스</label>
+                            <div class="tabby-content">
+                                <iframe src="http://localhost:9090" width=100% height=100%> </iframe>
                             </div>
-                                    
-                                    
-                            <div class="tabby-tab">
-                                <input type="radio" id="tab-3" name="tabby-tabs">
-                                <label for="tab-3">admin.cmdb</label>
-                                <div class="tabby-content">
+                        </div>
+
+
+                        <div class="tabby-tab">
+                            <input type="radio" id="tab-3" name="tabby-tabs">
+                            <label for="tab-3">admin.cmdb</label>
+                            <div class="tabby-content">
 
                                 <iframe src="http://evc.re.kr/admin/overview.html" width=100% height=100%> </iframe>
 
-                                </div>
                             </div>
-
-                            <div class="tabby-tab">
-                                <input type="radio" id="tab-4" name="tabby-tabs">
-                                <label for="tab-4">semaphore</label>
-                                <div class="tabby-content">
-                                <iframe src="http://evc.re.kr:23000" width=100% height=100%> </iframe>
-                                </div>
-                            </div> 
-
-
-                            <div class="tabby-tab">
-                                <input type="radio" id="tab-5" name="tabby-tabs">
-                                <label for="tab-5">docker registry</label>
-                                <div class="tabby-content">
-
-                                    <p><a href="https://deepcase.mynetgear.com:20050/v2/_catalog" target="_blank"> [pass] Docker Registry Catalog </a></p>
-
-                                    <p><a href="https://deepcase.mynetgear.com:20050/v2/python/tags/list" target="_blank"> [pass] Docker Registry tags list </a></p>
-
-                                    <p><a href="http://deepcase.mynetgear.com:28083/" target="_blank"> [not yet] Docker Registry Browser </a></p>
-
-                                    <p><a href="http://ketiabcs.iptime.org:39080/d/KTkDshJ4z/registry?orgId=1&from=1687114419389&to=1687136019389&theme=light" target="_blank"> [not yet] Docker Registry + Grafana </a></p>
-
-
-                                            <p> <a href="https://huggingface.co/facebook" target="_blank"> Model Registry (e.g. Huggingface)</a></p>
-                                        <img src='img4doc/model.jpg' width=100%>
-
-                                    </div>
-                                </div>
-
-
-                            <div class="tabby-tab">
-                                <input type="radio" id="tab-6" name="tabby-tabs">
-                                <label for="tab-6">phpmyadmin</label>
-                                <div class="tabby-content">
-
-                                    <p><a href="http://evc.re.kr/pma" target="_blank"> phpmyadmin </a></p>
-                                    </div>
-                                </div>
-                                    
-                                    
                         </div>
+
+                        <div class="tabby-tab">
+                            <input type="radio" id="tab-4" name="tabby-tabs">
+                            <label for="tab-4">semaphore</label>
+                            <div class="tabby-content">
+                                <iframe src="http://evc.re.kr:23000" width=100% height=100%> </iframe>
+                            </div>
+                        </div>
+
+
+                        <div class="tabby-tab">
+                            <input type="radio" id="tab-5" name="tabby-tabs">
+                            <label for="tab-5">docker registry</label>
+                            <div class="tabby-content">
+
+                                <p><a href="https://deepcase.mynetgear.com:20050/v2/_catalog" target="_blank"> [pass]
+                                        Docker Registry Catalog </a></p>
+
+                                <p><a href="https://deepcase.mynetgear.com:20050/v2/python/tags/list" target="_blank">
+                                        [pass] Docker Registry tags list </a></p>
+
+                                <p><a href="http://deepcase.mynetgear.com:28083/" target="_blank"> [not yet] Docker
+                                        Registry Browser </a></p>
+
+                                <p><a href="http://ketiabcs.iptime.org:39080/d/KTkDshJ4z/registry?orgId=1&from=1687114419389&to=1687136019389&theme=light"
+                                        target="_blank"> [not yet] Docker Registry + Grafana </a></p>
+
+
+                                <p> <a href="https://huggingface.co/facebook" target="_blank"> Model Registry (e.g.
+                                        Huggingface)</a></p>
+                                <img src='img4doc/model.jpg' width=100%>
+
+                            </div>
+                        </div>
+
+
+                        <div class="tabby-tab">
+                            <input type="radio" id="tab-6" name="tabby-tabs">
+                            <label for="tab-6">phpmyadmin</label>
+                            <div class="tabby-content">
+                                <p><a href="http://evc.re.kr/pma" target="_blank"> phpmyadmin </a></p>
+                            </div>
+                        </div>
+
+                                
+                        <div class="tabby-tab">
+                            <input type="radio" id="tab-7" name="tabby-tabs">
+                            <label for="tab-7">redis</label>
+                            <div class="tabby-content">
+                                
+                                <h5> <font color = 'black'> 
+                                    Redis 명령어 : <a href='https://redis.io/commands/'> https://redis.io/commands/ </a>
+                                </font> </h5>
+                                <h5> <font color = 'black'> 
+                                    Redis 명령어 : <a href='https://tgyun615.com/192'> https://tgyun615.com/192 </a>
+                                </font> </h5> <br/>
+                                <iframe src="http://evc.re.kr/redis" width=100% height=80%> </iframe>
+                            </div>
+                        </div>
+
                     </div>
-                </td>   
-            </tr>
-                    
-            <tr>
-                <?php include 'body_footer.php'; ?>
-            </tr>
-        </table>
-    </body>
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <?php include 'body_footer.php'; ?>
+        </tr>
+    </table>
+</body>
+
 </html>

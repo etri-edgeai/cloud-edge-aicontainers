@@ -203,6 +203,7 @@ services:
     #    networks:
     #        - evc_network
     
+    # (참고) redis 기초 명령어 : https://tgyun615.com/192
     redis:
         image: redis:alpine
         container_name: redis_db
@@ -215,6 +216,7 @@ services:
         networks:
             - evc_network
             
+    # (참고) https://hub.docker.com/r/rediscommander/redis-commander
     redis-commander:
         container_name: redis-commander
         hostname: redis-commander
