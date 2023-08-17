@@ -37,11 +37,11 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== TRUE) {
                                 <label for="tab-1">User APIKEY</label>
                                 <div class="tabby-content">
                                     <h7><font color = 'black'> 
-                                        당신의 APIKEY는 
+                                        Your APIKEY is 
                                             <font color='orange'> <b> <?= htmlspecialchars($_SESSION["user_apikey"]); ?> </b> </font>
-                                        입니다. </br>
-                                        APIKEY를 잘 관리하십시요. </br>
-                                        APIKEY를 사용해서 디바이스, 클러스터, 모델배포 등을 수행합니다.
+                                        .</br>
+                                        Please keep the APIKEY carefully. <br/>
+APIKEY is important for device management, builing cluster, and model distribution. </br>
                                     </font> </h7>
                                 </div>
                             </div>
