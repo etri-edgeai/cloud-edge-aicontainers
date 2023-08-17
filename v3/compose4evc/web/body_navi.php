@@ -24,13 +24,13 @@
         <br/><br/>
         <!-- 메뉴 -->
         <ul class="list-group">   
-            <a href='page_device.php' class="list-group-item"> 에지 디바이스 관리 </a>       
-            <a href='page_cluster.php' class="list-group-item"> 클러스터 관리 </a>   
-            <a href='page_image_registry.php' class="list-group-item"> 컨테이너 이미지 관리</a>  
-            <a href='page_model_repository.php' class="list-group-item"> AI 모델 관리</a> 
-            <a href='page_chatbot.php' class="list-group-item" style="color:gray-dark"> [참고] 챗 도우미 </a> 
-            <a href='page_admin.php' class="list-group-item"> [어드민] 관리자 기능 </a>
-            <a href='page_user.php' class="list-group-item"> [TODO] 사용자 정보 수정 </a>
+            <a href='page_device.php' class="list-group-item"> Edge Device </a>       
+            <a href='page_cluster.php' class="list-group-item"> Cluster </a>   
+            <a href='page_image_registry.php' class="list-group-item"> Container Image </a>  
+            <a href='page_model_repository.php' class="list-group-item"> AI Model </a> 
+            <a href='page_chatbot.php' class="list-group-item" style="color:gray-dark"> LLM Model </a> 
+            <a href='page_admin.php' class="list-group-item"> Admin </a>
+            <a href='page_user.php' class="list-group-item"> Users </a>
         </ul>
 
     </div>

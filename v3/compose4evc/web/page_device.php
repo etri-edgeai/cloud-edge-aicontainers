@@ -34,21 +34,21 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== TRUE) {
 
                             <div class="tabby-tab">
                                 <input type="radio" id="tab-1" name="tabby-tabs" checked>
-                                <label for="tab-1">사용자 APIKEY</label>
+                                <label for="tab-1">User APIKEY</label>
                                 <div class="tabby-content">
                                     <h7><font color = 'black'> 
                                         당신의 APIKEY는 
                                             <font color='orange'> <b> <?= htmlspecialchars($_SESSION["user_apikey"]); ?> </b> </font>
                                         입니다. </br>
                                         APIKEY를 잘 관리하십시요. </br>
-                                        APIKEY를 사용해서 디바이스, 클러스터, 모델배포 등을 수행하게 됩니다.
+                                        APIKEY를 사용해서 디바이스, 클러스터, 모델배포 등을 수행합니다.
                                     </font> </h7>
                                 </div>
                             </div>
                                     
                             <div class="tabby-tab">
                                 <input type="radio" id="tab-2" name="tabby-tabs">
-                                <label for="tab-2">신규 에지 디바이스 등록</label>
+                                <label for="tab-2">Add New Device</label>
                                 <div class="tabby-content">
 
                                   <p> <font color = "black"> 😊 1. EVC를 통해 서비스 하려는 에지장치(edge device)에 터미널로 진입합니다.</font> </p>
@@ -82,7 +82,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== TRUE) {
 
                             <div class="tabby-tab">
                                 <input type="radio" id="tab-3" name="tabby-tabs">
-                                <label for="tab-3">등록된 에지 목록</label>
+                                <label for="tab-3">List of Edges</label>
                                 <div class="tabby-content">
                                     
 
@@ -96,7 +96,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== TRUE) {
 
                             <div class="tabby-tab">
                                 <input type="radio" id="tab-4" name="tabby-tabs">
-                                <label for="tab-4">디바이스 모니터링</label>
+                                <label for="tab-4">Edge Monitoring</label>
                                 <div class="tabby-content">
                                     <a href="http://ketiabcs.iptime.org:39080/d/sP0nIDTVz/rpi-6402?orgId=1&refresh=5s&from=1687109419697&to=1687131019697&theme=light" target="_blank"> 모니터링 UI</a>
                                     <iframe src="http://deepcase.mynetgear.com:28004/docs" width=100% height=100%> </iframe>

@@ -32,7 +32,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== TRUE) {
 
                         <div class="tabby-tab">
                             <input type="radio" id="tab-1" name="tabby-tabs" checked>
-                            <label for="tab-1">EVC 서버 상태</label>
+                            <label for="tab-1">EVC Server Status</label>
                             <div class="tabby-content">
 
                                 <iframe
@@ -43,7 +43,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== TRUE) {
 
                         <div class="tabby-tab">
                             <input type="radio" id="tab-2" name="tabby-tabs">
-                            <label for="tab-2">EVC 프로메테우스</label>
+                            <label for="tab-2">EVC Prometheus</label>
                             <div class="tabby-content">
                                 <iframe src="http://localhost:9090" width=100% height=100%> </iframe>
                             </div>
@@ -97,7 +97,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== TRUE) {
 
                         <div class="tabby-tab">
                             <input type="radio" id="tab-6" name="tabby-tabs">
-                            <label for="tab-6">phpmyadmin</label>
+                            <label for="tab-6">PMA</label>
                             <div class="tabby-content">
                                 <p><a href="http://evc.re.kr/pma" target="_blank"> phpmyadmin </a></p>
                             </div>
@@ -106,7 +106,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== TRUE) {
                                 
                         <div class="tabby-tab">
                             <input type="radio" id="tab-7" name="tabby-tabs">
-                            <label for="tab-7">redis</label>
+                            <label for="tab-7">Redis</label>
                             <div class="tabby-content">
                                 
                                 <h5> <font color = 'black'> 

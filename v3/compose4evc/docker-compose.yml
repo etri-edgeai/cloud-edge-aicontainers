@@ -229,7 +229,21 @@ services:
         networks:
             - evc_network
       
-      
+    semaphore:
+        ports:
+            - 8009:3000
+        image: semaphoreui/semaphore:latest
+        environment:
+            SEMAPHORE_DB_DIALECT: bolt
+            SEMAPHORE_ADMIN_PASSWORD: admin
+            SEMAPHORE_ADMIN_NAME: admin
+            SEMAPHORE_ADMIN_EMAIL: admin@localhost
+            SEMAPHORE_ADMIN: admin
+        #expose:
+        #    - 3001
+        networks:
+            - evc_network
+        
 networks:
     evc_network:
         driver: bridge
