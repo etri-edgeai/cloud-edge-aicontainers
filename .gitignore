@@ -7,6 +7,8 @@ __pycache__/
 #---------------
 .DS_Store
 .*.swp
+.*.pt
+**/.*.pt
 
 !.gitignore
 
@@ -31,9 +33,6 @@ v3/vender
 
 # C extensions
 *.so
-
-
-
 
 
 
