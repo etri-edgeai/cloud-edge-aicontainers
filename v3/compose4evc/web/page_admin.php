@@ -64,7 +64,8 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== TRUE) {
                             <input type="radio" id="tab-4" name="tabby-tabs">
                             <label for="tab-4">semaphore</label>
                             <div class="tabby-content">
-                                <iframe src="http://evc.re.kr:23000" width=100% height=100%> </iframe>
+                                <!-- <iframe src="http://evc.re.kr/semaphore" width=100% height=100%> </iframe> -->
+                                <iframe src="http://evc.re.kr:28009" width=100% height=100%> </iframe>
                             </div>
                         </div>
 
