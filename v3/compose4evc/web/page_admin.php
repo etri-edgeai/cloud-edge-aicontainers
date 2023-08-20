@@ -69,7 +69,6 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== TRUE) {
                             </div>
                         </div>
 
-
                         <div class="tabby-tab">
                             <input type="radio" id="tab-5" name="tabby-tabs">
                             <label for="tab-5">docker registry</label>
