@@ -71,7 +71,7 @@ def run_device_manager():
             gpu=nodes['gpu']
             )
         dman.config(cert_playbook, registry)
-        dman.insert()
+        dman.insert(hub=dockerhub)
 
 
     # host configuration (build inventory)
@@ -91,7 +91,7 @@ def run_device_manager():
                 gpu=node['gpu']
                 )
             dman.config(cert_playbook, registry)
-            dman.insert()
+            dman.insert(hub=dockerhub)
 
         dman.file_config()
         dman.view()
