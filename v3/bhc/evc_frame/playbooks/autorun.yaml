@@ -7,10 +7,10 @@
     tag: classification
     model_file: from_input
     ver: 1.0
-    ansible_become: true
-    ansible_user: keti
-    ansible_become_method: sudo
-    ansible_become_pass: ketiabcs
+    # ansible_become: true
+    # ansible_user: keti
+    # ansible_become_method: sudo
+    # ansible_become_pass: ketiabcs
 
   tasks:
 
@@ -33,7 +33,7 @@
   ## run container & test model
   - name: run container
     tags: test
-    command: docker run -d --name {{ tag }}-model -it {{ image_name }}:{{ tag }}-{{ ver }}
+    command: docker run -d --name {{ tag }}-model-{{ ver }} -it {{ image_name }}:{{ tag }}-{{ ver }}
     register: command_output
   - debug: msg="{{ command_output.stdout_lines }}"
     tags: test
@@ -64,14 +64,14 @@
   - debug: msg="{{ command_output.stdout_lines }}"
     tags: push
 
-  - name: check result...
-    tags: push
-    command: 
-      curl {{ registry_ip }}/v2/_catalog
-      curl {{ registry_ip }}/v2/{{ image_name }}/tags/list
-    register: command_output
-  - debug: msg="{{ command_output.stdout_lines }}"
-    tags: push
+  # - name: check result...
+  #   tags: push
+  #   command: 
+  #     curl {{ registry_ip }}/v2/_catalog
+  #     curl {{ registry_ip }}/v2/{{ image_name }}/tags/list
+  #   register: command_output
+  # - debug: msg="{{ command_output.stdout_lines }}"
+  #   tags: push
 
 
 

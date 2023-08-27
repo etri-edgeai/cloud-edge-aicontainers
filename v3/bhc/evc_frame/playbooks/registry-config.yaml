@@ -80,7 +80,7 @@
       register: output
     - debug: msg="{{ output.stdout_lines }}"
 
-    - name: connection test 2
-      command: docker pull {{ registry }}/hello-world:test
-      register: output
-    - debug: msg="{{ output.stdout_lines }}"
+    # - name: connection test 2
+    #   command: docker pull {{ registry }}/hello-world:test
+    #   register: output
+    # - debug: msg="{{ output.stdout_lines }}"

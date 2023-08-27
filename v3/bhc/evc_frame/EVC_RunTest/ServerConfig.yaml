@@ -16,20 +16,19 @@ activations:
 
 # builders config
 builder:
-  - name: rpi6401
-    ip: deepcase.mynetgear.com
-    port: 39001
-    hw: rpi
-    os: linux
-    gpu: None
-
   # - name: n01
-  #   ip: 123.214.186.192
+  #   ip: evc.re.kr
   #   port: 33312
   #   hw: intel_NUC
   #   os: ubuntu
   #   gpu: RTX2080
 
+  - name: rpi6401
+    ip: evc.re.kr
+    port: 39001
+    hw: rpi
+    os: linux
+    gpu: None
 
 # 타겟 노드 (대상)
 where:
@@ -37,12 +36,6 @@ where:
     - n02
     # - your node
     # add your nodes where run the task.
-
-where2:
-  &nodes_2
-    - rpi6401
-  #   - your node
-  # add list for another task.
 
 # 작업 처리를 위한 각종 파일 경로
 path:
@@ -71,7 +64,10 @@ path:
   db: &db ../db/edge_logs.db3
 
   # registry address
-  registry: &registry deepcase.mynetgear.com:20093
+  registry: &registry ethicsense
+
+  # if you use docker hub
+  dockerhub: &dockerhub True # False if private registry
 
 # # 전달할 인자 목록
 # vars:
@@ -192,6 +188,7 @@ autorun: # 모델 구축 - 배포 - 실행 기본 절차 수행
       hosts_file: *hosts_file
       db: *db
       registry: *registry
+      dockerhub: *dockerhub
 
   - name: deploy AI model image
     activation: download
@@ -203,6 +200,7 @@ autorun: # 모델 구축 - 배포 - 실행 기본 절차 수행
       hosts_file: *hosts_file
       db: *db
       registry: *registry
+      dockerhub: *dockerhub
   
   # - name: activate AI model
   #   activation: run
