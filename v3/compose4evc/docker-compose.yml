@@ -244,6 +244,7 @@ services:
         networks:
             - evc_network
         
+
 networks:
     evc_network:
         driver: bridge
