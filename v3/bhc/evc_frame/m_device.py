@@ -30,7 +30,7 @@ class device_manager:
         query = "select DATETIME(time, 'unixepoch') as date, affiliation, name, ip, port type, owner, hw, os, gpu from nodes;"
         print(pd.read_sql_query(query, self.con))
 
-    def insert(self):
+    def insert(self, hub=False):
 
         done = True
 
@@ -42,42 +42,44 @@ class device_manager:
         except Exception as e:
             done = False
             print(e, "wrong command.")
+            raise
 
         else:
             with open('tmp/tmp_host.ini', 'w') as f:
                 f.write('{name} ansible_host={ip} ansible_port={port}'.format(name=self.name, ip=self.ip, port=self.port))
 
 
-        try:
-            cmd = 'ansible-playbook {playbook} -l {name} -i tmp/tmp_host.ini -t http -e "host_name={host_name} registry={registry}"'.format(playbook=self.playbook, name=self.name, host_name=self.owner, registry=self.registry)
-            if os.system(cmd) != 0:
-                raise Exception('Error')
-            
-        except Exception as e:
-            print(e, "wrong command.")
+        if hub == False:
+            try:
+                cmd = 'ansible-playbook {playbook} -l {name} -i tmp/tmp_host.ini -t http -e "host_name={host_name} registry={registry}"'.format(playbook=self.playbook, name=self.name, host_name=self.owner, registry=self.registry)
+                if os.system(cmd) != 0:
+                    raise Exception('Error')
+                
+            except Exception as e:
+                print(e, "wrong command.")
+                raise
 
-        else:
-            now = round(time.time())
+        now = round(time.time())
 
-            data = []
+        data = []
 
-            data.append(now)
-            data.append(self.affiliation)
-            data.append(self.name)
-            data.append(self.ip)
-            data.append(self.port)
-            data.append(self.type)
-            data.append(self.owner)
-            data.append(self.hw)
-            data.append(self.op_sys)
-            data.append(self.gpu)
+        data.append(now)
+        data.append(self.affiliation)
+        data.append(self.name)
+        data.append(self.ip)
+        data.append(self.port)
+        data.append(self.type)
+        data.append(self.owner)
+        data.append(self.hw)
+        data.append(self.op_sys)
+        data.append(self.gpu)
 
-            data = tuple(data) 
+        data = tuple(data) 
 
-            cur = self.con.cursor()
-            query = "insert or ignore into nodes values(?,?,?,?,?,?,?,?,?,?);"
-            cur.execute(query, data)
-            self.con.commit()
+        cur = self.con.cursor()
+        query = "insert or ignore into nodes values(?,?,?,?,?,?,?,?,?,?);"
+        cur.execute(query, data)
+        self.con.commit()
 
         return done
         
