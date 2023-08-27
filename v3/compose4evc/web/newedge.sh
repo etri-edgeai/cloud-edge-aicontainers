@@ -23,6 +23,9 @@ function rpi {
     sudo cat /etc/ssh/sshd_config
     mkdir ~/.ssh
     
+    echo 'install git'
+    sudo apt install git
+    
     # Add authorized key
     curl -X GET http://evc.re.kr/api/get_key.php >> ~/.ssh/authorized_keys
 }
@@ -35,6 +38,9 @@ function ubuntu_focal {
     echo "IPQoS cs0 cs0" | sudo tee --append /etc/ssh/sshd_config
     sudo cat /etc/ssh/sshd_config
     mkdir ~/.ssh
+    
+    echo 'install git'
+    sudo apt install git
         
     # Add authorized key
     curl -X GET http://evc.re.kr/api/get_key.php >> ~/.ssh/authorized_keys

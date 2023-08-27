@@ -36,7 +36,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== TRUE) {
                                 <input type="radio" id="tab-1" name="tabby-tabs" checked>
                                 <label for="tab-1"> 기계학습 모델관리 (e.g. pytorch 모델) </label>
                                 <div class="tabby-content">
-                                    todo
+                                    <iframe src="http://evc.re.kr/gitlab" width=100% height=100%> </iframe>
                                 </div>
                             </div>  
                                 
