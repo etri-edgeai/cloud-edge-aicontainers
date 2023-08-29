@@ -35,8 +35,8 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== TRUE) {
                                 <input type="radio" id="tab-1" name="tabby-tabs" checked>
                                 <label for="tab-1"> [Test] cameras </label>
                                 <div class="tabby-content">
-                                    <!-- <iframe src="http://evc.re.kr:28010" width=100% height=100%> </iframe> -->
-                                    <iframe src="http://evc.re.kr/cam" width=100% height=100%> </iframe>
+                                    <iframe src="http://evc.re.kr:28010" width=100% height=100%> </iframe>
+                                    <!-- <iframe src="http://evc.re.kr/cam" width=100% height=100%> </iframe> -->
                                 </div>
                             </div>
     
