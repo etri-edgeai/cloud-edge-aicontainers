@@ -25,6 +25,7 @@ function rpi {
     
     echo 'install git'
     sudo apt install git
+    sudo apt install curl
     
     # Add authorized key
     curl -X GET http://evc.re.kr/api/get_key.php >> ~/.ssh/authorized_keys
@@ -41,6 +42,7 @@ function ubuntu_focal {
     
     echo 'install git'
     sudo apt install git
+    sudo apt install curl
         
     # Add authorized key
     curl -X GET http://evc.re.kr/api/get_key.php >> ~/.ssh/authorized_keys
