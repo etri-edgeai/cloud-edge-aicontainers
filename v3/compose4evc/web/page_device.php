@@ -54,16 +54,16 @@ APIKEY is important for device management, builing cluster, and model distributi
                                   <p> <font color = "black"> 😊 1. EVC를 통해 서비스 하려는 에지장치(edge device)에 터미널로 진입합니다.</font> </p>
 
 
-                                  <p> <font color = "black"> 😊 2. 아래 명령어를 sudo 권한으로 실행하여 sshd 서버를 설치하고, EVC가 제공하는 공개키를 에지장치에 등록합니다.</font> </p>
+                                  <p> <font color = "black"> 😊 2. 아래 명령어를 관리자 권한(sudo 권한)으로 실행하여 sshd 서버를 비롯한 필수 패키지를 설치하고, EVC가 제공하는 공개키를 에지장치에 등록합니다.</font> </p>
 
-                                  <blockquote><p> <font color = "blue"> $ wget http://evc.re.kr/newedge.sh -O newedge.sh</font> </p></blockquote>
-                                  <blockquote><p> <font color = "blue"> $ bash newedge.sh </font> </p></blockquote>
+                                  <blockquote><p> <font color = "blue"> $ wget http://evc.re.kr/new.sh -O new.sh</font> </p></blockquote>
+                                  <blockquote><p> <font color = "blue"> $ bash new.sh </font> </p></blockquote>
 
 
                                   <p> <font color = "black"> 😊 3. 에지 장치를 EVC에 등록하기 위한 설정을 수행합니다.</font> </p>
 
-                                  <blockquote><p> <font color = "blue"> $ wget http://evc.re.kr/joinedge.sh -O joinedge.sh</font> </p></blockquote>
-                                  <blockquote><p> <font color = "blue"> $ bash joinedge.sh </font> </p></blockquote>
+                                  <blockquote><p> <font color = "blue"> $ wget http://evc.re.kr/join.sh -O join.sh</font> </p></blockquote>
+                                  <blockquote><p> <font color = "blue"> $ bash join.sh </font> </p></blockquote>
 
                                   <font color = "gray" size=1>                     
             📌 주의 및 참고 : 
