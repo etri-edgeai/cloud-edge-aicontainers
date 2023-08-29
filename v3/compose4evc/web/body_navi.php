@@ -31,6 +31,7 @@
             <a href='page_chatbot.php' class="list-group-item" style="color:gray-dark"> LLM Model </a> 
             <a href='page_admin.php' class="list-group-item"> Admin </a>
             <a href='page_user.php' class="list-group-item"> Users </a>
+            <a href='page_camera.php' class="list-group-item"> Cameras </a>                    
         </ul>
 
     </div>

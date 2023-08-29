@@ -74,7 +74,7 @@ APIKEY is important for device management, builing cluster, and model distributi
             따라서 어떤 권한을 EVC에 제공할지는 EVC 프레임워크 기술을 사용하려는 사용자의 선택에 달려 있습니다.
             시스템을 제어할 수 있는 권한이 강할수록 EVC는 다양한 기능을 제공하고 사용자는 편리하게 자신의 에지 디바이스를 클러스터 구성원으로 활용할 수 있습니다. 다만 에지 디바이스를 등록한 사용자 입장에서는 시스템의 보안 측면에서 염려도 커질 수 있습니다.
             반대로 보안을 우려하여 제한된 권한을 가진 사용자 정보를 제공한다면, 그 만큼 사용상의 제한이 따르게 됩니다. 📌
-                                    <br/> <br/> <img src='imgs/newedge.jpg' width=400 align =bottom>
+
                                       </font>
 
                                 </div>
@@ -99,7 +99,7 @@ APIKEY is important for device management, builing cluster, and model distributi
                                 <label for="tab-4">Edge Monitoring</label>
                                 <div class="tabby-content">
                                     <a href="http://ketiabcs.iptime.org:39080/d/sP0nIDTVz/rpi-6402?orgId=1&refresh=5s&from=1687109419697&to=1687131019697&theme=light" target="_blank"> 모니터링 UI</a>
-                                    <iframe src="http://deepcase.mynetgear.com:28004/docs" width=100% height=100%> </iframe>
+                                    <iframe src="http://evc.re.kr:28004/docs" width=100% height=100%> </iframe>
 
                                     
                                     
