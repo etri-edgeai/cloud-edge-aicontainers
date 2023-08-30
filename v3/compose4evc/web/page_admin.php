@@ -36,7 +36,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== TRUE) {
                             <div class="tabby-content">
 
                                 <iframe
-                                    src="http://evc.re.kr/grafana/d/rYdddlPWk/node-exporter-full?orgId=1&refresh=5s&from=1691083888296&to=1691170288297"
+                                    src="http://evc.re.kr/grafana/d/rYdddlPWk/node-exporter-full?orgId=1&from=1693279199059&to=1693365599059&theme=dark&kiosk"
                                     width=100% height=100%> </iframe>
                             </div>
                         </div>
@@ -45,7 +45,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== TRUE) {
                             <input type="radio" id="tab-2" name="tabby-tabs">
                             <label for="tab-2">EVC Prometheus</label>
                             <div class="tabby-content">
-                                <iframe src="http://localhost:9090" width=100% height=100%> </iframe>
+                                <iframe src="http://evc.re.kr:29090/" width=100% height=100%> </iframe>
                             </div>
                         </div>
 
