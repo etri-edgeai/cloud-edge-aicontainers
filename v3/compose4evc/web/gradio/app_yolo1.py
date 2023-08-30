@@ -175,5 +175,5 @@ with gr.Blocks() as demo:
 
 #demo.queue().launch(share=True, debug=True, inline=False)
 demo.queue().launch(debug=True, 
-            root_path="/chatbot",
+            root_path="/infer01",
             server_name="0.0.0.0")

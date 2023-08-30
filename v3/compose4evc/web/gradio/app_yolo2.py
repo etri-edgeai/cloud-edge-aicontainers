@@ -67,5 +67,5 @@ if __name__ == "__main__":
     #demo.launch(share=True)
     
     demo.queue().launch(debug=True, 
-            root_path="/chatbot",
+            root_path="/infer02",
             server_name="0.0.0.0")
