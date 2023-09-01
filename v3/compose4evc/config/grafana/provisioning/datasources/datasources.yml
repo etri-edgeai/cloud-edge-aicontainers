@@ -51,8 +51,7 @@ datasources:
       database: evc
     secureJsonData:
       password: evc
-     
-     
+
   - name: gdev-graphite
     type: graphite
     access: proxy

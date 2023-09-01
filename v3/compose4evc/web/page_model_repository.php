@@ -36,10 +36,18 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== TRUE) {
                                 <input type="radio" id="tab-1" name="tabby-tabs" checked>
                                 <label for="tab-1"> 기계학습 모델관리 (e.g. pytorch 모델) </label>
                                 <div class="tabby-content">
-                                    <iframe src="http://evc.re.kr/gitlab" width=100% height=100%> </iframe>
+                                    <iframe src="http://evc.re.kr/grafana/d/eb352a18-7d15-4603-8a03-f36002e6550d/00-evc-user-model?orgId=1&from=1693428483669&to=1693450083669&kiosk" width=100% height=100%> </iframe>
                                 </div>
                             </div>  
-                                
+                                    
+                            <div class="tabby-tab">
+                                <input type="radio" id="tab-2" name="tabby-tabs">
+                                <label for="tab-2"> Gitlab </label>
+                                <div class="tabby-content">
+                                    <iframe src="todo" width=100% height=100%> </iframe>
+                                </div>
+                            </div>  
+                                    
                         </div>    
                     </div>
                 </td>   

@@ -83,6 +83,9 @@ services:
             - GF_INSTALL_PLUGINS=frser-sqlite-datasource
             - GF_INSTALL_PLUGINS=grafana-simple-json-datasource
             - GF_INSTALL_PLUGINS=redis-datasource
+            - GF_INSTALL_PLUGINS=innius-video-panel
+            - GF_INSTALL_PLUGINS=jdbranham-diagram-panel
+            - GF_INSTALL_PLUGINS=volkovlabs-image-panel
             - GF_SECURITY_ADMIN_USER=admin
             - GF_SECURITY_ADMIN_PASSWORD=admin
             - GF_AUTH_ANONYMOUS_ENABLED=true
@@ -133,6 +136,47 @@ services:
         networks:
             - evc_network
         user: "$UID:$GID"
+
+    # (참고) redis 기초 명령어 : https://tgyun615.com/192
+    redis:
+        image: redis:alpine
+        container_name: redis_db
+        command: redis-server --appendonly yes
+        ports:
+            - 6378:6379
+        volumes:
+            - ~/.evc/redis/data:/data
+        restart: always
+        networks:
+            - evc_network
+            
+    # (참고) https://hub.docker.com/r/rediscommander/redis-commander
+    redis-commander:
+        container_name: redis-commander
+        hostname: redis-commander
+        image: rediscommander/redis-commander:latest
+        restart: always
+        environment:
+            #- REDIS_HOSTS=local:redis:6378
+            - REDIS_HOSTS=0.0.0.0:redis:6379
+        ports:
+            - 8091:8081
+        networks:
+            - evc_network
+      
+    semaphore:
+        ports:
+            - 8009:3000
+        image: semaphoreui/semaphore:latest
+        environment:
+            SEMAPHORE_DB_DIALECT: bolt
+            SEMAPHORE_ADMIN_PASSWORD: admin
+            SEMAPHORE_ADMIN_NAME: admin
+            SEMAPHORE_ADMIN_EMAIL: admin@localhost
+            SEMAPHORE_ADMIN: admin
+        networks:
+            - evc_network
+        
 
     #gitlab:
     #    image: 'gitlab/gitlab-ce:latest'
@@ -203,48 +247,7 @@ services:
     #    networks:
     #        - evc_network
     
-    # (참고) redis 기초 명령어 : https://tgyun615.com/192
-    redis:
-        image: redis:alpine
-        container_name: redis_db
-        command: redis-server --appendonly yes
-        ports:
-            - 6379:6379
-        volumes:
-            - ~/.evc/redis/data:/data
-        restart: always
-        networks:
-            - evc_network
-            
-    # (참고) https://hub.docker.com/r/rediscommander/redis-commander
-    redis-commander:
-        container_name: redis-commander
-        hostname: redis-commander
-        image: rediscommander/redis-commander:latest
-        restart: always
-        environment:
-            - REDIS_HOSTS=local:redis:6379
-        ports:
-            - 8091:8081
-        networks:
-            - evc_network
-      
-    semaphore:
-        ports:
-            - 8009:3000
-        image: semaphoreui/semaphore:latest
-        environment:
-            SEMAPHORE_DB_DIALECT: bolt
-            SEMAPHORE_ADMIN_PASSWORD: admin
-            SEMAPHORE_ADMIN_NAME: admin
-            SEMAPHORE_ADMIN_EMAIL: admin@localhost
-            SEMAPHORE_ADMIN: admin
-        #expose:
-        #    - 3001
-        networks:
-            - evc_network
-        
-
+    
 networks:
     evc_network:
         driver: bridge

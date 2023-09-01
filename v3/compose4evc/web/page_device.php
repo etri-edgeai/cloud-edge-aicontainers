@@ -93,7 +93,7 @@ APIKEY is important for device management, builing cluster, and model distributi
                                 </div>
                             </div>
 
-
+                            <!--
                             <div class="tabby-tab">
                                 <input type="radio" id="tab-4" name="tabby-tabs">
                                 <label for="tab-4">Edge Monitoring</label>
@@ -104,7 +104,8 @@ APIKEY is important for device management, builing cluster, and model distributi
                                     
                                     
                                 </div>
-                            </div>     
+                            </div>  
+                            -->
                                    
                                     
                         </div>

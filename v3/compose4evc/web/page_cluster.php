@@ -32,16 +32,17 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== TRUE) {
                         <div class="tabs">
                             <div class="tabby-tab">
                                 <input type="radio" id="tab-1" name="tabby-tabs" checked>
-                                <label for="tab-1">클러스터 생성</label>
+                                <label for="tab-1">클러스터 목록</label>
                                 <div class="tabby-content">
-                                    todo
+                                    <iframe src="http://evc.re.kr/grafana/d/f1e4527d-5580-45fe-87f6-088dd3a02e60/00-evc-user-clusters?orgId=1&from=1693428028751&to=1693449628751&kiosk" width=100% height=100%> </iframe>
+                                    
                                 </div>
                             </div>                
 
 
                             <div class="tabby-tab">
                                 <input type="radio" id="tab-2" name="tabby-tabs">
-                                <label for="tab-2">클러스터 모니터링</label>
+                                <label for="tab-2">[todo] 클러스터 생성, 모니터링</label>
                                 <div class="tabby-content">
                                     todo
                                 </div>
