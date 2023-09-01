@@ -40,13 +40,20 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== TRUE) {
                             </div>
 
                             <div class="tabby-tab">
-                                <input type="radio" id="tab-1" name="tabby-tabs">
-                                <label for="tab-1"> [Edge] Inference Test </label>
+                                <input type="radio" id="tab-2" name="tabby-tabs">
+                                <label for="tab-2"> [Edge] Inference Test </label>
                                 <div class="tabby-content">
                                     <iframe src="http://evc.re.kr/infer02" width=100% height=100%> </iframe>
                                 </div>
                             </div>
-    
+                                    
+                            <div class="tabby-tab">
+                                <input type="radio" id="tab-3" name="tabby-tabs">
+                                <label for="tab-3"> [Edge] Embedding vector analysis </label>
+                                <div class="tabby-content">
+                                    <iframe src="http://evc.re.kr:28001/?darkMode=true#projector" width=100% height=100%> </iframe>
+                                </div>
+                            </div>
                                     
                         </div>
                     </div>

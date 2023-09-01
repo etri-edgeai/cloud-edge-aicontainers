@@ -35,6 +35,8 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== TRUE) {
                                 <input type="radio" id="tab-1" name="tabby-tabs" checked>
                                 <label for="tab-1"> reserved </label>
                                 <div class="tabby-content">
+                                    <iframe src="http://evc.re.kr/grafana/d/d7fc879b-3e24-4f97-8dfb-104bdb745cb5/00-evc-user-list?orgId=1&from=1693429443294&to=1693451043294&kiosk" width=100% height=100%> </iframe>
+                                    
                                 </div>
                             </div>
     

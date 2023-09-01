@@ -31,7 +31,9 @@
             <a href='page_chatbot.php' class="list-group-item" style="color:gray-dark"> LLM Model </a> 
             <a href='page_admin.php' class="list-group-item"> Admin </a>
             <a href='page_user.php' class="list-group-item"> Users </a>
-            <a href='page_edge_camera.php' class="list-group-item"> [Edge] Cameras </a>   
+            <!--
+            <a href='page_edge_camera.php' class="list-group-item"> [Edge] Cameras </a>
+            -->
             <a href='page_edge_datasource.php' class="list-group-item"> [Edge] DataSource </a>   
             <a href='page_edge_infer.php' class="list-group-item"> [Edge] Inference </a>                     
         </ul>
