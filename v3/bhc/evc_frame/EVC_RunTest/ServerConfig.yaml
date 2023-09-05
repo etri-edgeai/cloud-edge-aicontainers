@@ -5,7 +5,8 @@
 
 # 수행할 작업
 activations:
-  - &model_construction register
+  - &host_configuration register
+  - &model_build build
   - &model_distribute download
   - &model_deletion delete
   - &model_train train
@@ -39,12 +40,6 @@ where:
 
 # 작업 처리를 위한 각종 파일 경로
 path:
-  ## path to files you need for operations
-  # # path to dockerfile
-  # dockerfile: &dockerfile /home/keti/cloud-edge-aicontainers/v2/bhc/webapp/run_cfg/Dockerfile
-
-  # # path_to_model_file
-  # modelfile: &modelfile /home/keti/cloud-edge-aicontainers/v2/bhc/webapp/run_cfg/model.tar.gz
 
   cert_playbook: &cert_playbook ../playbooks/registry-config.yaml
 
@@ -69,126 +64,34 @@ path:
   # if you use docker hub
   dockerhub: &dockerhub True # False if private registry
 
-# # 전달할 인자 목록
-# vars:
-#   ## informations to define your model
-#   # owner of the model
-#   owner: &owner keti
 
-#   # what model do
-#   task: &task detection
+autorun: # 노드 등록 / 모델 구축 / 배포 / 실행 기본 절차 수행
 
-#   # name of the model
-#   model_name: &model_name plate_detector
-
-#   # model version
-#   version: &version v1.0
-
-#   # model image repository
-#   repo: &repo x86_64-model
-#   repo2: &repo2 aarch64-model
+  # - name: host registration
+  #   activation: register
+  #   path:
+  #     cert_playbook: *cert_playbook
+  #     copy_playbook: *copy_playbook
+  #     build_playbook: *build_playbook
+  #     distrb_playbook: *distrb_playbook
+  #     hosts_file: *hosts_file
+  #     db: *db
+  #     registry: *registry
+  #     dockerhub: *dockerhub
 
 
-## activation configs
-# # 수행할 작업 정의
-# customized_runs: # 다중 명령 정의 예시
-#   - name: delete_config 1
-#     activation: *model_deletion
-#     node: *nodes_1
-#     path:
-#       dockerfile: *dockerfile
-#       modelfile: *modelfile
-#       copy_playbook: *copy_playbook
-#       build_playbook: *build_playbook
-#       distrb_playbook: *distrb_playbook
-#       hosts_file: *hosts_file
-#       db: *db
-#     vars:
-#       registry: *registry
-#       owner: *owner
-#       task: *task
-#       model_name: *model_name
-#       version: *version
-#       repo: *repo
+  # - name: build AI model image
+  #   activation: build
+  #   path:
+  #     cert_playbook: *cert_playbook
+  #     copy_playbook: *copy_playbook
+  #     build_playbook: *build_playbook
+  #     distrb_playbook: *distrb_playbook
+  #     hosts_file: *hosts_file
+  #     db: *db
+  #     registry: *registry
+  #     dockerhub: *dockerhub
 
-
-#   - name: delete_config 2
-#     activation: *model_deletion
-#     node: *nodes_1
-#     path:
-#       dockerfile: *dockerfile
-#       modelfile: *modelfile
-#       copy_playbook: *copy_playbook
-#       build_playbook: *build_playbook
-#       distrb_playbook: *distrb_playbook
-#       hosts_file: *hosts_file
-#       db: *db
-#     vars:
-#       registry: *registry
-#       owner: *owner
-#       task: *task
-#       model_name: *model_name
-#       version: *version
-#       repo: *repo2
-
-
-#   - name: my_run_config 1
-#     activation: *model_construction
-#     node: *nodes_1
-#     path:
-#       dockerfile: *dockerfile
-#       modelfile: *modelfile
-#       copy_playbook: *copy_playbook
-#       build_playbook: *build_playbook
-#       distrb_playbook: *distrb_playbook
-#       hosts_file: *hosts_file
-#       db: *db
-#     vars:
-#       registry: *registry
-#       owner: *owner
-#       task: *task
-#       model_name: *model_name
-#       version: *version
-#       repo: *repo
-
-
-
-#   - name: my_run_config 2
-#     activation: *model_construction 
-#     # your action
-#     node: *nodes_2
-#     # your nodes
-#     path:
-#       dockerfile: *dockerfile
-#       modelfile: *modelfile
-#       copy_playbook: *copy_playbook
-#       build_playbook: *build_playbook
-#       distrb_playbook: *distrb_playbook
-#       hosts_file: *hosts_file
-#       db: *db
-#       # your file path: *path
-#     vars:
-#       registry: *registry
-#       owner: *owner
-#       task: *task
-#       model_name: *model_name
-#       version: *version
-#       repo: *repo
-#       # your args: *args
-
-
-autorun: # 모델 구축 - 배포 - 실행 기본 절차 수행
-  - name: build AI model image
-    activation: register
-    path:
-      cert_playbook: *cert_playbook
-      copy_playbook: *copy_playbook
-      build_playbook: *build_playbook
-      distrb_playbook: *distrb_playbook
-      hosts_file: *hosts_file
-      db: *db
-      registry: *registry
-      dockerhub: *dockerhub
 
   - name: deploy AI model image
     activation: download
@@ -202,6 +105,7 @@ autorun: # 모델 구축 - 배포 - 실행 기본 절차 수행
       registry: *registry
       dockerhub: *dockerhub
   
+
   # - name: activate AI model
   #   activation: run
   #   path:
