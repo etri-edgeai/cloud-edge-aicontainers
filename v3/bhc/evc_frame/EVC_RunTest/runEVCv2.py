@@ -49,90 +49,63 @@ def get_myprj():
     return default_set, default_cfg, user_cfg, modelfile, dockerfile, mode, owner, task, version, model_name, repo, data
 
 
-def run_device_manager():
 
-    # insert builders
-    builders = []
+class device_control:
 
-    for nodes in default_set['builder']:
+    def host_config():
+        # insert builders
+        builders = []
 
-        builders.append(nodes['name'])
+        for nodes in default_set['builder']:
 
-        dman = device_manager(
-            db_file=db,
-            affiliation='builder',
-            name=nodes['name'],
-            ip=nodes['ip'],
-            port=nodes['port'],
-            type='builder',
-            owner='keti',
-            hw=nodes['hw'],
-            op_sys=nodes['os'],
-            gpu=nodes['gpu']
-            )
-        dman.config(cert_playbook, registry)
-        dman.insert(hub=dockerhub)
-
-
-    # host configuration (build inventory)
-    for group in user_cfg['group']:
-        for node in user_cfg['target'][group]:
+            builders.append(nodes['name'])
 
             dman = device_manager(
                 db_file=db,
-                affiliation=group,
-                name=node['name'],
-                ip=node['ip'],
-                port=node['port'],
-                type='user',
+                affiliation='builder',
+                name=nodes['name'],
+                ip=nodes['ip'],
+                port=nodes['port'],
+                type='builder',
                 owner='keti',
-                hw=node['hw'],
-                op_sys=node['os'],
-                gpu=node['gpu']
+                hw=nodes['hw'],
+                op_sys=nodes['os'],
+                gpu=nodes['gpu']
                 )
             dman.config(cert_playbook, registry)
             dman.insert(hub=dockerhub)
 
-        dman.file_config()
-        dman.view()
 
-    return builders
+        # host configuration (build inventory)
+        for group in user_cfg['group']:
+            for node in user_cfg['target'][group]:
 
-
-def run_model_manager(builders):
-
-    # run EVC
-    for run in default_cfg:
-        sequence = run['activation']
-        
-        if sequence == 'register':
-            for builder in builders:
-                man = model_manager(
+                dman = device_manager(
                     db_file=db,
-                    repo=repo,
-                    owner=owner,
-                    model_name=model_name,
-                    task=task,
-                    version=version,
-                    model_file=modelfile,
-                    dockerfile=dockerfile,
-                    builder=builder
-                )
-                man.config(
-                    copy_playbook=copy_playbook,
-                    build_playbook=build_playbook,
-                    distrb_playbook=distrb_playbook,
-                    hosts_file=hosts_file,
-                    registry=registry
-                )
+                    affiliation=group,
+                    name=node['name'],
+                    ip=node['ip'],
+                    port=node['port'],
+                    type='user',
+                    owner='keti',
+                    hw=node['hw'],
+                    op_sys=node['os'],
+                    gpu=node['gpu']
+                    )
+                dman.config(cert_playbook, registry)
+                dman.insert(hub=dockerhub)
 
-                done = man.register()
+            dman.file_config()
+            dman.view()
 
-                if done:
-                    man.insert_db()
-                    man.view()
+        return builders
 
-        elif sequence == 'download':
+
+
+class model_control:
+
+    def build(builders):
+        for builder in builders:
             man = model_manager(
                 db_file=db,
                 repo=repo,
@@ -142,6 +115,7 @@ def run_model_manager(builders):
                 version=version,
                 model_file=modelfile,
                 dockerfile=dockerfile,
+                builder=builder
             )
             man.config(
                 copy_playbook=copy_playbook,
@@ -150,42 +124,76 @@ def run_model_manager(builders):
                 hosts_file=hosts_file,
                 registry=registry
             )
-            
-            for group in user_cfg['group']:
-                man.download(registry, group)
-            # for user in user_cfg['target']:
-            #     man.download(registry, user)
 
-        elif sequence == 'run':
-            man = model_manager(
-                db_file=db,
-                repo=repo,
-                owner=owner,
-                model_name=model_name,
-                task=task,
-                version=version,
-                model_file=modelfile,
-                dockerfile=dockerfile,
+            done = man.register()
+
+            if done:
+                man.insert_db()
+                man.view()
+
+    def download():
+        man = model_manager(
+            db_file=db,
+            repo=repo,
+            owner=owner,
+            model_name=model_name,
+            task=task,
+            version=version,
+            model_file=modelfile,
+            dockerfile=dockerfile,
+        )
+        man.config(
+            copy_playbook=copy_playbook,
+            build_playbook=build_playbook,
+            distrb_playbook=distrb_playbook,
+            hosts_file=hosts_file,
+            registry=registry
+        )
+        
+        for group in user_cfg['group']:
+            man.download(registry, group)
+        # for user in user_cfg['target']:
+        #     man.download(registry, user)
+
+    def run():
+        man = model_manager(
+            db_file=db,
+            repo=repo,
+            owner=owner,
+            model_name=model_name,
+            task=task,
+            version=version,
+            model_file=modelfile,
+            dockerfile=dockerfile,
+        )
+        man.config(
+            copy_playbook=copy_playbook,
+            build_playbook=build_playbook,
+            distrb_playbook=distrb_playbook,
+            hosts_file=hosts_file,
+            registry=registry
+        )
+                    
+        for user in user_cfg['target']:
+            man.run(
+            mode=mode,
+            node=user,
+            data=data
             )
-            man.config(
-                copy_playbook=copy_playbook,
-                build_playbook=build_playbook,
-                distrb_playbook=distrb_playbook,
-                hosts_file=hosts_file,
-                registry=registry
-            )
-                        
-            for user in user_cfg['target']:
-                man.run(
-                mode=mode,
-                node=user,
-                data=data
-                )
 
 
 if __name__ == "__main__":
 
     default_set, default_cfg, user_cfg, modelfile, dockerfile, mode, owner, task, version, model_name, repo, data = get_myprj()
 
-    builders = run_device_manager()
-    run_model_manager(builders)
+    for run in default_cfg:
+        sequence = run['activation']
+
+        if sequence == 'register':
+            builders = device_control.host_config()
+        
+        elif sequence == 'build':
+            model_control.build(builders)
+
+        elif sequence == 'download':
+            model_control.download()
