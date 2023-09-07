@@ -17,12 +17,12 @@ activations:
 
 # builders config
 builder:
-  # - name: n01
-  #   ip: evc.re.kr
-  #   port: 33312
-  #   hw: intel_NUC
-  #   os: ubuntu
-  #   gpu: RTX2080
+  - name: n01
+    ip: evc.re.kr
+    port: 33312
+    hw: intel_NUC
+    os: ubuntu
+    gpu: RTX2080
 
   - name: rpi6401
     ip: evc.re.kr
@@ -52,6 +52,9 @@ path:
   # path to distribution playbook
   distrb_playbook: &distrb_playbook ../playbooks/run_model.yaml
 
+  # playbook for getting index or manipulate db
+  idx_playbook: &idx_playbook ../playbooks/get_index.yaml
+
   # path to ansible hosts file
   hosts_file: &hosts_file ../hosts.ini
 
@@ -74,6 +77,7 @@ autorun: # 노드 등록 / 모델 구축 / 배포 / 실행 기본 절차 수행
   #     copy_playbook: *copy_playbook
   #     build_playbook: *build_playbook
   #     distrb_playbook: *distrb_playbook
+  #     idx_playbook: *idx_playbook
   #     hosts_file: *hosts_file
   #     db: *db
   #     registry: *registry
@@ -87,6 +91,7 @@ autorun: # 노드 등록 / 모델 구축 / 배포 / 실행 기본 절차 수행
   #     copy_playbook: *copy_playbook
   #     build_playbook: *build_playbook
   #     distrb_playbook: *distrb_playbook
+  #     idx_playbook: *idx_playbook
   #     hosts_file: *hosts_file
   #     db: *db
   #     registry: *registry
@@ -100,19 +105,21 @@ autorun: # 노드 등록 / 모델 구축 / 배포 / 실행 기본 절차 수행
       copy_playbook: *copy_playbook
       build_playbook: *build_playbook
       distrb_playbook: *distrb_playbook
+      idx_playbook: *idx_playbook
       hosts_file: *hosts_file
       db: *db
       registry: *registry
       dockerhub: *dockerhub
   
 
-  # - name: activate AI model
-  #   activation: run
-  #   path:
-  #     cert_playbook: *cert_playbook
-  #     copy_playbook: *copy_playbook
-  #     build_playbook: *build_playbook
-  #     distrb_playbook: *distrb_playbook
-  #     hosts_file: *hosts_file
-  #     db: *db
-  #     registry: *registry
+  - name: activate AI model
+    activation: run
+    path:
+      cert_playbook: *cert_playbook
+      copy_playbook: *copy_playbook
+      build_playbook: *build_playbook
+      distrb_playbook: *distrb_playbook
+      idx_playbook: *idx_playbook
+      hosts_file: *hosts_file
+      db: *db
+      registry: *registry

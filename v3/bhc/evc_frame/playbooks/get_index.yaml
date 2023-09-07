@@ -1,0 +1,7 @@
+- hosts: all
+
+  tasks:
+
+  - name: get CPU architecture
+    ansible.builtin.debug:
+      var: ansible_facts['architecture']

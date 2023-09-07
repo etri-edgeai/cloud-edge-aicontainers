@@ -1,6 +1,7 @@
 # ignore EVC testing dir
 EVC_RunTest/EVC_test2/
 EVC_RunTest/evc-test3/
+EVC_RunTest/evc-selective-runner/
 
 # ginore auth keys
 certs/

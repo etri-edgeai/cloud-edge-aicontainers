@@ -28,6 +28,13 @@
     tags: build
   
 
+  - name: clear containers remained
+    tags: test
+    shell: docker stop {{ tag }}-model-{{ ver }} && docker rm {{ tag }}-model-{{ ver }}
+    register: output
+    ignore_errors: yes
+  - debug: msg="{{ output.stdout_lines }}"
+    tags: test
 
 
   ## run container & test model

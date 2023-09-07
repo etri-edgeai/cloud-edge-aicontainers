@@ -2,6 +2,7 @@ import yaml
 import sys
 import os
 import get_prj
+import argparse
 
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 from m_model import model_manager
@@ -22,7 +23,7 @@ def get_myprj():
 
     # load user project
     git_downloader = get_prj.git_downloader(
-        url = "https://github.com/ethicsense/evc-test3.git",
+        url = "https://github.com/ethicsense/evc-selective-runner.git",
         account = "ethicsense"
     )
     git_downloader.clone()
@@ -43,10 +44,10 @@ def get_myprj():
     task = user_cfg['task']
     version = user_cfg['version']
     model_name = user_cfg['model_name']
-    repo = user_cfg['arch'] + '-model'
+    # repo = user_cfg['arch'] + '-model'
     data = user_cfg['data']
 
-    return default_set, default_cfg, user_cfg, modelfile, dockerfile, mode, owner, task, version, model_name, repo, data
+    return default_set, default_cfg, user_cfg, modelfile, dockerfile, mode, owner, task, version, model_name, data
 
 
 
@@ -108,7 +109,7 @@ class model_control:
         for builder in builders:
             man = model_manager(
                 db_file=db,
-                repo=repo,
+                # repo=repo,
                 owner=owner,
                 model_name=model_name,
                 task=task,
@@ -121,6 +122,7 @@ class model_control:
                 copy_playbook=copy_playbook,
                 build_playbook=build_playbook,
                 distrb_playbook=distrb_playbook,
+                idx_playbook=idx_playbook,
                 hosts_file=hosts_file,
                 registry=registry
             )
@@ -131,10 +133,9 @@ class model_control:
                 man.insert_db()
                 man.view()
 
-    def download():
+    def download(server_port):
         man = model_manager(
             db_file=db,
-            repo=repo,
             owner=owner,
             model_name=model_name,
             task=task,
@@ -146,19 +147,20 @@ class model_control:
             copy_playbook=copy_playbook,
             build_playbook=build_playbook,
             distrb_playbook=distrb_playbook,
+            idx_playbook=idx_playbook,
             hosts_file=hosts_file,
             registry=registry
         )
         
         for group in user_cfg['group']:
-            man.download(registry, group)
+            man.download(registry, group, server_port)
         # for user in user_cfg['target']:
         #     man.download(registry, user)
 
-    def run():
+
+    def run(server_name, server_port):
         man = model_manager(
             db_file=db,
-            repo=repo,
             owner=owner,
             model_name=model_name,
             task=task,
@@ -170,21 +172,29 @@ class model_control:
             copy_playbook=copy_playbook,
             build_playbook=build_playbook,
             distrb_playbook=distrb_playbook,
+            idx_playbook=idx_playbook,
             hosts_file=hosts_file,
             registry=registry
         )
-                    
-        for user in user_cfg['target']:
-            man.run(
-            mode=mode,
-            node=user,
-            data=data
-            )
+
+        for group in user_cfg['group']:
+            man.run(group, server_name, server_port)
+
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        '--server_name',
+        type=str,
+    )
+    parser.add_argument(
+        '--server_port',
+        type=int
+    )
+    args = parser.parse_args()
 
-    default_set, default_cfg, user_cfg, modelfile, dockerfile, mode, owner, task, version, model_name, repo, data = get_myprj()
+    default_set, default_cfg, user_cfg, modelfile, dockerfile, mode, owner, task, version, model_name, data = get_myprj()
 
     for run in default_cfg:
         sequence = run['activation']
@@ -196,4 +206,7 @@ if __name__ == "__main__":
             model_control.build(builders)
 
         elif sequence == 'download':
-            model_control.download()
+            model_control.download(args.server_port)
+
+        elif sequence == 'run':
+            model_control.run(args.server_name, args.server_port)

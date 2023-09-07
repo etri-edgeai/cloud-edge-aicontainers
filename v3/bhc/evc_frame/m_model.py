@@ -6,6 +6,7 @@ import textwrap
 import pandas as pd
 import re
 from datetime import datetime
+import json
 
 class model_manager:
 
@@ -24,11 +25,12 @@ class model_manager:
 
 
 
-    def config(self, copy_playbook, build_playbook, distrb_playbook, hosts_file, registry):
+    def config(self, copy_playbook, build_playbook, distrb_playbook, idx_playbook, hosts_file, registry):
 
         self.copy_playbook = copy_playbook
         self.build_playbook = build_playbook
         self.distrb_playbook = distrb_playbook
+        self.idx_playbook = idx_playbook
         self.hosts_file = hosts_file
         self.registry = registry
 
@@ -131,7 +133,41 @@ class model_manager:
         cur = self.con.cursor()
         cur.execute(query)
         sent = cur.fetchall()
+
+        os.system('ansible-playbook {playbook} -i {hosts_file} -l {builder}> tmp/index.txt'.format(playbook=self.idx_playbook, hosts_file=self.hosts_file, builder=self.builder))
         
+        rows = []
+        p_start = re.compile('TASK \[get CPU architecture].+')
+        p_end = re.compile('PLAY RECAP.+')
+
+        with open('tmp/index.txt', 'r') as f:
+            lines = f.readlines()
+
+            for line in lines:
+                start = p_start.search(str(line))
+
+                if start:
+                    idx = lines.index(line)
+                    run = True
+                    idx += 1
+
+                    while run:
+                        lines[idx] = re.sub(r"[^\uAC00-\uD7A30-9a-zA-Z\s\.\-\:\_]", "", lines[idx])
+                        lines[idx] = re.sub(" +", " ", lines[idx])
+                        lines[idx] = re.sub("\n", "", lines[idx])
+                        lines[idx] = re.sub("changed.+", "", lines[idx])
+                        lines[idx] = re.sub("ok: ", "", lines[idx])
+                        lines[idx] = re.sub(" ansible_factsarchitecture: ", "", lines[idx])
+
+                        rows.append(lines[idx])
+                        end = p_end.search(lines[idx])
+                        idx += 1
+
+                        if end:
+                            run = False
+        
+        self.repo = rows[1]
+
         for rows in sent:
             for i in range(len(rows)):
                 if self.owner in rows[i] and self.repo in rows[i+1] and self.model_name in rows[i+2] and self.version in rows[i+3]:
@@ -299,7 +335,7 @@ class model_manager:
 
 
 
-    def download(self, registry, node):
+    def download(self, registry, node, server_port):
 
         query = 'select owner_name, model_name, version from modelinfo_detail'
         cur = self.con.cursor()
@@ -320,7 +356,7 @@ class model_manager:
                 #     raise Exception('Model not found. please check models-list.')
 
         ## model download to user_node
-        os.system('ansible-playbook {playbook} -l {node_name} -t distrb -i {hosts_file} -e "registry={registry} model_tag={tag} version={version}"'.format(playbook=self.distrb_playbook, hosts_file=self.hosts_file, node_name=node, registry=registry, tag=self.model_name, version=self.version))
+        os.system('ansible-playbook {playbook} -l {node_name} -t distrb -i {hosts_file} -e "registry={registry} model_tag={tag} version={version} server_port={server_port}"'.format(playbook=self.distrb_playbook, hosts_file=self.hosts_file, node_name=node, registry=registry, tag=self.model_name, version=self.version, server_port=server_port))
 
         print()
         print('Show result')
@@ -331,16 +367,11 @@ class model_manager:
 
 
 
-
-    def run(self, mode, node, data=None):
-
-        os.system('ansible-playbook {playbook} -l {node_name} -t {mode} -i {hosts_file} -e "model_tag={model_name} input={data}"'.format(playbook=self.distrb_playbook, hosts_file=self.hosts_file, mode=mode, node_name=node, model_name=self.model_name, data=data))
-
-
+    def run(self, node, server_name, server_port):
+        os.system('ansible-playbook {playbook} -l {node} -t gradio -i {hosts_file} -e "registry={registry} model_tag={tag} version={version} server_name={server_name} server_port={server_port}"'.format(registry=self.registry, tag=self.model_name, version=self.version, playbook=self.distrb_playbook, node=node, hosts_file=self.hosts_file, server_name=server_name, server_port=server_port))
 
 
     def view(self):
-
         query = "select DATETIME(time, 'unixepoch') as date, owner_name, repo, model_name, size_GB, task, version from modelinfo_detail"
         print(pd.read_sql_query(query, self.con))
 
