@@ -111,7 +111,7 @@
 
   - name: run gradio server
     tags: gradio
-    command: docker exec -d {{ model_tag }}-model-{{ version }} python home/app.py --server_name {{ server_name }} --server_port {{ server_port }}
+    command: docker exec -d  -it {{ model_tag }}-model-{{ version }} python home/app.py --server_name {{ server_name }} --server_port {{ server_port }}
     register: output
   - debug: msg="{{ output.stdout_lines }}"
     tags: gradio
