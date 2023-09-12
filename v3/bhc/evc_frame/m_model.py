@@ -116,11 +116,12 @@ class model_manager:
         cur.executemany(query, log)
         self.con.commit()
         
-        cur.execute('select * from modelinfo_detail')
-        db_show = cur.fetchall()
+        ## print db present
+        # cur.execute('select * from modelinfo_detail')
+        # db_show = cur.fetchall()
         
-        for row in db_show:
-            print(row)
+        # for row in db_show:
+        #     print(row)
 
 
 

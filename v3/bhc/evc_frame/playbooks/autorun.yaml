@@ -20,7 +20,7 @@
     ansible.builtin.debug:
       var: ansible_facts['architecture']
 
-  - name: build test
+  - name: Docker image generation
     tags: build
     command: docker build --tag {{ image_name }}:{{ tag }}-{{ ver }} --build-arg model_file={{ model_file }} buildimg/
     register: command_output
@@ -28,7 +28,7 @@
     tags: build
   
 
-  - name: clear containers remained
+  - name: clear containers named identical
     tags: test
     shell: docker stop {{ tag }}-model-{{ ver }} && docker rm {{ tag }}-model-{{ ver }}
     register: output
@@ -38,7 +38,7 @@
 
 
   ## run container & test model
-  - name: run container
+  - name: container run test
     tags: test
     command: docker run -d --name {{ tag }}-model-{{ ver }} -it {{ image_name }}:{{ tag }}-{{ ver }}
     register: command_output
@@ -64,7 +64,7 @@
   - debug: msg="{{ command_output.stdout_lines }}"
     tags: push
 
-  - name: push image...
+  - name: push image to registry
     tags: push
     command: docker push {{ registry_ip }}/{{ image_name }}:{{ tag }}-{{ ver }}
     register: command_output

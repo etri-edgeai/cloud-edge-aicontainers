@@ -70,32 +70,32 @@ path:
 
 autorun: # 노드 등록 / 모델 구축 / 배포 / 실행 기본 절차 수행
 
-  # - name: host registration
-  #   activation: register
-  #   path:
-  #     cert_playbook: *cert_playbook
-  #     copy_playbook: *copy_playbook
-  #     build_playbook: *build_playbook
-  #     distrb_playbook: *distrb_playbook
-  #     idx_playbook: *idx_playbook
-  #     hosts_file: *hosts_file
-  #     db: *db
-  #     registry: *registry
-  #     dockerhub: *dockerhub
+  - name: host registration
+    activation: register
+    path:
+      cert_playbook: *cert_playbook
+      copy_playbook: *copy_playbook
+      build_playbook: *build_playbook
+      distrb_playbook: *distrb_playbook
+      idx_playbook: *idx_playbook
+      hosts_file: *hosts_file
+      db: *db
+      registry: *registry
+      dockerhub: *dockerhub
 
 
-  # - name: build AI model image
-  #   activation: build
-  #   path:
-  #     cert_playbook: *cert_playbook
-  #     copy_playbook: *copy_playbook
-  #     build_playbook: *build_playbook
-  #     distrb_playbook: *distrb_playbook
-  #     idx_playbook: *idx_playbook
-  #     hosts_file: *hosts_file
-  #     db: *db
-  #     registry: *registry
-  #     dockerhub: *dockerhub
+  - name: build AI model image
+    activation: build
+    path:
+      cert_playbook: *cert_playbook
+      copy_playbook: *copy_playbook
+      build_playbook: *build_playbook
+      distrb_playbook: *distrb_playbook
+      idx_playbook: *idx_playbook
+      hosts_file: *hosts_file
+      db: *db
+      registry: *registry
+      dockerhub: *dockerhub
 
 
   - name: deploy AI model image
