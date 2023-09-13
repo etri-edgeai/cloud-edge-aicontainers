@@ -35,7 +35,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== TRUE) {
                                 <input type="radio" id="tab-1" name="tabby-tabs" checked>
                                 <label for="tab-1"> [Edge] Inference Test </label>
                                 <div class="tabby-content">
-                                    <iframe src="http://evc.re.kr/infer01" width=100% height=100%> </iframe>
+                                    <iframe src="http://evc.re.kr:20080/infer01" width=100% height=100%> </iframe>
                                 </div>
                             </div>
 
@@ -43,7 +43,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== TRUE) {
                                 <input type="radio" id="tab-2" name="tabby-tabs">
                                 <label for="tab-2"> [Edge] Inference Test </label>
                                 <div class="tabby-content">
-                                    <iframe src="http://evc.re.kr/infer02" width=100% height=100%> </iframe>
+                                    <iframe src="http://evc.re.kr:20080/infer02" width=100% height=100%> </iframe>
                                 </div>
                             </div>
                                     

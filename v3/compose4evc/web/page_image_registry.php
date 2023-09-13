@@ -35,7 +35,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== TRUE) {
                                 <input type="radio" id="tab-1" name="tabby-tabs" checked>
                                 <label for="tab-1"> 배포할 런타임 환경 관리 (e.g. 도커이미지) </label>
                                 <div class="tabby-content">
-                                    <iframe src="http://evc.re.kr/grafana/d/faf2bff2-f918-4544-b0e2-0216659dae35/00-evc-user-container?orgId=1&kiosk" width=100% height=100%> </iframe>
+                                    <iframe src="http://evc.re.kr:20080/grafana/d/faf2bff2-f918-4544-b0e2-0216659dae35/00-evc-user-container?orgId=1&kiosk" width=100% height=100%> </iframe>
                                 </div>
                             </div>  
                                     

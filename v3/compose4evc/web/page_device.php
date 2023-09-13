@@ -86,7 +86,7 @@ APIKEY is important for device management, builing cluster, and model distributi
                                 <div class="tabby-content">
                                     
 
-                                    <iframe src=http://evc.re.kr/grafana/d/adddbbaa-6906-4b82-aff6-d308f9825c0a/evc-user-devices?orgId=1&var-user_apikey=<?=htmlspecialchars($_SESSION["user_apikey"]);?>&kiosk width=100% height=100%> </iframe>
+                                    <iframe src=http://evc.re.kr:20080/grafana/d/adddbbaa-6906-4b82-aff6-d308f9825c0a/evc-user-devices?orgId=1&var-user_apikey=<?=htmlspecialchars($_SESSION["user_apikey"]);?>&kiosk width=100% height=100%> </iframe>
                                     
                                     
                                     
