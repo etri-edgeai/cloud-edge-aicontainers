@@ -5,10 +5,10 @@ app = Flask(__name__)
 
 def find_camera(id):
     cameras = [
-        'rtsp://user01:ketiabcs@192.168.1.32:554/h264Preview_01_sub',
-        'rtsp://user01:ketiabcs@192.168.1.33:554/h264Preview_01_sub',
-        'rtsp://user01:ketiabcs@192.168.1.32:554/h264Preview_01_main',
-        'rtsp://user01:ketiabcs@192.168.1.33:554/h264Preview_01_main']
+        'rtsp://user01:ketiabcs@192.168.1.37:554/h264Preview_01_sub',
+        'rtsp://user01:ketiabcs@192.168.1.38:554/h264Preview_01_sub',
+        'rtsp://user01:ketiabcs@192.168.1.37:554/h264Preview_01_main',
+        'rtsp://user01:ketiabcs@192.168.1.38:554/h264Preview_01_main']
     return cameras[int(id)]
 
 def gen_frames(camera_id):
