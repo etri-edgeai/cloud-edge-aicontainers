@@ -36,7 +36,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== TRUE) {
                             <div class="tabby-content">
 
                                 <iframe
-                                    src="http://evc.re.kr/grafana/d/rYdddlPWk/node-exporter-full?orgId=1&from=1693279199059&to=1693365599059&theme=dark&kiosk"
+                                    src="http://evc.re.kr:20080/grafana/d/rYdddlPWk/node-exporter-full?orgId=1&from=1693279199059&to=1693365599059&theme=dark&kiosk"
                                     width=100% height=100%> </iframe>
                             </div>
                         </div>
@@ -55,7 +55,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== TRUE) {
                             <label for="tab-3">admin.cmdb</label>
                             <div class="tabby-content">
 
-                                <iframe src="http://evc.re.kr/admin/overview.html" width=100% height=100%> </iframe>
+                                <iframe src="http://evc.re.kr:20080/admin/overview.html" width=100% height=100%> </iframe>
 
                             </div>
                         </div>
@@ -99,7 +99,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== TRUE) {
                             <input type="radio" id="tab-6" name="tabby-tabs">
                             <label for="tab-6">PMA</label>
                             <div class="tabby-content">
-                                <p><a href="http://evc.re.kr/pma" target="_blank"> phpmyadmin </a></p>
+                                <p><a href="http://evc.re.kr:20080/pma" target="_blank"> phpmyadmin </a></p>
                             </div>
                         </div>
 
@@ -115,7 +115,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== TRUE) {
                                 <h5> <font color = 'black'> 
                                     Redis 명령어 : <a href='https://tgyun615.com/192'> https://tgyun615.com/192 </a>
                                 </font> </h5> <br/>
-                                <iframe src="http://evc.re.kr/redis" width=100% height=80%> </iframe>
+                                <iframe src="http://evc.re.kr:20080/redis/" width=100% height=80%> </iframe>
                             </div>
                         </div>
 

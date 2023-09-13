@@ -179,8 +179,15 @@ services:
             SEMAPHORE_ADMIN: admin
         networks:
             - evc_network
-        
 
+
+    # [주의] 빌드 하는데  시간이 많이 걸림
+    # infer01:
+    #    build: web/gradio
+    #    ports:
+    #        - 7860:7860
+      
+      
     #gitlab:
     #    image: 'gitlab/gitlab-ce:latest'
     #    container_name: gitlab
