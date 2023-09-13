@@ -6,8 +6,9 @@
 # 수행할 작업
 activations:
   - &host_configuration register
-  - &model_build build
-  - &model_distribute download
+  - &model_environment_image_build build
+  - &model_environment_image_deploy download
+  - &activate_gradio run
   - &model_deletion delete
   - &model_train train
   - &model_inference pred
@@ -17,12 +18,12 @@ activations:
 
 # builders config
 builder:
-  - name: n01
+  - name: p02
     ip: evc.re.kr
-    port: 33312
-    hw: intel_NUC
+    port: 20023
+    hw: intel_Server
     os: ubuntu
-    gpu: RTX2080
+    gpu: RTX4090
 
   - name: rpi6401
     ip: evc.re.kr
@@ -31,12 +32,12 @@ builder:
     os: linux
     gpu: None
 
-# 타겟 노드 (대상)
-where:
-  &nodes_1
-    - n02
-    # - your node
-    # add your nodes where run the task.
+# # 타겟 노드 (대상)
+# where:
+#   &nodes_1
+#     - n02
+#     # - your node
+#     # add your nodes where run the task.
 
 # 작업 처리를 위한 각종 파일 경로
 path:
@@ -71,7 +72,7 @@ path:
 autorun: # 노드 등록 / 모델 구축 / 배포 / 실행 기본 절차 수행
 
   - name: host registration
-    activation: register
+    activation: *host_configuration
     path:
       cert_playbook: *cert_playbook
       copy_playbook: *copy_playbook
@@ -84,8 +85,8 @@ autorun: # 노드 등록 / 모델 구축 / 배포 / 실행 기본 절차 수행
       dockerhub: *dockerhub
 
 
-  - name: build AI model image
-    activation: build
+  - name: build AI model env image and push to dockerhub
+    activation: *model_environment_image_build
     path:
       cert_playbook: *cert_playbook
       copy_playbook: *copy_playbook
@@ -98,8 +99,8 @@ autorun: # 노드 등록 / 모델 구축 / 배포 / 실행 기본 절차 수행
       dockerhub: *dockerhub
 
 
-  - name: deploy AI model image
-    activation: download
+  - name: deploy AI model env image to clusters
+    activation: *model_environment_image_deploy
     path:
       cert_playbook: *cert_playbook
       copy_playbook: *copy_playbook
@@ -112,7 +113,7 @@ autorun: # 노드 등록 / 모델 구축 / 배포 / 실행 기본 절차 수행
       dockerhub: *dockerhub
   
 
-  - name: activate AI model
+  - name: activate gradio server & AI model
     activation: run
     path:
       cert_playbook: *cert_playbook

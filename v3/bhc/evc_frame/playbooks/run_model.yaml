@@ -27,7 +27,7 @@
 #==================================== distribution =====================================
 #=======================================================================================
 
-  - name: pull docker model image from registry
+  - name: pull docker model image from dockerhub
     tags: distrb
     shell: docker pull {{ registry }}/{{ image_name }}:{{ model_tag }}-{{ version }}
     register: output
