@@ -1,4 +1,4 @@
-From python:3.9
+From python:3.8.10
 
 COPY requirements.txt requirements.txt
 COPY app_yolo1.py app.py
