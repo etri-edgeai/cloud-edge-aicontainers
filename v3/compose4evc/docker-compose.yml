@@ -139,11 +139,15 @@ services:
 
     # (참고) redis 기초 명령어 : https://tgyun615.com/192
     redis:
-        image: redis:alpine
+        #image: redis:alpine
+        #image: redislabs/redisai:edge-cpu-bionic
+        #image: redislabs/redisai:1.2.7-cpu-bionic
+        image: redislabs/redisai
         container_name: redis_db
-        command: redis-server --appendonly yes
+        #command: redis-server --appendonly yes
+        #command: loadmodule /usr/lib/redis/modules/redisai.so
         ports:
-            - 6378:6379
+            - 6379:6379
         volumes:
             - ~/.evc/redis/data:/data
         restart: always
@@ -157,7 +161,6 @@ services:
         image: rediscommander/redis-commander:latest
         restart: always
         environment:
-            #- REDIS_HOSTS=local:redis:6378
             - REDIS_HOSTS=0.0.0.0:redis:6379
         ports:
             - 8091:8081

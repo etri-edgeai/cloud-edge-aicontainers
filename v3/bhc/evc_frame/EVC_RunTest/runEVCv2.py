@@ -3,6 +3,8 @@ import sys
 import os
 import get_prj
 import argparse
+import sqlite3
+import pandas as pd
 
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 from m_model import model_manager
@@ -49,6 +51,28 @@ def get_myprj():
 
     return default_set, default_cfg, user_cfg, modelfile, dockerfile, mode, owner, task, version, model_name, data
 
+
+## db manipulation codes for bypassing exception during experiments & demonstrations
+def db_clean():
+        con = sqlite3.connect(db)
+        cur = con.cursor()
+        query = 'delete from modelinfo_detail where model_name="{model_name}" and version="{version}"'.format(model_name=model_name, version=version)
+        cur.execute(query)
+        con.commit()
+
+        query = "select DATETIME(time, 'unixepoch') as date, owner_name, repo, model_name, size_GB, task, version from modelinfo_detail"
+        print(pd.read_sql_query(query, con))
+
+
+def str2bool(v):
+    if isinstance(v, bool):
+       return v
+    if v.lower() in ('yes', 'true', 't', 'y', '1'):
+        return True
+    elif v.lower() in ('no', 'false', 'f', 'n', '0'):
+        return False
+    else:
+        raise argparse.ArgumentTypeError('Boolean value expected.')
 
 
 class device_control:
@@ -187,10 +211,17 @@ if __name__ == "__main__":
     parser.add_argument(
         '--server_name',
         type=str,
+        default="0.0.0.0"
     )
     parser.add_argument(
         '--server_port',
-        type=int
+        type=int,
+        default=7860
+    )
+    parser.add_argument(
+        '--db_clean',
+        type=str2bool,
+        default=False
     )
     args = parser.parse_args()
 
@@ -203,6 +234,11 @@ if __name__ == "__main__":
             builders = device_control.host_config()
         
         elif sequence == 'build':
+            if args.db_clean:
+                print()
+                print()
+                db_clean()
+
             model_control.build(builders)
 
         elif sequence == 'download':
