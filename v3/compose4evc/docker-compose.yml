@@ -146,6 +146,11 @@ services:
         container_name: redis_db
         #command: redis-server --appendonly yes
         #command: loadmodule /usr/lib/redis/modules/redisai.so
+        #command: cluster-enabled yes 
+        #command: cluster-config-file nodes.conf 
+        #command: cluster-node-timeout 5000 
+        #command: appendonly yes
+
         ports:
             - 6379:6379
         volumes:

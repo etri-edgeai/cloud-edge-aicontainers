@@ -1,0 +1,11 @@
+numpy
+pandas
+scikit-learn
+skl2onnx
+onnxmltools
+onnxruntime
+redisai
+ml2rt
+
+uvicorn
+fastapi
