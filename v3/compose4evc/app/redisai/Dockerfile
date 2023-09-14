@@ -3,7 +3,7 @@
 From python:3.9
 
 RUN mkdir _output
-COPY ./_output/iris.onnx ./_output/iris.onnx
+COPY ./tmp/iris.onnx ./tmp/iris.onnx
 COPY app.py app.py
 COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
