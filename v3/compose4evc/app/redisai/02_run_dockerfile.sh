@@ -1,0 +1,1 @@
+docker run -p 8011:8011 hello_redisai
