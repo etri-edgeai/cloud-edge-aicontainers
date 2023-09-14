@@ -1,0 +1,1 @@
+redis-cli -r 5 INCR counter_value

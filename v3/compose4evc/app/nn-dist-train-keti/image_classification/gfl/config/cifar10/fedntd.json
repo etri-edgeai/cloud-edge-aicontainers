@@ -1,0 +1,43 @@
+{
+    "data_setups":{
+        "root": "./data",
+        "dataset_name": "cifar10",
+        "batch_size": 50,
+        "n_clients": 100,
+        "partition": {
+            "method": "lda",
+            "alpha": 0.3
+        }
+    },
+    "train_setups":{
+        "algo": {
+            "name": "fedntd",
+            "params": {"tau": 1, "beta": 1}
+        },
+        "scenario": {
+            "n_rounds": 320,
+            "sample_ratio": 0.1,
+            "local_epochs": 15,
+            "device": "cuda:0"
+        },
+        "model":{
+            "name": "vgg",
+            "params": {}
+        },
+        "optimizer":{
+            "params": {"lr": 0.01, "momentum":0.9, "weight_decay": 1e-5}
+        },
+        "scheduler":{
+            "enabled": true,
+            "name": "multistep",
+            "params": {"gamma":0.1, "milestones": [160, 240]}
+        },
+        "seed": 0
+    },
+    "wandb_setups":{
+        "project": "NeurIPS2023",
+        "group": "plain",
+        "name": "fedntd"
+    }
+}
+

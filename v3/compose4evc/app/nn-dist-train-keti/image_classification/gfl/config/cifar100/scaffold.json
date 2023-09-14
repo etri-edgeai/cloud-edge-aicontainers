@@ -1,0 +1,43 @@
+{
+    "data_setups":{
+        "root": "./data",
+        "dataset_name": "cifar100",
+        "batch_size": 50,
+        "n_clients": 100,
+        "partition": {
+            "method": "sharding",
+            "shard_per_user": 10
+        }
+    },
+    "train_setups":{
+        "algo": {
+            "name": "scaffold",
+            "params": {"adaptive_divison": true}
+        },
+        "scenario": {
+            "n_rounds": 320,
+            "sample_ratio": 0.1,
+            "local_epochs": 5,
+            "device": "cuda:0"
+        },
+        "model":{
+            "name": "mobile",
+            "params": {}
+        },
+        "optimizer":{
+            "params": {"lr": 0.1, "momentum":0.9, "weight_decay": 1e-5}
+        },
+        "scheduler":{
+            "enabled": true,
+            "name": "multistep",
+            "params": {"gamma":0.1, "milestones": [160, 240]}
+        },
+        "seed": 0
+    },
+    "wandb_setups":{
+        "project": "NeurIPS2023",
+        "group": "plain",
+        "name": "scaffold"
+    }
+}
+

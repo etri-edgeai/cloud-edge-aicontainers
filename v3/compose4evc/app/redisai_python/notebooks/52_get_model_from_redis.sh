@@ -1,0 +1,1 @@
+redis-cli AI.MODELGET mymodel BLOB > ./tmp/IrisDatasetModel_clone.pt
