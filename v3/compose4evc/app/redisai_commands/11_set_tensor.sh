@@ -1,0 +1,1 @@
+redis-cli -x "AI.TENSORSET mytensor FLOAT 2 2 VALUES 1 2 3 4"

@@ -143,7 +143,7 @@ services:
         #image: redislabs/redisai:edge-cpu-bionic
         #image: redislabs/redisai:1.2.7-cpu-bionic
         image: redislabs/redisai
-        container_name: redis_db
+        container_name: redisai
         #command: redis-server --appendonly yes
         #command: loadmodule /usr/lib/redis/modules/redisai.so
         #command: cluster-enabled yes 
@@ -158,6 +158,19 @@ services:
         restart: always
         networks:
             - evc_network
+         
+    # 실험적 : 
+    redisearch:
+        image: redislabs/redisearch
+        container_name: redisearch
+        ports:
+            - 6380:6379
+        volumes:
+            - ~/.evc/redisearch/data:/data
+        restart: always
+        networks:
+            - evc_network
+                 
             
     # (참고) https://hub.docker.com/r/rediscommander/redis-commander
     redis-commander:
@@ -166,7 +179,7 @@ services:
         image: rediscommander/redis-commander:latest
         restart: always
         environment:
-            - REDIS_HOSTS=0.0.0.0:redis:6379
+            - REDIS_HOSTS=evc.re.kr:redis:6379,0.0.0.0:redis:6379
         ports:
             - 8091:8081
         networks:

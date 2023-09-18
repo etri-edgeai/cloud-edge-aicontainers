@@ -1,0 +1,1 @@
+redis-cli -h evc.re.kr -p 6379 PING
