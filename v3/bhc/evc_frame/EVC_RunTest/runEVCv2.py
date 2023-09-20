@@ -53,7 +53,7 @@ def get_myprj():
 
 
 ## db manipulation codes for bypassing exception during experiments & demonstrations
-def db_clean():
+def clean_db():
         con = sqlite3.connect(db)
         cur = con.cursor()
         query = 'delete from modelinfo_detail where model_name="{model_name}" and version="{version}"'.format(model_name=model_name, version=version)
@@ -219,7 +219,7 @@ if __name__ == "__main__":
         default=7860
     )
     parser.add_argument(
-        '--db_clean',
+        '--clean_db',
         type=str2bool,
         default=False
     )
@@ -234,10 +234,10 @@ if __name__ == "__main__":
             builders = device_control.host_config()
         
         elif sequence == 'build':
-            if args.db_clean:
+            if args.clean_db:
                 print()
                 print()
-                db_clean()
+                clean_db()
 
             model_control.build(builders)
 

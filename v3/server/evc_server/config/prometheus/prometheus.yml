@@ -1,0 +1,55 @@
+global:
+  scrape_interval: 15s     # scrap target의 기본 interval을 15초로 변경 / default = 1m
+  scrape_timeout: 15s      # scrap request 가 timeout 나는 길이 / default = 10s
+  evaluation_interval: 2m  # rule 을 얼마나 빈번하게 검증하는지 / default = 1m
+
+  # Attach these labels to any time series or alerts when communicating with
+  # external systems (federation, remote storage, Alertmanager).
+  external_labels:
+    monitor: 'codelab-monitor'       # 기본적으로 붙여줄 라벨
+  query_log_file: query_log_file.log # prometheus의 쿼리 로그들을 기록, 없으면 기록안함
+
+# 규칙을 로딩하고 'evaluation_interval' 설정에 따라 정기적으로 평가한다.
+# Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
+rule_files:
+  - "rule_first.yml"  # 파일 위치는 prometheus.yml 이 있는 곳과 동일 위치
+  - "rule_second.yml" # 여러개 가능
+
+# 매트릭을 수집할 엔드포인드로 여기선 Prometheus 서버 자신을 가리킨다.
+# A scrape configuration containing exactly one endpoint to scrape:
+# Here it's Prometheus itself.
+scrape_configs:
+  # 이 설정에서 수집한 타임시리즈에 `job=<job_name>`으로 잡의 이름을 설정한다.
+  # metrics_path의 기본 경로는 '/metrics'이고 scheme의 기본값은 `http`다
+  - job_name: 'prometheus' # job_name 은 모든 scrap 내에서 고유해야함
+    scrape_interval: 10s      # global에서 default 값을 정의해주었기 떄문에 안써도됨
+    scrape_timeout: 10s       # global에서 default 값을 정의해주었기 떄문에 안써도됨
+    metrics_path: '/metrics'  # 옵션 - prometheus가 metrics를 얻기위해 참조하는 URI를 변경할 수 있음 | default = /metrics
+    honor_labels: false       # 옵션 - 라벨 충동이 있을경우 라벨을 변경할지설정(false일 경우 라벨 안바뀜) | default = false
+    honor_timestamps: false   # 옵션 - honor_labels이 참일 경우, metrics timestamp가 노출됨(true일 경우) | default = false
+    scheme: 'http'            # 옵션 - request를 보낼 scheme 설정 | default = http
+    params:                   # 옵션 - request요청 보낼 떄의 param
+      user-id: ['jpark@keti.re.kr']
+
+    # 그 외에도 authorization 설정 
+    # service discovery 설정(sd)
+
+    # 실제 scrap 하는 타겟에 관한 설정
+    static_configs:
+      - targets: ['192.168.1.6:9090', '192.168.1.6:9100', '192.168.1.6:81'] ## prometheus, node-exporter, cadvisor
+        labels: # 옵션 - scrap 해서 가져올 metrics 들 전부에게 붙여줄 라벨
+          service : 'monitor-1'
+    
+    # relabel_config - 스크랩되기 전의 label들을 수정
+    # metric_relabel_configs - 가져오는 대상들의 레이블들을 동적으로 다시작성하는 설정(drop, replace, labeldrop)
+
+  - job_name: "evc_node_exporter"
+    static_configs:
+      - targets: ["192.168.1.6:9100"]
+
+  - job_name: 'instances-service-discovery'
+    metrics_path: '/actuator/prometheus'
+    file_sd_configs:
+      - files:
+          - targets.json
+        refresh_interval: 5s

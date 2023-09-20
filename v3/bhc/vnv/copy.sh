@@ -1,0 +1,1 @@
+ansible-playbook -i hosts.ini -l rpi6402 vnv_copy.yaml
