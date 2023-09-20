@@ -118,3 +118,20 @@
     register: output
   - debug: msg="{{ output.stdout_lines }}"
     tags: gradio
+
+
+- name: Change Model weights
+  hosts: all
+  tags: weights
+
+  tasks:
+
+  - name: copy new model weights to clusters
+    copy:
+      src: "{{ weight file }}"
+      dest: /home/keti/
+  
+  - name: apply new weights into container
+    command: docker cp /ho
+    register: output
+  - dubug: msg="{{ output.stdout_lines }}"
