@@ -1,0 +1,25 @@
+- name: vnv files copy
+  hosts: all
+  become: true
+  vars:
+    vnv_file: vnv_test.py
+    cuda_file: cuda_is_available.py
+
+  tasks:
+  - name: create dir if not exist
+    file:
+      path: /home/keti/vnv
+      state: directory
+      owner: keti
+      group: keti
+      mode: 0755
+
+  - name: copy vnv testing file
+    copy:
+      src: "{{ vnv_file }}"
+      dest: "/home/keti/vnv"
+
+  - name: copy cuda verification file
+    copy:
+      src: "{{ cuda_file }}"
+      dest: "/home/keti/vnv"

@@ -49,7 +49,7 @@ def main(mode = 'baseline'):
     # 에지 디바이스의 상태정보를 얻습니다.
     #----------------------------------
     st_getstatus = time.time() #---------------------
-    wdir = ' /home/keti/ethicsense/cloud-edge-aicontainers/v3/vnv/mission2/'
+    wdir = ' /home/keti/vnv/'
     py = ' /usr/bin/python3'
     #selected_model = 'resnet152' # default
     device = 'cuda'
@@ -97,7 +97,7 @@ def main(mode = 'baseline'):
         # 에지 디바이스에서 추론을 수행합니다. 
         #----------------------------------
         st_inference = time.time() #---------------------
-        cmd = f'ansible vnv -i hosts.ini -m shell -a "cd {wdir}; pwd; {py} vnv05.py --model {selected_model} --device {device} --N {N};"  {ask_pass_option} ' 
+        cmd = f'ansible vnv -i hosts.ini -m shell -a "cd {wdir}; pwd; {py} vnv_test.py --model {selected_model} --device {device} --N {N};"  {ask_pass_option} ' 
         run(cmd, True)
         et_inference = time.time() #---------------------
         
@@ -151,7 +151,7 @@ def main(mode = 'baseline'):
                 # 에지 디바이스에서 추론을 수행합니다. 
                 #----------------------------------
                 st_inference = time.time() #---------------------
-                cmd = f'ansible vnv -i hosts.ini -l {n} -m shell -a "cd {wdir}; pwd; {py} vnv05.py --model {m} --device {device} --N {N};"  {ask_pass_option} ' 
+                cmd = f'ansible vnv -i hosts.ini -l {n} -m shell -a "cd {wdir}; pwd; {py} vnv_test.py --model {m} --device {device} --N {N};"  {ask_pass_option} ' 
                 run(cmd, True)
                 et_inference = time.time() #---------------------
                 
