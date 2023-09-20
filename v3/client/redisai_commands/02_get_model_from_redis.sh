@@ -1,0 +1,1 @@
+redis-cli AI.MODELGET mymodel BLOB > ./tmp/resnet50_clone.pb

@@ -1,0 +1,29 @@
+version: '3'
+ 
+# JPark @ KETI, 2023
+services:
+    edge-node-exporter:
+        image: prom/node-exporter:latest
+        container_name: node-exporter
+        restart: unless-stopped
+        volumes:
+            - /proc:/host/proc:ro
+            - /sys:/host/sys:ro
+            - /:/rootfs:ro
+        command:
+            - '--path.procfs=/host/proc'
+            - '--path.rootfs=/rootfs'
+            - '--path.sysfs=/host/sys'
+            - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+        ports:
+            - 9100:9100
+        networks:
+            - edge_network
+
+networks:
+    edge_network:
+        driver: bridge
+
+
+
+

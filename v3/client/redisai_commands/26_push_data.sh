@@ -1,0 +1,1 @@
+redis-cli LPUSH mylist a b c d

@@ -1,1 +1,0 @@
-redis-cli -p 6380 HMGET movies:11002 title rating

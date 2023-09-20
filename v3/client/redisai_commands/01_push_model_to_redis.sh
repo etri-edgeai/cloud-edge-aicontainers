@@ -1,0 +1,1 @@
+cat ./tmp/resnet50.pb | redis-cli -x AI.MODELSTORE mymodel TF CPU TAG imagenet:5.0 INPUTS 1 images OUTPUTS 1 output BLOB

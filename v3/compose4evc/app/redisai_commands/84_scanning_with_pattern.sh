@@ -1,1 +1,0 @@
-redis-cli --scan --pattern '*-11*'

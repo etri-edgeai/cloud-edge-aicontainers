@@ -1,0 +1,20 @@
+.DS_Store
+.gitkeep
+.gitattributes
+.gitignore
+.editorconfig
+.prettierignore
+LICENSE
+yarn.lock
+.github
+Dockerfile
+.dockerignore
+
+# Folders
+node_modules
+coverage
+data
+dist
+redis-datasource
+img
+.idea

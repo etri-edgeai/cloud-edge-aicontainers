@@ -1,0 +1,13 @@
+.project
+.pydevproject
+*.pyc
+.venv/
+venv/
+redisai.egg-info
+.idea
+.mypy_cache/
+build/
+dist/
+docs/_build/
+.DS_Store
+.vscode

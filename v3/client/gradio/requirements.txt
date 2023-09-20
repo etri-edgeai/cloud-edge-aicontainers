@@ -1,0 +1,5 @@
+torch
+ultralytics
+onnxruntime
+transformers
+gradio

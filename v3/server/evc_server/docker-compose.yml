@@ -1,0 +1,299 @@
+version: '3'
+ 
+# JPark @ KETI, 2023
+services:
+    php:
+        build:
+            context: ./config/php
+        ports:
+            - 9000:9000
+        volumes:
+            - ./web:/var/www/html
+            - ./config/php/www.conf:/usr/local/etc/php-fpm.d/www.conf
+        command: bash -c "docker-php-ext-install pdo pdo_mysql && docker-php-entrypoint php-fpm" # 동적으로 확장모듈 설치
+        environment:
+            MYSQL_USER: ${DB_USER}
+            MYSQL_PASSWORD: ${DB_USER_PASSWORD}
+        depends_on:
+            - mariadb
+        networks:
+            - evc_network
+ 
+    nginx:
+        image: nginx:1.17
+        ports:
+            - 81:80
+        volumes:
+            - ./web:/var/www/html
+            - ./config/nginx/nginx.conf:/etc/nginx/nginx.conf
+            - ./config/nginx/default.conf:/etc/nginx/conf.d/default.conf
+        depends_on:
+            - php
+        networks:
+            - evc_network
+ 
+    pma:
+        image: phpmyadmin/phpmyadmin
+        environment:
+            PMA_HOST: mariadb
+            PMA_PORT: 3306
+            MYSQL_ROOT_PASSWORD: "${DB_USER_PASSWORD}"
+        ports:
+            #- ${IP}:8000:80 # 보안 강력 (실제 서비스에 적용)
+            - 8000:80 # 임시
+        networks:
+            - evc_network
+
+    mariadb:
+        image: mysql:latest    
+        ports:
+            #- ${IP}:3300:3306 # 보안 강력 (실제 서비스에 적용) 
+            - 3306:3306 # 임시로 '${IP}:' 헤더를 제거
+        command: "mysqld --init-file /data/application/init.sql"
+        volumes:
+            - ~/.evc/mariadb:/var/lib/mysql # maridadb data
+            - ./data/mariadb/init.sql:/data/application/init.sql
+        environment:
+            MYSQL_ROOT_PASSWORD: "${DB_ROOT_PASSWORD}"
+            MYSQL_DATABASE: "${DB_NAME}"
+            MYSQL_USER: "${DB_USER}"
+            MYSQL_PASSWORD: "${DB_USER_PASSWORD}"
+        networks:
+            - evc_network
+            
+    grafana:
+        image: grafana/grafana-oss
+        container_name: grafana
+        # user: "$GRA_UID:$GRA_GID"
+        ports:
+            - 3000:3000 # 접근 포트 설정 (컨테이너 외부:컨테이너 내부)
+        volumes:
+            - ./config/grafana/grafana.ini:/etc/grafana/grafana.ini
+            - ./config/grafana/defaults.ini:/usr/share/grafana/conf/defaults.ini
+            - ./config/grafana/provisioning/:/etc/grafana/provisioning/
+            - ~/.evc/grafana:/var/lib/grafana
+        restart: always
+        #depends_on:
+        #    - influxdb
+        environment:
+            - GF_SERVER_ROOT_URL=http://192.168.1.6:3000/grafana/
+            - GF_INSTALL_PLUGINS=grafana-clock-panel
+            - GF_INSTALL_PLUGINS=grafana-worldmap-panel
+            - GF_INSTALL_PLUGINS=marcusolsson-csv-datasource
+            - GF_INSTALL_PLUGINS=frser-sqlite-datasource
+            - GF_INSTALL_PLUGINS=grafana-simple-json-datasource
+            - GF_INSTALL_PLUGINS=innius-video-panel
+            - GF_INSTALL_PLUGINS=jdbranham-diagram-panel
+            - GF_INSTALL_PLUGINS=volkovlabs-image-panel
+            - GF_INSTALL_PLUGINS=redis-datasource
+            - GF_INSTALL_PLUGINS=redis-app
+            - GF_INSTALL_PLUGINS=redis-explorer-app
+            - GF_SECURITY_ADMIN_USER=admin
+            - GF_SECURITY_ADMIN_PASSWORD=admin
+            - GF_AUTH_ANONYMOUS_ENABLED=true
+            - GF_SECURITY_ALLOW_EMBEDDING=true
+            - GF_SECURITY_LOGIN_REMEMBER_DAYS=365
+            - GF_SERVER_SERVE_FROM_SUB_PATH=true
+            - GF_PATHS_CONFIG=/etc/grafana/grafana.ini
+            - plugins:"grafana-worldmap-panel,marcusolsson-csv-datasource,frser-sqlite-datasource,grafana-clock-panel,grafana-simple-json-datasource,redis-datasource"
+        expose:
+            - 3000
+        networks:
+            - evc_network
+        user: "$UID:$GID"
+
+    #node-exporter:
+    #    image: prom/node-exporter:latest
+    #    container_name: node-exporter
+    #    restart: unless-stopped
+    #    volumes:
+    #        - /proc:/host/proc:ro
+    #        - /sys:/host/sys:ro
+    #        - /:/rootfs:ro
+    #    command:
+    #        - '--path.procfs=/host/proc'
+    #        - '--path.rootfs=/rootfs'
+    #        - '--path.sysfs=/host/sys'
+    #        - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+    #    ports:
+    #        - 9100:9100
+    #    networks:
+    #        - evc_network
+
+    prometheus:
+        image: prom/prometheus
+        container_name: prometheus
+        volumes:
+            - ./config/prometheus:/etc/prometheus
+            - ~/.evc/prometheus:/prometheus
+            - ~/.evc/prometheus/targets.json:/etc/prometheus/targets.json
+
+        ports:
+            - 9090:9090 # 접근 포트 설정 (컨테이너 외부:컨테이너 내부)
+        command: # web.enalbe-lifecycle은 api 재시작없이 설정파일들을 reload 할 수 있게 해줌
+            - '--web.enable-lifecycle'
+            - '--config.file=/etc/prometheus/prometheus.yml'
+            - '--storage.tsdb.path=/prometheus'
+            - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+            - '--web.console.templates=/usr/share/prometheus/consoles'
+        restart: always
+        networks:
+            - evc_network
+        user: "$UID:$GID"
+
+    # (참고) redis 기초 명령어 : https://tgyun615.com/192
+    redis:
+        #image: redis:alpine
+        #image: redislabs/redisai:edge-cpu-bionic
+        #image: redislabs/redisai:1.2.7-cpu-bionic
+        image: redislabs/redisai
+        container_name: redisai
+        #command:
+        #    - /bin/sh
+        #    - -c
+            # - Double dollars, so that the variable is not expanded by Docker Compose
+            # - Surround by quotes, so that the shell does not split the password
+            # - The ${variable:?message} syntax causes shell to exit with a non-zero
+            #   code and print a message, when the variable is not set or empty
+            #- redis-server --requirepass "$${REDIS_PASSWORD:?REDIS_PASSWORD variable is not set}"
+        ports:
+            - 6379:6379
+        volumes:
+            - ~/.evc/redis/data:/data
+        restart: always
+        networks:
+            - evc_network
+        env_file:
+            - .env
+      
+    # 실험적 : 
+    redisearch:
+        image: redislabs/redisearch
+        container_name: redisearch
+        ports:
+            - 6380:6379
+        volumes:
+            - ~/.evc/redisearch/data:/data
+        restart: always
+        networks:
+            - evc_network
+        env_file:
+            - .env
+                 
+            
+    # (참고) https://hub.docker.com/r/rediscommander/redis-commander
+    redis-commander:
+        container_name: redis-commander
+        hostname: redis-commander
+        image: rediscommander/redis-commander:latest
+        restart: always
+        environment:
+            - REDIS_HOSTS=local:redis:6379,evc:evc.re.kr:20079
+            - REDIS_PASSWORD='$${REDIS_PASSWORD}'
+            - HTTP_USER=evc
+            - HTTP_PASSWORD=evc
+        ports:
+            - 8091:8081
+        networks:
+            - evc_network
+        env_file:
+            - .env
+      
+    semaphore:
+        ports:
+            - 8009:3000
+        image: semaphoreui/semaphore:latest
+        environment:
+            SEMAPHORE_DB_DIALECT: bolt
+            SEMAPHORE_ADMIN_PASSWORD: admin
+            SEMAPHORE_ADMIN_NAME: admin
+            SEMAPHORE_ADMIN_EMAIL: admin@localhost
+            SEMAPHORE_ADMIN: admin
+        networks:
+            - evc_network
+
+
+    # [주의] 빌드 하는데  시간이 많이 걸림
+    # infer01:
+    #    build: web/gradio
+    #    ports:
+    #        - 7860:7860
+      
+      
+    #gitlab:
+    #    image: 'gitlab/gitlab-ce:latest'
+    #    container_name: gitlab
+    #    restart: always
+    #    hostname: 'evc.re.kr'
+    #    environment:
+    #      GITLAB_OMNIBUS_CONFIG: |
+    #        external_url 'http://evc.re.kr'
+    #        gitlab_rails['gitlab_shell_ssh_port'] = 8022
+    #        gitlab_rails['initial_root_password'] = 'AdminAdmin!'
+    #      # Add any other gitlab.rb configuration here, each on its own line
+    #      TZ: 'Asia/Seoul'
+    #    ports:
+    #      - '82:80'
+    #      - '443:443'
+    #      - '8022:22' 
+    #    volumes:
+    #      - './config:/etc/gitlab'
+    #      - './logs:/var/log/gitlab'
+    #      - './data:/var/opt/gitlab'
+    #    shm_size: '256m'
+    #    networks:
+    #      - evc_network
+
+    #influxdb:
+    #    image: influxdb:latest
+    #    env_file:
+    #        -  ./config/influxdb/influxv2.env
+    #    volumes:
+    #        - ~/.evc/influxdb:/var/lib/influxdb2:rw # Mount for influxdb data directory and configuration
+    #    restart: always
+    #    environment:
+    #        - DOCKER_INFLUXDB_INIT_MODE=setup
+    #        - DOCKER_INFLUXDB_INIT_USERNAME=admin
+    #        - DOCKER_INFLUXDB_INIT_PASSWORD=admin
+    #    ports:
+    #        - 8086:8086
+    #    networks:
+    #        - evc_network
+  
+    #telegraf:
+    #    image: telegraf:latest
+    #    depends_on:
+    #        - influxdb
+    #    volumes:
+    #        # Mount for telegraf config
+    #        - ./config/telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
+    #    env_file:
+    #        - ./config/influxdb/influxv2.env
+    #    networks:
+    #        - evc_network
+    
+    
+    # 그라파나 엔터프라이즈 에디션과 연동됨
+    #mongodb:
+    #    image: mongo
+    #    container_name: mongodb
+    #    restart: always
+    #    ports:
+    #        - 27017:27017
+    #    volumes:
+    #        - ./mongodb:/data/db
+    #    environment:
+    #        - MONGO_INITDB_ROOT_USERNAME=root
+    #        - MONGO_INITDB_ROOT_PASSWORD=1234 
+    #        - MONGO_INITDB_DATABASE=mydb  
+    #    networks:
+    #        - evc_network
+    
+    
+networks:
+    evc_network:
+        driver: bridge
+
+
+
+

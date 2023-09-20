@@ -1,0 +1,1 @@
+curl -X PUT 'http://evc.re.kr/api/user.php' -H 'Content-Type: application/json' -d '{"id":33, "user_name":"user1", "email":"user1-happy@evc.re.kr", "password":"test"}'
