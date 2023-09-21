@@ -47,7 +47,7 @@ datasources:
     uid: carai-prometheus
     type: prometheus
     access: proxy
-    url: keticmr.iptime.org:22090
+    url: http://keticmr.iptime.org:22090
     basicAuth: true #username: admin, password: admin
     basicAuthUser: admin
     jsonData:
