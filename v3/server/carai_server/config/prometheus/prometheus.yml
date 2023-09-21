@@ -36,7 +36,7 @@ scrape_configs:
 
     # 실제 scrap 하는 타겟에 관한 설정
     static_configs:
-      - targets: ['192.168.1.6:9090', '192.168.1.6:9100', '192.168.1.6:81'] ## prometheus, node-exporter, cadvisor
+      - targets: ['192.168.1.236:9090', '192.168.1.236:9100', '192.168.1.236:81'] ## prometheus, node-exporter, cadvisor
         labels: # 옵션 - scrap 해서 가져올 metrics 들 전부에게 붙여줄 라벨
           service : 'monitor-1'
     
@@ -45,7 +45,7 @@ scrape_configs:
 
   - job_name: "evc_node_exporter"
     static_configs:
-      - targets: ["192.168.1.6:9100"]
+      - targets: ["192.168.1.236:9100"]
 
   - job_name: 'evc_dynamic_exporter'
     metrics_path: '/actuator/prometheus'
