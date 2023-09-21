@@ -47,7 +47,7 @@ datasources:
     uid: carai-prometheus
     type: prometheus
     access: proxy
-    url: http://0.0.0.0:9090
+    url: 0.0.0.0:9090
     basicAuth: true #username: admin, password: admin
     basicAuthUser: admin
     jsonData:
