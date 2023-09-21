@@ -42,7 +42,25 @@ datasources:
   #    database: evc
   #  secureJsonData:
   #    password: evc
-     
+  
+  - name: carai-prometheus
+    uid: carai-prometheus
+    type: prometheus
+    access: proxy
+    url: http://0.0.0.0:9090
+    basicAuth: true #username: admin, password: admin
+    basicAuthUser: admin
+    jsonData:
+      manageAlerts: true
+      alertmanagerUid: gdev-alertmanager
+      prometheusType: Prometheus #Cortex | Mimir | Prometheus | Thanos
+      prometheusVersion: 2.40.0
+      exemplarTraceIdDestinations:
+      - name: traceID
+        datasourceUid: gdev-tempo
+    secureJsonData:
+      basicAuthPassword: admin #https://grafana.com/docs/grafana/latest/administration/provisioning/#using-environment-variables
+      
   - name: evc-mysql
     type: mysql
     url: 192.168.1.6:3306
