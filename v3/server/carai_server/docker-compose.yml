@@ -1,0 +1,99 @@
+version: '3.4'
+
+services:
+
+    prometheus:
+        image: prom/prometheus
+        container_name: prometheus
+        volumes:
+            - ./config/prometheus:/etc/prometheus
+            - ~/.evc/prometheus:/prometheus
+            - ~/.evc/prometheus/targets.json:/etc/prometheus/targets.json
+
+        ports:
+            - 9090:9090 # 접근 포트 설정 (컨테이너 외부:컨테이너 내부)
+        command: # web.enalbe-lifecycle은 api 재시작없이 설정파일들을 reload 할 수 있게 해줌
+            - '--web.enable-lifecycle'
+            - '--config.file=/etc/prometheus/prometheus.yml'
+            - '--storage.tsdb.path=/prometheus'
+            - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+            - '--web.console.templates=/usr/share/prometheus/consoles'
+        restart: always
+        networks:
+            - dev_network
+        user: "$UID:$GID"
+
+    node-exporter:
+        image: prom/node-exporter:latest
+        container_name: node-exporter
+        restart: unless-stopped
+        volumes:
+            - /proc:/host/proc:ro
+            - /sys:/host/sys:ro
+            - /:/rootfs:ro
+        command:
+            - '--path.procfs=/host/proc'
+            - '--path.rootfs=/rootfs'
+            - '--path.sysfs=/host/sys'
+            - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+        ports:
+            - 9100:9100
+        networks:
+            - dev_network
+
+    grafana:
+        container_name: grafana
+        image: grafana/grafana:latest
+        ports:
+            - 3000:3000/tcp
+        environment:
+            - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+            - GF_AUTH_ANONYMOUS_ENABLED=true
+            - GF_AUTH_BASIC_ENABLED=false
+            - GF_ENABLE_GZIP=true
+            - GF_USERS_DEFAULT_THEME=light
+            - GF_INSTALL_PLUGINS=redis-app
+        volumes:
+            - ./provisioning:/etc/grafana/provisioning
+            # Uncomment to preserve Grafana configuration
+            # - ./data:/var/lib/grafana
+        networks:
+            - dev_network
+
+    redis:
+        image: redislabs/redisai
+        container_name: redisai
+        #environment:
+        #    - REDIS_PASSWORD=
+        #command: redis-server --requirepass $REDIS_PASSWORD
+        ports:
+            - 6379:6379
+        volumes:
+            - ~/.evc/redis/data:/data
+        restart: always
+        networks:
+            - dev_network
+        env_file:
+            - .env
+
+    redis-commander:
+        container_name: redis-commander
+        hostname: redis-commander
+        image: rediscommander/redis-commander:latest
+        restart: always
+        environment:
+            - REDIS_HOST=redis
+            - REDIS_PORT=6379
+            #- REDIS_PASSWORD=$REDIS_PASSWORD
+            - HTTP_USER=temp
+            - HTTP_PASSWORD=temp
+        ports:
+            - 8091:8081
+        networks:
+            - dev_network
+        env_file:
+            - .env
+
+networks:
+    dev_network:
+        driver: bridge

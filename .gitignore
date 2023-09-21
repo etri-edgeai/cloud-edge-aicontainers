@@ -28,7 +28,10 @@ v3/vnv
 **/data/
 **/keynote/
 **/tmp/
+**/_tmp/
+**/__tmp/
 **/wandb/
+**/venv/
 **/.ipynb_checkpoints/
 
 .ipynb_checkpoints
