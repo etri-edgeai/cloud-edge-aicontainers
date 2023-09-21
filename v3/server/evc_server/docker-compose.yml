@@ -1,5 +1,13 @@
 version: '3'
- 
+
+#
+# 1. 홈 위치에 .evc 폴더를 만듭니다. 
+#    mkdir ~/.evc
+#
+# 2. 도커 컴포즈를 실행합니다.
+#    docker-compose up
+#
+
 # JPark @ KETI, 2023
 services:
     php:
@@ -17,7 +25,7 @@ services:
         depends_on:
             - mariadb
         networks:
-            - evc_network
+            - dev_network
  
     nginx:
         image: nginx:1.17
@@ -30,7 +38,7 @@ services:
         depends_on:
             - php
         networks:
-            - evc_network
+            - dev_network
  
     pma:
         image: phpmyadmin/phpmyadmin
@@ -42,7 +50,7 @@ services:
             #- ${IP}:8000:80 # 보안 강력 (실제 서비스에 적용)
             - 8000:80 # 임시
         networks:
-            - evc_network
+            - dev_network
 
     mariadb:
         image: mysql:latest    
@@ -59,7 +67,7 @@ services:
             MYSQL_USER: "${DB_USER}"
             MYSQL_PASSWORD: "${DB_USER_PASSWORD}"
         networks:
-            - evc_network
+            - dev_network
             
     grafana:
         image: grafana/grafana-oss
@@ -99,7 +107,7 @@ services:
         expose:
             - 3000
         networks:
-            - evc_network
+            - dev_network
         user: "$UID:$GID"
 
     #node-exporter:
@@ -118,7 +126,7 @@ services:
     #    ports:
     #        - 9100:9100
     #    networks:
-    #        - evc_network
+    #        - dev_network
 
     prometheus:
         image: prom/prometheus
@@ -138,31 +146,41 @@ services:
             - '--web.console.templates=/usr/share/prometheus/consoles'
         restart: always
         networks:
-            - evc_network
+            - dev_network
         user: "$UID:$GID"
 
     # (참고) redis 기초 명령어 : https://tgyun615.com/192
     redis:
-        #image: redis:alpine
-        #image: redislabs/redisai:edge-cpu-bionic
-        #image: redislabs/redisai:1.2.7-cpu-bionic
         image: redislabs/redisai
         container_name: redisai
-        #command:
-        #    - /bin/sh
-        #    - -c
-            # - Double dollars, so that the variable is not expanded by Docker Compose
-            # - Surround by quotes, so that the shell does not split the password
-            # - The ${variable:?message} syntax causes shell to exit with a non-zero
-            #   code and print a message, when the variable is not set or empty
-            #- redis-server --requirepass "$${REDIS_PASSWORD:?REDIS_PASSWORD variable is not set}"
+        #environment:
+        #    - REDIS_PASSWORD=
+        #command: redis-server --requirepass $REDIS_PASSWORD
         ports:
             - 6379:6379
         volumes:
             - ~/.evc/redis/data:/data
         restart: always
         networks:
-            - evc_network
+            - dev_network
+        env_file:
+            - .env
+
+    redis-commander:
+        container_name: redis-commander
+        hostname: redis-commander
+        image: rediscommander/redis-commander:latest
+        restart: always
+        environment:
+            - REDIS_HOST=redis
+            - REDIS_PORT=6379
+            #- REDIS_PASSWORD=$REDIS_PASSWORD
+            - HTTP_USER=temp
+            - HTTP_PASSWORD=temp
+        ports:
+            - 8091:8081
+        networks:
+            - dev_network
         env_file:
             - .env
       
@@ -176,29 +194,10 @@ services:
             - ~/.evc/redisearch/data:/data
         restart: always
         networks:
-            - evc_network
+            - dev_network
         env_file:
             - .env
-                 
-            
-    # (참고) https://hub.docker.com/r/rediscommander/redis-commander
-    redis-commander:
-        container_name: redis-commander
-        hostname: redis-commander
-        image: rediscommander/redis-commander:latest
-        restart: always
-        environment:
-            - REDIS_HOSTS=local:redis:6379,evc:evc.re.kr:20079
-            - REDIS_PASSWORD='$${REDIS_PASSWORD}'
-            - HTTP_USER=evc
-            - HTTP_PASSWORD=evc
-        ports:
-            - 8091:8081
-        networks:
-            - evc_network
-        env_file:
-            - .env
-      
+
     semaphore:
         ports:
             - 8009:3000
@@ -210,7 +209,7 @@ services:
             SEMAPHORE_ADMIN_EMAIL: admin@localhost
             SEMAPHORE_ADMIN: admin
         networks:
-            - evc_network
+            - dev_network
 
 
     # [주의] 빌드 하는데  시간이 많이 걸림
@@ -242,7 +241,7 @@ services:
     #      - './data:/var/opt/gitlab'
     #    shm_size: '256m'
     #    networks:
-    #      - evc_network
+    #      - dev_network
 
     #influxdb:
     #    image: influxdb:latest
@@ -258,7 +257,7 @@ services:
     #    ports:
     #        - 8086:8086
     #    networks:
-    #        - evc_network
+    #        - dev_network
   
     #telegraf:
     #    image: telegraf:latest
@@ -270,7 +269,7 @@ services:
     #    env_file:
     #        - ./config/influxdb/influxv2.env
     #    networks:
-    #        - evc_network
+    #        - dev_network
     
     
     # 그라파나 엔터프라이즈 에디션과 연동됨
@@ -287,11 +286,11 @@ services:
     #        - MONGO_INITDB_ROOT_PASSWORD=1234 
     #        - MONGO_INITDB_DATABASE=mydb  
     #    networks:
-    #        - evc_network
+    #        - dev_network
     
     
 networks:
-    evc_network:
+    dev_network:
         driver: bridge
 
 
