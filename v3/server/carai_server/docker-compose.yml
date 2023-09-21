@@ -1,7 +1,43 @@
 version: '3.4'
 
 services:
-
+    grafana:
+        container_name: grafana
+        image: grafana/grafana:latest
+        ports:
+            - 3000:3000/tcp # 포트(외부:내부)
+        environment:
+            - GF_INSTALL_PLUGINS=grafana-clock-panel
+            - GF_INSTALL_PLUGINS=grafana-worldmap-panel
+            - GF_INSTALL_PLUGINS=marcusolsson-csv-datasource
+            - GF_INSTALL_PLUGINS=frser-sqlite-datasource
+            - GF_INSTALL_PLUGINS=grafana-simple-json-datasource
+            - GF_INSTALL_PLUGINS=innius-video-panel
+            - GF_INSTALL_PLUGINS=jdbranham-diagram-panel
+            - GF_INSTALL_PLUGINS=volkovlabs-image-panel
+            - GF_INSTALL_PLUGINS=redis-datasource
+            - GF_INSTALL_PLUGINS=redis-app
+            - GF_INSTALL_PLUGINS=redis-explorer-app
+            - GF_SECURITY_ADMIN_USER=admin
+            - GF_SECURITY_ADMIN_PASSWORD=admin
+            - GF_AUTH_ANONYMOUS_ENABLED=true
+            - GF_SECURITY_ALLOW_EMBEDDING=true
+            - GF_SECURITY_LOGIN_REMEMBER_DAYS=365
+            - GF_SERVER_SERVE_FROM_SUB_PATH=true
+            - GF_PATHS_CONFIG=/etc/grafana/grafana.ini
+            - plugins:"grafana-worldmap-panel,marcusolsson-csv-datasource,frser-sqlite-datasource,grafana-clock-panel,grafana-simple-json-datasource,redis-datasource"
+        volumes:
+            - ./config/grafana/grafana.ini:/etc/grafana/grafana.ini
+            - ./config/grafana/defaults.ini:/usr/share/grafana/conf/defaults.ini
+            - ./config/grafana/provisioning/:/etc/grafana/provisioning/
+            - ~/.evc/grafana:/var/lib/grafana
+        restart: always
+        expose:
+            - 3000
+        networks:
+            - dev_network
+        user: "$UID:$GID"
+        
     prometheus:
         image: prom/prometheus
         container_name: prometheus
@@ -41,58 +77,42 @@ services:
         networks:
             - dev_network
 
-    grafana:
-        container_name: grafana
-        image: grafana/grafana:latest
-        ports:
-            - 3000:3000/tcp
-        environment:
-            - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
-            - GF_AUTH_ANONYMOUS_ENABLED=true
-            - GF_AUTH_BASIC_ENABLED=false
-            - GF_ENABLE_GZIP=true
-            - GF_USERS_DEFAULT_THEME=light
-            - GF_INSTALL_PLUGINS=redis-app
-        volumes:
-            - ./provisioning:/etc/grafana/provisioning
-            # Uncomment to preserve Grafana configuration
-            # - ./data:/var/lib/grafana
-        networks:
-            - dev_network
+    #-------------------------------------------------------------
+    # reserved
+    #-------------------------------------------------------------
+    #redis:
+    #    image: redislabs/redisai
+    #    container_name: redisai
+    #    #environment:
+    #    #    - REDIS_PASSWORD=
+    #    #command: redis-server --requirepass $REDIS_PASSWORD
+    #    ports:
+    #        - 6379:6379
+    #    volumes:
+    #        - ~/.evc/redis/data:/data
+    #    restart: always
+    #    networks:
+    #        - dev_network
+    #    env_file:
+    #        - .env
 
-    redis:
-        image: redislabs/redisai
-        container_name: redisai
-        #environment:
-        #    - REDIS_PASSWORD=
-        #command: redis-server --requirepass $REDIS_PASSWORD
-        ports:
-            - 6379:6379
-        volumes:
-            - ~/.evc/redis/data:/data
-        restart: always
-        networks:
-            - dev_network
-        env_file:
-            - .env
-
-    redis-commander:
-        container_name: redis-commander
-        hostname: redis-commander
-        image: rediscommander/redis-commander:latest
-        restart: always
-        environment:
-            - REDIS_HOST=redis
-            - REDIS_PORT=6379
-            #- REDIS_PASSWORD=$REDIS_PASSWORD
-            - HTTP_USER=temp
-            - HTTP_PASSWORD=temp
-        ports:
-            - 8091:8081
-        networks:
-            - dev_network
-        env_file:
-            - .env
+    #redis-commander:
+    #    container_name: redis-commander
+    #    hostname: redis-commander
+    #    image: rediscommander/redis-commander:latest
+    #    restart: always
+    #    environment:
+    #        - REDIS_HOST=redis
+    #        - REDIS_PORT=6379
+    #        #- REDIS_PASSWORD=$REDIS_PASSWORD
+    #        - HTTP_USER=temp
+    #        - HTTP_PASSWORD=temp
+    #    ports:
+    #        - 8091:8081
+    #    networks:
+    #        - dev_network
+    #    env_file:
+    #        - .env
 
 networks:
     dev_network:
