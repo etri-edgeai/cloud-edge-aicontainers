@@ -1,0 +1,738 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 12,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "testdata",
+        "uid": "CGyvpRmVk"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 9,
+        "x": 0,
+        "y": 0
+      },
+      "id": 6,
+      "options": {
+        "basemap": {
+          "config": {},
+          "name": "Layer 0",
+          "type": "default"
+        },
+        "controls": {
+          "mouseWheelZoom": true,
+          "showAttribution": true,
+          "showDebug": false,
+          "showScale": false,
+          "showZoom": true
+        },
+        "layers": [
+          {
+            "config": {
+              "blur": 15,
+              "radius": 13,
+              "weight": {
+                "fixed": 1,
+                "max": 1,
+                "min": 0
+              }
+            },
+            "location": {
+              "latitude": "lat",
+              "longitude": "lon",
+              "mode": "coords"
+            },
+            "name": "Layer 1",
+            "tooltip": true,
+            "type": "heatmap"
+          },
+          {
+            "config": {
+              "showLegend": true,
+              "style": {
+                "color": {
+                  "fixed": "dark-green"
+                },
+                "opacity": 0.3,
+                "rotation": {
+                  "fixed": 0,
+                  "max": 360,
+                  "min": -360,
+                  "mode": "mod"
+                },
+                "size": {
+                  "fixed": 12,
+                  "max": 15,
+                  "min": 2
+                },
+                "symbol": {
+                  "fixed": "img/icons/marker/cross.svg",
+                  "mode": "fixed"
+                },
+                "textConfig": {
+                  "fontSize": 12,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "textAlign": "center",
+                  "textBaseline": "middle"
+                }
+              }
+            },
+            "location": {
+              "": {
+                "geohash": "route_hash"
+              },
+              "latitude": "marker_lat",
+              "longitude": "marker_lon",
+              "mode": "coords"
+            },
+            "name": "Layer 2",
+            "tooltip": true,
+            "type": "markers"
+          }
+        ],
+        "tooltip": {
+          "mode": "details"
+        },
+        "view": {
+          "id": "coords",
+          "lat": 37.5808648,
+          "lon": 126.8885334,
+          "zoom": 14
+        }
+      },
+      "pluginVersion": "9.0.6",
+      "targets": [
+        {
+          "csvContent": "lat, lon, marker_lat, marker_lon, name\n0, 0, 37.5808648, 126.8885334, 전자회관\n0, 0, 37.579313,126.880063, 서부운전면허시험장\n37.583219, 126.8819574, 0, 0, na\n37.581437,126.878563, 0, 0, na\n37.580488,126.879703, 0, 0, na\n37.577438,126.881062, 0, 0, na\n37.580188,126.876688, 0, 0, na\n37.574188,126.886562, 0, 0, na\n37.578187,126.890563, 0, 0, na\n37.579813,126.887812, 0, 0, na ",
+          "datasource": {
+            "type": "testdata",
+            "uid": "Sc9YyhE7z"
+          },
+          "refId": "A",
+          "scenarioId": "csv_content"
+        }
+      ],
+      "title": "목표 시뮬레이션 지역",
+      "type": "geomap"
+    },
+    {
+      "datasource": {
+        "type": "testdata",
+        "uid": "CGyvpRmVk"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "left",
+            "displayMode": "auto",
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "idx"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 65
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "테스트케이스 내용"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 285
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 14,
+        "w": 15,
+        "x": 9,
+        "y": 0
+      },
+      "id": 2,
+      "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "9.0.6",
+      "targets": [
+        {
+          "csvContent": "idx, 테스크케이스명, 목표 검토지표, 테스트케이스 내용, 주요 확인 방법, 단위, 값, Duration, Difficulty\n21, Cut-In(왼쪽에서 차량 끼어들기), 사고발생 위험도, Ego 차량 주행 - OverTaker 차량 끼어들기, {Ego 차량 감속 확인 + 충돌확인}, 예상 위험도(%), 80,            19.90, 60\n22, Lane Change(사고 회피를 위한 차선변경), 사고발생 위험도, Ego 차량 주행 - 주변 차량의 이상 동작 - Ego 차량의 차선변경, {Ego 차량 감속 확인 + 충돌확인}, 예상 위험도(%), 80,            17.40, 85\n23, Lane Change Crest(경사구간 전방 급차선 변경 차량 등장), 사고발생 위험도, Ego 차량 경사구간 주행 - 타 차량의 갑작스런 차선 변경, {Ego 차량 감속 확인 + 충돌확인}, 예상 위험도(%), 80,            12.20, 93\n24, Follow Ghost(앞차량 따라가기), 법규 준수율, Ego 차량이 앞 차량을 따라가기, {Ego 차량 감속 확인 + 충돌확인}, 예상 위험도(%), 50,             19.9, 50\n25, Drop Bike(자전거 낙하), 사고발생 위험도, Ego 차량 주행 - 앞 차량에서 자전거라 도로에 추락함, {Ego 차량 감속 확인 + 추락 객체와의 충돌확인}, 예상 위험도(%), 80,            9.9, 70\n26, Highway Merge(고속도로 병합), 도로 환경 적응률, Ego 차량 도로 병합구간 진입, {Ego 차량 차선 변경 확인 + 충돌확인}, 예상 위험도(%), 70,            9.9, 6.5\n27, Left Hand Traffic(왼쪽으로 이동하는 추월차량), 사고발생 위험도, Ego 차량 주행 - OverTaker 차량 끼어들기, {Ego 차량 감속 확인 + 충돌확인}, 예상 위험도(%), 60,            9.9, 60\n28, Synch with Steady State(교차로에서 바이크와 차량 충돌), 사고발생 위험도, Ego 차량 주행 - 교차로에서 바이크 등장, {Ego 차량 감속 확인 + 충돌확인}, 예상 위험도(%), 70,            14.80, 90\n29, Pedestrain(보행자 등장), 사고발생 위험도, Ego 차량 주행 - 천천히 이동하는 보행자 등장, {Ego 차량 감속 확인 + 충돌확인}, 예상 위험도(%), 50,           4.6 , 60\n30, Pedestrain Collision(무단횡단 보행자 충돌), 사고발생 위험도, Ego 차량 주행 - 갑자기 이동하는 무단횡단 보행자 등장, {Ego 차량 감속 확인 + 충돌확인}, 예상 위험도(%), 80,            9.8, 95\n31, Slow Lead Vehicle(주행중 감속 및 멈춤 차량), 사고발생 위험도 + 도로 환경 적응률,  Ego 차량 주행 - 전방 차량이 감속하면서 멈춤, {Ego 차량 감속 확인 + 충돌확인}, 예상 위험도(%), 40,           10, 75\n60, Stop Traffic Light(신호등 확인 후 멈춤), 법규 준수율,  Ego 차량 주행 - 신호등 확인 및 멈춤, {Ego 차량 감속 확인 + 신호 준수 유무 확인}, 준수율(%), 80,          10, 55\n61, TBD, 사고발생 위험도, Ego 차량 주행 - OverTaker 차량 끼어들기, {Ego 차량 감속 확인 + 충돌확인}, 예상 위험도(%), 80,         10, 10\n62, TBD, 사고발생 위험도, Ego 차량 끼어들기 - 가속, {Ego 차량 감속 확인 + 충돌확인}, 예상 위험도(%), 10,         10, 10\n63, TBD, 사고발생 위험도, Ego 차량 주행 - 무단횡단 보행자 등장, {Ego 차량 감속 확인 + 충돌확인}, 예상 위험도(%), 70,         10, 10\n64, TBD, 사고발생 위험도, Ego 차량 주행 - 자전거 도로에 낙하, {Ego 차량 감속 확인 + 충돌 확인}, 예상 위험도(%), 87,         10, 10\n65, TBD, 사고발생 위험도, Ego 차량 고속도로 병합 - 차선변경, {Ego 차량 병합 결과 확인 + 회피 확인}, 예상 위험도(%), 56,         10, 10\n66, TBD, 법규 준수율, Ego 차량 신호등 구간 녹색 - 적색 변경, {Ego 차량 멈춤 확인}, 준수율(%), 70,         10, 10\n67, TBD, 법규 준수율, Ego 차량 우회전 구간 - 보행자 등장, {Ego 차량 멈춤 확인 + 사고발생 유무 확인},  준수율(%), 20,         10, 10\n68, TBD, 법규 준수율, Ego 차량 직진 구간 주행 - 신호등 노란색 점등, {Ego 차량 멈춤 확인}, 준수율(%), 50,         10, 10\n69, TBD, 법규 준수율, Ego 차량 4차선 도로 주행 - 2차선 도로 진입, {감속 + 차선변경 확인}, 적응률(%), 70,         10, 10\n70, TBD, 법규 준수율, Ego 차량 포장 도로 주행 - 비포장 도로 진입, {감속 유무 확인}, 적응률(%), 60,         10, 10\n71, TBD, 도로 환경 적응률, Ego 차량 맑은 날 주행 - 날씨 비옴, {감속 유무 확인}, 적응률(%), 70,         10, 10\n72, TBD, 도로 환경 적응률, Ego 차량 고속도로 주행 - 고속도로 포트홀 등장, {감속 유무 확인 + 차선 변경 확인}, 적응률(%), 70,         10, 10\n73, TBD, 도로 환경 적응률, Ego 차량 고속도로 주행 - 고속도로 포트홀 등장 - 옆차로 차선변경 차량 등장, {감속 유무 확인 + 차선 변경 확인}, 적응률(%), 70,         10, 10\n74, TBD, 도로 환경 적응률, Ego 차량 주행 - 안개 지역 진입(안개 정도 70/100), {감속 유무 확인 + 비상등 켰는지 확인}, 적응률(%), 70,         10, 10\n",
+          "datasource": {
+            "type": "testdata",
+            "uid": "Sc9YyhE7z"
+          },
+          "refId": "A",
+          "scenarioId": "csv_content"
+        }
+      ],
+      "title": "단위 테스트케이스",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "testdata",
+        "uid": "CGyvpRmVk"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": []
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 5,
+        "x": 0,
+        "y": 8
+      },
+      "id": 14,
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "right"
+        },
+        "pieType": "donut",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.4.4",
+      "targets": [
+        {
+          "csvContent": "사고발생 위험도, 법규 준수율, 도로 환경 적응률\n33, 33, 33\n",
+          "datasource": {
+            "type": "testdata",
+            "uid": "Sc9YyhE7z"
+          },
+          "refId": "A",
+          "scenarioId": "csv_content"
+        }
+      ],
+      "title": "단위 테스트케이스 구성을 위한 3대 목표 검토지표",
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "testdata",
+        "uid": "CGyvpRmVk"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 90
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4,
+        "x": 5,
+        "y": 8
+      },
+      "id": 15,
+      "options": {
+        "displayMode": "lcd",
+        "minVizHeight": 10,
+        "minVizWidth": 0,
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": true
+        },
+        "showUnfilled": true
+      },
+      "pluginVersion": "9.0.6",
+      "targets": [
+        {
+          "csvContent": "사고발생 위험도, 법규 준수율, 도로 환경 적응률\n70, 10, 20\n",
+          "datasource": {
+            "type": "testdata",
+            "uid": "Sc9YyhE7z"
+          },
+          "refId": "A",
+          "scenarioId": "csv_content"
+        }
+      ],
+      "title": "검토지표 별 테스트케이스 구성비율",
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "JlMWtgi4k"
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 5,
+        "x": 0,
+        "y": 14
+      },
+      "id": 4,
+      "options": {
+        "autoPlay": false,
+        "customBackground": false,
+        "geolocate": false,
+        "loop": true,
+        "videoId": "eQpyJQ2womo",
+        "videoType": "url",
+        "videoURL": "http://keticmr.iptime.org:22080/WorkDevCarAI/carai/api/web/static/dst_21.mp4"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "JlMWtgi4k"
+          },
+          "refId": "A"
+        }
+      ],
+      "title": "21. 끼어들기",
+      "type": "innius-video-panel"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "JlMWtgi4k"
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 5,
+        "x": 5,
+        "y": 14
+      },
+      "id": 16,
+      "options": {
+        "autoPlay": false,
+        "customBackground": false,
+        "geolocate": false,
+        "loop": true,
+        "videoId": "eQpyJQ2womo",
+        "videoType": "url",
+        "videoURL": "http://keticmr.iptime.org:22080/WorkDevCarAI/carai/api/web/static/dst_22.mp4"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "JlMWtgi4k"
+          },
+          "refId": "A"
+        }
+      ],
+      "title": "22. 사고 회피 차선변경",
+      "type": "innius-video-panel"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "JlMWtgi4k"
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 5,
+        "x": 10,
+        "y": 14
+      },
+      "id": 5,
+      "options": {
+        "autoPlay": false,
+        "customBackground": false,
+        "geolocate": false,
+        "loop": true,
+        "videoId": "eQpyJQ2womo",
+        "videoType": "url",
+        "videoURL": "http://keticmr.iptime.org:22080/WorkDevCarAI/carai/api/web/static/dst_23.mp4"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "JlMWtgi4k"
+          },
+          "refId": "A"
+        }
+      ],
+      "title": "23. 경사구간 전방 급차선변경 차량",
+      "type": "innius-video-panel"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "JlMWtgi4k"
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 5,
+        "x": 15,
+        "y": 14
+      },
+      "id": 7,
+      "options": {
+        "autoPlay": false,
+        "customBackground": false,
+        "geolocate": false,
+        "loop": true,
+        "videoId": "eQpyJQ2womo",
+        "videoType": "url",
+        "videoURL": "http://keticmr.iptime.org:22080/WorkDevCarAI/carai/api/web/static/dst_24.mp4"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "JlMWtgi4k"
+          },
+          "refId": "A"
+        }
+      ],
+      "title": "24. 전방 차량 따라가기",
+      "type": "innius-video-panel"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "JlMWtgi4k"
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4,
+        "x": 20,
+        "y": 14
+      },
+      "id": 8,
+      "options": {
+        "autoPlay": false,
+        "customBackground": false,
+        "geolocate": false,
+        "loop": true,
+        "videoId": "eQpyJQ2womo",
+        "videoType": "url",
+        "videoURL": "http://keticmr.iptime.org:22080/WorkDevCarAI/carai/api/web/static/dst_25.mp4"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "JlMWtgi4k"
+          },
+          "refId": "A"
+        }
+      ],
+      "title": "25. 자전거 낙하",
+      "type": "innius-video-panel"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "JlMWtgi4k"
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 5,
+        "x": 0,
+        "y": 20
+      },
+      "id": 9,
+      "options": {
+        "autoPlay": false,
+        "customBackground": false,
+        "geolocate": false,
+        "loop": true,
+        "videoId": "eQpyJQ2womo",
+        "videoType": "url",
+        "videoURL": "http://keticmr.iptime.org:22080/WorkDevCarAI/carai/api/web/static/dst_26.mp4"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "JlMWtgi4k"
+          },
+          "refId": "A"
+        }
+      ],
+      "title": "26. 도로 병합구간 진입",
+      "type": "innius-video-panel"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "JlMWtgi4k"
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 5,
+        "x": 5,
+        "y": 20
+      },
+      "id": 10,
+      "options": {
+        "autoPlay": false,
+        "customBackground": false,
+        "geolocate": false,
+        "loop": true,
+        "videoId": "eQpyJQ2womo",
+        "videoType": "url",
+        "videoURL": "http://keticmr.iptime.org:22080/WorkDevCarAI/carai/api/web/static/dst_27.mp4"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "JlMWtgi4k"
+          },
+          "refId": "A"
+        }
+      ],
+      "title": "27. 왼쪽으로 이동하는 추월차량",
+      "type": "innius-video-panel"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "JlMWtgi4k"
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 5,
+        "x": 10,
+        "y": 20
+      },
+      "id": 12,
+      "options": {
+        "autoPlay": false,
+        "customBackground": false,
+        "geolocate": false,
+        "loop": true,
+        "videoId": "eQpyJQ2womo",
+        "videoType": "url",
+        "videoURL": "http://keticmr.iptime.org:22080/WorkDevCarAI/carai/api/web/static/dst_28.mp4"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "JlMWtgi4k"
+          },
+          "refId": "A"
+        }
+      ],
+      "title": "28. 교차로에서 자전거와 충돌",
+      "type": "innius-video-panel"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "JlMWtgi4k"
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 5,
+        "x": 15,
+        "y": 20
+      },
+      "id": 11,
+      "options": {
+        "autoPlay": false,
+        "customBackground": false,
+        "geolocate": false,
+        "loop": true,
+        "videoId": "eQpyJQ2womo",
+        "videoType": "url",
+        "videoURL": "http://keticmr.iptime.org:22080/WorkDevCarAI/carai/api/web/static/dst_29.mp4"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "JlMWtgi4k"
+          },
+          "refId": "A"
+        }
+      ],
+      "title": "29. 보행자 등장",
+      "type": "innius-video-panel"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "JlMWtgi4k"
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4,
+        "x": 20,
+        "y": 20
+      },
+      "id": 13,
+      "options": {
+        "autoPlay": false,
+        "customBackground": false,
+        "geolocate": false,
+        "loop": true,
+        "videoId": "eQpyJQ2womo",
+        "videoType": "url",
+        "videoURL": "http://keticmr.iptime.org:22080/WorkDevCarAI/carai/api/web/static/dst_30.mp4"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "JlMWtgi4k"
+          },
+          "refId": "A"
+        }
+      ],
+      "title": "30. 무단횡단 보행자와 충돌",
+      "type": "innius-video-panel"
+    }
+  ],
+  "schemaVersion": 36,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "A. 단위 테스트케이스",
+  "uid": "jw23Q7i4k",
+  "version": 22,
+  "weekStart": ""
+}

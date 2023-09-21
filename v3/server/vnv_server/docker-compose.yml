@@ -59,8 +59,8 @@ services:
         environment:
             - REDIS_HOSTS=local:redis:6379,evc:evc.re.kr:20079
             - REDIS_PASSWORD='$${REDIS_PASSWORD}'
-            - HTTP_USER=evc
-            - HTTP_PASSWORD=evc
+            - HTTP_USER=temp
+            - HTTP_PASSWORD=temp
         ports:
             - 8091:8081
         networks:
