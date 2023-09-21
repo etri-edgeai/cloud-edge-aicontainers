@@ -72,7 +72,6 @@ services:
     grafana:
         image: grafana/grafana-oss
         container_name: grafana
-        # user: "$GRA_UID:$GRA_GID"
         ports:
             - 3000:3000 # 접근 포트 설정 (컨테이너 외부:컨테이너 내부)
         volumes:
@@ -85,6 +84,12 @@ services:
         #    - influxdb
         environment:
             - GF_SERVER_ROOT_URL=http://192.168.1.6:3000/grafana/
+            - GF_SECURITY_ADMIN_USER=admin
+            - GF_SECURITY_ADMIN_PASSWORD=admin
+            - GF_AUTH_ANONYMOUS_ENABLED=true
+            - GF_SECURITY_ALLOW_EMBEDDING=true
+            - GF_SECURITY_LOGIN_REMEMBER_DAYS=365
+            - GF_SERVER_SERVE_FROM_SUB_PATH=true
             - GF_INSTALL_PLUGINS=grafana-clock-panel
             - GF_INSTALL_PLUGINS=grafana-worldmap-panel
             - GF_INSTALL_PLUGINS=marcusolsson-csv-datasource
@@ -96,12 +101,6 @@ services:
             - GF_INSTALL_PLUGINS=redis-datasource
             - GF_INSTALL_PLUGINS=redis-app
             - GF_INSTALL_PLUGINS=redis-explorer-app
-            - GF_SECURITY_ADMIN_USER=admin
-            - GF_SECURITY_ADMIN_PASSWORD=admin
-            - GF_AUTH_ANONYMOUS_ENABLED=true
-            - GF_SECURITY_ALLOW_EMBEDDING=true
-            - GF_SECURITY_LOGIN_REMEMBER_DAYS=365
-            - GF_SERVER_SERVE_FROM_SUB_PATH=true
             - GF_PATHS_CONFIG=/etc/grafana/grafana.ini
             - plugins:"grafana-worldmap-panel,marcusolsson-csv-datasource,frser-sqlite-datasource,grafana-clock-panel,grafana-simple-json-datasource,redis-datasource"
         expose:

@@ -26,7 +26,7 @@ services:
             - ~/.evc/redis/data:/data
         restart: always
         networks:
-            - redis_network
+            - dev_network
         env_file:
             - .env
 
@@ -44,10 +44,10 @@ services:
         ports:
             - 8091:8081
         networks:
-            - redis_network
+            - dev_network
         env_file:
             - .env
 
 networks:
-    redis_network:
+    dev_network:
         driver: bridge
