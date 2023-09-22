@@ -48,7 +48,7 @@ def update_average_result():
     
 def update_edge_result(od):
     hostname = socket.gethostname()
-    rcon.set_ordered_dict('vnv:hostname', od)
+    rcon.set_ordered_dict(f'vnv:{hostname}', od)
     print('output = ', rcon.get_ordered_dict('vnv:hostname'))
 
     
