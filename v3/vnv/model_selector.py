@@ -47,7 +47,7 @@ class ModelSelection():
         return 'resnet152'
 
     def advancedModelSelection(self, cfg):
-        return 'resnet18'
+        return 'resnet50'
     
         node_nuc = []
         node_rpi = []

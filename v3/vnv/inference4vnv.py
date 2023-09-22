@@ -31,6 +31,11 @@ def arg_parser():
                         default='resnet18', 
                         metavar='N', 
                         help='neural network')
+    parser.add_argument('--mode', 
+                        type=str, 
+                        default='baseline', 
+                        metavar='N', 
+                        help='{baseline, advanced}')
     parser.add_argument('--device', 
                         type=str, 
                         default='cuda', 
