@@ -46,10 +46,10 @@ def update_average_result():
     rcon.set_data('vnv:avg:advanced:top5', 0)
     rcon.set_data('vnv:avg:advanced:latency', 0)
     
-def update_edge_result(od):
+def update_server_result(od):
     hostname = socket.gethostname()
-    rcon.set_ordered_dict(f'vnv:edge:{hostname}', od)
-    print('output = ', rcon.get_ordered_dict(f'vnv:edge:{hostname}'))
+    rcon.set_ordered_dict(f'vnv:server:{hostname}', od)
+    print('output = ', rcon.get_ordered_dict(f'vnv:server:{hostname}'))
 
 def main(mode = 'baseline'):
     #----------------------------------
@@ -161,7 +161,7 @@ def main(mode = 'baseline'):
         disp_time(title, t, ratio)
         od[title] = t
 
-        update_edge_result(od)
+        update_server_result(od)
         
         print(f'[+] Done {mode} experiment')
 

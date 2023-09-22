@@ -19,6 +19,7 @@ from tqdm import tqdm
 import numpy as np
 import torch
 import argparse
+import time
 
 from redis_connector import redis_connector
 rcon = redis_connector()
@@ -45,7 +46,17 @@ def arg_parser():
     print('ok')
     print('-' * 50)
 
+
+def update_edge_result(od):
+    hostname = socket.gethostname()
+    rcon.set_ordered_dict(f'vnv:edge:{hostname}', od)
+    print('output = ', rcon.get_ordered_dict(f'vnv:edge:{hostname}'))
+    
+    
 def run_main(model_names=['resnet152'], devices=['mps'], N=0):
+    #---------------------------------------------------
+    st_total = time.time()
+    #---------------------------------------------------
 
     # Test images
     zip_images_url = 'http://keticmr.iptime.org:22080/edgeai/images/imagenet-mini-val.zip'
@@ -148,8 +159,6 @@ def run_main(model_names=['resnet152'], devices=['mps'], N=0):
         print('-'*50)
         print('')
         
-        return
-
         # 모델별 반복
         for model_idx, model_name in enumerate(model_names):
             start = time.time() # strt timer        
@@ -265,7 +274,6 @@ def run_main(model_names=['resnet152'], devices=['mps'], N=0):
 
                 imgidx += 1
 
-
             end = time.time() # end timer
 
             print('-' * 70)
@@ -292,6 +300,15 @@ def run_main(model_names=['resnet152'], devices=['mps'], N=0):
             print('top5_acc = ', top5_cnt/n)
             print('time = ', end - start)
             print('')
+
+    #---------------------------------------------------
+    et_total = time.time()
+    #---------------------------------------------------
+    
+    od = OrderedDict()
+    T = et_total - st_total
+    od[title] = T
+    update_edge_result(od)
 
         
 import sys
