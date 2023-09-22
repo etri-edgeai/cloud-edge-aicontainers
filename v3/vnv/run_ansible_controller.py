@@ -50,6 +50,7 @@ def update_edge_result(od):
     print('output = ', rcon.get_ordered_dict('vnv:aaa'))
     
     
+    
 def main(mode = 'baseline'):
     #----------------------------------
     # 프로세스를 시작합니다.
