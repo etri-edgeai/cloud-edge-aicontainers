@@ -1,4 +1,17 @@
 #------------------------------------------------------
+# Config
+#------------------------------------------------------
+
+# Test images
+
+zip_images_url = 'http://keticmr.iptime.org:22080/edgeai/images/imagenet-mini-val.zip'
+zip_images = 'imagenet-mini-val.zip'
+dataset_root = './dataset'
+fpath_zip_images = dataset_root + '/' + zip_images
+fpath_testimages = dataset_root + '/imagenet-mini-val/'
+
+
+#------------------------------------------------------
 # Download data
 #------------------------------------------------------
 import os
