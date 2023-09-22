@@ -15,7 +15,8 @@ fpath_testimages = dataset_root + '/imagenet-mini-val/'
 # Download data
 #------------------------------------------------------
 import os
-import urllib
+#import urllib
+import urllib.request as urllib
 
 # make download directory
 def makedir(path): 
