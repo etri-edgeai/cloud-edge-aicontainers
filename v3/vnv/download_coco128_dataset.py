@@ -3,13 +3,9 @@
 #------------------------------------------------------
 
 # Test images
-
-zip_images_url = 'http://keticmr.iptime.org:22080/edgeai/images/imagenet-mini-val.zip'
-zip_images = 'imagenet-mini-val.zip'
+zip_images_url = 'https://ultralytics.com/assets/coco128.zip'
 dataset_root = './dataset'
-fpath_zip_images = dataset_root + '/' + zip_images
-fpath_testimages = dataset_root + '/imagenet-mini-val/'
-
+fpath = dataset_root + '/coco128.zip'
 
 #------------------------------------------------------
 # Download data
@@ -33,7 +29,7 @@ def makedir(path):
 d, isdir = makedir(dataset_root) # 저장 공간 생성
 
 if isdir:
-    url, fname = (zip_images_url, fpath_zip_images)
+    url, fname = (zip_images_url, fpath)
     isfile_exist = os.path.exists(os.path.join(os.getcwd(), fname))
     
     print('downloading...')
@@ -41,35 +37,13 @@ if isdir:
         try: 
             urllib.URLopener().retrieve(url, fname)
         except: 
-            urllib.request.urlretrieve(url, fname)
+            urllib.urlretrieve(url, fname)
         print('[+] download completed.')
+        
         # Unzip
-        cmd = 'unzip ' + fpath_zip_images + ' -d ' + dataset_root
+        cmd = 'unzip ' + fpath + ' -d ' + dataset_root
         print(cmd)
         os.system(cmd)
     else:
         print('[+] download skipped ')
 
-
-from glob import iglob
-
-'''
-# read test files
-testfiles = []
-for fname in sorted( iglob(fpath_testimages + '**/*.JPEG', recursive=True) ):
-    testfiles.append(fname)
-'''
-
-idx_gt = []
-idx = 0
-testfiles = []
-for d in sorted( iglob(fpath_testimages + 'n*', recursive=False) ):
-    for fname in sorted( iglob(d + '/*.JPEG', recursive=True) ):
-        testfiles.append(fname)
-        idx_gt.append( idx )
-    idx += 1
-
-
-# Read the categories
-with open("imagenet_classes.txt", "r") as f:
-    categories = [s.strip() for s in f.readlines()]
