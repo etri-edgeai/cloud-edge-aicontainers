@@ -1,0 +1,6 @@
+numpy
+redis
+torch
+torchvision
+tqdm
+pyyaml
