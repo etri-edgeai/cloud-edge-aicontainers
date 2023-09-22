@@ -47,13 +47,13 @@ def arg_parser():
     print('-' * 50)
 
 
-def update_edge_result(od):
+def update_edge_result(od, mode):
     hostname = socket.gethostname()
-    rcon.set_ordered_dict(f'vnv:edge:{hostname}', od)
-    print('output = ', rcon.get_ordered_dict(f'vnv:edge:{hostname}'))
+    rcon.set_ordered_dict(f'vnv:edge:{mode}:{hostname}', od)
+    print('output = ', rcon.get_ordered_dict(f'vnv:edge:{mode}:{hostname}'))
     
     
-def run_main(model_names=['resnet152'], devices=['mps'], N=0):
+def run_main(model_names=['resnet152'], devices=['mps'], N=0, mode='baseline'):
     #---------------------------------------------------
     st_total = time.time()
     #---------------------------------------------------
@@ -308,7 +308,7 @@ def run_main(model_names=['resnet152'], devices=['mps'], N=0):
     od = OrderedDict()
     T = et_total - st_total
     od[title] = T
-    update_edge_result(od)
+    update_edge_result(od, mode)
 
         
 import sys

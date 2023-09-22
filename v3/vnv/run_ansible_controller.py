@@ -120,7 +120,7 @@ def main(mode = 'baseline'):
         # 에지 디바이스에서 추론을 수행합니다. 
         #----------------------------------
         st_inference = time.time() #---------------------
-        cmd = f'ansible vnv -i ./config/hosts.ini -m shell -a "cd {wdir}; pwd; {py} inference4vnv.py --model {selected_model} --device {device} --N {N};"  {ask_pass_option} ' 
+        cmd = f'ansible vnv -i ./config/hosts.ini -m shell -a "cd {wdir}; pwd; {py} inference4vnv.py --model {selected_model} --device {device} --N {N} --mode {mode};"  {ask_pass_option} ' 
         
         print(cmd)
         run(cmd, True)
