@@ -67,7 +67,16 @@ def main(mode = 'baseline'):
     print(cmd)
     run(cmd, True)
         
-
+    
+    #----------------------------------
+    # 데이터셋 다운로드
+    #----------------------------------
+        
+    cmd = f'ansible vnv -i ./config/hosts.ini -m shell -a "cd {wdir}; mkdir dataset; {py} download_imagenet_dataset.py" -e "ansible_shell_executable=/bin/bash" {ask_pass_option} ' 
+    print(cmd)
+    run(cmd, True)
+    
+    
     #----------------------------------
     # 프로세스를 시작합니다.
     #----------------------------------
@@ -85,7 +94,7 @@ def main(mode = 'baseline'):
     st_getstatus = time.time() #---------------------
 
     #selected_model = 'resnet152' # default
-    device = 'cuda'
+    device = 'cpu'
     N = 0
     model_selector = ModelSelection()
 

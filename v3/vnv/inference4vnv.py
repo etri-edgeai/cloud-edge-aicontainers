@@ -284,6 +284,11 @@ def run_main(model_names=['resnet152'], devices=['mps'], N=0, mode='baseline'):
                     top1_cnt += 1
 
                 imgidx += 1
+                
+                
+                # 임시
+                if imgidx > 10:
+                    break
 
             end = time.time() # end timer
 
