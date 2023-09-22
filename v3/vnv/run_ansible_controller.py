@@ -13,6 +13,7 @@
 import os
 import yaml
 import time
+import socket
 from model_selector import ModelSelection
 from collections import OrderedDict
 from redis_connector import redis_connector
@@ -46,10 +47,10 @@ def update_average_result():
     rcon.set_data('vnv:avg:advanced:latency', 0)
     
 def update_edge_result(od):
-    rcon.set_ordered_dict('vnv:aaa', od)
-    print('output = ', rcon.get_ordered_dict('vnv:aaa'))
-    
-    
+    hostname = socket.gethostname()
+    rcon.set_ordered_dict('vnv:hostname', od)
+    print('output = ', rcon.get_ordered_dict('vnv:hostname'))
+
     
 def main(mode = 'baseline'):
     #----------------------------------
