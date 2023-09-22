@@ -66,11 +66,6 @@ def run_main(model_names=['resnet152'], devices=['mps'], N=0, mode='baseline'):
     st_total = time.time()
     #---------------------------------------------------
 
-    print('-' * 60)
-    print ('hohoho')
-    print('-' * 60)
-    return 
-
     # Test images
     zip_images_url = 'http://keticmr.iptime.org:22080/edgeai/images/imagenet-mini-val.zip'
     zip_images = 'imagenet-mini-val.zip'

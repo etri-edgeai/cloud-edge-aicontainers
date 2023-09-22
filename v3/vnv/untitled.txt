@@ -1,0 +1,7 @@
+ansible vnv -i ./config/hosts.ini -m shell -a "cd  /home/jpark/www/cloud-edge-aicontainers/v3/vnv/;"
+
+
+ansible vnv -i ./config/hosts.ini -m shell -a "cd  /home/jpark/www/cloud-edge-aicontainers/v3/vnv/; source venv/bin/activate; pip install -r requirements.txt;" -e "ansible_shell_executable=/bin/bash"
+
+
+"

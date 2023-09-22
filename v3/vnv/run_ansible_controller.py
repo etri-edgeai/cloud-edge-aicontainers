@@ -17,9 +17,12 @@ import socket
 from model_selector import ModelSelection
 from collections import OrderedDict
 from redis_connector import redis_connector
+
 rcon = redis_connector()
-
-
+wdir = ' /home/jpark/www/cloud-edge-aicontainers/v3/vnv/'
+py = ' /home/jpark/www/cloud-edge-aicontainers/v3/vnv/venv/bin/python'
+ask_pass_option = '' #  '--ask-become-pass'
+    
 #------------------------------------------------------
 # run
 #------------------------------------------------------
@@ -52,6 +55,19 @@ def update_server_result(od):
     print('output = ', rcon.get_ordered_dict(f'vnv:server:{hostname}'))
 
 def main(mode = 'baseline'):
+    
+    #----------------------------------
+    # 코드 업데이트
+    #----------------------------------
+    cmd = f'ansible vnv -i ./config/hosts.ini -m shell -a "cd {wdir}; git pull;"  {ask_pass_option} ' 
+    print(cmd)
+    run(cmd, True)
+        
+    cmd = f'ansible vnv -i ./config/hosts.ini -m shell -a "cd {wdir}; python3 -m venv venv; source venv/bin/activate; pip install -r requirements.txt;" -e "ansible_shell_executable=/bin/bash" {ask_pass_option} ' 
+    print(cmd)
+    run(cmd, True)
+        
+
     #----------------------------------
     # 프로세스를 시작합니다.
     #----------------------------------
@@ -67,13 +83,10 @@ def main(mode = 'baseline'):
     # 에지 디바이스의 상태정보를 얻습니다.
     #----------------------------------
     st_getstatus = time.time() #---------------------
-    wdir = ' /home/jpark/www/cloud-edge-aicontainers/v3/vnv/'
-    py = ' /home/jpark/www/cloud-edge-aicontainers/v3/vnv/venv/bin/python'
-    
+
     #selected_model = 'resnet152' # default
     device = 'cuda'
     N = 0
-    ask_pass_option = '' #  '--ask-become-pass'
     model_selector = ModelSelection()
 
     #cmd_sub = ' /usr/bin/python3 -c "import torch; print(torch.cuda.is_available())" '
@@ -116,22 +129,6 @@ def main(mode = 'baseline'):
         print(f'mode = {mode}, selected_model = {selected_model}')
         et_modelselection = time.time() #---------------------
 
-        #----------------------------------
-        # 코드 업데이트
-        #----------------------------------
-        cmd = f'ansible vnv -i ./config/hosts.ini -m shell -a "cd {wdir}; git pull;"  {ask_pass_option} ' 
-        print(cmd)
-        run(cmd, True)
-        
-        cmd = f'ansible vnv -i ./config/hosts.ini -m shell -a "cd {wdir}; python3 -m venv venv;"  {ask_pass_option} ' 
-        print(cmd)
-        run(cmd, True)
-        
-        cmd = f'ansible vnv -i ./config/hosts.ini -m shell -a "cd {wdir}; pip install -r requirements.txt;"  {ask_pass_option} ' 
-        print(cmd)
-        run(cmd, True) 
-        
-        
         #----------------------------------
         # 에지 디바이스에서 추론을 수행합니다. 
         #----------------------------------
