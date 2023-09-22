@@ -21,6 +21,7 @@ import torch
 import argparse
 import time
 
+import socket
 from collections import OrderedDict
 from redis_connector import redis_connector
 rcon = redis_connector()
