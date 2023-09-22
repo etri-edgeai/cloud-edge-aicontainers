@@ -174,11 +174,11 @@ def run_main(model_names=['resnet152'], devices=['mps'], N=0, mode='baseline'):
 
             # 모델 템플릿 다운로드 (from torch.hub)
             if model_name in model_names_resnet:
-                model = torch.hub.load(repo_resnet, model_name, pretrained=False)
+                model = torch.hub.load(repo_resnet, model_name) #, pretrained=False)
             elif model_name in model_names_mobnet:
-                model = torch.hub.load(repo_mobnet, model_name, pretrained=False)
+                model = torch.hub.load(repo_mobnet, model_name) #, pretrained=False)
             elif model_name in model_names_effnet:
-                model = torch.hub.load(repo_effnet, model_name, pretrained=False) #pretrained
+                model = torch.hub.load(repo_effnet, model_name) #, pretrained=False)
             else:
                 pass
 
