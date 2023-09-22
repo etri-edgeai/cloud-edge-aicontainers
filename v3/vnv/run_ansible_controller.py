@@ -123,6 +123,15 @@ def main(mode = 'baseline'):
         print(cmd)
         run(cmd, True)
         
+        cmd = f'ansible vnv -i ./config/hosts.ini -m shell -a "cd {wdir}; python3 -m venv venv;"  {ask_pass_option} ' 
+        print(cmd)
+        run(cmd, True)
+        
+        cmd = f'ansible vnv -i ./config/hosts.ini -m shell -a "cd {wdir}; pip install -r requirements.txt;"  {ask_pass_option} ' 
+        print(cmd)
+        run(cmd, True) 
+        
+        
         #----------------------------------
         # 에지 디바이스에서 추론을 수행합니다. 
         #----------------------------------
@@ -132,6 +141,8 @@ def main(mode = 'baseline'):
         print(cmd)
         run(cmd, True)
         et_inference = time.time() #---------------------
+        
+        
         
         #---------------------------------------------------
         et_total = time.time()

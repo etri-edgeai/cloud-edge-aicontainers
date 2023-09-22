@@ -66,9 +66,10 @@ def run_main(model_names=['resnet152'], devices=['mps'], N=0, mode='baseline'):
     st_total = time.time()
     #---------------------------------------------------
 
+    print('-' * 60)
     print ('hohoho')
+    print('-' * 60)
     return 
-
 
     # Test images
     zip_images_url = 'http://keticmr.iptime.org:22080/edgeai/images/imagenet-mini-val.zip'
@@ -77,6 +78,9 @@ def run_main(model_names=['resnet152'], devices=['mps'], N=0, mode='baseline'):
     fpath_zip_images = dataset_root + '/' + zip_images
     fpath_testimages = dataset_root + '/imagenet-mini-val/'
 
+    
+    
+    
     # Models
     urlroot = 'http://keticmr.iptime.org:22080/edgeai/models_jpark/'
     modeldir = './checkpoint/'
