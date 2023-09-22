@@ -314,7 +314,7 @@ def run_main(model_names=['resnet152'], devices=['mps'], N=0, mode='baseline'):
     
     od = OrderedDict()
     T = et_total - st_total
-    od[title] = T
+    od['total_inference_time'] = T
     update_edge_result(od, mode)
 
         
