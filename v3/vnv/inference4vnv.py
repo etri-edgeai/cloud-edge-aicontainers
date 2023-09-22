@@ -147,6 +147,8 @@ def run_main(model_names=['resnet152'], devices=['mps'], N=0):
         print('[d] device = ', device, flush=True)
         print('-'*50)
         print('')
+        
+        return
 
         # 모델별 반복
         for model_idx, model_name in enumerate(model_names):
