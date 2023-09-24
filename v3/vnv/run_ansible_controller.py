@@ -105,6 +105,18 @@ def main(mode = 'baseline'):
     print( get_device_info() )
 
     #----------------------------------
+    # 추론을 위한 테스트 영상을 준비합니다.
+    #----------------------------------
+
+    fpath_testimages = ''
+    if mode == 'baseline' or mode == 'advanced':
+        fpath_testimages = dataset_root + '/imagenet-val/'
+    else:
+        fpath_testimages = dataset_root + '/imagenet-mini-val/'
+    print(f'fpath_testimages = {fpath_testimages}')
+
+    
+    #----------------------------------
     # 에지 디바이스의 추론 성능 정보를 얻고 종료합니다.
     #----------------------------------
 
@@ -130,17 +142,6 @@ def main(mode = 'baseline'):
     et_modelselection = time.time() #---------------------
 
         
-    #----------------------------------
-    # 추론을 위한 테스트 영상을 준비합니다.
-    #----------------------------------
-
-    if mode == 'baseline' or mode == 'advanced':
-        fpath_testimages = dataset_root + '/imagenet-val/'
-    else:
-        fpath_testimages = dataset_root + '/imagenet-mini-val/'
-    print(f'fpath_testimages = {fpath_testimages}')
-
-    
     
     st_modelselection = time.time() #---------------------
 
