@@ -27,7 +27,7 @@ from redis_connector import redis_connector
 rcon = redis_connector()
 
 from model_selector import ModelSelection
-from device_info import get_model4infer
+from device_info import get_model4infer, get_device_info
 
 def arg_parser():
     parser = argparse.ArgumentParser(description='KETI V&V 2023')
@@ -56,20 +56,23 @@ def set_edge_frame_result(ods, mode):
     hostname = socket.gethostname()
     
     print(f'ods = {ods}')
-    
-    for idx, od in enumerate(ods):
-        rcon.hmset(f'vnv:edge:{mode}:{hostname}:frame:{idx:04d}', od)
-        #print('output = ', rcon.hgetall(f'vnv:edge:{mode}:{hostname}:frame:{idx:04d}'))
+    if mode == 'getinfo':
+        pass
+    else:
+        for idx, od in enumerate(ods):
+            rcon.hmset(f'vnv:edge:{mode}:{hostname}:frame:{idx:04d}', od)
+            #print('output = ', rcon.hgetall(f'vnv:edge:{mode}:{hostname}:frame:{idx:04d}'))
     
 def set_edge_total_result(od, mode):
     hostname = socket.gethostname()
     
-    #rcon.set_ordered_dict(f'vnv:edge:{mode}:od:{hostname}', od)
-    #print('output = ', rcon.get_ordered_dict(f'vnv:edge:{mode}:od:{hostname}'))
+    if mode == 'getinfo':
+        rcon.hmset(f'vnv:edge:info:{hostname}:', od)
+        print('output = ', rcon.hgetall(f'vnv:edge:info:{hostname}'))
+    else:
+        rcon.hmset(f'vnv:edge:{mode}:{hostname}:stat', od)
+        print('output = ', rcon.hgetall(f'vnv:edge:{mode}:{hostname}:stat'))
 
-    rcon.hmset(f'vnv:edge:{mode}:{hostname}:stat', od)
-    print('output = ', rcon.hgetall(f'vnv:edge:{mode}:{hostname}:stat'))
-    
 
 def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimages=''):
     
