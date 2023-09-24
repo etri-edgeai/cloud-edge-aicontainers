@@ -2,7 +2,9 @@ import os
 import yaml
 import re
 
-from device_info import set_model4infer
+#from device_info import set_model4infer
+from device_info import get_model4infer
+
 
 class ModelSelection():
     def __init__(self):
