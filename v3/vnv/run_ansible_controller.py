@@ -79,7 +79,7 @@ def main(mode = 'baseline'):
     #----------------------------------
     # 데이터셋 다운로드
     #----------------------------------
-        
+    dataset_root = './dataset'
     #cmd = f'ansible vnv -i ./config/hosts.ini -m shell -a "cd {wdir}; mkdir dataset; {py} download_imagenet_mini_dataset.py" -e "ansible_shell_executable=/bin/bash" {ask_pass_option} ' 
     #print(cmd)
     #run(cmd, True)
@@ -90,14 +90,14 @@ def main(mode = 'baseline'):
     #----------------------------------
     st_total = time.time() #---------------------
 
-    if mode == 'getinfo' or mode == 'baseline' or mode == 'advanced':
+    if mode == 'baseline' or mode == 'advanced':
         print(f'[+] Start {mode} Mode')
     else:
         print(f'[-] error, there is no [{mode}] mode.')
         return
 
     #----------------------------------
-    # 에지 디바이스의 상태정보를 얻습니다.
+    # 에지 디바이스의 기본 상태정보를 얻습니다.
     #----------------------------------
     st_getstatus = time.time() #---------------------
 
@@ -106,43 +106,40 @@ def main(mode = 'baseline'):
 
     et_getstatus = time.time() #---------------------
 
-    
-    return
-
-
-    model_selector = ModelSelection()
-
     #----------------------------------
-    # 추론을 위한 테스트 영상을 준비합니다.
+    # 에지 디바이스의 추론 성능 정보를 얻습니다.
     #----------------------------------
-    
-    dataset_root = './dataset'
-    if mode == 'baseline' or mode == 'advanced':
-        fpath_testimages = dataset_root + '/imagenet-val/'
-    else : # mode == 'getinfo'
-        fpath_testimages = dataset_root + '/imagenet-mini-val/'
-    print(f'fpath_testimages = {fpath_testimages}')
-        
+    fpath_testimages = dataset_root + '/imagenet-mini-val/'
+    mode_getinfo = 'getinfo'
+    cmd = f'ansible vnv -i ./config/hosts.ini -m shell -a "cd {wdir}; pwd; {py} inference4vnv.py --mode {mode_getinfo} --fpath_testimages {fpath_testimages};"  {ask_pass_option} '
 
     #----------------------------------
     # 추론을 위한 AI 모델을 선택합니다.
     #----------------------------------
+        
+    selected_models = []
+    if mode == 'baseline':
+        model_selector.greedModelSelection()
+    elif mode == 'advanced':
+        model_selector.advancedModelSelection()
+
+    et_modelselection = time.time() #---------------------
+
+        
+    #----------------------------------
+    # 추론을 위한 테스트 영상을 준비합니다.
+    #----------------------------------
+
+    if mode == 'baseline' or mode == 'advanced':
+        fpath_testimages = dataset_root + '/imagenet-val/'
+        #fpath_testimages = dataset_root + '/imagenet-mini-val/'
+    print(f'fpath_testimages = {fpath_testimages}')
+
     
     st_modelselection = time.time() #---------------------
 
 
     if True:
-        selected_models = []
-        if mode == 'baseline':
-            selected_models = model_selector.greedModelSelection(deviceinfo=None)
-        elif mode == 'advanced':
-            selected_models = model_selector.advancedModelSelection(deviceinfo=None)
-        elif mode == 'getinfo':
-            selected_models = model_selector.getinfoModelSelection(deviceinfo=None)
-
-        print(f'mode = {mode}, selected_models = {selected_models}')
-        et_modelselection = time.time() #---------------------
-
         #----------------------------------
         # 에지 디바이스에서 추론을 수행합니다. 
         #----------------------------------
@@ -150,7 +147,7 @@ def main(mode = 'baseline'):
         st_inference = time.time() #---------------------
         
         for model in selected_models:
-            cmd = f'ansible vnv -i ./config/hosts.ini -m shell -a "cd {wdir}; pwd; {py} inference4vnv.py --model {model} --mode {mode} --fpath_testimages {fpath_testimages};"  {ask_pass_option} ' 
+            cmd = f'ansible vnv -i ./config/hosts.ini -m shell -a "cd {wdir}; pwd; {py} inference4vnv.py --mode {mode} --fpath_testimages {fpath_testimages};"  {ask_pass_option} ' 
             print("\n", cmd, "\n")
             run(cmd, True)
             

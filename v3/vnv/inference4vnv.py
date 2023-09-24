@@ -26,6 +26,8 @@ from collections import OrderedDict
 from redis_connector import redis_connector
 rcon = redis_connector()
 
+from device_info import get_model4infer
+
 def arg_parser():
     parser = argparse.ArgumentParser(description='KETI V&V 2023')
     parser.add_argument('--model', 
@@ -68,10 +70,7 @@ def set_edge_total_result(od, mode):
     print('output = ', rcon.hgetall(f'vnv:edge:{mode}:{hostname}:stat'))
     
 
-
-                    
-    
-def run_main(model_names=['resnet152'], mode='baseline', fpath_testimages=''):
+def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimages=''):
     
     #---------------------------------------------------
     st_total = time.time()
@@ -143,7 +142,9 @@ def run_main(model_names=['resnet152'], mode='baseline', fpath_testimages=''):
     preproc = ['method1', 'method2']
     preproc_method = 'method1'
 
-    device_info = get_device_info(mode)
+    device_info = get_model4infer()
+    if device_info is None:
+        pass
     
     print('-'*45)
     print(device_info)
