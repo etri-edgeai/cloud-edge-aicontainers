@@ -46,6 +46,11 @@ def arg_parser():
                         default='baseline', 
                         metavar='N', 
                         help='{baseline, advanced}')
+    parser.add_argument('--fpath_testimages', 
+                        type=str, 
+                        default='', 
+                        metavar='N', 
+                        help='fpath_testimages')
     
     return parser
     
@@ -64,19 +69,12 @@ def update_edge_result(od, mode):
     print('output = ', rcon.hgetall(f'vnv:edge:{mode}:hm:{hostname}'))
     
     
-def run_main(model_names=['resnet152'], devices=['mps'], N=0, mode='baseline'):
+def run_main(model_names=['resnet152'], devices=['mps'], N=0, mode='baseline', fpath_testimages=''):
+    
     
     #---------------------------------------------------
     st_total = time.time()
     #---------------------------------------------------
-
-    # Test images
-    zip_images_url = 'http://keticmr.iptime.org:22080/edgeai/images/imagenet-mini-val.zip'
-    zip_images = 'imagenet-mini-val.zip'
-    dataset_root = './dataset'
-    fpath_zip_images = dataset_root + '/' + zip_images
-    fpath_testimages = dataset_root + '/imagenet-mini-val/'
-
 
     # Models
     urlroot = 'http://keticmr.iptime.org:22080/edgeai/models_jpark/'
@@ -117,14 +115,7 @@ def run_main(model_names=['resnet152'], devices=['mps'], N=0, mode='baseline'):
     for pth_name in pth_names:
         model_fpaths.append(modeldir + pth_name)
 
-    ## load test images
-    '''
-    # read test files
-    testfiles = []
-    for fname in sorted( iglob(fpath_testimages + '**/*.JPEG', recursive=True) ):
-        testfiles.append(fname)
-    '''
-
+    # Load images
     idx_gt = []
     idx = 0
     testfiles = []
@@ -134,11 +125,9 @@ def run_main(model_names=['resnet152'], devices=['mps'], N=0, mode='baseline'):
             idx_gt.append( idx )
         idx += 1
 
-
     # Read the categories
     with open("imagenet_classes.txt", "r") as f:
         categories = [s.strip() for s in f.readlines()]
-        
         
         
     '''
@@ -294,6 +283,7 @@ def run_main(model_names=['resnet152'], devices=['mps'], N=0, mode='baseline'):
 
             end = time.time() # end timer
 
+            
             print('-' * 70)
             print('GT')
             print('-' * 70)
@@ -350,7 +340,7 @@ if __name__ == "__main__":
     N = int( int(args.N) )
     
     # core
-    run_main(model_names=model_names, devices=devices, N = N, mode = mode )
+    run_main(model_names=model_names, devices=devices, N = N, mode = mode, fpath_testimages=fpath_testimages )
 
 #------------------------------------------------------
 # End of this file

@@ -4,7 +4,7 @@
 
 # Test images
 zip_images_url = 'http://keticmr.iptime.org:22080/edgeai/images/ILSVRC2012_img_val.tar'
-zip_images = 'imagenet-val.zip'
+zip_images = 'imagenet-val.tar'
 dataset_root = './dataset'
 fpath_zip_images = dataset_root + '/' + zip_images
 fpath_testimages = dataset_root + '/imagenet-val/'
@@ -42,7 +42,7 @@ if isdir:
             urllib.urlretrieve(url, fname)
         print('[+] download completed.')
         # Unzip
-        cmd = 'unzip ' + fpath_zip_images + ' -d ' + dataset_root
+        cmd = 'tar -zxvf ' + fpath_zip_images + ' -d ' + dataset_root
         print(cmd)
         os.system(cmd)
     else:
