@@ -107,8 +107,6 @@ def main(mode = 'baseline'):
     #----------------------------------
     # 추론을 위한 테스트 영상을 준비합니다.
     #----------------------------------
-
-    fpath_testimages = ''
     if mode == 'baseline' or mode == 'advanced':
         fpath_testimages = dataset_root + '/imagenet-val/'
     else:
