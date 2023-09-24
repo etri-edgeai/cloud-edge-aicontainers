@@ -188,7 +188,6 @@ def main(mode = 'baseline'):
         print( f'[d] py = {py}' )
         print( f'[d] selected_models = {selected_models}' )
 
-        od = OrderedDict()
         T = et_total - st_total
         
         title1 = 'Get status time'
