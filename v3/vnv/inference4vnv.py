@@ -160,7 +160,7 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
     #    
     #n = len(testset)
     
-    if device_info['num_of_cuda_devices'] > 0:
+    if int(device_info['num_of_cuda_devices']) > 0:
         device = 'cuda'
     else: 
         device = 'cpu'
