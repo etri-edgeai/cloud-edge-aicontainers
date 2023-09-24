@@ -70,9 +70,14 @@ def get_cluster_frame_result(total_frames):
         if od['is_true'] == 'True':
             i_true_cnt += 1
             
+    true_ratio = i_true_cnt/total_frames
     print(f'i_true_cnt = {i_true_cnt}')
-    print(f'true_ratio = {i_true_cnt/total_frames}')
-            
+    print(f'true_ratio = {true_ratio}')
+    rcon.hmset('vnv:edge:advanced:stat', 
+               {'i_true_cnt':i_true_cnt,
+                'true_ratio':true_ratio
+               }
+              )
             
 def set_cluster_frame_result(ods, model_name, mode, start_frame):
     hostname = socket.gethostname()
