@@ -387,9 +387,9 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
             
             print('n = ', n)
             print('top1_cnt = ', top1_cnt)
-            print('top1_acc = ', top1_cnt/idx)
+            print('top1_acc = ', top1_cnt/num_of_test_images)
             print('top5_cnt = ', top5_cnt)
-            print('top5_acc = ', top5_cnt/idx)
+            print('top5_acc = ', top5_cnt/num_of_test_images)
             print('time_duration = ', time_duration)
             od_stat_result = OrderedDict({
                            'n':n,
