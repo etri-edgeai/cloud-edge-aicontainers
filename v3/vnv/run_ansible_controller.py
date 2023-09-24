@@ -117,11 +117,11 @@ def main(mode = 'baseline'):
     # 추론을 위한 AI 모델을 선택합니다.
     #----------------------------------
         
-    selected_models = []
-    if mode == 'baseline':
-        model_selector.greedModelSelection()
-    elif mode == 'advanced':
-        model_selector.advancedModelSelection()
+    #selected_models = []
+    #if mode == 'baseline':
+    #    model_selector.greedModelSelection()
+    #elif mode == 'advanced':
+    #    model_selector.advancedModelSelection()
 
     et_modelselection = time.time() #---------------------
 
