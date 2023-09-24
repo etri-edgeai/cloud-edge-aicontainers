@@ -294,13 +294,6 @@ def run_main(model_names=['resnet152'], devices=['mps'], N=0, mode='baseline', f
             print('-' * 70)
             for idx, cid in enumerate(idx_gt):
                 print(f'{idx:04d} = {cid}')
-
-            print('-' * 70)
-            print('Top1 category IDs')
-            print('-' * 70)
-            for idx, cid in enumerate(top1_catids):
-                print(f'{idx:04d} = {int(cid)}')
-
             
             print('-' * 70)
             print('Precision')
