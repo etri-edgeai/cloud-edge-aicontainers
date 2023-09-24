@@ -159,9 +159,8 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
     #    nn = min( len(testfiles), N )
     #    testset = testfiles[:nn]
     #else:
-    #    testset = testfiles[:]
-    #    
-    #n = len(testset)
+    testset = testfiles[:]
+    n = len(testset)
     
     if int(device_info[b'num_of_cuda_devices']) > 0:
         device = 'cuda'
