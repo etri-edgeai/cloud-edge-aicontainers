@@ -26,7 +26,6 @@ from collections import OrderedDict
 from redis_connector import redis_connector
 rcon = redis_connector()
 
-from model_selector import ModelSelection
 from device_info import get_model4infer, get_device_info
 
 def arg_parser():
@@ -108,12 +107,6 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
                       ]
     else:
         model_names = [ str(device_info[b'model_name']) ]
-
-
-    
-    #---------------------------------------------------
-    st_total = time.time()
-    #---------------------------------------------------
 
     # Models
     urlroot = 'http://keticmr.iptime.org:22080/edgeai/models_jpark/'
@@ -367,14 +360,6 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
             set_edge_frame_result(top1_catids, model_name, mode)
 
             print('OK')
-
-    #---------------------------------------------------
-    et_total = time.time()
-    #---------------------------------------------------
-    
-    T = et_total - st_total
-    od = OrderedDict({'total_inference_time':T})
-    set_edge_stat_result(od, model_name, mode)
 
 
         

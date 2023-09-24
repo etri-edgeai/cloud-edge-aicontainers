@@ -22,6 +22,7 @@ wdir = ' /home/jpark/www/cloud-edge-aicontainers/v3/vnv/'
 py = ' /home/jpark/www/cloud-edge-aicontainers/v3/vnv/venv/bin/python'
 ask_pass_option = '' #  '--ask-become-pass'
 
+from model_selector import ModelSelection
 
 from device_info import get_device_info, get_model4infer
 
