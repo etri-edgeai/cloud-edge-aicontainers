@@ -13,7 +13,17 @@ class job_allocator():
         pass
     
     def set_job(self):
-        #get_device_ministat()
+        hostnames = ['n01', 
+                     'n02', 
+                     'rpi6431', 
+                     'rpi6432',
+                     'rpi6433', 
+                     'rpi6434',
+                     'rpi6435', 
+                     'txp',
+                    ]
+                     
+        get_device_ministat(hostnames)
         #get_cluster_list()
 
         hostname = socket.gethostname()
