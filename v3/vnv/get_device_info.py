@@ -22,7 +22,7 @@ if __name__ == "__main__":
         'platform':platform.system(),
         'arch':platform.machine(),
         'cpu':platform.processor(),
-        'ram':str(round(psutil.virtual_memory().total / (1024.0 **3))),
+        'ram_gb':str(round(psutil.virtual_memory().total / (1024.0 **3))),
         'ip_address':socket.gethostbyname(socket.gethostname()),
     })
     set_device_info(od)
