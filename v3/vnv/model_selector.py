@@ -40,12 +40,12 @@ class ModelSelection():
     def showAllModels(self):
         print( self.urlmodels )
 
-    def greedModelSelection(self, deviceinfo):
+    def greedModelSelection(self):
         #return ['resnet152']
         set_model4infer('mobilenet_v3_large')
         return ['mobilenet_v3_large']
     
-    def advancedModelSelection(self, deviceinfo):
+    def advancedModelSelection(self):
         #return 'resnet18'
         set_model4infer('mobilenet_v3_large')
         return ['mobilenet_v3_small']
