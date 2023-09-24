@@ -64,11 +64,11 @@ def main(mode = 'baseline'):
     #----------------------------------
     # 코드 업데이트
     #----------------------------------
-    cmd = f'ansible vnv -i ./config/hosts.ini -m shell -a "cd {wdir}; git pull;"  {ask_pass_option} ' 
+    cmd = f'ansible vnv_getinfo -i ./config/hosts.ini -m shell -a "cd {wdir}; git pull;"  {ask_pass_option} ' 
     print(cmd)
     run(cmd, True)
         
-    cmd = f'ansible vnv -i ./config/hosts.ini -m shell -a "cd {wdir}; python3 -m venv venv; source venv/bin/activate; pip install -r requirements.txt;" -e "ansible_shell_executable=/bin/bash" {ask_pass_option} ' 
+    cmd = f'ansible vnv_getinfo -i ./config/hosts.ini -m shell -a "cd {wdir}; python3 -m venv venv; source venv/bin/activate; pip install -r requirements.txt;" -e "ansible_shell_executable=/bin/bash" {ask_pass_option} ' 
     print(cmd)
     run(cmd, True)
         
@@ -119,7 +119,7 @@ def main(mode = 'baseline'):
     #----------------------------------
 
     if mode == 'getinfo':
-        cmd = f'ansible vnv -i ./config/hosts.ini -m shell -a "cd {wdir}; pwd; {py} inference4vnv.py --mode {mode} --fpath_testimages {fpath_testimages};"  {ask_pass_option} ' 
+        cmd = f'ansible vnv_getinfo -i ./config/hosts.ini -m shell -a "cd {wdir}; pwd; {py} inference4vnv.py --mode {mode} --fpath_testimages {fpath_testimages};"  {ask_pass_option} ' 
         print("\n", cmd, "\n")
         run(cmd, True)
         return
