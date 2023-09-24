@@ -375,7 +375,7 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
                 
             end = time.time() # end timer
             time_duration = end - start
-            num_of_test_images = imgidx + 1
+            num_of_test_images = imgidx
             
             print('-' * 70)
             print('GT')
