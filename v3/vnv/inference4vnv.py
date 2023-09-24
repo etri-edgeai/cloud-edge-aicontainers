@@ -408,11 +408,11 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
             time_duration = end - start
             num_of_test_images = imgidx
             
-            print('-' * 70)
-            print('GT')
-            print('-' * 70)
-            for fidx, cid in enumerate(idx_gt):
-                print(f'{fidx:04d} = {cid}')
+            #print('-' * 70)
+            #print('GT')
+            #print('-' * 70)
+            #for fidx, cid in enumerate(idx_gt):
+            #    print(f'{fidx:04d} = {cid}')
             
             print('-' * 70)
             print('Precision')
