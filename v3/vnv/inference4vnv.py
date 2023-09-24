@@ -28,6 +28,7 @@ rcon = redis_connector()
 
 from model_selector import ModelSelection
 from device_info import get_model4infer, get_device_info
+from job_allocator import job_allocator
 
 def arg_parser():
     parser = argparse.ArgumentParser(description='KETI V&V 2023')
@@ -298,8 +299,10 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
                 ])
 
             # 
-            imgidx_start = 0
-            imgidx_end = len(testfiles)
+            ja = job_allocator()
+            imgidx_start, imgidx_end = ja.get_job()
+            # imgidx_start = ja.start
+            # imgidx_end = len(testfiles)
             n = len(testfiles)
 
             icnt = 0
