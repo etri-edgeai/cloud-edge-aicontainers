@@ -354,7 +354,6 @@ if __name__ == "__main__":
     # set argument
     model_names=[]
     model_names.append( args.model )
-    N = int( int(args.N) )
     mode = args.mode
     fpath_testimages = args.fpath_testimages
     
