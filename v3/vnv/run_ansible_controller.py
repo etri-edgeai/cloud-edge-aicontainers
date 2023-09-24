@@ -16,13 +16,14 @@ import time
 import socket
 from collections import OrderedDict
 from redis_connector import redis_connector
+from job_allocator import job_allocator
 
 rcon = redis_connector()
 wdir = ' /home/jpark/www/cloud-edge-aicontainers/v3/vnv/'
 py = ' /home/jpark/www/cloud-edge-aicontainers/v3/vnv/venv/bin/python'
 ask_pass_option = '' #  '--ask-become-pass'
 
-from device_info import get_device_info, get_model4infer
+from device_info import get_device_info, get_model4infer, get_device_ministat
 
 
 #------------------------------------------------------
@@ -101,7 +102,6 @@ def main(mode = 'baseline'):
     cmd = f'ansible vnv_getinfo -m shell -a "cd {wdir}; {py} device_info.py " -i ./config/hosts.ini '
     run(cmd, True)
     
-    print( get_device_info() )
 
     #----------------------------------
     # 추론을 위한 테스트 영상을 준비합니다.
@@ -124,11 +124,16 @@ def main(mode = 'baseline'):
         run(cmd, True)
         return
 
-
     et_getstatus = time.time() #---------------------
 
-    
-    
+
+    #----------------------------------
+    # 병행추론에 참여할 에지 디바이스별로 추론할 데이터 작업을 분배합니다.
+    #----------------------------------
+
+    print( get_device_info() )
+    print( get_device_ministat() )
+    return
     
     if True:
         #----------------------------------

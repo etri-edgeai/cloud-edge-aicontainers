@@ -52,6 +52,15 @@ def arg_parser():
     print('ok')
     print('-' * 50)
 
+    
+def get_cluster_info():
+    hostname = socket.gethostname()
+    
+    o = rcon.hgetall(f'vnv:edge:{ministat}')
+    print('-'*55)
+    print(f'o = {o}')
+    print('-'*55)
+        
 def set_edge_done_frames(cnt, mode):
     hostname = socket.gethostname()
     
@@ -117,7 +126,11 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
     elif mode == 'advanced':
         model_selector.advancedModelSelection()
 
-    
+    get_cluster_info()
+    return
+
+
+
     
     if int(device_info[b'num_of_cuda_devices']) > 0:
         device = 'cuda'

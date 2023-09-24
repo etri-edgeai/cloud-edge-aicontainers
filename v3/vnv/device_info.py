@@ -6,6 +6,10 @@ from collections import OrderedDict
 from redis_connector import redis_connector
 rcon = redis_connector()
 
+def get_cluster_list():
+    device_info = rcon.hgetall(f'vnv:edge:info')
+    return device_info
+
 def set_device_info(od):
     hostname = socket.gethostname()
     rcon.hmset(f'vnv:edge:info:{hostname}', od)
@@ -14,6 +18,29 @@ def get_device_info():
     hostname = socket.gethostname()
     device_info = rcon.hgetall(f'vnv:edge:info:{hostname}')
     return device_info
+
+def get_device_ministat(hostnames):
+    hostname = socket.gethostname()
+
+    model_names = ['mobilenet_v3_small',
+                       'mobilenet_v3_large',
+                       'resnet18',
+                       'resnet34',
+                       'resnet50',
+                       'resnet101',
+                       'resnet152',
+                       'nvidia_efficientnet_b0',
+                       'nvidia_efficientnet_b4',
+                       'nvidia_efficientnet_widese_b0',
+                       'nvidia_efficientnet_widese_b4',
+                  ]
+                       
+    for hostname in hostnames:
+        for model_name in model_names:
+            od = rcon.hgetall(f'vnv:edge:ministat:{hostname}:{model_name}')
+            print(od)
+        
+        
 
 def set_model4infer(model4infer = 'mobilenet_v3_small'):
     hostname = socket.gethostname()
