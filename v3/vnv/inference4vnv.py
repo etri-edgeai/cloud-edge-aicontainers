@@ -289,10 +289,10 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
             imgidx_end = len(testfiles)
             n = len(testfiles)
 
-            for idx, fpath in enumerate(testfiles[imgidx_start:imgidx_end]):
-                imgidx = imgidx_start + idx
+            for icnt, fpath in enumerate(testfiles[imgidx_start:imgidx_end]):
+                imgidx = imgidx_start + icnt
                 
-                if (idx+1)%100 == 0:
+                if (icnt+1)%100 == 0:
                     set_edge_done_frames(imgidx, mode)
                 
                 # 임시
@@ -373,13 +373,13 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
 
             end = time.time() # end timer
             time_duration = end - start
-            num_of_test_images = idx + 1
+            num_of_test_images = imgidx + 1
             
             print('-' * 70)
             print('GT')
             print('-' * 70)
-            for idx, cid in enumerate(idx_gt):
-                print(f'{idx:04d} = {cid}')
+            for fidx, cid in enumerate(idx_gt):
+                print(f'{fidx:04d} = {cid}')
             
             print('-' * 70)
             print('Precision')
@@ -387,9 +387,9 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
             
             print('n = ', n)
             print('top1_cnt = ', top1_cnt)
-            print('top1_acc = ', top1_cnt/imgidx)
+            print('top1_acc = ', top1_cnt/idx)
             print('top5_cnt = ', top5_cnt)
-            print('top5_acc = ', top5_cnt/imgidx)
+            print('top5_acc = ', top5_cnt/idx)
             print('time_duration = ', time_duration)
             od_stat_result = OrderedDict({
                            'n':n,
