@@ -21,7 +21,18 @@ class redis_connector:
             host = RedisHost, 
             port = RedisPort, 
             db = 0 )
-
+        
+    #----------------------------------------------------
+    # multiple dictionary
+    #----------------------------------------------------
+    def hmset(self, key, data):
+        print(f'[d] key = {key}')
+        self.redis_client.hmset(key, data)
+        
+    def hgetall(self, key):
+        print(f'[d] key = {key}')
+        return self.redis_client.hgetall(key)
+    
     #----------------------------------------------------
     # 문자, 숫자와 같은 단순한 {key, value} 데이터를 쓰고(set), 읽습니다(get).
     #----------------------------------------------------
