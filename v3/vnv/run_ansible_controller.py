@@ -136,13 +136,13 @@ def main(mode = 'baseline'):
     # 추론을 위한 테스트 영상을 준비합니다.
     #----------------------------------
     
-    # Test images
-    #zip_images_url = 'http://keticmr.iptime.org:22080/edgeai/images/imagenet-mini-val.zip'
-    #zip_images = 'imagenet-mini-val.zip'
     dataset_root = './dataset'
-    #fpath_zip_images = dataset_root + '/' + zip_images
-    fpath_testimages = dataset_root + '/imagenet-mini-val/'
+    if mode == 'baseline' or mode == 'advanced':
+        fpath_testimages = dataset_root + '/imagenet-val/'
+    else : # mode == 'getinfo'
+        fpath_testimages = dataset_root + '/imagenet-mini-val/'
     print(f'fpath_testimages = {fpath_testimages}')
+        
 
     #----------------------------------
     # 추론을 위한 AI 모델을 선택합니다.
