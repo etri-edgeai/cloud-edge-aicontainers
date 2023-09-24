@@ -109,8 +109,8 @@ def main(mode = 'baseline'):
     if mode == 'baseline' or mode == 'advanced':
         fpath_testimages = dataset_root + '/imagenet-val/'
     else:
-        #fpath_testimages = dataset_root + '/imagenet-mini-val/'
-        fpath_testimages = dataset_root + '/imagenet-val/'
+        fpath_testimages = dataset_root + '/imagenet-mini-val/'
+        #fpath_testimages = dataset_root + '/imagenet-val/'
     print(f'fpath_testimages = {fpath_testimages}')
 
     
