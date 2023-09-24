@@ -201,7 +201,7 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
                 checkpoint = urlmodels[model_idx]
                 model.load_state_dict(torch.hub.load_state_dict_from_url(checkpoint, progress=False))
                 model.eval().to(device) # change model to evauation mode (e.g. disable Dropout, BatchNorm)
-                models.append(model)
+                #models.append(model)
 
 
             # 시험용 입력 영상
