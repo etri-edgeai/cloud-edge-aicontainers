@@ -75,8 +75,7 @@ def set_edge_stat_result(od, model_name, mode):
 
 
 def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimages=''):
-    
-    
+
     #---------------------------------------------------
     st_total = time.time()
     #---------------------------------------------------
@@ -115,6 +114,7 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
     urlmodels = []
     for pth_name in pth_names:
         urlmodels.append(urlroot + pth_name)
+    print(f'urlmodels = {urlmodels}')
 
     model_fpaths = []
     for pth_name in pth_names:
@@ -153,8 +153,7 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
     print(f'device_info = {device_info}')
     print(f'type(device_info) = {type(device_info)}')
     print('-'*45)
-    
-    model = model_names[0]
+ 
     #if N > 0:
     #    nn = min( len(testfiles), N )
     #    testset = testfiles[:nn]
@@ -171,7 +170,7 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
         
         # 모델별 반복
         #for model_idx, model_name in enumerate(model_names):
-        model_idx = 0
+        #model_idx = 0
         model_name = model_names[0]
         if True:
             start = time.time() # strt timer        
