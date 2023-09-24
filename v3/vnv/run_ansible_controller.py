@@ -31,18 +31,21 @@ def get_cluster_frame_result(total_frames):
     for frame_idx in range(total_frames):
         od = rcon.hgetall(f'vnv:edge:advanced:cluster_frame:{frame_idx:04d}')
         
-        print(f'{frame_idx} ... {od}')
-        if od['is_true'] == 'True':
-            i_true_cnt += 1
-            
+        try:
+            #print(f'{frame_idx} ... {od}')
+            if od[b'is_true'] == b'True':
+                i_true_cnt += 1
+        except:
+            pass
+        
     true_ratio = i_true_cnt/total_frames
     print(f'i_true_cnt = {i_true_cnt}')
     print(f'true_ratio = {true_ratio}')
     rcon.hmset('vnv:edge:advanced:stat', 
                {'i_true_cnt':i_true_cnt,
-                'true_ratio':true_ratio
+                'acc':true_ratio
                }
-              )
+    )
     
     
 #------------------------------------------------------
