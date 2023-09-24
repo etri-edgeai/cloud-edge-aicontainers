@@ -75,8 +75,26 @@ def set_edge_stat_result(od, model_name, mode):
 
 
 def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimages=''):
+
+    #---------------------------------------------------
+    # EVC에서 에지 디바이스별로 맞춤 설정한 정보에 따라 추론 수행
+    #---------------------------------------------------
     
-    model_names=['mobilenet_v3_small']
+    device_info = get_device_info()
+    
+    print('-'*45)
+    print(f'device_info = {device_info}')
+    print(f'type(device_info) = {type(device_info)}')
+    print('-'*45)
+    
+    if int(device_info[b'num_of_cuda_devices']) > 0:
+        device = 'cuda'
+    else: 
+        device = 'cpu'
+        
+    model_name = device_info[b'model_name']
+    model_names=[model_name]
+
     
     #---------------------------------------------------
     st_total = time.time()
@@ -120,8 +138,6 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
     print(f'urlmodels = {urlmodels}')
     print('*'*55)
     
-    return
-
     model_fpaths = []
     for pth_name in pth_names:
         model_fpaths.append(modeldir + pth_name)
@@ -153,12 +169,6 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
     preproc = ['method1', 'method2']
     preproc_method = 'method1'
 
-    device_info = get_device_info()
-    
-    print('-'*45)
-    print(f'device_info = {device_info}')
-    print(f'type(device_info) = {type(device_info)}')
-    print('-'*45)
  
     #if N > 0:
     #    nn = min( len(testfiles), N )
@@ -167,15 +177,7 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
     testset = testfiles[:]
     n = len(testset)
     
-    if int(device_info[b'num_of_cuda_devices']) > 0:
-        device = 'cuda'
-    else: 
-        device = 'cpu'
-        
     if True:
-        
-        # 모델별 반복
-        #for model_idx, model_name in enumerate(model_names):
         model_idx = 0
         model_name = model_names[0]
         if True:
