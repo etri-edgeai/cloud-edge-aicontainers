@@ -115,6 +115,8 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
     for pth_name in pth_names:
         urlmodels.append(urlroot + pth_name)
     print(f'urlmodels = {urlmodels}')
+    
+    return
 
     model_fpaths = []
     for pth_name in pth_names:
@@ -170,11 +172,11 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
         
         # 모델별 반복
         #for model_idx, model_name in enumerate(model_names):
-        #model_idx = 0
+        model_idx = 0
         model_name = model_names[0]
         if True:
             start = time.time() # strt timer        
-            print(f'[d] model = {model_names[model_idx]}', flush=True)
+            print(f'[d] model_name = {model_names[model_idx]}', flush=True)
 
             # 모델 템플릿 다운로드 (from torch.hub)
             if model_name in model_names_resnet:
