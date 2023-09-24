@@ -51,12 +51,12 @@ def update_average_result():
     rcon.set_data('vnv:avg:advanced:top5', 0)
     rcon.set_data('vnv:avg:advanced:latency', 0)
     
-def update_server_result(od):
+def update_server_result(od, mode):
     hostname = socket.gethostname()
     #rcon.set_ordered_dict(f'vnv:server:{hostname}', od)
     #print('output = ', rcon.get_ordered_dict(f'vnv:server:{hostname}'))
-    rcon.hmset(f'vnv:server:{hostname}', od)
-    print('output = ', rcon.hgetall(f'vnv:server:{hostname}'))
+    rcon.hmset(f'vnv:server:{mode}:{hostname}', od)
+    print('output = ', rcon.hgetall(f'vnv:server:{mode}:{hostname}'))
 
 
 def main(mode = 'baseline'):
@@ -109,7 +109,8 @@ def main(mode = 'baseline'):
     if mode == 'baseline' or mode == 'advanced':
         fpath_testimages = dataset_root + '/imagenet-val/'
     else:
-        fpath_testimages = dataset_root + '/imagenet-mini-val/'
+        #fpath_testimages = dataset_root + '/imagenet-mini-val/'
+        fpath_testimages = dataset_root + '/imagenet-val/'
     print(f'fpath_testimages = {fpath_testimages}')
 
     
@@ -171,7 +172,7 @@ def main(mode = 'baseline'):
             title3:t3,
             title4:t4
         })
-        update_server_result(od)
+        update_server_result(od, mode)
         
         print(f'[+] Done {mode} experiment')
 

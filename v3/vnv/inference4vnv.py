@@ -292,7 +292,7 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
             for i, fpath in enumerate(testfiles[imgidx_start:imgidx_end]):
                 imgidx = imgidx_start + i
                 
-                if i%100 == 0:
+                if (i+1)%100 == 0:
                     set_edge_done_frames(imgidx, mode)
                 
                 # 임시
