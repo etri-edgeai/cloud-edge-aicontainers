@@ -2,6 +2,7 @@ import os
 import yaml
 import re
 
+import platform, psutil
 from device_info import set_model4infer
 
 class ModelSelection():
