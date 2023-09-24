@@ -291,11 +291,7 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
 
             imgidx = imgidx_start
             for icnt, fpath in enumerate(testfiles[imgidx_start:imgidx_end]):
-                imgidx = imgidx + icnt
-                
-                if (icnt+1)%100 == 0:
-                    set_edge_done_frames(imgidx, mode)
-                
+
                 # 임시
                 if mode == 'getinfo':
                     #pass
@@ -370,8 +366,11 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
                 if( top1_catid[0] == idx_gt[imgidx] ):
                     top1_cnt += 1
 
-
-
+                imgidx = imgidx + icnt
+                
+                if (icnt+1)%100 == 0:
+                    set_edge_done_frames(imgidx, mode)
+                
             end = time.time() # end timer
             time_duration = end - start
             num_of_test_images = imgidx + 1
