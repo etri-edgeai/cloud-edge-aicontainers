@@ -65,8 +65,8 @@ def update_edge_result(od, mode):
     #rcon.set_ordered_dict(f'vnv:edge:{mode}:od:{hostname}', od)
     #print('output = ', rcon.get_ordered_dict(f'vnv:edge:{mode}:od:{hostname}'))
 
-    rcon.hmset(f'vnv:edge:{mode}:hm:{hostname}', od)
-    print('output = ', rcon.hgetall(f'vnv:edge:{mode}:hm:{hostname}'))
+    rcon.hmset(f'vnv:edge:{mode}:{hostname}', od)
+    print('output = ', rcon.hgetall(f'vnv:edge:{mode}:{hostname}'))
     
     
 def run_main(model_names=['resnet152'], devices=['mps'], N=0, mode='baseline', fpath_testimages=''):
@@ -154,14 +154,19 @@ def run_main(model_names=['resnet152'], devices=['mps'], N=0, mode='baseline', f
     n = len(testset)
     
     # 디바이스별 반복
-    for device in devices: 
+    #for device in devices:
+    device = devices[0]
+    if True:
         print('-'*50)
         print('[d] device = ', device, flush=True)
         print('-'*50)
-        print('')
+
         
         # 모델별 반복
-        for model_idx, model_name in enumerate(model_names):
+        #for model_idx, model_name in enumerate(model_names):
+        model_idx = 0
+        model_name = model_names[0]
+        if True:
             start = time.time() # strt timer        
             print(f'[d] model = {model_names[model_idx]}', flush=True)
 
@@ -270,6 +275,7 @@ def run_main(model_names=['resnet152'], devices=['mps'], N=0, mode='baseline', f
 
                 # Show top categories per image
                 top1_prob, top1_catid = torch.topk(probabilities, 1)
+                top1_catids.append({idx_gt[imgidx], top1_catid, top1_prob})
                 if( top1_catid[0] == idx_gt[imgidx] ):
                     top1_cnt += 1
 
@@ -306,6 +312,13 @@ def run_main(model_names=['resnet152'], devices=['mps'], N=0, mode='baseline', f
             print('top5_cnt = ', top5_cnt)
             print('top5_acc = ', top5_cnt/n)
             print('time = ', end - start)
+            stat_result = {'n':n, 
+                           'top1_cnt':top1_cnt, 
+                           'top1_acc':top1_acc, 
+                           'top5_cnt':top5_cnt, 
+                           'top5_acc':top5_acc
+                          }
+            
             print('')
 
     #---------------------------------------------------
@@ -315,6 +328,8 @@ def run_main(model_names=['resnet152'], devices=['mps'], N=0, mode='baseline', f
     od = OrderedDict()
     T = et_total - st_total
     od['total_inference_time'] = T
+    od['top1_catids'] = top1_catids
+    od['stat'] = 
     update_edge_result(od, mode)
 
         
