@@ -2,6 +2,8 @@ import os
 import yaml
 import re
 
+from device_info import set_model4infer
+
 class ModelSelection():
     def __init__(self):
         # Models
@@ -43,15 +45,14 @@ class ModelSelection():
     def showAllModels(self):
         print( self.urlmodels )
 
-    def getinfoModelSelection(self, deviceinfo):
-        return ['mobilenet_v3_small'] # 간단한 모델을 실행합니다.
-    
     def greedModelSelection(self, deviceinfo):
         #return ['resnet152']
+        set_model4infer('mobilenet_v3_large')
         return ['mobilenet_v3_large']
     
     def advancedModelSelection(self, deviceinfo):
         #return 'resnet18'
+        set_model4infer('mobilenet_v3_large')
         return ['mobilenet_v3_small']
     
         node_nuc = []
