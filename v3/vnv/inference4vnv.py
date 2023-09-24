@@ -68,10 +68,7 @@ def set_edge_total_result(od, mode):
     print('output = ', rcon.hgetall(f'vnv:edge:{mode}:{hostname}:stat'))
     
 
-def get_device_info(mode):
-    hostname = socket.gethostname()
-    device_info = rcon.hgetall(f'vnv:edge:{mode}:{hostname}:info')
-    return device_info
+
                     
     
 def run_main(model_names=['resnet152'], mode='baseline', fpath_testimages=''):

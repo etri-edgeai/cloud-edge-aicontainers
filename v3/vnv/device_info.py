@@ -10,12 +10,16 @@ def set_device_info(od):
     hostname = socket.gethostname()
     rcon.hmset(f'vnv:edge:info:{hostname}', od)
 
+def get_device_info():
+    hostname = socket.gethostname()
+    device_info = rcon.hgetall(f'vnv:edge:info:{hostname}')
+    return device_info
 
 import sys
 if __name__ == "__main__":
     hostname = socket.gethostname()
     is_cuda_available = torch.cuda.is_available()
-    num_of_cuda_devices = len( torch.get_all_devices() )
+    num_of_cuda_devices = len( torch.cuda.device_count() )
     
     od = OrderedDict({
         'hostname':hostname,

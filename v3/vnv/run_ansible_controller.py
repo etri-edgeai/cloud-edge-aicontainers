@@ -101,7 +101,7 @@ def main(mode = 'baseline'):
     #----------------------------------
     st_getstatus = time.time() #---------------------
 
-    cmd = f'ansible vnv -m shell -a "cd {wdir}; {py} get_device_info.py " -i ./config/hosts.ini '
+    cmd = f'ansible vnv -m shell -a "cd {wdir}; {py} device_info.py " -i ./config/hosts.ini '
     run(cmd, True)
 
     et_getstatus = time.time() #---------------------
