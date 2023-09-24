@@ -5,4 +5,5 @@ torchvision
 tqdm
 pyyaml
 opencv-contrib-python
-ultralytics 
+ultralytics
+psutil
