@@ -52,7 +52,7 @@ def arg_parser():
     print('ok')
     print('-' * 50)
 
-def set_edge_frame_result(ods, mode):
+def set_edge_frame_result(ods, model_name, mode):
     hostname = socket.gethostname()
     
     print(f'ods = {ods}')
