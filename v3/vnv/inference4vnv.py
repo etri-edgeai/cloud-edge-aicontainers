@@ -347,18 +347,20 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
 
                 # Show top categories per image
                 top1_prob, top1_catid = torch.topk(probabilities, 1)
-                #print(f'icnt = {icnt}, imgidx = {imgidx}')
+
+                if( top1_catid[0] == idx_gt[imgidx] ):
+                    top1_cnt += 1
+                    
                 top1_catids.append( {'idx' : imgidx,
                                      'idx_gt' : int(idx_gt[imgidx]),
                                      'top1_catid' : int(top1_catid), 
                                      'is_true' : str(int(idx_gt[imgidx]) == int(top1_catid)), 
                                      'top1_prob' : float(top1_prob)}
                                   )
-                if( top1_catid[0] == idx_gt[imgidx] ):
-                    top1_cnt += 1
 
-                imgidx = imgidx_start + icnt
                 icnt += 1
+                imgidx = imgidx_start + icnt
+  
      
                 # 임시
                 if mode == 'getinfo':
