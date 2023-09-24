@@ -301,8 +301,9 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
                     #if i > 100:
                     #    break
                 else:
-                    if i > 300:
-                        break
+                    pass
+                    #if i > 300:
+                    #    break
                         
                         
                 #print( fpath )
