@@ -43,9 +43,8 @@ class ModelSelection():
     def showAllModels(self):
         print( self.urlmodels )
 
-    def preprocModelSelection(self, cfg):
-        #return 'resnet18'
-        return 'mobilenet_v3_small'
+    def getinfoModelSelection(self, cfg):
+        return 'mobilenet_v3_small' # 간단한 모델을 실행합니다.
     
     def greedModelSelection(self):
         return 'resnet152'

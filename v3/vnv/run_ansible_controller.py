@@ -87,7 +87,7 @@ def main(mode = 'baseline'):
     #----------------------------------
     st_total = time.time() #---------------------
 
-    if mode == 'baseline' or mode == 'advanced':
+    if mode == 'getinfo' or mode == 'baseline' or mode == 'advanced':
         print(f'[+] Start {mode} experiment')
     else:
         print(f'[-] error, there is no [{mode}] mode.')

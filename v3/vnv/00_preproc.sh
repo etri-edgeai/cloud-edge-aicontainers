@@ -1,1 +1,1 @@
-python3 run_ansible_controller.py preworking
+python3 run_ansible_controller.py getinfo
