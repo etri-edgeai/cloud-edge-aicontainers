@@ -23,9 +23,28 @@ wdir = ' /home/jpark/www/cloud-edge-aicontainers/v3/vnv/'
 py = ' /home/jpark/www/cloud-edge-aicontainers/v3/vnv/venv/bin/python'
 ask_pass_option = '' #  '--ask-become-pass'
 
-from device_info import get_device_info, get_model4infer, get_device_ministat
-
-
+from device_info import *
+        
+def get_cluster_frame_result(total_frames):
+    
+    i_true_cnt = 0
+    for frame_idx in range(total_frames):
+        od = rcon.hgetall(f'vnv:edge:advanced:cluster_frame:{frame_idx:04d}')
+        
+        print(f'{frame_idx} ... {od}')
+        if od['is_true'] == 'True':
+            i_true_cnt += 1
+            
+    true_ratio = i_true_cnt/total_frames
+    print(f'i_true_cnt = {i_true_cnt}')
+    print(f'true_ratio = {true_ratio}')
+    rcon.hmset('vnv:edge:advanced:stat', 
+               {'i_true_cnt':i_true_cnt,
+                'true_ratio':true_ratio
+               }
+              )
+    
+    
 #------------------------------------------------------
 # run
 #------------------------------------------------------
@@ -159,6 +178,11 @@ def main(mode = 'baseline'):
         et_total = time.time()
         #---------------------------------------------------
 
+        
+        get_cluster_frame_result(total_frames = 500)
+
+        
+        
         print( f'[d] workding dir = {wdir}' )
         print( f'[d] py = {py}' )
 
