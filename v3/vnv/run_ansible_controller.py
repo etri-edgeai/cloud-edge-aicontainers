@@ -101,38 +101,15 @@ def main(mode = 'baseline'):
     #----------------------------------
     st_getstatus = time.time() #---------------------
 
-    #cmd_sub = ' /usr/bin/python3 -c "import torch; print(torch.cuda.is_available())" '
-    cmd = f'ansible vnv -m shell -a "cd {wdir}; {py} is_cuda_available.py " -i ./config/hosts.ini '
-    z = run(cmd, True)
-
-    if 'True' in z : is_cuda_available = 1 
-    else: is_cuda_available = 0
-
-    # for ubuntu
-    cmd = f'ansible vnv -m shell -a "cat /proc/cpuinfo" -i ./config/hosts.ini > ./tmp/baseline_cpuinfo.txt'
+    cmd = f'ansible vnv -m shell -a "cd {wdir}; {py} get_device_info.py " -i ./config/hosts.ini '
     run(cmd, True)
-
-    cmd = f'cat ./tmp/baseline_cpuinfo.txt | grep "model name" '
-    cpu_model = run(cmd, True)
-    print(f'cpu_model = {cpu_model}')
-
-    cmd = f'ansible vnv -m shell -a "cat /proc/meminfo" -i ./config/hosts.ini > ./tmp/baseline_meminfo.txt '
-    run(cmd, False)
-
-    cmd = f'cat ./tmp/baseline_meminfo.txt | grep "MemTotal" '
-    mem_total = run(cmd, True)
-    print(f'mem_total = {mem_total}')
 
     et_getstatus = time.time() #---------------------
 
-    #selected_model = 'resnet152' # default
-    if is_cuda_available:
-        device = 'cuda'
-        N = 0
-    else:
-        device = 'cpu'
-        N = 0
-        
+    
+    return
+
+
     model_selector = ModelSelection()
 
     #----------------------------------
@@ -214,8 +191,7 @@ def main(mode = 'baseline'):
             title1:t1,
             title2:t2,
             title3:t3,
-            title4:t4,
-            'is_cuda_available':is_cuda_available,
+            title4:t4
         })
         update_server_result(od)
         

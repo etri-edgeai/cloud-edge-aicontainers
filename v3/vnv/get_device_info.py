@@ -1,0 +1,27 @@
+import socket
+from collections import OrderedDict
+from redis_connector import redis_connector
+rcon = redis_connector()
+
+
+def set_device_info(od):
+    hostname = socket.gethostname()
+    rcon.hmset(f'vnv:edge:info:{hostname}', od)
+
+
+'''
+    # for ubuntu
+    cmd = f'ansible vnv -m shell -a "cat /proc/cpuinfo" -i ./config/hosts.ini > ./tmp/baseline_cpuinfo.txt'
+    run(cmd, True)
+
+    cmd = f'cat ./tmp/baseline_cpuinfo.txt | grep "model name" '
+    cpu_model = run(cmd, True)
+    print(f'cpu_model = {cpu_model}')
+
+    cmd = f'ansible vnv -m shell -a "cat /proc/meminfo" -i ./config/hosts.ini > ./tmp/baseline_meminfo.txt '
+    run(cmd, False)
+
+    cmd = f'cat ./tmp/baseline_meminfo.txt | grep "MemTotal" '
+    mem_total = run(cmd, True)
+    print(f'mem_total = {mem_total}')
+'''

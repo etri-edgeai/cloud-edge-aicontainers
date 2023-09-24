@@ -49,7 +49,7 @@ def arg_parser():
     print('ok')
     print('-' * 50)
 
-def update_edge_frame_result(ods, mode):
+def set_edge_frame_result(ods, mode):
     hostname = socket.gethostname()
     
     print(f'ods = {ods}')
@@ -58,7 +58,7 @@ def update_edge_frame_result(ods, mode):
         rcon.hmset(f'vnv:edge:{mode}:{hostname}:frame:{idx:04d}', od)
         #print('output = ', rcon.hgetall(f'vnv:edge:{mode}:{hostname}:frame:{idx:04d}'))
     
-def update_edge_total_result(od, mode):
+def set_edge_total_result(od, mode):
     hostname = socket.gethostname()
     
     #rcon.set_ordered_dict(f'vnv:edge:{mode}:od:{hostname}', od)
@@ -67,9 +67,10 @@ def update_edge_total_result(od, mode):
     rcon.hmset(f'vnv:edge:{mode}:{hostname}:stat', od)
     print('output = ', rcon.hgetall(f'vnv:edge:{mode}:{hostname}:stat'))
     
-def get_device_info():
+
+def get_device_info(mode):
     hostname = socket.gethostname()
-    device_info = rcon.hgetall(f'vnv:edge:{mode}:{hostname}')
+    device_info = rcon.hgetall(f'vnv:edge:{mode}:{hostname}:info')
     return device_info
                     
     
@@ -145,8 +146,11 @@ def run_main(model_names=['resnet152'], mode='baseline', fpath_testimages=''):
     preproc = ['method1', 'method2']
     preproc_method = 'method1'
 
-    device_info = get_device_info()
+    device_info = get_device_info(mode)
+    
+    print('-'*45)
     print(device_info)
+    print('-'*45)
     #devices = ['cuda', 'cpu']
     #devices = ['mps']
     models = []
@@ -326,8 +330,8 @@ def run_main(model_names=['resnet152'], mode='baseline', fpath_testimages=''):
                            'model_name':model_name,
                            'devie':device
                         })
-            update_edge_total_result(od_stat_result, mode)
-            update_edge_frame_result(top1_catids, mode)
+            set_edge_total_result(od_stat_result, mode)
+            set_edge_frame_result(top1_catids, mode)
 
             print('')
 
@@ -337,7 +341,7 @@ def run_main(model_names=['resnet152'], mode='baseline', fpath_testimages=''):
     
     T = et_total - st_total
     od = OrderedDict({'total_inference_time':T})
-    update_edge_total_result(od, mode)
+    set_edge_total_result(od, mode)
 
 
         
