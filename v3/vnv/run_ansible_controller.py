@@ -136,7 +136,7 @@ def main(mode = 'baseline'):
     if mode == 'advanced':
         ja = job_allocator()
         ja.set_job()
-        ja.get_job('n01')
+        #ja.get_job('n01')
     return
     
     

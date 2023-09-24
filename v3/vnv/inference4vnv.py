@@ -105,7 +105,8 @@ def set_edge_stat_result(od, model_name, mode):
 
 
 def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimages=''):
-
+    hostname = socket.gethostname()
+    
     #---------------------------------------------------
     # EVC에서 에지 디바이스별로 맞춤 설정한 정보에 따라 추론 수행
     #---------------------------------------------------
@@ -300,7 +301,7 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
 
             # 
             ja = job_allocator()
-            imgidx_start, imgidx_end = ja.get_job()
+            imgidx_start, imgidx_end = ja.get_job(hostname)
             # imgidx_start = ja.start
             # imgidx_end = len(testfiles)
             n = len(testfiles)
