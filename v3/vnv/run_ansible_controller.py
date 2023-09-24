@@ -99,7 +99,7 @@ def main(mode = 'baseline'):
     st_getstatus = time.time() #---------------------
 
     #cmd_sub = ' /usr/bin/python3 -c "import torch; print(torch.cuda.is_available())" '
-    cmd = f'ansible vnv -m shell -a "cd {wdir}; {py} cuda_is_available.py " -i ./config/hosts.ini '
+    cmd = f'ansible vnv -m shell -a "cd {wdir}; {py} is_cuda_available.py " -i ./config/hosts.ini '
     z = run(cmd, True)
 
     if 'True' in z : is_cuda_available = 1 
@@ -123,8 +123,13 @@ def main(mode = 'baseline'):
     et_getstatus = time.time() #---------------------
 
     #selected_model = 'resnet152' # default
-    device = 'cpu'
-    N = 0
+    if is_cuda_available:
+        device = 'cuda'
+        N = 0
+    else:
+        device = 'cpu'
+        N = 0
+        
     model_selector = ModelSelection()
 
     #----------------------------------
