@@ -281,7 +281,7 @@ def run_main(model_names=['resnet152'], devices=['mps'], N=0, mode='baseline', f
 
                 # Show top categories per image
                 top1_prob, top1_catid = torch.topk(probabilities, 1)
-                top1_catids.append({idx_gt[imgidx], top1_catid, top1_prob})
+                top1_catids.append({'idx_gt':idx_gt[imgidx], 'top1_catid':top1_catid, 'top1_prob':top1_prob})
                 if( top1_catid[0] == idx_gt[imgidx] ):
                     top1_cnt += 1
 
