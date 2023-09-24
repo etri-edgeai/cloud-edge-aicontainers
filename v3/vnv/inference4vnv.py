@@ -26,6 +26,7 @@ from collections import OrderedDict
 from redis_connector import redis_connector
 rcon = redis_connector()
 
+from model_selector import ModelSelection
 from device_info import get_model4infer
 
 def arg_parser():

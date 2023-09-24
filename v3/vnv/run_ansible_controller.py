@@ -14,7 +14,6 @@ import os
 import yaml
 import time
 import socket
-from model_selector import ModelSelection
 from collections import OrderedDict
 from redis_connector import redis_connector
 
@@ -22,7 +21,11 @@ rcon = redis_connector()
 wdir = ' /home/jpark/www/cloud-edge-aicontainers/v3/vnv/'
 py = ' /home/jpark/www/cloud-edge-aicontainers/v3/vnv/venv/bin/python'
 ask_pass_option = '' #  '--ask-become-pass'
-    
+
+
+from device_info import get_model4infer, set_model4infer
+
+
 #------------------------------------------------------
 # run
 #------------------------------------------------------
