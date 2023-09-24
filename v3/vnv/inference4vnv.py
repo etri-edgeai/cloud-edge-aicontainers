@@ -150,6 +150,7 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
     
     print('-'*45)
     print(f'device_info = {device_info}')
+    print(f'type(device_info) = {type(device_info)}')
     print('-'*45)
 
     #if N > 0:
@@ -166,11 +167,6 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
         device = 'cpu'
         
     if True:
-        print('\n')
-        print('-'*50)
-        print('[d] device = ', device, flush=True)
-        print('-'*50)
-
         
         # 모델별 반복
         #for model_idx, model_name in enumerate(model_names):
