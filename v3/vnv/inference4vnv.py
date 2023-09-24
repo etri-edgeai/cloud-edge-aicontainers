@@ -292,18 +292,7 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
             icnt = 0
             imgidx = imgidx_start
             for fpath in testfiles[imgidx_start:imgidx_end]:
-
-                # 임시
-                if mode == 'getinfo':
-                    #pass
-                    if icnt > 100:
-                        break
-                else:
-                    pass
-                    #if icnt > 300:
-                    #    break
-                        
-                        
+   
                 #print( fpath )
                 input_image = Image.open(fpath)
 
@@ -358,7 +347,7 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
 
                 # Show top categories per image
                 top1_prob, top1_catid = torch.topk(probabilities, 1)
-                print(f'icnt = {icnt}, imgidx = {imgidx}')
+                #print(f'icnt = {icnt}, imgidx = {imgidx}')
                 top1_catids.append( {'idx' : imgidx,
                                      'idx_gt' : int(idx_gt[imgidx]),
                                      'top1_catid' : int(top1_catid), 
@@ -370,7 +359,18 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
 
                 imgidx = imgidx_start + icnt
                 icnt = icnt + 1
-                
+     
+                # 임시
+                if mode == 'getinfo':
+                    pass
+                    #if icnt > 100:
+                    #    break
+                else:
+                    pass
+                    #if icnt > 300:
+                    #    break
+                        
+                        
                 if (icnt+1)%100 == 0:
                     set_edge_done_frames(imgidx, mode)
                 
