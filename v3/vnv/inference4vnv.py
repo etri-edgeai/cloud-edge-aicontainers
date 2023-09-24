@@ -305,12 +305,13 @@ def run_main(model_names=['resnet152'], devices=['mps'], N=0, mode='baseline', f
             print('top5_cnt = ', top5_cnt)
             print('top5_acc = ', top5_cnt/n)
             print('time = ', end - start)
-            stat_result = {'n':n, 
+            od_stat_result = OrderedDict({'n':n, 
                            'top1_cnt':top1_cnt, 
                            'top1_acc':top1_cnt/n, 
                            'top5_cnt':top5_cnt, 
                            'top5_acc':top5_cnt/n
-                          }
+                          })
+            update_edge_result(od_stat_result, mode)
             
             print('')
 
@@ -318,12 +319,10 @@ def run_main(model_names=['resnet152'], devices=['mps'], N=0, mode='baseline', f
     et_total = time.time()
     #---------------------------------------------------
     
-    od = OrderedDict()
     T = et_total - st_total
-    od['total_inference_time'] = T
-    #od['top1_catids'] = top1_catids
-    od['stat_result'] = stat_result
+    od = OrderedDict({'total_inference_time', T})
     update_edge_result(od, mode)
+
 
         
 import sys
