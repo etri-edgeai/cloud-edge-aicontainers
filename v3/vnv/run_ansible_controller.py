@@ -22,7 +22,6 @@ wdir = ' /home/jpark/www/cloud-edge-aicontainers/v3/vnv/'
 py = ' /home/jpark/www/cloud-edge-aicontainers/v3/vnv/venv/bin/python'
 ask_pass_option = '' #  '--ask-become-pass'
 
-from model_selector import ModelSelection
 from device_info import get_device_info, get_model4infer
 
 
@@ -127,21 +126,9 @@ def main(mode = 'baseline'):
 
     et_getstatus = time.time() #---------------------
 
-    #----------------------------------
-    # 추론을 위한 AI 모델을 선택합니다.
-    #----------------------------------
-    model_selector = ModelSelection()
-    if mode == 'baseline':
-        model_selector.greedModelSelection()
-    elif mode == 'advanced':
-        model_selector.advancedModelSelection()
-
-    et_modelselection = time.time() #---------------------
-
-        
     
-    st_modelselection = time.time() #---------------------
-
+    
+    
     if True:
         #----------------------------------
         # 에지 디바이스에서 추론을 수행합니다. 
@@ -167,11 +154,7 @@ def main(mode = 'baseline'):
         t1 = et_getstatus - st_getstatus
         ratio = t1 / T
         disp_time(title1, t1, ratio)
-        
-        title2 = 'TimeOfModelSelection'
-        t2 = et_modelselection - st_modelselection
-        ratio = t2 / T
-        disp_time(title2, t2, ratio)
+ 
         
         title3 = 'TimeOfInference'
         t3 = et_inference - st_inference

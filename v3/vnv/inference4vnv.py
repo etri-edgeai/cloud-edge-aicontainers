@@ -26,6 +26,7 @@ from collections import OrderedDict
 from redis_connector import redis_connector
 rcon = redis_connector()
 
+from model_selector import ModelSelection
 from device_info import get_model4infer, get_device_info
 
 def arg_parser():
@@ -86,6 +87,18 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
     print(f'type(device_info) = {type(device_info)}')
     print('-'*45)
 
+
+    #----------------------------------
+    # 추론을 위한 AI 모델을 선택합니다.
+    #----------------------------------
+    model_selector = ModelSelection()
+    if mode == 'baseline':
+        model_selector.greedModelSelection()
+    elif mode == 'advanced':
+        model_selector.advancedModelSelection()
+
+    
+    
     if int(device_info[b'num_of_cuda_devices']) > 0:
         device = 'cuda'
     else: 
