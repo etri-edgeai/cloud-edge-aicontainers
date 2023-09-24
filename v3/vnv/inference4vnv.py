@@ -33,11 +33,6 @@ def arg_parser():
                         default='resnet18', 
                         metavar='N', 
                         help='neural network')
-    parser.add_argument('--mode', 
-                        type=str, 
-                        default='baseline', 
-                        metavar='N', 
-                        help='{baseline, advanced}')
     parser.add_argument('--device', 
                         type=str, 
                         default='cuda', 
@@ -46,6 +41,11 @@ def arg_parser():
                         type=int, 
                         default=0, 
                         help='# of inference images')
+    parser.add_argument('--mode', 
+                        type=str, 
+                        default='baseline', 
+                        metavar='N', 
+                        help='{baseline, advanced}')
     
     return parser
     
@@ -344,10 +344,11 @@ if __name__ == "__main__":
     model_names.append( args.model )
     devices=[]
     devices.append( args.device )
+    mode = args.mode
     N = int( int(args.N) )
     
     # core
-    run_main(model_names=model_names, devices=devices, N = N )
+    run_main(model_names=model_names, devices=devices, N = N, mode = mode )
 
 #------------------------------------------------------
 # End of this file

@@ -54,7 +54,12 @@ def update_server_result(od):
     rcon.set_ordered_dict(f'vnv:server:{hostname}', od)
     print('output = ', rcon.get_ordered_dict(f'vnv:server:{hostname}'))
 
+
 def main(mode = 'baseline'):
+    
+    print('=' * 70)
+    print(f'mode = {mode}')
+    print('=' * 70)
     
     #----------------------------------
     # 코드 업데이트
