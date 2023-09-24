@@ -1,14 +1,32 @@
+import torch
 import socket
 from collections import OrderedDict
 from redis_connector import redis_connector
 rcon = redis_connector()
-
 
 def set_device_info(od):
     hostname = socket.gethostname()
     rcon.hmset(f'vnv:edge:info:{hostname}', od)
 
 
+import sys
+if __name__ == "__main__":
+    hostname = socket.gethostname()
+    is_cuda_available = torch.cuda.is_available()
+    
+    od = OrderedDict( {
+        'hostname', hostname,
+        'is_cuda_available', is_cuda_available,
+    })
+    set_device_info(od)
+
+#------------------------------------------------------
+# End of this file
+#------------------------------------------------------
+
+
+
+    
 '''
     # for ubuntu
     cmd = f'ansible vnv -m shell -a "cat /proc/cpuinfo" -i ./config/hosts.ini > ./tmp/baseline_cpuinfo.txt'
