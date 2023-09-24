@@ -168,7 +168,6 @@ def main(mode = 'baseline'):
 
         od = OrderedDict({
             title1:t1,
-            title2:t2,
             title3:t3,
             title4:t4
         })
