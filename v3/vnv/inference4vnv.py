@@ -114,7 +114,9 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
     urlmodels = []
     for pth_name in pth_names:
         urlmodels.append(urlroot + pth_name)
+    print('*'*55)
     print(f'urlmodels = {urlmodels}')
+    print('*'*55)
     
     return
 
