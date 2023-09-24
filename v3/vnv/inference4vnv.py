@@ -153,8 +153,6 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
     print(f'type(device_info) = {type(device_info)}')
     print('-'*45)
     
-    return 
-
     #if N > 0:
     #    nn = min( len(testfiles), N )
     #    testset = testfiles[:nn]
