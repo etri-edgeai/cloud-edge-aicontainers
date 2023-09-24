@@ -52,6 +52,16 @@ def arg_parser():
     print('ok')
     print('-' * 50)
 
+def set_edge_done_frames(cnt, mode):
+    hostname = socket.gethostname()
+    
+    if mode == 'getinfo':
+        pass
+    else:
+        for idx, od in enumerate(ods):
+            rcon.set_data(f'vnv:edge:{mode}:{hostname}:done_frames', cnt)
+            
+            
 def set_edge_frame_result(ods, model_name, mode):
     hostname = socket.gethostname()
     
@@ -333,6 +343,8 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
 
                 imgidx += 1
                 
+                if imgidx%100 == 0:
+                    set_edge_done_frames(imgidx, mode)
                 
                 # 임시
                 if mode == 'getinfo':
