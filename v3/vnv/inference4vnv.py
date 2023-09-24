@@ -358,6 +358,7 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
 
                 # Show top categories per image
                 top1_prob, top1_catid = torch.topk(probabilities, 1)
+                print(f'idx = {idx}, imgidx = {imgidx}')
                 top1_catids.append( {'idx' : imgidx,
                                      'idx_gt' : int(idx_gt[imgidx]),
                                      'top1_catid' : int(top1_catid), 
