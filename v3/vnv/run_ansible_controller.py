@@ -210,7 +210,13 @@ def main(mode = 'baseline'):
         ratio = t4 / T
         disp_time(title4, t4, ratio)
 
-        od = OrderedDict({title1:t1, title2:t2, title3:t3, title4:t4})
+        od = OrderedDict({
+            title1:t1,
+            title2:t2,
+            title3:t3,
+            title4:t4,
+            'is_cuda_available':is_cuda_available,
+        })
         update_server_result(od)
         
         print(f'[+] Done {mode} experiment')
