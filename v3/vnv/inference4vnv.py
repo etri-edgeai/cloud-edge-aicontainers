@@ -289,8 +289,9 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
             imgidx_end = len(testfiles)
             n = len(testfiles)
 
+            icnt = 0
             imgidx = imgidx_start
-            for icnt, fpath in enumerate(testfiles[imgidx_start:imgidx_end]):
+            for fpath in testfiles[imgidx_start:imgidx_end]:
 
                 # 임시
                 if mode == 'getinfo':
@@ -367,6 +368,7 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
                     top1_cnt += 1
 
                 imgidx = imgidx + icnt
+                icnt = icnt + 1
                 
                 if (icnt+1)%100 == 0:
                     set_edge_done_frames(imgidx, mode)
