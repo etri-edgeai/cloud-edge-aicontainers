@@ -307,11 +307,11 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
                 
                 # 임시
                 if mode == 'getinfo':
-                    if imgidx > 10:
+                    if imgidx > 100:
                         break
 
             end = time.time() # end timer
-
+            num_of_test_images = imgidx - 1
             
             print('-' * 70)
             print('GT')
@@ -331,11 +331,11 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
             print('time = ', end - start)
             od_stat_result = OrderedDict({
                            'n':n,
-                           'num_of_test_images':imgidx,
+                           'num_of_test_images':num_of_test_images,
                            'top1_cnt':top1_cnt, 
-                           'top1_acc':top1_cnt/imgidx, 
+                           'top1_acc':top1_cnt/num_of_test_images, 
                            'top5_cnt':top5_cnt, 
-                           'top5_acc':top5_cnt/imgidx,
+                           'top5_acc':top5_cnt/num_of_test_images,
                            'model_name':model_name,
                            'device':device
                         })
