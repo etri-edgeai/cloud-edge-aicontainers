@@ -31,6 +31,11 @@ class job_allocator():
         if mode == 'getinfo':
             pass
         else:
-            rcon.set_data(f'vnv:edge:{mode}:job:{hostname}:start_frame', 0)
-            rcon.set_data(f'vnv:edge:{mode}:job:{hostname}:end_frame', 100)
-        
+            rcon.set_data(f'vnv:edge:advanced:job:{hostname}:start_frame', 0)
+            rcon.set_data(f'vnv:edge:advanced:job:{hostname}:end_frame', 100)
+    
+    def get_job(self, hostname):
+        start_frame = rcon.set_data(f'vnv:edge:advanced:job:{hostname}:start_frame', 0)
+        end_frame = rcon.set_data(f'vnv:edge:advanced:job:{hostname}:start_frame', 0)
+        return start_frame, end_frame
+    

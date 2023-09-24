@@ -135,7 +135,7 @@ def main(mode = 'baseline'):
     #print( get_device_ministat() )
     if mode == 'advanced':
         job_allocator.set_job()
-    
+        job_allocator.get_job('n01')
     return
     
     if True:
