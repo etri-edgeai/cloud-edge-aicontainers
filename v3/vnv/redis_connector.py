@@ -26,33 +26,33 @@ class redis_connector:
     # multiple dictionary
     #----------------------------------------------------
     def hmset(self, key, data):
-        print(f'[d] key = {key}')
+        print(f'[d] hmset, key = {key}')
         self.redis_client.hmset(key, data)
         
     def hgetall(self, key):
-        print(f'[d] key = {key}')
+        print(f'[d] hgetall, key = {key}')
         return self.redis_client.hgetall(key)
     
     #----------------------------------------------------
     # 문자, 숫자와 같은 단순한 {key, value} 데이터를 쓰고(set), 읽습니다(get).
     #----------------------------------------------------
     def set_data(self, key, data):
-        print(f'[d] key = {key}')
+        print(f'[d] set_data, key = {key}')
         self.redis_client.set(key, data)
         
     def get_data(self, key):
-        print(f'[d] key = {key}')
+        print(f'[d] get_data, key = {key}')
         return self.redis_client.get(key)
 
     #----------------------------------------------------
     # OrderedDict 타입의 모델 정보를 쓰고(set), 읽습니다(get).
     #----------------------------------------------------
     def set_ordered_dict(self, key, ordered_dict_model):
-        print(f'[d] key = {key}')
+        print(f'[d] set_ordered_dict, key = {key}')
         self.redis_client.set(key, pickle.dumps(ordered_dict_model))
     
     def get_ordered_dict(self, key):
-        print(f'[d] key = {key}')
+        print(f'[d] get_ordered_dict, key = {key}')
         od = pickle.loads(self.redis_client.get(key))
         return od
 
@@ -60,7 +60,7 @@ class redis_connector:
     # Optimizer 정보를 쓰고(set), 읽습니다(get).
     #----------------------------------------------------
     def set_optimizer(self, key, optimizer):
-        print(f'[d] key = {key}')
+        print(f'[d] set_optimizer, key = {key}')
         
         opt = {
             'optimizer_state_dict': optimizer.state_dict(),
@@ -69,7 +69,7 @@ class redis_connector:
         self.redis_client.set(key, pickle.dumps(opt))
     
     def get_optimizer(self, key):
-        print(f'[d] key = {key}')
+        print(f'[d] get_optimizer, key = {key}')
                 
         loaded_data = pickle.loads(self.redis_client.get(key))
         
