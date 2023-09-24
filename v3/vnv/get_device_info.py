@@ -14,9 +14,9 @@ if __name__ == "__main__":
     hostname = socket.gethostname()
     is_cuda_available = torch.cuda.is_available()
     
-    od = OrderedDict( {
-        'hostname', hostname,
-        'is_cuda_available', str(is_cuda_available),
+    od = OrderedDict({
+        'hostname':hostname,
+        'is_cuda_available':str(is_cuda_available),
     })
     set_device_info(od)
 
