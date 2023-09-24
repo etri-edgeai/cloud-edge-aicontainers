@@ -108,13 +108,7 @@ def main(mode = 'baseline'):
     # 에지 디바이스의 추론 성능 정보를 얻습니다.
     #----------------------------------
     
-    if get_model4infer is None:
-        fpath_testimages = dataset_root + '/imagenet-mini-val/'
-        mode_getinfo = 'getinfo'
-        cmd = f'ansible vnv -i ./config/hosts.ini -m shell -a "cd {wdir}; pwd; {py} inference4vnv.py --mode {mode_getinfo} --fpath_testimages {fpath_testimages};"  {ask_pass_option} '
-        
 
-    return
 
     et_getstatus = time.time() #---------------------
 
