@@ -51,8 +51,10 @@ def update_average_result():
     
 def update_server_result(od):
     hostname = socket.gethostname()
-    rcon.set_ordered_dict(f'vnv:server:{hostname}', od)
-    print('output = ', rcon.get_ordered_dict(f'vnv:server:{hostname}'))
+    #rcon.set_ordered_dict(f'vnv:server:{hostname}', od)
+    #print('output = ', rcon.get_ordered_dict(f'vnv:server:{hostname}'))
+    rcon.hmset(f'vnv:server:{hostname}', od)
+    print('output = ', rcon.hgetall(f'vnv:server:{hostname}'))
 
 
 def main(mode = 'baseline'):
@@ -189,30 +191,28 @@ def main(mode = 'baseline'):
         od = OrderedDict()
         T = et_total - st_total
         
-        title = 'Get status time'
-        t = et_getstatus - st_getstatus
-        ratio = t / T
-        disp_time(title, t, ratio)
-        od[title] = t
+        title1 = 'Get status time'
+        t1 = et_getstatus - st_getstatus
+        ratio = t1 / T
+        disp_time(title1, t1, ratio)
         
-        title = 'Model selection time'
+        title2 = 'Model selection time'
         t = et_modelselection - st_modelselection
-        ratio = t / T
-        disp_time(title, t, ratio)
-        od[title] = t
+        ratio = t2 / T
+        disp_time(title2, t2, ratio)
         
-        title = 'Inference time'
+        title3 = 'Inference time'
         t = et_inference - st_inference
-        ratio = t / T
-        disp_time(title, t, ratio)
-        od[title] = t
+        ratio = t3 / T
+        disp_time(title3, t3, ratio)
+        od[title] = t3
             
-        title = 'Total time'
+        title4 = 'Total time'
         t = et_total - st_total
-        ratio = t / T
-        disp_time(title, t, ratio)
-        od[title] = t
+        ratio = t4 / T
+        disp_time(title4, t4, ratio)
 
+        od = OrderedDict({title1:t1, title2:t2, title3:t3, title4:t4})
         update_server_result(od)
         
         print(f'[+] Done {mode} experiment')
