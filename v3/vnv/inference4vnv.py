@@ -53,14 +53,6 @@ def arg_parser():
     print('ok')
     print('-' * 50)
 
-    
-def get_cluster_info():
-    hostname = socket.gethostname()
-    
-    o = rcon.hgetall(f'vnv:edge:{ministat}')
-    print('-'*55)
-    print(f'o = {o}')
-    print('-'*55)
         
 def set_edge_done_frames(cnt, mode):
     hostname = socket.gethostname()
@@ -73,15 +65,16 @@ def set_edge_done_frames(cnt, mode):
 def set_cluster_frame_result(ods, model_name, mode):
     hostname = socket.gethostname()
     
+    print('=' * 55)
     print(f'ods = {ods}')
+    
     if mode == 'getinfo':
         pass
     else:
         for idx, od in enumerate(ods):
             rcon.hmset(f'vnv:edge:{mode}:cluster_frame:{idx:04d}', od)
             #print('output = ', rcon.hgetall(f'vnv:edge:{mode}:{hostname}:frame:{idx:04d}'))
-    
-    
+
 def set_edge_frame_result(ods, model_name, mode):
     hostname = socket.gethostname()
     
@@ -127,11 +120,6 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
         model_selector.greedModelSelection()
     elif mode == 'advanced':
         model_selector.advancedModelSelection()
-
-    get_cluster_info()
-    return
-
-
 
     
     if int(device_info[b'num_of_cuda_devices']) > 0:
@@ -425,6 +413,8 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
                         })
             set_edge_stat_result(od_stat_result, model_name, mode)
             set_edge_frame_result(top1_catids, model_name, mode)
+            set_cluster_frame_result(top1_catids, model_name, mode)
+
 
             print('OK')
 

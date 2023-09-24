@@ -137,8 +137,6 @@ def main(mode = 'baseline'):
         ja = job_allocator()
         ja.set_job()
         #ja.get_job('n01')
-    return
-    
     
     
     if True:
