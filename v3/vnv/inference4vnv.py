@@ -384,7 +384,7 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
                     #    break
                         
                         
-                if (icnt)%100 == 0:
+                if (icnt)%10 == 0:
                     set_edge_done_frames(imgidx, mode)
                 
             end = time.time() # end timer
