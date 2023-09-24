@@ -17,12 +17,12 @@ def get_device_info():
 
 def set_model4infer(model4infer = 'mobilenet_v3_small'):
     hostname = socket.gethostname()
-    device_info = rcon.get(f'vnv:edge:info:{hostname}:model4infer', model4infer)
+    device_info = rcon.set(f'vnv:edge:info:{hostname}:model4infer', model4infer)
     return device_info
 
 def get_model4infer():
     hostname = socket.gethostname()
-    device_info = rcon.set(f'vnv:edge:info:{hostname}:model4infer')
+    device_info = rcon.get(f'vnv:edge:info:{hostname}:model4infer')
     return device_info
 
 import sys
