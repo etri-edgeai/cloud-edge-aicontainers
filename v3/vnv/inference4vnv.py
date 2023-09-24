@@ -126,7 +126,7 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
         idx += 1
 
     # Read the categories
-    with open("imagenet_classes.txt", "r") as f:
+    with open("./config/imagenet_classes.txt", "r") as f:
         categories = [s.strip() for s in f.readlines()]
         
         

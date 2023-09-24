@@ -143,24 +143,20 @@ def main(mode = 'baseline'):
         #----------------------------------
         # 에지 디바이스에서 추론을 수행합니다. 
         #----------------------------------
-        
         st_inference = time.time() #---------------------
-        
-        for model in selected_models:
-            cmd = f'ansible vnv -i ./config/hosts.ini -m shell -a "cd {wdir}; pwd; {py} inference4vnv.py --mode {mode} --fpath_testimages {fpath_testimages};"  {ask_pass_option} ' 
-            print("\n", cmd, "\n")
-            run(cmd, True)
+
+        cmd = f'ansible vnv -i ./config/hosts.ini -m shell -a "cd {wdir}; pwd; {py} inference4vnv.py --mode {mode} --fpath_testimages {fpath_testimages};"  {ask_pass_option} ' 
+        print("\n", cmd, "\n")
+        run(cmd, True)
             
         et_inference = time.time() #---------------------
 
-        
         #---------------------------------------------------
         et_total = time.time()
         #---------------------------------------------------
 
         print( f'[d] workding dir = {wdir}' )
         print( f'[d] py = {py}' )
-        print( f'[d] selected_models = {selected_models}' )
 
         T = et_total - st_total
         
