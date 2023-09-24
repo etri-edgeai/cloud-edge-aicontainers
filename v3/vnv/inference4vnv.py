@@ -63,12 +63,12 @@ def set_edge_frame_result(ods, mode):
             rcon.hmset(f'vnv:edge:{mode}:{hostname}:frame:{idx:04d}', od)
             #print('output = ', rcon.hgetall(f'vnv:edge:{mode}:{hostname}:frame:{idx:04d}'))
     
-def set_edge_stat_result(od, mode):
+def set_edge_stat_result(od, model_name, mode):
     hostname = socket.gethostname()
     
     if mode == 'getinfo':
-        rcon.hmset(f'vnv:edge:ministat:{hostname}', od)
-        print('output = ', rcon.hgetall(f'vnv:edge:info:{hostname}'))
+        rcon.hmset(f'vnv:edge:ministat:{hostname}:{model_name}', od)
+        print('output = ', rcon.hgetall(f'vnv:edge:info:{hostname}:{model_name}'))
     else:
         rcon.hmset(f'vnv:edge:{mode}:{hostname}:stat', od)
         print('output = ', rcon.hgetall(f'vnv:edge:{mode}:{hostname}:stat'))
@@ -325,10 +325,10 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
                            'top5_cnt':top5_cnt, 
                            'top5_acc':top5_cnt/imgidx,
                            'model_name':model_name,
-                           'devie':device
+                           'device':device
                         })
-            set_edge_stat_result(od_stat_result, mode)
-            set_edge_frame_result(top1_catids, mode)
+            set_edge_stat_result(od_stat_result, model_name, mode)
+            set_edge_frame_result(top1_catids, model_name, mode)
 
             print('OK')
 
@@ -338,7 +338,7 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
     
     T = et_total - st_total
     od = OrderedDict({'total_inference_time':T})
-    set_edge_stat_result(od, mode)
+    set_edge_stat_result(od, model_name, mode)
 
 
         

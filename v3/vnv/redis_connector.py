@@ -27,7 +27,7 @@ class redis_connector:
     # multiple dictionary
     #----------------------------------------------------
     def hmset(self, key, data):
-        print(f'[d] hmset, key = {key}')
+        print(f'[d] hmset, key:data = {key}:{data}')
         self.redis_client.hmset(key, data)
         
     def hgetall(self, key):
