@@ -131,12 +131,12 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
                        #'resnet18',
                        #'resnet34',
                        #'resnet50',
-                       #'resnet101',
-                       #'resnet152',
+                       'resnet101',
+                       'resnet152',
                        'nvidia_efficientnet_b0',
-                       #'nvidia_efficientnet_b4',
-                       #'nvidia_efficientnet_widese_b0',
-                       #'nvidia_efficientnet_widese_b4',
+                       'nvidia_efficientnet_b4',
+                       'nvidia_efficientnet_widese_b0',
+                       'nvidia_efficientnet_widese_b4',
                       ]
     else:
         s = device_info[b'model4infer'].decode('utf-8')
@@ -289,7 +289,6 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
             imgidx_end = len(testfiles)
             n = len(testfiles)
 
-            #for fpath in tqdm( testset ):
             for i, fpath in enumerate(testfiles[imgidx_start:imgidx_end]):
                 imgidx = imgidx_start + i
                 
