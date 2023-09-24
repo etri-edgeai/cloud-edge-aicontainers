@@ -63,9 +63,9 @@ def update_edge_frame_result(ods, mode):
     
     print(f'ods = {ods}')
     
-    for od in ods:
-        rcon.hmset(f'vnv:edge:{mode}:{hostname}:frame', od)
-        print('output = ', rcon.hgetall(f'vnv:edge:{mode}:{hostname}:frame'))
+    for idx, od in enumerate(ods):
+        rcon.hmset(f'vnv:edge:{mode}:{hostname}:frame:{idx:04d}', od)
+        print('output = ', rcon.hgetall(f'vnv:edge:{mode}:{hostname}:frame:{idx:04d}'))
     
 def update_edge_total_result(od, mode):
     hostname = socket.gethostname()
@@ -283,7 +283,11 @@ def run_main(model_names=['resnet152'], devices=['mps'], N=0, mode='baseline', f
 
                 # Show top categories per image
                 top1_prob, top1_catid = torch.topk(probabilities, 1)
-                top1_catids.append({'idx_gt': int(idx_gt[imgidx]), 'top1_catid':int(top1_catid), 'top1_prob':float(top1_prob)})
+                top1_catids.append( {'idx_gt' : int(idx_gt[imgidx]),
+                                     'top1_catid' : int(top1_catid), 
+                                     'is_true' : int(idx_gt[imgidx]) == int(top1_catid), 
+                                     'top1_prob' : float(top1_prob)}
+                                  )
                 if( top1_catid[0] == idx_gt[imgidx] ):
                     top1_cnt += 1
 
