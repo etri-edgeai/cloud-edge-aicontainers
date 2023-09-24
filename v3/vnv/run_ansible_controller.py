@@ -140,9 +140,7 @@ def main(mode = 'baseline'):
             cmd = f'ansible vnv_baseline -i ./config/hosts.ini -m shell -a "cd {wdir}; pwd; {py} inference4vnv.py --mode {mode} --fpath_testimages {fpath_testimages};"  {ask_pass_option} ' 
         elif mode == 'advanced':
             cmd = f'ansible vnv_advanced -i ./config/hosts.ini -m shell -a "cd {wdir}; pwd; {py} inference4vnv.py --mode {mode} --fpath_testimages {fpath_testimages};"  {ask_pass_option} ' 
-        else:
-            cmd = f'ansible vnv_getinfo -i ./config/hosts.ini -m shell -a "cd {wdir}; pwd; {py} inference4vnv.py --mode {mode} --fpath_testimages {fpath_testimages};"  {ask_pass_option} ' 
-            
+
         print("\n", cmd, "\n")
         run(cmd, True)
             
