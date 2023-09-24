@@ -19,7 +19,10 @@ import sys
 if __name__ == "__main__":
     hostname = socket.gethostname()
     is_cuda_available = torch.cuda.is_available()
-    num_of_cuda_devices = len( torch.cuda.device_count() )
+    if is_cuda_available:
+        num_of_cuda_devices = len( torch.cuda.device_count() )
+    else:
+        num_of_cuda_devices = 0
     
     od = OrderedDict({
         'hostname':hostname,
