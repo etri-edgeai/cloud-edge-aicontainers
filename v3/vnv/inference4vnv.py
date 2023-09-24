@@ -61,7 +61,7 @@ def update_edge_result(od, mode):
     #print('output = ', rcon.get_ordered_dict(f'vnv:edge:{mode}:od:{hostname}'))
 
     rcon.hmset(f'vnv:edge:{mode}:hm:{hostname}', od)
-    print('output = ', rcon.hmgetall(f'vnv:edge:{mode}:hm:{hostname}'))
+    print('output = ', rcon.hgetall(f'vnv:edge:{mode}:hm:{hostname}'))
     
     
 def run_main(model_names=['resnet152'], devices=['mps'], N=0, mode='baseline'):

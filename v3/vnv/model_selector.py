@@ -43,9 +43,13 @@ class ModelSelection():
     def showAllModels(self):
         print( self.urlmodels )
 
+    def preprocModelSelection(self, cfg):
+        #return 'resnet18'
+        return 'mobilenet_v3_small'
+    
     def greedModelSelection(self):
         return 'resnet152'
-
+    
     def advancedModelSelection(self, cfg):
         #return 'resnet18'
         return 'mobilenet_v3_small'

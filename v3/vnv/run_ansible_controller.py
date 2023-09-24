@@ -98,11 +98,6 @@ def main(mode = 'baseline'):
     #----------------------------------
     st_getstatus = time.time() #---------------------
 
-    #selected_model = 'resnet152' # default
-    device = 'cpu'
-    N = 0
-    model_selector = ModelSelection()
-
     #cmd_sub = ' /usr/bin/python3 -c "import torch; print(torch.cuda.is_available())" '
     cmd = f'ansible vnv -m shell -a "cd {wdir}; {py} cuda_is_available.py " -i ./config/hosts.ini '
     z = run(cmd, True)
@@ -127,7 +122,11 @@ def main(mode = 'baseline'):
 
     et_getstatus = time.time() #---------------------
 
-    
+    #selected_model = 'resnet152' # default
+    device = 'cpu'
+    N = 0
+    model_selector = ModelSelection()
+
     #----------------------------------
     # 추론을 위한 AI 모델을 선택합니다.
     #----------------------------------
@@ -138,6 +137,8 @@ def main(mode = 'baseline'):
         selected_model = model_selector.greedModelSelection()
     elif mode == 'advanced':
         selected_model = model_selector.advancedModelSelection(cfg=None)
+    elif mode == 'preproc':
+        selected_model = model_selector.preprocModelSelection(cfg=None)
     
     if True:
         print(f'mode = {mode}, selected_model = {selected_model}')
