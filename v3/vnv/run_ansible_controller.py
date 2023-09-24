@@ -133,6 +133,7 @@ def main(mode = 'baseline'):
 
     print( get_device_info() )
     print( get_device_ministat() )
+    job_allocator.set_job()
     return
     
     if True:

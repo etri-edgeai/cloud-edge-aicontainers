@@ -8,11 +8,11 @@ from redis_connector import redis_connector
 rcon = redis_connector()
 
 
-class JobAllocator():
+class job_allocator():
     def __init__(self):
         pass
     
-    def job_allocator(self):
+    def set_job(self):
         get_device_ministat()
         get_cluster_list()
     
