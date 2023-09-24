@@ -61,6 +61,9 @@ def set_edge_done_frames(cnt, mode):
         pass
     else:
         rcon.set_data(f'vnv:edge:{mode}:{hostname}:done_frames', cnt)
+
+def set_cluster_frame_result():
+    print( rcon.hgetall(f'vnv:edge:advanced:cluster_frame') )
             
 def set_cluster_frame_result(ods, model_name, mode, start_frame):
     hostname = socket.gethostname()
@@ -74,7 +77,7 @@ def set_cluster_frame_result(ods, model_name, mode, start_frame):
         for idx, od in enumerate(ods):
             #fnum = idx + start_frame
             fnum = int(od['idx'])
-            rcon.hmset(f'vnv:edge:{mode}:cluster_frame:{fnum:04d}', od)
+            rcon.hmset(f'vnv:edge:advanced:cluster_frame:{fnum:04d}', od)
             #print('output = ', rcon.hgetall(f'vnv:edge:{mode}:{hostname}:frame:{idx:04d}'))
 
 def set_edge_frame_result(ods, model_name, mode):
@@ -421,6 +424,7 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
             set_edge_stat_result(od_stat_result, model_name, mode)
             set_edge_frame_result(top1_catids, model_name, mode)
             set_cluster_frame_result(top1_catids, model_name, mode, imgidx_start)
+            get_cluster_frame_result()
 
 
             print('OK')
