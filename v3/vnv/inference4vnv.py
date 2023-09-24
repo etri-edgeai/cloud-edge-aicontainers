@@ -58,8 +58,7 @@ def set_edge_done_frames(cnt, mode):
     if mode == 'getinfo':
         pass
     else:
-        for idx, od in enumerate(ods):
-            rcon.set_data(f'vnv:edge:{mode}:{hostname}:done_frames', cnt)
+        rcon.set_data(f'vnv:edge:{mode}:{hostname}:done_frames', cnt)
             
             
 def set_edge_frame_result(ods, model_name, mode):
