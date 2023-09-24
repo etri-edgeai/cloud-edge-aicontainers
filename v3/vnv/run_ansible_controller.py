@@ -197,18 +197,18 @@ def main(mode = 'baseline'):
         disp_time(title1, t1, ratio)
         
         title2 = 'Model selection time'
-        t = et_modelselection - st_modelselection
+        t2 = et_modelselection - st_modelselection
         ratio = t2 / T
         disp_time(title2, t2, ratio)
         
         title3 = 'Inference time'
-        t = et_inference - st_inference
+        t3 = et_inference - st_inference
         ratio = t3 / T
         disp_time(title3, t3, ratio)
         od[title] = t3
             
         title4 = 'Total time'
-        t = et_total - st_total
+        t4 = et_total - st_total
         ratio = t4 / T
         disp_time(title4, t4, ratio)
 
