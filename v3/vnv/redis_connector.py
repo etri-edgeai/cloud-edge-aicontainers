@@ -13,6 +13,7 @@ import redis
 import torch
 from collections import OrderedDict
 import pickle
+import json
 
 class redis_connector:
     
@@ -30,8 +31,10 @@ class redis_connector:
         self.redis_client.hmset(key, data)
         
     def hgetall(self, key):
+        decoder = json.JSONDecoder(object_pairs_hook=collections.OrderedDict)
         print(f'[d] hgetall, key = {key}')
-        return self.redis_client.hgetall(key)
+        ret_string = self.redis_client.hgetall(key)
+        return decoder.decode( ret_string )
     
     #----------------------------------------------------
     # 문자, 숫자와 같은 단순한 {key, value} 데이터를 쓰고(set), 읽습니다(get).
