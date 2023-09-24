@@ -126,17 +126,17 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
         
     if mode == 'getinfo':
         # 간단한 모델을 실행하여 디바이스별 상대적 성능정보를 얻습니다.
-        model_names = [#'mobilenet_v3_small',
-                       #'mobilenet_v3_large',
-                       #'resnet18',
-                       #'resnet34',
-                       #'resnet50',
-                       #'resnet101',
-                       #'resnet152',
+        model_names = ['mobilenet_v3_small',
+                       'mobilenet_v3_large',
+                       'resnet18',
+                       'resnet34',
+                       'resnet50',
+                       'resnet101',
+                       'resnet152',
                        'nvidia_efficientnet_b0',
-                       #'nvidia_efficientnet_b4',
-                       #'nvidia_efficientnet_widese_b0',
-                       #'nvidia_efficientnet_widese_b4',
+                       'nvidia_efficientnet_b4',
+                       'nvidia_efficientnet_widese_b0',
+                       'nvidia_efficientnet_widese_b4',
                       ]
     else:
         s = device_info[b'model4infer'].decode('utf-8')
