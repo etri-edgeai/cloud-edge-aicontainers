@@ -15,10 +15,12 @@ import sys
 if __name__ == "__main__":
     hostname = socket.gethostname()
     is_cuda_available = torch.cuda.is_available()
+    num_of_cuda_devices = len( torch.get_all_devices() )
     
     od = OrderedDict({
         'hostname':hostname,
         'is_cuda_available':str(is_cuda_available),
+        'num_of_cuda_devices':num_of_cuda_devices,
         'platform':platform.system(),
         'arch':platform.machine(),
         'cpu':platform.processor(),
