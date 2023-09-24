@@ -333,6 +333,7 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
                         break
 
             end = time.time() # end timer
+            time_duration = end - start
             num_of_test_images = imgidx - 1
             
             print('-' * 70)
@@ -350,7 +351,7 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
             print('top1_acc = ', top1_cnt/imgidx)
             print('top5_cnt = ', top5_cnt)
             print('top5_acc = ', top5_cnt/imgidx)
-            print('time = ', end - start)
+            print('time_duration = ', time_duration)
             od_stat_result = OrderedDict({
                            'n':n,
                            'num_of_test_images':num_of_test_images,
@@ -359,6 +360,7 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
                            'top5_cnt':top5_cnt, 
                            'top5_acc':top5_cnt/num_of_test_images,
                            'model_name':model_name,
+                           'time_duration':time_duration,
                            'device':device
                         })
             set_edge_stat_result(od_stat_result, model_name, mode)
