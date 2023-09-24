@@ -298,8 +298,8 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
                 # 임시
                 if mode == 'getinfo':
                     pass
-                    if i > 100:
-                        break
+                    #if i > 100:
+                    #    break
                 else:
                     if i > 300:
                         break
