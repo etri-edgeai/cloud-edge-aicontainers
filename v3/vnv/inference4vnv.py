@@ -57,8 +57,8 @@ def arg_parser():
 def update_edge_result(od, mode):
     hostname = socket.gethostname()
     
-    rcon.set_ordered_dict(f'vnv:edge:{mode}:od:{hostname}', od)
-    print('output = ', rcon.get_ordered_dict(f'vnv:edge:{mode}:od:{hostname}'))
+    #rcon.set_ordered_dict(f'vnv:edge:{mode}:od:{hostname}', od)
+    #print('output = ', rcon.get_ordered_dict(f'vnv:edge:{mode}:od:{hostname}'))
 
     rcon.hmset(f'vnv:edge:{mode}:hm:{hostname}', od)
     print('output = ', rcon.hmgetall(f'vnv:edge:{mode}:hm:{hostname}'))
@@ -77,9 +77,7 @@ def run_main(model_names=['resnet152'], devices=['mps'], N=0, mode='baseline'):
     fpath_zip_images = dataset_root + '/' + zip_images
     fpath_testimages = dataset_root + '/imagenet-mini-val/'
 
-    
-    
-    
+
     # Models
     urlroot = 'http://keticmr.iptime.org:22080/edgeai/models_jpark/'
     modeldir = './checkpoint/'

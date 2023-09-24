@@ -99,7 +99,7 @@ def main(mode = 'baseline'):
     st_getstatus = time.time() #---------------------
 
     #selected_model = 'resnet152' # default
-    device = 'cpu'
+    device = 'cuda'
     N = 0
     model_selector = ModelSelection()
 
