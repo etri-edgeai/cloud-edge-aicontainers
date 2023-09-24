@@ -358,7 +358,7 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
                     top1_cnt += 1
 
                 imgidx = imgidx_start + icnt
-                icnt = icnt + 1
+                icnt += 1
      
                 # 임시
                 if mode == 'getinfo':
@@ -376,7 +376,7 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
                 
             end = time.time() # end timer
             time_duration = end - start
-            num_of_test_images = imgidx
+            num_of_test_images = imgidx + 1
             
             print('-' * 70)
             print('GT')
