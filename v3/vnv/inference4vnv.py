@@ -150,14 +150,16 @@ def run_main(model_names=['resnet152'], mode='baseline', fpath_testimages=''):
     #devices = ['cuda', 'cpu']
     #devices = ['mps']
     models = []
+    
+    return
 
-    if N > 0:
-        nn = min( len(testfiles), N )
-        testset = testfiles[:nn]
-    else:
-        testset = testfiles[:]
-        
-    n = len(testset)
+    #if N > 0:
+    #    nn = min( len(testfiles), N )
+    #    testset = testfiles[:nn]
+    #else:
+    #    testset = testfiles[:]
+    #    
+    #n = len(testset)
     
     # 디바이스별 반복
     #for device in devices:
