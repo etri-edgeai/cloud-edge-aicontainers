@@ -58,8 +58,14 @@ def arg_parser():
     print('ok')
     print('-' * 50)
 
-
-def update_edge_result(od, mode):
+def update_edge_frame_result(ods, mode):
+    hostname = socket.gethostname()
+    
+    for od in ods:
+        rcon.hmset(f'vnv:edge:{mode}:{hostname}:frame', od)
+        print('output = ', rcon.hgetall(f'vnv:edge:{mode}:{hostname}:frame'))
+    
+def update_edge_total_result(od, mode):
     hostname = socket.gethostname()
     
     #rcon.set_ordered_dict(f'vnv:edge:{mode}:od:{hostname}', od)
@@ -311,7 +317,10 @@ def run_main(model_names=['resnet152'], devices=['mps'], N=0, mode='baseline', f
                            'top5_cnt':top5_cnt, 
                            'top5_acc':top5_cnt/n
                           })
-            update_edge_result(od_stat_result, mode)
+            update_edge_total_result(od_stat_result, mode)
+            update_edge_frame_result(top1_catids, mode)
+            
+            #update_edge_result(top1_catids
             
             print('')
 
@@ -321,7 +330,7 @@ def run_main(model_names=['resnet152'], devices=['mps'], N=0, mode='baseline', f
     
     T = et_total - st_total
     od = OrderedDict({'total_inference_time', T})
-    update_edge_result(od, mode)
+    update_edge_total_result(od, mode)
 
 
         
