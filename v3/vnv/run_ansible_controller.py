@@ -62,11 +62,6 @@ def update_server_result(od):
 
 def main(mode = 'baseline'):
     
-    print('\n')
-    print('=' * 70)
-    print(f'mode = {mode}')
-    print('=' * 70)
-    
     #----------------------------------
     # 코드 업데이트
     #----------------------------------
@@ -108,7 +103,7 @@ def main(mode = 'baseline'):
     run(cmd, True)
 
     
-    print( get_model4infer() )
+    print( get_device_info() )
     
     return
     
