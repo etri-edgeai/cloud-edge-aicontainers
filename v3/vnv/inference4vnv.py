@@ -96,7 +96,7 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
         # 간단한 모델을 실행하여 디바이스별 상대적 성능정보를 얻습니다.
         model_name = 'mobilenet_v3_small'
     else:
-        model_name = device_info[b'model_name']
+        model_name = str(device_info[b'model_name'])
 
     model_names=[model_name]
 
