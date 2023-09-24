@@ -23,7 +23,7 @@ py = ' /home/jpark/www/cloud-edge-aicontainers/v3/vnv/venv/bin/python'
 ask_pass_option = '' #  '--ask-become-pass'
 
 
-from device_info import get_model4infer
+from device_info import get_device_info, get_model4infer
 
 
 #------------------------------------------------------
