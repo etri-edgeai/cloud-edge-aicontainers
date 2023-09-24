@@ -57,6 +57,7 @@ def update_server_result(od):
 
 def main(mode = 'baseline'):
     
+    print('\n')
     print('=' * 70)
     print(f'mode = {mode}')
     print('=' * 70)
