@@ -205,7 +205,6 @@ def main(mode = 'baseline'):
         t3 = et_inference - st_inference
         ratio = t3 / T
         disp_time(title3, t3, ratio)
-        od[title] = t3
             
         title4 = 'Total time'
         t4 = et_total - st_total
