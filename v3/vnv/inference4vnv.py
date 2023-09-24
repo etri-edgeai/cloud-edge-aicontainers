@@ -293,9 +293,10 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
                 imgidx += 1
                 
                 
-                #임시
-                if imgidx > 10:
-                    break
+                # 임시
+                if mode == 'getinfo':
+                    if imgidx > 100:
+                        break
 
             end = time.time() # end timer
 
@@ -312,15 +313,17 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
             
             print('n = ', n)
             print('top1_cnt = ', top1_cnt)
-            print('top1_acc = ', top1_cnt/n)
+            print('top1_acc = ', top1_cnt/imgidx)
             print('top5_cnt = ', top5_cnt)
-            print('top5_acc = ', top5_cnt/n)
+            print('top5_acc = ', top5_cnt/imgidx)
             print('time = ', end - start)
-            od_stat_result = OrderedDict({'n':n, 
+            od_stat_result = OrderedDict({
+                           'n':n,
+                           'num_of_test_images':imgidx,
                            'top1_cnt':top1_cnt, 
-                           'top1_acc':top1_cnt/n, 
+                           'top1_acc':top1_cnt/imgidx, 
                            'top5_cnt':top5_cnt, 
-                           'top5_acc':top5_cnt/n,
+                           'top5_acc':top5_cnt/imgidx,
                            'model_name':model_name,
                            'devie':device
                         })
