@@ -307,9 +307,9 @@ def run_main(model_names=['resnet152'], devices=['mps'], N=0, mode='baseline', f
             print('time = ', end - start)
             stat_result = {'n':n, 
                            'top1_cnt':top1_cnt, 
-                           'top1_acc':top1_acc, 
+                           'top1_acc':top1_cnt/n, 
                            'top5_cnt':top5_cnt, 
-                           'top5_acc':top5_acc
+                           'top5_acc':top5_cnt/n
                           }
             
             print('')

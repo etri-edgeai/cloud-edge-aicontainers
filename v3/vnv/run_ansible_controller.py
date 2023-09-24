@@ -51,8 +51,8 @@ def update_average_result():
     
 def update_server_result(od):
     hostname = socket.gethostname()
-    rcon.set_ordered_dict(f'vnv:server:{hostname}', od)
-    print('output = ', rcon.get_ordered_dict(f'vnv:server:{hostname}'))
+    rcon.hmset(f'vnv:server:{hostname}', od)
+    print('output = ', rcon.hgetall(f'vnv:server:{hostname}'))
 
 
 def main(mode = 'baseline'):
