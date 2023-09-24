@@ -354,14 +354,14 @@ if __name__ == "__main__":
     # set argument
     model_names=[]
     model_names.append( args.model )
-    devices=[]
-    devices.append( args.device )
     N = int( int(args.N) )
     mode = args.mode
     fpath_testimages = args.fpath_testimages
     
     # core
-    run_main(model_names = model_names, devices=devices, N = N, mode = mode, fpath_testimages = fpath_testimages )
+    run_main(model_names = model_names, 
+             mode = mode, 
+             fpath_testimages = fpath_testimages )
 
 #------------------------------------------------------
 # End of this file
