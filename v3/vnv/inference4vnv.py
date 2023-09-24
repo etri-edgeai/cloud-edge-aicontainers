@@ -79,21 +79,24 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
     #---------------------------------------------------
     # EVC에서 에지 디바이스별로 맞춤 설정한 정보에 따라 추론 수행
     #---------------------------------------------------
-    
+
     device_info = get_device_info()
-    
+
     print('-'*45)
     print(f'device_info = {device_info}')
     print(f'type(device_info) = {type(device_info)}')
     print('-'*45)
-    
+
     if int(device_info[b'num_of_cuda_devices']) > 0:
         device = 'cuda'
     else: 
         device = 'cpu'
         
-    model_name = device_info[b'model_name']
-    model_names=[model_name]
+    if mode == 'getinfo':
+        model_names=['mobilenet_v3_small']
+    else:
+        model_name = device_info[b'model_name']
+        model_names=[model_name]
 
     
     #---------------------------------------------------

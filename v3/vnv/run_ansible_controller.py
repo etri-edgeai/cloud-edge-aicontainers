@@ -73,7 +73,7 @@ def main(mode = 'baseline'):
     print(cmd)
     run(cmd, True)
         
-    
+
     #----------------------------------
     # 데이터셋 다운로드
     #----------------------------------
@@ -105,9 +105,14 @@ def main(mode = 'baseline'):
     print( get_device_info() )
 
     #----------------------------------
-    # 에지 디바이스의 추론 성능 정보를 얻습니다.
+    # 에지 디바이스의 추론 성능 정보를 얻고 종료합니다.
     #----------------------------------
-    
+
+    if mode == 'getinfo':
+        cmd = f'ansible vnv -i ./config/hosts.ini -m shell -a "cd {wdir}; pwd; {py} inference4vnv.py --mode {mode} --fpath_testimages {fpath_testimages};"  {ask_pass_option} ' 
+        print("\n", cmd, "\n")
+        run(cmd, True)
+        return
 
 
     et_getstatus = time.time() #---------------------
