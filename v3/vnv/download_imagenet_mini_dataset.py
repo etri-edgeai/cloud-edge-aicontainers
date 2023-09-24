@@ -68,5 +68,5 @@ for d in sorted( iglob(fpath_testimages + 'n*', recursive=False) ):
     idx += 1
 
 # Read the categories
-with open("imagenet_classes.txt", "r") as f:
+with open("./config/imagenet_classes.txt", "r") as f:
     categories = [s.strip() for s in f.readlines()]
