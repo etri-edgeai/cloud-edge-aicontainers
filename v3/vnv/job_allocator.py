@@ -26,8 +26,7 @@ class job_allocator():
         ministat = get_device_ministat(hostnames)
         #get_cluster_list()
 
-        for 
-        ministat[hostname]
+        #ministat[hostname]
         #current_hostname = socket.gethostname()
         
         hostname = 'txp'
