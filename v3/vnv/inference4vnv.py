@@ -361,10 +361,10 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
                 
                 # 임시
                 if mode == 'getinfo':
-                    if imgidx > 100:
+                    if i > 100:
                         break
                 else:
-                    if imgidx > 300:
+                    if i > 300:
                         break
 
             end = time.time() # end timer
