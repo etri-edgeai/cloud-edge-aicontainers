@@ -72,7 +72,8 @@ def set_cluster_frame_result(ods, model_name, mode, start_frame):
         pass
     else:
         for idx, od in enumerate(ods):
-            fnum = idx + start_frame
+            #fnum = idx + start_frame
+            fnum = int(od['idx'])
             rcon.hmset(f'vnv:edge:{mode}:cluster_frame:{fnum:04d}', od)
             #print('output = ', rcon.hgetall(f'vnv:edge:{mode}:{hostname}:frame:{idx:04d}'))
 
@@ -84,7 +85,8 @@ def set_edge_frame_result(ods, model_name, mode):
         pass
     else:
         for idx, od in enumerate(ods):
-            rcon.hmset(f'vnv:edge:{mode}:{hostname}:frame:{idx:04d}', od)
+            fnum = int(od['idx'])
+            rcon.hmset(f'vnv:edge:{mode}:{hostname}:frame:{fnum:04d}', od)
             #print('output = ', rcon.hgetall(f'vnv:edge:{mode}:{hostname}:frame:{idx:04d}'))
     
 def set_edge_stat_result(od, model_name, mode):
