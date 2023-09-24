@@ -75,7 +75,9 @@ def set_edge_stat_result(od, model_name, mode):
 
 
 def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimages=''):
-
+    
+    model_names=['mobilenet_v3_small']
+    
     #---------------------------------------------------
     st_total = time.time()
     #---------------------------------------------------
