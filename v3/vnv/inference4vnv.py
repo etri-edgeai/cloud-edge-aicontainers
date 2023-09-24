@@ -68,7 +68,7 @@ def get_cluster_frame_result(total_frames):
     for frame_idx in range(total_frames):
         od = rcon.hgetall(f'vnv:edge:advanced:cluster_frame:{frame_idx:04d}')
         
-        print(f'{frame_idx} ... {od})
+        print(f'{frame_idx} ... {od}')
         if od['is_true'] == 'True':
             i_true_cnt += 1
             
