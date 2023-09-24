@@ -353,7 +353,7 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
                     #print(top5_catid[i])
                     #print(imgidx, ' ', categories[top5_catid[i]], top5_prob[i].item())
 
-                    if( top5_catid[i] == idx_gt[icnt] ):
+                    if( top5_catid[i] == idx_gt[imgidx] ):
                         top5_cnt += 1
 
                 # Show top categories per image
@@ -368,7 +368,7 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
                 if( top1_catid[0] == idx_gt[imgidx] ):
                     top1_cnt += 1
 
-                imgidx = imgidx + icnt
+                imgidx = imgidx_start + icnt
                 icnt = icnt + 1
                 
                 if (icnt+1)%100 == 0:
