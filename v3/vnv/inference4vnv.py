@@ -353,12 +353,12 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
                     #print(top5_catid[i])
                     #print(imgidx, ' ', categories[top5_catid[i]], top5_prob[i].item())
 
-                    if( top5_catid[i] == idx_gt[imgidx] ):
+                    if( top5_catid[i] == idx_gt[icnt] ):
                         top5_cnt += 1
 
                 # Show top categories per image
                 top1_prob, top1_catid = torch.topk(probabilities, 1)
-                print(f'idx = {idx}, imgidx = {imgidx}')
+                print(f'icnt = {icnt}, imgidx = {imgidx}')
                 top1_catids.append( {'idx' : imgidx,
                                      'idx_gt' : int(idx_gt[imgidx]),
                                      'top1_catid' : int(top1_catid), 
