@@ -173,7 +173,7 @@ def main(mode = 'baseline'):
         st_inference = time.time() #---------------------
         
         for model in selected_models:
-            cmd = f'ansible vnv -i ./config/hosts.ini -m shell -a "cd {wdir}; pwd; {py} inference4vnv.py --model {model} --device {device} --N {N} --mode {mode} --fpath_testimages {fpath_testimages};"  {ask_pass_option} ' 
+            cmd = f'ansible vnv -i ./config/hosts.ini -m shell -a "cd {wdir}; pwd; {py} inference4vnv.py --model {model} --mode {mode} --fpath_testimages {fpath_testimages};"  {ask_pass_option} ' 
             print("\n", cmd, "\n")
             run(cmd, True)
             

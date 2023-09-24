@@ -33,14 +33,6 @@ def arg_parser():
                         default='resnet18', 
                         metavar='N', 
                         help='neural network')
-    parser.add_argument('--device', 
-                        type=str, 
-                        default='cuda', 
-                        help='running device. e.g. {cpu, cuda, mps, ...}')
-    parser.add_argument('--N', 
-                        type=int, 
-                        default=0, 
-                        help='# of inference images')
     parser.add_argument('--mode', 
                         type=str, 
                         default='baseline', 
@@ -51,7 +43,6 @@ def arg_parser():
                         default='', 
                         metavar='N', 
                         help='fpath_testimages')
-    
     return parser
     
     print('-' * 50)
@@ -76,8 +67,13 @@ def update_edge_total_result(od, mode):
     rcon.hmset(f'vnv:edge:{mode}:{hostname}:stat', od)
     print('output = ', rcon.hgetall(f'vnv:edge:{mode}:{hostname}:stat'))
     
+def get_device_info():
+    hostname = socket.gethostname()
+    device_info = rcon.hgetall(f'vnv:edge:{mode}:{hostname}')
+    return device_info
+                    
     
-def run_main(model_names=['resnet152'], devices=['mps'], N=0, mode='baseline', fpath_testimages=''):
+def run_main(model_names=['resnet152'], mode='baseline', fpath_testimages=''):
     
     #---------------------------------------------------
     st_total = time.time()
@@ -149,6 +145,8 @@ def run_main(model_names=['resnet152'], devices=['mps'], N=0, mode='baseline', f
     preproc = ['method1', 'method2']
     preproc_method = 'method1'
 
+    device_info = get_device_info()
+    print(device_info)
     #devices = ['cuda', 'cpu']
     #devices = ['mps']
     models = []
@@ -295,9 +293,9 @@ def run_main(model_names=['resnet152'], devices=['mps'], N=0, mode='baseline', f
                 imgidx += 1
                 
                 
-                # 임시
-                #if imgidx > 10:
-                #    break
+                #임시
+                if imgidx > 10:
+                    break
 
             end = time.time() # end timer
 
@@ -322,8 +320,10 @@ def run_main(model_names=['resnet152'], devices=['mps'], N=0, mode='baseline', f
                            'top1_cnt':top1_cnt, 
                            'top1_acc':top1_cnt/n, 
                            'top5_cnt':top5_cnt, 
-                           'top5_acc':top5_cnt/n
-                          })
+                           'top5_acc':top5_cnt/n,
+                           'model_name':model_name,
+                           'devie':device
+                        })
             update_edge_total_result(od_stat_result, mode)
             update_edge_frame_result(top1_catids, mode)
 
