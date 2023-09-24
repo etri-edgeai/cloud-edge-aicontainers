@@ -182,7 +182,7 @@ def main(mode = 'baseline'):
         #---------------------------------------------------
 
         
-        get_cluster_frame_result(total_frames = 500)
+        get_cluster_frame_result(total_frames = 50000)
 
         
         

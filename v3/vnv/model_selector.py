@@ -46,7 +46,7 @@ class ModelSelection():
         return ['nvidia_efficientnet_widese_b0']
     
     def advancedModelSelection(self):
-        set_model4infer('nvidia_efficientnet_b0')
-        return ['nvidia_efficientnet_b0']
+        set_model4infer('nvidia_efficientnet_widese_b0')
+        return ['nvidia_efficientnet_widese_b0']
     
         
