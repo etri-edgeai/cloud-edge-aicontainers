@@ -131,12 +131,12 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
                        #'resnet18',
                        #'resnet34',
                        #'resnet50',
-                       'resnet101',
-                       'resnet152',
+                       #'resnet101',
+                       #'resnet152',
                        'nvidia_efficientnet_b0',
-                       'nvidia_efficientnet_b4',
-                       'nvidia_efficientnet_widese_b0',
-                       'nvidia_efficientnet_widese_b4',
+                       #'nvidia_efficientnet_b4',
+                       #'nvidia_efficientnet_widese_b0',
+                       #'nvidia_efficientnet_widese_b4',
                       ]
     else:
         s = device_info[b'model4infer'].decode('utf-8')
@@ -285,13 +285,25 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
                 ])
 
             # 
-            imgidx_start = 10
+            imgidx_start = 0
             imgidx_end = len(testfiles)
             n = len(testfiles)
 
             for i, fpath in enumerate(testfiles[imgidx_start:imgidx_end]):
                 imgidx = imgidx_start + i
                 
+                if i%100 == 0:
+                    set_edge_done_frames(imgidx, mode)
+                
+                # 임시
+                if mode == 'getinfo':
+                    if i > 100:
+                        break
+                else:
+                    if i > 300:
+                        break
+                        
+                        
                 #print( fpath )
                 input_image = Image.open(fpath)
 
@@ -355,17 +367,7 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
                 if( top1_catid[0] == idx_gt[imgidx] ):
                     top1_cnt += 1
 
-                
-                if i%100 == 0:
-                    set_edge_done_frames(imgidx, mode)
-                
-                # 임시
-                if mode == 'getinfo':
-                    if i > 100:
-                        break
-                else:
-                    if i > 300:
-                        break
+
 
             end = time.time() # end timer
             time_duration = end - start
