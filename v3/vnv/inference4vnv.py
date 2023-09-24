@@ -299,11 +299,11 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
                 # 임시
                 if mode == 'getinfo':
                     #pass
-                    if idx > 100:
+                    if icnt > 100:
                         break
                 else:
                     pass
-                    #if idx > 300:
+                    #if icnt > 300:
                     #    break
                         
                         
