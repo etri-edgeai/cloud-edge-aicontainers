@@ -26,7 +26,8 @@ if __name__ == "__main__":
     
     od = OrderedDict({
         'hostname':hostname,
-        'is_cuda_available':str(is_cuda_available),
+        'cuda_is_available':str(is_cuda_available),
+        'cuda_num_of_devices':str(num_of_cuda_devices),
         'num_of_cuda_devices':num_of_cuda_devices,
         'platform':platform.system(),
         'arch':platform.machine(),
