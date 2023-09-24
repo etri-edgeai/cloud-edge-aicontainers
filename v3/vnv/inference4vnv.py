@@ -61,6 +61,8 @@ def arg_parser():
 def update_edge_frame_result(ods, mode):
     hostname = socket.gethostname()
     
+    print(f'ods = {ods}')
+    
     for od in ods:
         rcon.hmset(f'vnv:edge:{mode}:{hostname}:frame', od)
         print('output = ', rcon.hgetall(f'vnv:edge:{mode}:{hostname}:frame'))
@@ -319,9 +321,7 @@ def run_main(model_names=['resnet152'], devices=['mps'], N=0, mode='baseline', f
                           })
             update_edge_total_result(od_stat_result, mode)
             update_edge_frame_result(top1_catids, mode)
-            
-            #update_edge_result(top1_catids
-            
+
             print('')
 
     #---------------------------------------------------
