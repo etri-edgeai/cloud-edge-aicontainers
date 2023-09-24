@@ -147,17 +147,10 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
     preproc_method = 'method1'
 
     device_info = get_model4infer()
-    if device_info is None:
-        pass
     
     print('-'*45)
-    print(device_info)
+    print(f'device_info = {device_info}')
     print('-'*45)
-    #devices = ['cuda', 'cpu']
-    #devices = ['mps']
-    models = []
-    
-    return
 
     #if N > 0:
     #    nn = min( len(testfiles), N )
@@ -167,9 +160,11 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
     #    
     #n = len(testset)
     
-    # 디바이스별 반복
-    #for device in devices:
-    device = devices[0]
+    if device_info.is_cuda_available == 'True':
+        device = 'cuda'
+    else: 
+        device = 'cpu'
+        
     if True:
         print('\n')
         print('-'*50)
