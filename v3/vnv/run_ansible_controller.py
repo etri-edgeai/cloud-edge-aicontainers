@@ -23,7 +23,6 @@ py = ' /home/jpark/www/cloud-edge-aicontainers/v3/vnv/venv/bin/python'
 ask_pass_option = '' #  '--ask-become-pass'
 
 from model_selector import ModelSelection
-
 from device_info import get_device_info, get_model4infer
 
 
@@ -131,6 +130,7 @@ def main(mode = 'baseline'):
     #----------------------------------
     # 추론을 위한 AI 모델을 선택합니다.
     #----------------------------------
+    model_selector = ModelSelection()
     if mode == 'baseline':
         model_selector.greedModelSelection()
     elif mode == 'advanced':
