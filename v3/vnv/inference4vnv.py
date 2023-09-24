@@ -60,7 +60,18 @@ def set_edge_done_frames(cnt, mode):
     else:
         rcon.set_data(f'vnv:edge:{mode}:{hostname}:done_frames', cnt)
             
-            
+def set_cluster_frame_result(ods, model_name, mode):
+    hostname = socket.gethostname()
+    
+    print(f'ods = {ods}')
+    if mode == 'getinfo':
+        pass
+    else:
+        for idx, od in enumerate(ods):
+            rcon.hmset(f'vnv:edge:{mode}:cluster_frame:{idx:04d}', od)
+            #print('output = ', rcon.hgetall(f'vnv:edge:{mode}:{hostname}:frame:{idx:04d}'))
+    
+    
 def set_edge_frame_result(ods, model_name, mode):
     hostname = socket.gethostname()
     
@@ -218,8 +229,7 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
     #    nn = min( len(testfiles), N )
     #    testset = testfiles[:nn]
     #else:
-    testset = testfiles[:]
-    n = len(testset)
+    
     
     if True:
         for model_idx, model_name in enumerate(model_names):
@@ -274,10 +284,15 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
                     transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
                 ])
 
-            # 시험영상별 반복
-            imgidx = 0
+            # 
+            imgidx_start = 10
+            imgidx_end = len(testfiles)
+            n = len(testset)
+
             #for fpath in tqdm( testset ):
-            for fpath in testset:
+            for i, fpath in enumerate(testfiles[imgidx_start:imgidx_end]):
+                imgidx = imgidx_start + i
+                
                 #print( fpath )
                 input_image = Image.open(fpath)
 
@@ -332,7 +347,8 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
 
                 # Show top categories per image
                 top1_prob, top1_catid = torch.topk(probabilities, 1)
-                top1_catids.append( {'idx_gt' : int(idx_gt[imgidx]),
+                top1_catids.append( {'idx' : imgidx,
+                                     'idx_gt' : int(idx_gt[imgidx]),
                                      'top1_catid' : int(top1_catid), 
                                      'is_true' : str(int(idx_gt[imgidx]) == int(top1_catid)), 
                                      'top1_prob' : float(top1_prob)}
@@ -340,9 +356,8 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
                 if( top1_catid[0] == idx_gt[imgidx] ):
                     top1_cnt += 1
 
-                imgidx += 1
                 
-                if imgidx%100 == 0:
+                if i%100 == 0:
                     set_edge_done_frames(imgidx, mode)
                 
                 # 임시
@@ -350,7 +365,7 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
                     if imgidx > 100:
                         break
                 else:
-                    if imgidx > 100:
+                    if imgidx > 300:
                         break
 
             end = time.time() # end timer
