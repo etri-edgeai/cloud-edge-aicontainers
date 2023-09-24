@@ -1,5 +1,7 @@
 import torch
 import socket
+import platform, psutil
+
 from collections import OrderedDict
 from redis_connector import redis_connector
 rcon = redis_connector()
@@ -17,6 +19,10 @@ if __name__ == "__main__":
     od = OrderedDict({
         'hostname':hostname,
         'is_cuda_available':str(is_cuda_available),
+        'platform':platform.system(),
+        'arch':platform.machine(),
+        'cpu':platform.processor(),
+        'ram':str(round(psutil.virtual_memory().total / (1024.0 **3))),
     })
     set_device_info(od)
 
