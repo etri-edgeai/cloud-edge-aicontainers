@@ -119,7 +119,8 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
                        'nvidia_efficientnet_widese_b4',
                       ]
     else:
-        model_names = [ str(device_info[b'model4infer']) ]
+        s = device_info[b'model4infer'].decode('utf-8')
+        model_names = [ s ]
 
     # Models
     urlroot = 'http://keticmr.iptime.org:22080/edgeai/models_jpark/'

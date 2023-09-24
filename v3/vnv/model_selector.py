@@ -48,7 +48,7 @@ class ModelSelection():
     
     def advancedModelSelection(self):
         #return 'resnet18'
-        set_model4infer('mobilenet_v3_large')
+        set_model4infer('mobilenet_v3_small')
         return ['mobilenet_v3_small']
     
         
