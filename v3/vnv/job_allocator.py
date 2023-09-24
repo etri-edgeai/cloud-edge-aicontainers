@@ -27,12 +27,9 @@ class job_allocator():
         #get_cluster_list()
 
         hostname = socket.gethostname()
-    
-        if mode == 'getinfo':
-            pass
-        else:
-            rcon.set_data(f'vnv:edge:advanced:job:{hostname}:start_frame', 0)
-            rcon.set_data(f'vnv:edge:advanced:job:{hostname}:end_frame', 100)
+        
+        rcon.set_data(f'vnv:edge:advanced:job:{hostname}:start_frame', 0)
+        rcon.set_data(f'vnv:edge:advanced:job:{hostname}:end_frame', 100)
     
     def get_job(self, hostname):
         start_frame = rcon.set_data(f'vnv:edge:advanced:job:{hostname}:start_frame', 0)
