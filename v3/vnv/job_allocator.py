@@ -53,7 +53,7 @@ class job_allocator():
         rcon.set_data(f'vnv:edge:advanced:job:{hostname}:start_frame', start_frame)
         rcon.set_data(f'vnv:edge:advanced:job:{hostname}:end_frame', end_frame)
         
-        hostname = 'rpi6431'
+        hostname = 'rpi6432'
         start_frame = 46000
         end_frame = 47000
         rcon.set_data(f'vnv:edge:advanced:job:{hostname}:start_frame', start_frame)
