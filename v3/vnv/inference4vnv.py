@@ -293,7 +293,7 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
             
             print(f'imgidx_start = {imgidx_start}')
             print(f'imgidx_end = {imgidx_end}')
-            pirnt('='*55)
+            print('='*55)
             # imgidx_start = ja.start
             # imgidx_end = len(testfiles)
             n = len(testfiles)
