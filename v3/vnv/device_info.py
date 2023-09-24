@@ -20,7 +20,7 @@ def set_model4infer(model4infer = 'mobilenet_v3_small'):
     
     od_tmp = get_device_info()
     od_tmp['model4infer'] = model4infer
-    rcon.hmset(f'vnv:edge:info:{hostname}', od)
+    rcon.hmset(f'vnv:edge:info:{hostname}', od_tmp)
 
 def get_model4infer():
     hostname = socket.gethostname()
