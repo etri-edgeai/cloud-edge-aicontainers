@@ -29,20 +29,22 @@ class job_allocator():
         #ministat[hostname]
         #current_hostname = socket.gethostname()
         
+        '''
         hostname = 'txp'
         start_frame = 0
         end_frame = 10000
         rcon.set_data(f'vnv:edge:advanced:job:{hostname}:start_frame', start_frame)
         rcon.set_data(f'vnv:edge:advanced:job:{hostname}:end_frame', end_frame)
+        '''
         
         hostname = 'n01'
-        start_frame = 10000
-        end_frame = 30000
+        start_frame = 0
+        end_frame = 24500
         rcon.set_data(f'vnv:edge:advanced:job:{hostname}:start_frame', start_frame)
         rcon.set_data(f'vnv:edge:advanced:job:{hostname}:end_frame', end_frame)
         
         hostname = 'n02'
-        start_frame = 30000
+        start_frame = 24500
         end_frame = 49000
         rcon.set_data(f'vnv:edge:advanced:job:{hostname}:start_frame', start_frame)
         rcon.set_data(f'vnv:edge:advanced:job:{hostname}:end_frame', end_frame)
