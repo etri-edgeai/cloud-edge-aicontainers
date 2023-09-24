@@ -25,7 +25,9 @@ def set_model4infer(model4infer = 'mobilenet_v3_small'):
 def get_model4infer():
     hostname = socket.gethostname()
     od = get_device_info()
-    return od['model4infer']
+    print('od = ', od)
+    return
+    #return od['model4infer']
 
 import sys
 if __name__ == "__main__":
