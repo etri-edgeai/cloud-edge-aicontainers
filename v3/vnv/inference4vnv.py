@@ -165,6 +165,7 @@ def run_main(model_names=['resnet152'], devices=['mps'], N=0, mode='baseline', f
     #for device in devices:
     device = devices[0]
     if True:
+        print('\n')
         print('-'*50)
         print('[d] device = ', device, flush=True)
         print('-'*50)
