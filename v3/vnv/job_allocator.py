@@ -13,26 +13,73 @@ class job_allocator():
         pass
     
     def set_job(self):
-        hostnames = ['n01', 
+        hostnames = ['txp',
+                     'n01', 
                      'n02', 
                      'rpi6431', 
                      'rpi6432',
                      'rpi6433', 
                      'rpi6434',
                      'rpi6435', 
-                     'txp',
                     ]
                      
-        get_device_ministat(hostnames)
+        ministat = get_device_ministat(hostnames)
         #get_cluster_list()
 
-        hostname = socket.gethostname()
+        for 
+        ministat[hostname]
+        #current_hostname = socket.gethostname()
         
-        rcon.set_data(f'vnv:edge:advanced:job:{hostname}:start_frame', 0)
-        rcon.set_data(f'vnv:edge:advanced:job:{hostname}:end_frame', 100)
-    
+        hostname = 'txp'
+        start_frame = 0
+        end_frame = 15000
+        rcon.set_data(f'vnv:edge:advanced:job:{hostname}:start_frame', start_frame)
+        rcon.set_data(f'vnv:edge:advanced:job:{hostname}:end_frame', end_frame)
+        
+        hostname = 'n01'
+        start_frame = 15000
+        end_frame = 30000
+        rcon.set_data(f'vnv:edge:advanced:job:{hostname}:start_frame', start_frame)
+        rcon.set_data(f'vnv:edge:advanced:job:{hostname}:end_frame', end_frame)
+        
+        hostname = 'n02'
+        start_frame = 30000
+        end_frame = 45000
+        rcon.set_data(f'vnv:edge:advanced:job:{hostname}:start_frame', start_frame)
+        rcon.set_data(f'vnv:edge:advanced:job:{hostname}:end_frame', end_frame)
+        
+        hostname = 'rpi6431'
+        start_frame = 45000
+        end_frame = 46000
+        rcon.set_data(f'vnv:edge:advanced:job:{hostname}:start_frame', start_frame)
+        rcon.set_data(f'vnv:edge:advanced:job:{hostname}:end_frame', end_frame)
+        
+        hostname = 'rpi6431'
+        start_frame = 46000
+        end_frame = 47000
+        rcon.set_data(f'vnv:edge:advanced:job:{hostname}:start_frame', start_frame)
+        rcon.set_data(f'vnv:edge:advanced:job:{hostname}:end_frame', end_frame)
+        
+        hostname = 'rpi6433'
+        start_frame = 47000
+        end_frame = 48000
+        rcon.set_data(f'vnv:edge:advanced:job:{hostname}:start_frame', start_frame)
+        rcon.set_data(f'vnv:edge:advanced:job:{hostname}:end_frame', end_frame)
+        
+        hostname = 'rpi6434'
+        start_frame = 48000
+        end_frame = 49000
+        rcon.set_data(f'vnv:edge:advanced:job:{hostname}:start_frame', start_frame)
+        rcon.set_data(f'vnv:edge:advanced:job:{hostname}:end_frame', end_frame)  
+
+        hostname = 'rpi6435'
+        start_frame = 49000
+        end_frame = 50000
+        rcon.set_data(f'vnv:edge:advanced:job:{hostname}:start_frame', start_frame)
+        rcon.set_data(f'vnv:edge:advanced:job:{hostname}:end_frame', end_frame)  
+        
     def get_job(self, hostname):
-        start_frame = rcon.set_data(f'vnv:edge:advanced:job:{hostname}:start_frame', 0)
-        end_frame = rcon.set_data(f'vnv:edge:advanced:job:{hostname}:start_frame', 0)
+        start_frame = rcon.get_data(f'vnv:edge:advanced:job:{hostname}:start_frame')
+        end_frame = rcon.get_data(f'vnv:edge:advanced:job:{hostname}:end_frame')
         return start_frame, end_frame
     

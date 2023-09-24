@@ -139,6 +139,8 @@ def main(mode = 'baseline'):
         ja.get_job('n01')
     return
     
+    
+    
     if True:
         #----------------------------------
         # 에지 디바이스에서 추론을 수행합니다. 
