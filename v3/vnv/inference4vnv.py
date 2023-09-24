@@ -146,7 +146,7 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
     preproc = ['method1', 'method2']
     preproc_method = 'method1'
 
-    device_info = get_model4infer()
+    device_info = get_device_info()
     
     print('-'*45)
     print(f'device_info = {device_info}')
