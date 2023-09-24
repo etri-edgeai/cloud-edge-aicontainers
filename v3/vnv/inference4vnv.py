@@ -410,7 +410,6 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
 
             print('OK')
 
-
         
 import sys
 if __name__ == "__main__":
