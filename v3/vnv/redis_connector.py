@@ -31,7 +31,7 @@ class redis_connector:
         self.redis_client.hmset(key, data)
         
     def hgetall(self, key):
-        decoder = json.JSONDecoder(object_pairs_hook=collections.OrderedDict)
+        decoder = json.JSONDecoder(object_pairs_hook=OrderedDict)
         print(f'[d] hgetall, key = {key}')
         ret_string = self.redis_client.hgetall(key)
         return decoder.decode( ret_string )
