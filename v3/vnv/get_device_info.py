@@ -16,7 +16,7 @@ if __name__ == "__main__":
     
     od = OrderedDict( {
         'hostname', hostname,
-        'is_cuda_available', is_cuda_available,
+        'is_cuda_available', str(is_cuda_available),
     })
     set_device_info(od)
 
