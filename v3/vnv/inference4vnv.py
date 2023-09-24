@@ -67,7 +67,7 @@ def set_edge_stat_result(od, mode):
     hostname = socket.gethostname()
     
     if mode == 'getinfo':
-        rcon.hmset(f'vnv:edge:info:{hostname}:', od)
+        rcon.hmset(f'vnv:edge:info:{hostname}:stat', od)
         print('output = ', rcon.hgetall(f'vnv:edge:info:{hostname}'))
     else:
         rcon.hmset(f'vnv:edge:{mode}:{hostname}:stat', od)
