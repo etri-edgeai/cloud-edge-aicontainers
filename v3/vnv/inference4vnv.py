@@ -360,8 +360,7 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
 
                 icnt += 1
                 imgidx = imgidx_start + icnt
-  
-     
+
                 # 임시
                 if mode == 'getinfo':
                     pass
