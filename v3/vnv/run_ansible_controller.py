@@ -133,15 +133,17 @@ def main(mode = 'baseline'):
     
     st_modelselection = time.time() #---------------------
 
-    if mode == 'baseline':
-        selected_model = model_selector.greedModelSelection()
-    elif mode == 'advanced':
-        selected_model = model_selector.advancedModelSelection(cfg=None)
-    elif mode == 'preproc':
-        selected_model = model_selector.preprocModelSelection(cfg=None)
-    
+
     if True:
-        print(f'mode = {mode}, selected_model = {selected_model}')
+        selected_models = []
+        if mode == 'baseline':
+            selected_models = model_selector.greedModelSelection()
+        elif mode == 'advanced':
+            selected_models = model_selector.advancedModelSelection(cfg=None)
+        elif mode == 'getinfo':
+            selected_models = model_selector.getinfoModelSelection(cfg=None)
+
+        print(f'mode = {mode}, selected_models = {selected_models}')
         et_modelselection = time.time() #---------------------
 
         #----------------------------------
@@ -149,12 +151,14 @@ def main(mode = 'baseline'):
         #----------------------------------
         
         st_inference = time.time() #---------------------
-        cmd = f'ansible vnv -i ./config/hosts.ini -m shell -a "cd {wdir}; pwd; {py} inference4vnv.py --model {selected_model} --device {device} --N {N} --mode {mode};"  {ask_pass_option} ' 
-        print(cmd)
-        run(cmd, True)
+        
+        for model in selected_models:
+            cmd = f'ansible vnv -i ./config/hosts.ini -m shell -a "cd {wdir}; pwd; {py} inference4vnv.py --model {model} --device {device} --N {N} --mode {mode};"  {ask_pass_option} ' 
+            print(cmd)
+            run(cmd, True)
+            
         et_inference = time.time() #---------------------
-        
-        
+
         
         #---------------------------------------------------
         et_total = time.time()
@@ -162,7 +166,7 @@ def main(mode = 'baseline'):
 
         print( f'[d] workding dir = {wdir}' )
         print( f'[d] py = {py}' )
-        print( f'[d] selected_model = {selected_model}' )
+        print( f'[d] selected_models = {selected_models}' )
 
         od = OrderedDict()
         T = et_total - st_total
@@ -194,69 +198,6 @@ def main(mode = 'baseline'):
         update_server_result(od)
         
         print(f'[+] Done {mode} experiment')
-
-        
-    '''
-    elif mode == 'advanced':
-        config_file = os.getcwd() + '/' + 'config.yaml'
-        
-        with open(config_file) as f:
-            cfg = yaml.load(f, Loader=yaml.FullLoader)
-
-        selected_model = model_selector.advancedModelSelection(cfg)
-
-        for m in selected_model.keys():
-            for n in selected_model[m]:
-                print(f'mode = {mode}, node = {n}, selected_model = {m}')
-                et_modelselection = time.time() #---------------------
-                
-
-                #----------------------------------
-                # 에지 디바이스에서 추론을 수행합니다. 
-                #----------------------------------
-                st_inference = time.time() #---------------------
-                cmd = f'ansible vnv -i ./config/hosts.ini -l {n} -m shell -a "cd {wdir}; pwd; {py} inference4vnv.py --model {m} --device {device} --N {N};"  {ask_pass_option} ' 
-                
-                print(cmd)
-                run(cmd, True)
-                et_inference = time.time() #---------------------
-                
-                #---------------------------------------------------
-                et_total = time.time()
-                #---------------------------------------------------
-
-                print( f'[d] workding dir = {wdir}' )
-                print( f'[d] py = {py}' )
-                print( f'[d] node =  {n}' )
-                print( f'[d] selected_model = {m}' )
-
-                T = et_total - st_total
-                
-                title = 'Get status time'
-                t = et_getstatus - st_getstatus
-                ratio = t / T
-                disp_time(title, t, ratio)
-                
-                title = 'Model selection time'
-                t = et_modelselection - st_modelselection
-                ratio = t / T
-                disp_time(title, t, ratio)
-
-                title = 'Inference time'
-                t = et_inference - st_inference
-                ratio = t / T
-                disp_time(title, t, ratio)
-                
-                title = 'Total time'
-                t = et_total - st_total
-                ratio = t / T
-                disp_time(title, t, ratio)
-
-                print(f'[+] Done {mode} experiment')
-
-    '''
-
-
 
 def disp_time(title, t, ratio):
     print(f'{t}, {ratio * 100} %, {title} ')

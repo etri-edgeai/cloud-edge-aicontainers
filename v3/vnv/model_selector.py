@@ -44,14 +44,14 @@ class ModelSelection():
         print( self.urlmodels )
 
     def getinfoModelSelection(self, cfg):
-        return 'mobilenet_v3_small' # 간단한 모델을 실행합니다.
+        return ['mobilenet_v3_small'] # 간단한 모델을 실행합니다.
     
     def greedModelSelection(self):
-        return 'resnet152'
+        return ['resnet152']
     
     def advancedModelSelection(self, cfg):
         #return 'resnet18'
-        return 'mobilenet_v3_small'
+        return ['mobilenet_v3_small']
     
         node_nuc = []
         node_rpi = []
