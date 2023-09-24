@@ -157,11 +157,11 @@ def main(mode = 'baseline'):
     if True:
         selected_models = []
         if mode == 'baseline':
-            selected_models = model_selector.greedModelSelection()
+            selected_models = model_selector.greedModelSelection(deviceinfo=None)
         elif mode == 'advanced':
-            selected_models = model_selector.advancedModelSelection(cfg=None)
+            selected_models = model_selector.advancedModelSelection(deviceinfo=None)
         elif mode == 'getinfo':
-            selected_models = model_selector.getinfoModelSelection(cfg=None)
+            selected_models = model_selector.getinfoModelSelection(deviceinfo=None)
 
         print(f'mode = {mode}, selected_models = {selected_models}')
         et_modelselection = time.time() #---------------------

@@ -65,7 +65,7 @@ def update_edge_frame_result(ods, mode):
     
     for idx, od in enumerate(ods):
         rcon.hmset(f'vnv:edge:{mode}:{hostname}:frame:{idx:04d}', od)
-        print('output = ', rcon.hgetall(f'vnv:edge:{mode}:{hostname}:frame:{idx:04d}'))
+        #print('output = ', rcon.hgetall(f'vnv:edge:{mode}:{hostname}:frame:{idx:04d}'))
     
 def update_edge_total_result(od, mode):
     hostname = socket.gethostname()
