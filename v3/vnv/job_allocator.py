@@ -78,7 +78,7 @@ class job_allocator():
         rcon.set_data(f'vnv:edge:advanced:job:{hostname}:end_frame', end_frame)  
         
     def get_job(self, hostname):
-        start_frame = rcon.get_data(f'vnv:edge:advanced:job:{hostname}:start_frame')
-        end_frame = rcon.get_data(f'vnv:edge:advanced:job:{hostname}:end_frame')
+        start_frame = int(rcon.get_data(f'vnv:edge:advanced:job:{hostname}:start_frame'))
+        end_frame = int(rcon.get_data(f'vnv:edge:advanced:job:{hostname}:end_frame'))
         return start_frame, end_frame
     
