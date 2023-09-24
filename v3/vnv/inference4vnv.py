@@ -338,6 +338,9 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
                 if mode == 'getinfo':
                     if imgidx > 100:
                         break
+                else:
+                    if imgidx > 100:
+                        break
 
             end = time.time() # end timer
             time_duration = end - start
