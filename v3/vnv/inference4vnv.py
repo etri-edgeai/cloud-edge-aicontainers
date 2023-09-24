@@ -71,7 +71,6 @@ def update_edge_result(od, mode):
     
 def run_main(model_names=['resnet152'], devices=['mps'], N=0, mode='baseline', fpath_testimages=''):
     
-    
     #---------------------------------------------------
     st_total = time.time()
     #---------------------------------------------------
@@ -340,7 +339,7 @@ if __name__ == "__main__":
     N = int( int(args.N) )
     
     # core
-    run_main(model_names=model_names, devices=devices, N = N, mode = mode, fpath_testimages=fpath_testimages )
+    run_main(model_names = model_names, devices=devices, N = N, mode = mode, fpath_testimages = fpath_testimages )
 
 #------------------------------------------------------
 # End of this file

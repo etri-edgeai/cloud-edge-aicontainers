@@ -77,9 +77,9 @@ def main(mode = 'baseline'):
     # 데이터셋 다운로드
     #----------------------------------
         
-    cmd = f'ansible vnv -i ./config/hosts.ini -m shell -a "cd {wdir}; mkdir dataset; {py} download_imagenet_dataset.py" -e "ansible_shell_executable=/bin/bash" {ask_pass_option} ' 
-    print(cmd)
-    run(cmd, True)
+    #cmd = f'ansible vnv -i ./config/hosts.ini -m shell -a "cd {wdir}; mkdir dataset; {py} download_imagenet_mini_dataset.py" -e "ansible_shell_executable=/bin/bash" {ask_pass_option} ' 
+    #print(cmd)
+    #run(cmd, True)
     
     
     #----------------------------------
@@ -137,11 +137,12 @@ def main(mode = 'baseline'):
     #----------------------------------
     
     # Test images
-    zip_images_url = 'http://keticmr.iptime.org:22080/edgeai/images/imagenet-mini-val.zip'
-    zip_images = 'imagenet-mini-val.zip'
+    #zip_images_url = 'http://keticmr.iptime.org:22080/edgeai/images/imagenet-mini-val.zip'
+    #zip_images = 'imagenet-mini-val.zip'
     dataset_root = './dataset'
-    fpath_zip_images = dataset_root + '/' + zip_images
+    #fpath_zip_images = dataset_root + '/' + zip_images
     fpath_testimages = dataset_root + '/imagenet-mini-val/'
+    print(f'fpath_testimages = {fpath_testimages}')
 
     #----------------------------------
     # 추론을 위한 AI 모델을 선택합니다.
@@ -169,8 +170,8 @@ def main(mode = 'baseline'):
         st_inference = time.time() #---------------------
         
         for model in selected_models:
-            cmd = f'ansible vnv -i ./config/hosts.ini -m shell -a "cd {wdir}; pwd; {py} inference4vnv.py --model {model} --device {device} --N {N} --mode {mode} --fpath_testimages {fpath_testimages};"  {ask_pass_option} ' 
-            print(cmd)
+            cmd = f'ansible vnv -i ./config/hosts.ini -m shell -a "cd {wdir}; pwd; {py} inference4vnv.py --model {model} --device {device} --N {N} --mode {mode} --fpath_testimages "{fpath_testimages}";"  {ask_pass_option} ' 
+            print("\n", cmd, "\n")
             run(cmd, True)
             
         et_inference = time.time() #---------------------
