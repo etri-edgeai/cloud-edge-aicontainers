@@ -289,8 +289,9 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
             imgidx_end = len(testfiles)
             n = len(testfiles)
 
+            imgidx = imgidx_start
             for icnt, fpath in enumerate(testfiles[imgidx_start:imgidx_end]):
-                imgidx = imgidx_start + icnt
+                imgidx = imgidx + icnt
                 
                 if (icnt+1)%100 == 0:
                     set_edge_done_frames(imgidx, mode)
