@@ -373,11 +373,11 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
                         
                         
                 if (icnt+1)%100 == 0:
-                    set_edge_done_frames(imgidx, mode)
+                    set_edge_done_frames(imgidx+1, mode)
                 
             end = time.time() # end timer
             time_duration = end - start
-            num_of_test_images = imgidx + 1
+            num_of_test_images = imgidx
             
             print('-' * 70)
             print('GT')
