@@ -13,14 +13,14 @@ class job_allocator():
         pass
     
     def set_job(self):
-        get_device_ministat()
-        get_cluster_list()
-    
-                
+        #get_device_ministat()
+        #get_cluster_list()
+
         hostname = socket.gethostname()
     
         if mode == 'getinfo':
             pass
         else:
-            rcon.set_data(f'vnv:edge:{mode}:{hostname}:done_frames', cnt)
+            rcon.set_data(f'vnv:edge:{mode}:job:{hostname}:start_frame', 0)
+            rcon.set_data(f'vnv:edge:{mode}:job:{hostname}:end_frame', 100)
         

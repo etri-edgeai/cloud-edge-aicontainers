@@ -131,9 +131,11 @@ def main(mode = 'baseline'):
     # 병행추론에 참여할 에지 디바이스별로 추론할 데이터 작업을 분배합니다.
     #----------------------------------
 
-    print( get_device_info() )
-    print( get_device_ministat() )
-    job_allocator.set_job()
+    #print( get_device_info() )
+    #print( get_device_ministat() )
+    if mode == 'advanced':
+        job_allocator.set_job()
+    
     return
     
     if True:
