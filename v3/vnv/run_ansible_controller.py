@@ -23,7 +23,7 @@ py = ' /home/jpark/www/cloud-edge-aicontainers/v3/vnv/venv/bin/python'
 ask_pass_option = '' #  '--ask-become-pass'
 
 
-from device_info import get_model4infer, set_model4infer
+from device_info import get_model4infer
 
 
 #------------------------------------------------------
@@ -107,14 +107,19 @@ def main(mode = 'baseline'):
     cmd = f'ansible vnv -m shell -a "cd {wdir}; {py} device_info.py " -i ./config/hosts.ini '
     run(cmd, True)
 
-    et_getstatus = time.time() #---------------------
-
+    
+    print( get_model4infer() )
+    
+    return
+    
     #----------------------------------
     # 에지 디바이스의 추론 성능 정보를 얻습니다.
     #----------------------------------
     fpath_testimages = dataset_root + '/imagenet-mini-val/'
     mode_getinfo = 'getinfo'
     cmd = f'ansible vnv -i ./config/hosts.ini -m shell -a "cd {wdir}; pwd; {py} inference4vnv.py --mode {mode_getinfo} --fpath_testimages {fpath_testimages};"  {ask_pass_option} '
+
+    et_getstatus = time.time() #---------------------
 
     #----------------------------------
     # 추론을 위한 AI 모델을 선택합니다.
@@ -139,8 +144,8 @@ def main(mode = 'baseline'):
     print(f'fpath_testimages = {fpath_testimages}')
 
     
+    
     st_modelselection = time.time() #---------------------
-
 
     if True:
         #----------------------------------
