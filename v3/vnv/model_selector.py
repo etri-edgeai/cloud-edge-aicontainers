@@ -37,9 +37,6 @@ class ModelSelection():
         for pth_name in pth_names:
             self.urlmodels.append(self.urlroot + pth_name)
 
-    def hi(self):
-        return 'hi'
-
     def showAllModels(self):
         print( self.urlmodels )
 
@@ -53,29 +50,4 @@ class ModelSelection():
         set_model4infer('mobilenet_v3_large')
         return ['mobilenet_v3_small']
     
-        node_nuc = []
-        node_rpi = []
-        node_sv = []
-
-        for d in cfg['target'].keys():
-            if 'nuc' in d:
-                for i in range(len(cfg['target'][d])):
-                    node_nuc.append(cfg['target'][d][i]['name'])
-            
-            elif 'rpi' in d:
-                for i in range(len(cfg['target'][d])):
-                    node_rpi.append(cfg['target'][d][i]['name'])
-            
-            elif 'server' in d:
-                for i in range(len(cfg['target'][d])):
-                    node_sv.append(cfg['target'][d][i]['name'])
-
-            new_dict = {
-                "resnet18" : node_rpi,
-                "resnet50" : node_nuc,
-                "resnet152" : node_sv
-                }
-
-        return new_dict
-
         
