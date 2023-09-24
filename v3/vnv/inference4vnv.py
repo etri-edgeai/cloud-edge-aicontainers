@@ -88,10 +88,10 @@ def set_edge_stat_result(od, model_name, mode):
     
     if mode == 'getinfo':
         rcon.hmset(f'vnv:edge:ministat:{hostname}:{model_name}', od)
-        print('output = ', rcon.hgetall(f'vnv:edge:info:{hostname}:{model_name}'))
+        #print('output = ', rcon.hgetall(f'vnv:edge:info:{hostname}:{model_name}'))
     else:
         rcon.hmset(f'vnv:edge:{mode}:{hostname}:stat', od)
-        print('output = ', rcon.hgetall(f'vnv:edge:{mode}:{hostname}:stat'))
+        #print('output = ', rcon.hgetall(f'vnv:edge:{mode}:{hostname}:stat'))
 
 
 def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimages=''):
