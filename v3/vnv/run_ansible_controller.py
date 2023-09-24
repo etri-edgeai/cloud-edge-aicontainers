@@ -88,7 +88,7 @@ def main(mode = 'baseline'):
     #----------------------------------
     st_total = time.time() #---------------------
 
-    if mode == 'baseline' or mode == 'advanced':
+    if mode == 'getinfo' or mode == 'baseline' or mode == 'advanced':
         print(f'[+] Start {mode} Mode')
     else:
         print(f'[-] error, there is no [{mode}] mode.')
@@ -131,7 +131,8 @@ def main(mode = 'baseline'):
 
     if mode == 'baseline' or mode == 'advanced':
         fpath_testimages = dataset_root + '/imagenet-val/'
-        #fpath_testimages = dataset_root + '/imagenet-mini-val/'
+    else:
+        fpath_testimages = dataset_root + '/imagenet-mini-val/'
     print(f'fpath_testimages = {fpath_testimages}')
 
     
