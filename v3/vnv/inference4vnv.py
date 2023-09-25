@@ -111,10 +111,10 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
 
     device_info = get_device_info()
 
-    print('-'*45)
-    print(f'device_info = {device_info}')
-    print(f'type(device_info) = {type(device_info)}')
-    print('-'*45)
+    #print('-'*45)
+    #print(f'device_info = {device_info}')
+    #print(f'type(device_info) = {type(device_info)}')
+    #print('-'*45)
 
 
     #----------------------------------
@@ -197,9 +197,9 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
     urlmodels = []
     for pth_name in pth_names:
         urlmodels.append(urlroot + pth_name)
-    print('*'*55)
-    print(f'urlmodels = {urlmodels}')
-    print('*'*55)
+    #print('*'*55)
+    #print(f'urlmodels = {urlmodels}')
+    #print('*'*55)
     
     model_fpaths = []
     for pth_name in pth_names:
@@ -303,9 +303,9 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
                 imgidx_start = 0
                 imgidx_end = n
             
-            print(f'imgidx_start = {imgidx_start}')
-            print(f'imgidx_end = {imgidx_end}')
-            print('='*55)
+            #print(f'imgidx_start = {imgidx_start}')
+            #print(f'imgidx_end = {imgidx_end}')
+            #print('='*55)
             
             icnt = 0
             imgidx = imgidx_start
@@ -385,9 +385,9 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
                     if icnt > 100:
                         break
                 else:
-                    pass
-                    #if icnt > 300:
-                    #    break
+                    #pass
+                    if icnt > 10:
+                        break
                         
                         
                 if (icnt)%10 == 0:

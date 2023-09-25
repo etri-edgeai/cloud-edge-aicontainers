@@ -122,7 +122,7 @@ def main(mode = 'baseline'):
     st_getstatus = time.time() #---------------------
 
     cmd = f'ansible vnv_getinfo -m shell -a "cd {wdir}; {py} device_info.py " -i ./config/hosts.ini '
-    run(cmd, True)
+    #run(cmd, True)
     
 
     #----------------------------------
@@ -133,7 +133,7 @@ def main(mode = 'baseline'):
     else:
         fpath_testimages = dataset_root + '/imagenet-mini-val/'
         #fpath_testimages = dataset_root + '/imagenet-val/'
-    print(f'fpath_testimages = {fpath_testimages}')
+    #print(f'fpath_testimages = {fpath_testimages}')
 
     
     #----------------------------------
@@ -143,7 +143,7 @@ def main(mode = 'baseline'):
     if mode == 'getinfo':
         cmd = f'ansible vnv_getinfo -i ./config/hosts.ini -m shell -a "cd {wdir}; pwd; {py} inference4vnv.py --mode {mode} --fpath_testimages {fpath_testimages};"  {ask_pass_option} ' 
         print("\n", cmd, "\n")
-        run(cmd, True)
+        #run(cmd, True)
         return
 
     et_getstatus = time.time() #---------------------
@@ -172,7 +172,7 @@ def main(mode = 'baseline'):
         elif mode == 'advanced':
             cmd = f'ansible vnv_advanced -i ./config/hosts.ini -m shell -a "cd {wdir}; pwd; {py} inference4vnv.py --mode {mode} --fpath_testimages {fpath_testimages};"  {ask_pass_option} ' 
 
-        print("\n", cmd, "\n")
+        #print("\n", cmd, "\n")
         run(cmd, True)
             
         et_inference = time.time() #---------------------
@@ -185,8 +185,8 @@ def main(mode = 'baseline'):
         if mode == 'advanced':
             get_cluster_frame_result(total_frames = 50000)
 
-        print( f'[d] workding dir = {wdir}' )
-        print( f'[d] py = {py}' )
+        #print( f'[d] workding dir = {wdir}' )
+        #print( f'[d] py = {py}' )
 
         T = et_total - st_total
         
