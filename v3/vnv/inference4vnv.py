@@ -385,9 +385,9 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
                     if icnt > 100:
                         break
                 else:
-                    #pass
-                    if icnt > 10:
-                        break
+                    pass
+                    #if icnt > 10:
+                    #    break
                         
                         
                 if (icnt)%10 == 0:
