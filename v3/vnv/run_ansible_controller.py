@@ -182,10 +182,9 @@ def main(mode = 'baseline'):
         #---------------------------------------------------
 
         
-        get_cluster_frame_result(total_frames = 50000)
+        if mode == 'advanced':
+            get_cluster_frame_result(total_frames = 50000)
 
-        
-        
         print( f'[d] workding dir = {wdir}' )
         print( f'[d] py = {py}' )
 
