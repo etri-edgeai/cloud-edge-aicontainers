@@ -39,30 +39,30 @@ class job_allocator():
         
         hostname = 'n01'
         start_frame = 0
-        end_frame = 24500
+        end_frame = 24000
         rcon.set_data(f'vnv:edge:advanced:job:{hostname}:start_frame', start_frame)
         rcon.set_data(f'vnv:edge:advanced:job:{hostname}:end_frame', end_frame)
         
         hostname = 'n02'
-        start_frame = 24500
-        end_frame = 49000
+        start_frame = 24000
+        end_frame = 48000
         rcon.set_data(f'vnv:edge:advanced:job:{hostname}:start_frame', start_frame)
         rcon.set_data(f'vnv:edge:advanced:job:{hostname}:end_frame', end_frame)
         
         hostname = 'rpi6431'
-        start_frame = 49000
-        end_frame = 49300
+        start_frame = 48000
+        end_frame = 48700
         rcon.set_data(f'vnv:edge:advanced:job:{hostname}:start_frame', start_frame)
         rcon.set_data(f'vnv:edge:advanced:job:{hostname}:end_frame', end_frame)
         
         hostname = 'rpi6432'
-        start_frame = 49300
-        end_frame = 49700
+        start_frame = 48700
+        end_frame = 49400
         rcon.set_data(f'vnv:edge:advanced:job:{hostname}:start_frame', start_frame)
         rcon.set_data(f'vnv:edge:advanced:job:{hostname}:end_frame', end_frame)
         
         hostname = 'rpi6433'
-        start_frame = 49700
+        start_frame = 49400
         end_frame = 50000
         rcon.set_data(f'vnv:edge:advanced:job:{hostname}:start_frame', start_frame)
         rcon.set_data(f'vnv:edge:advanced:job:{hostname}:end_frame', end_frame)
