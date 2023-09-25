@@ -67,8 +67,8 @@ def set_edge_done_frames(cnt, mode):
 def set_cluster_frame_result(ods, model_name, mode, start_frame):
     hostname = socket.gethostname()
     
-    print('=' * 55)
-    print(f'ods = {ods}')
+    #print('=' * 55)
+    #print(f'ods = {ods}')
     
     if mode == 'getinfo':
         pass
@@ -82,7 +82,7 @@ def set_cluster_frame_result(ods, model_name, mode, start_frame):
 def set_edge_frame_result(ods, model_name, mode):
     hostname = socket.gethostname()
     
-    print(f'ods = {ods}')
+    #print(f'ods = {ods}')
     if mode == 'getinfo':
         pass
     else:
