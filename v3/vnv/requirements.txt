@@ -1,0 +1,9 @@
+numpy
+redis
+torch
+torchvision
+tqdm
+pyyaml
+opencv-contrib-python
+ultralytics
+psutil
