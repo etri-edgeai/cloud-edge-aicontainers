@@ -42,9 +42,9 @@ class ModelSelection():
         print( self.urlmodels )
 
     def greedModelSelection(self):
-        set_model4infer('resnet152')
-        return ['resnet152']
-    
+        set_model4infer('nvidia_efficientnet_b0')
+        return ['nvidia_efficientnet_b0']
+
     def advancedModelSelection(self):
         set_model4infer('nvidia_efficientnet_widese_b0')
         return ['nvidia_efficientnet_widese_b0']
