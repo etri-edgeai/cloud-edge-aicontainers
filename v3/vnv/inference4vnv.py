@@ -292,17 +292,21 @@ def run_main(model_names=['mobilenet_v3_small'], mode='baseline', fpath_testimag
                     transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
                 ])
 
-            # 
-            ja = job_allocator()
-            imgidx_start, imgidx_end = ja.get_job(hostname)
-            
-            print(f'imgidx_start = {imgidx_start}')
-            print(f'imgidx_end = {imgidx_end}')
-            print('='*55)
             # imgidx_start = ja.start
             # imgidx_end = len(testfiles)
             n = len(testfiles)
 
+            if mode == 'advanced':
+                ja = job_allocator()
+                imgidx_start, imgidx_end = ja.get_job(hostname)
+            else:
+                imgidx_start = 0
+                imgidx_end = n
+            
+            print(f'imgidx_start = {imgidx_start}')
+            print(f'imgidx_end = {imgidx_end}')
+            print('='*55)
+            
             icnt = 0
             imgidx = imgidx_start
             for fpath in testfiles[imgidx_start:imgidx_end]:
