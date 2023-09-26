@@ -39,8 +39,6 @@ def get_device_ministat(hostnames):
         for model_name in model_names:
             od = rcon.hgetall(f'vnv:edge:ministat:{hostname}:{model_name}')
             print(od)
-        
-        
 
 def set_model4infer(model4infer = 'mobilenet_v3_small'):
     hostname = socket.gethostname()

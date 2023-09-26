@@ -42,8 +42,8 @@ class ModelSelection():
         print( self.urlmodels )
 
     def greedModelSelection(self):
-        set_model4infer('resnet152')
-        return ['resnet152']
+        set_model4infer('mobilenet_v3_large')
+        return ['mobilenet_v3_large']
 
     def advancedModelSelection(self):
         set_model4infer('mobilenet_v3_large')
