@@ -120,18 +120,35 @@
     tags: gradio
 
 
-- name: Change Model weights
-  hosts: all
-  tags: weights
 
-  tasks:
+#==================================== Run Flask dem0 ===========================================#
+#===============================================================================================#
 
-  - name: copy new model weights to clusters
-    copy:
-      src: "{{ weight file }}"
-      dest: /home/keti/
-  
-  - name: apply new weights into container
-    command: docker cp /ho
+  - name: Flask server activation
+    tags: flask
+    command: docker exec -d {{ model_tag }}-model-{{ version }} python home/run.py --server_name {{ server_name }} --server_port {{ server_port }}
     register: output
-  - dubug: msg="{{ output.stdout_lines }}"
+  - debug: msg="{{ output.stdout_lines }}"
+    tags: flask
+
+
+
+#============================== Weights switching fucntion =====================================#
+#===============================================================================================#
+
+
+# - name: Change Model weights
+#   hosts: all
+#   tags: weights
+
+#   tasks:
+
+#   - name: copy new model weights to clusters
+#     copy:
+#       src: "{{ weight file }}"
+#       dest: /home/keti/
+  
+#   - name: apply new weights into container
+#     command: docker cp /home/keti/{{ weight file }} /home/weights/
+#     register: output
+#   - debug: msg="{{ output.stdout_lines }}"

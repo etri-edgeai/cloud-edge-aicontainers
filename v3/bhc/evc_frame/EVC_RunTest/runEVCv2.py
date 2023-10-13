@@ -25,7 +25,7 @@ def get_myprj():
 
     # load user project
     git_downloader = get_prj.git_downloader(
-        url = "https://github.com/ethicsense/evc-selective-runner.git",
+        url = "https://github.com/ethicsense/esp-python.git",
         account = "ethicsense"
     )
     git_downloader.clone()
@@ -182,7 +182,8 @@ class model_control:
         #     man.download(registry, user)
 
 
-    def run(server_name, server_port):
+    def run(mode, server_name, server_port):
+        
         man = model_manager(
             db_file=db,
             owner=owner,
@@ -202,12 +203,17 @@ class model_control:
         )
 
         for group in user_cfg['group']:
-            man.run(group, server_name, server_port)
+            man.run(mode=mode, node=group, server_name=server_name, server_port=server_port)
 
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
+    parser.add_argument(
+        '--mode',
+        type=str,
+        default='flask'
+    )
     parser.add_argument(
         '--server_name',
         type=str,
@@ -245,4 +251,4 @@ if __name__ == "__main__":
             model_control.download(args.server_port)
 
         elif sequence == 'run':
-            model_control.run(args.server_name, args.server_port)
+            model_control.run(args.mode, args.server_name, args.server_port)
