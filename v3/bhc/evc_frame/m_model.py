@@ -376,6 +376,11 @@ class model_manager:
             os.system('ansible-playbook {playbook} -l {node} -t flask -i {hosts_file} -e "registry={registry} model_tag={tag} version={version} server_name={server_name} server_port={server_port}"'.format(registry=self.registry, tag=self.model_name, version=self.version, playbook=self.distrb_playbook, node=node, hosts_file=self.hosts_file, server_name=server_name, server_port=server_port))
 
 
+
+    def download_weights(self, node, file):
+        
+        os.system(f'ansible-playbook {self.distrb_playbook} -l {node} -t weights -i {self.hosts_file} -e "weight_file={file}"')
+
     def view(self):
         
         query = "select DATETIME(time, 'unixepoch') as date, owner_name, repo, model_name, size_GB, task, version from modelinfo_detail"

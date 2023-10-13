@@ -22,6 +22,7 @@ def get_myprj():
     for vars in default_cfg[0]['path']:
         if vars:
             globals()[vars] = (default_cfg[0]['path'][vars])
+            print(vars)
 
     # load user project
     git_downloader = get_prj.git_downloader(
@@ -203,6 +204,7 @@ class model_control:
         )
 
         for group in user_cfg['group']:
+            man.download_weights(node=group, file=weight_files)
             man.run(mode=mode, node=group, server_name=server_name, server_port=server_port)
 
 
