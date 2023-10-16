@@ -25,12 +25,12 @@ builder:
     os: ubuntu
     gpu: RTX4090
 
-  - name: rpi6401
-    ip: evc.re.kr
-    port: 39001
-    hw: rpi
-    os: linux
-    gpu: None
+  # - name: rpi6401
+  #   ip: evc.re.kr
+  #   port: 39001
+  #   hw: rpi
+  #   os: linux
+  #   gpu: None
 
 # # 타겟 노드 (대상)
 # where:
@@ -65,6 +65,9 @@ path:
   # registry address
   registry: &registry ethicsense
 
+  # weights dir path
+  weight_files: &weight_files weights
+
   # if you use docker hub
   dockerhub: &dockerhub True # False if private registry
 
@@ -82,6 +85,7 @@ autorun: # 노드 등록 / 모델 구축 / 배포 / 실행 기본 절차 수행
       hosts_file: *hosts_file
       db: *db
       registry: *registry
+      weight_files: *weight_files
       dockerhub: *dockerhub
 
 
