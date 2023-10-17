@@ -17,6 +17,6 @@ redis-cli HMSET carai:record_town03_scenario03_agent01 사고발생율 1 도로�
 redis-cli HMSET carai:record_town03_scenario03_agent02 사고발생율 1 도로환경적응율 38 교통법규준수율 98 꺼어들기수 2 평균안전거리 6 충돌수 0 신호위반수 0
 redis-cli HMSET carai:record_town03_scenario03_agent03 사고발생율 1 도로환경적응율 42 교통법규준수율 97 꺼어들기수 1 평균안전거리 8 충돌수 0 신호위반수 0
 
-redis-cli HMSET carai:record_town03_scenario scenario01 A
-redis-cli HMSET carai:record_town03_scenario scenario02 B
-redis-cli HMSET carai:record_town03_scenario scenario03 C
+redis-cli HMSET carai:record_town01_scenario scenario01 A
+redis-cli HMSET carai:record_town01_scenario scenario02 B
+redis-cli HMSET carai:record_town01_scenario scenario03 C
