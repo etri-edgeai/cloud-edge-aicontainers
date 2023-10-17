@@ -2,6 +2,7 @@
 EVC_RunTest/EVC_test2/
 EVC_RunTest/evc-test3/
 EVC_RunTest/evc-selective-runner/
+EVC_RunTest/esp-python/
 
 # ginore auth keys
 certs/

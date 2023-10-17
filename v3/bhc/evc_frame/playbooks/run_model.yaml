@@ -44,7 +44,7 @@
 
   - name: create new AI model env container
     tags: distrb
-    shell: docker run -d -p {{ server_port }}:{{ server_port }} --name {{ model_tag }}-model-{{ version }} -it {{ registry }}/{{ image_name }}:{{ model_tag }}-{{ version }}
+    shell: docker run -d -p {{ server_port }}:{{ server_port }} -v "$(pwd)"/weights:/weights --name {{ model_tag }}-model-{{ version }} -it {{ registry }}/{{ image_name }}:{{ model_tag }}-{{ version }}
     register: output
   - debug: msg="{{ output.stdout_lines }}"
     tags: distrb
@@ -120,18 +120,40 @@
     tags: gradio
 
 
-- name: Change Model weights
+
+#==================================== Run Flask dem0 ===========================================#
+#===============================================================================================#
+
+  - name: Flask server activation
+    tags: flask
+    command: docker exec -d {{ model_tag }}-model-{{ version }} python home/run.py --server_name {{ server_name }} --server_port {{ server_port }}
+    register: output
+  - debug: msg="{{ output.stdout_lines }}"
+    tags: flask
+
+
+
+#============================== Weights switching fucntion =====================================#
+#===============================================================================================#
+
+
+- name: Model weights Control
   hosts: all
-  tags: weights
+  vars:
+    awd: "{{lookup('pipe', 'pwd')}}"
+    weight_dir: "path"
+    weight_file: "path"
 
   tasks:
 
-  - name: copy new model weights to clusters
+  - name: weights directory setting
+    tags: weights_set
     copy:
-      src: "{{ weight file }}"
+      src: "{{ weight_dir }}"
       dest: /home/keti/
-  
-  - name: apply new weights into container
-    command: docker cp /ho
-    register: output
-  - dubug: msg="{{ output.stdout_lines }}"
+
+  - name: add weight file
+    tags: weights_add
+    copy:
+      src: "{{ awd }}/{{ weight_file }}"
+      dest: /home/keti/weights
