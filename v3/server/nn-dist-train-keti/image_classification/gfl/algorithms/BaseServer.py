@@ -11,7 +11,7 @@ from train_tools.preprocessing.cifar10.loader import get_dataloader_cifar10
 from train_tools.preprocessing.cifar100.loader import get_dataloader_cifar100
 
 # <keti_code> --------------------------------
-is_redis = False # Hard coding, 수정 필요합니다.
+is_redis = True # Hard coding, 수정 필요합니다.
 from algorithms.RedisConnector import RedisConnector
 rediscon = RedisConnector()
 # </keti_code> --------------------------------
