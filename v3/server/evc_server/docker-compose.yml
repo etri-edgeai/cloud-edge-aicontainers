@@ -82,7 +82,7 @@ services:
         restart: always
         #depends_on:
         #    - influxdb
-        environment:
+        environment:            
             - GF_SERVER_ROOT_URL=http://192.168.1.6:3000/grafana/
             - GF_PATHS_CONFIG=/etc/grafana/grafana.ini
             - GF_SECURITY_ADMIN_USER=admin
@@ -94,12 +94,23 @@ services:
             - GF_ENABLE_GZIP=true
             - GF_SERVER_SERVE_FROM_SUB_PATH=true
             - GF_INSTALL_PLUGINS=grafana-clock-panel,grafana-worldmap-panel,marcusolsson-csv-datasource,frser-sqlite-datasource,grafana-simple-json-datasource,innius-video-panel,jdbranham-diagram-panel,volkovlabs-image-panel,redis-app,redis-datasource,redis-explorer-app
+            #- GF_RENDERING_SERVER_URL=http://renderer:8081/render
+            #- GF_RENDERING_CALLBACK_URL=http://grafana:3000/
+            #- GF_LOG_FILTERS=rendering:debug
         expose:
             - 3000
         networks:
             - dev_network
         user: "$UID:$GID"
-
+  
+    ## Grafana Image Renderer
+    #renderer:
+    #    image: grafana/grafana-image-renderer:latest
+    #    ports:
+    #        - 8081
+    #    networks:
+    #        - dev_network
+      
     node-exporter:
         image: prom/node-exporter:latest
         container_name: node-exporter
@@ -139,6 +150,7 @@ services:
             - dev_network
         user: "$UID:$GID"
 
+           
     # (참고) redis 기초 명령어 : https://tgyun615.com/192
     redis:
         image: redislabs/redisai
