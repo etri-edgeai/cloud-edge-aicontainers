@@ -10,7 +10,7 @@ sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 from m_model import model_manager
 from m_device import device_manager
 
-def get_myprj():
+def get_myprj(url):
     # load default settings
     sv_file = 'ServerConfig.yaml'
 
@@ -26,7 +26,7 @@ def get_myprj():
 
     # load user project
     git_downloader = get_prj.git_downloader(
-        url = "https://github.com/ethicsense/esp-python.git",
+        url = url,
         account = "ethicsense"
     )
     git_downloader.clone()
@@ -42,7 +42,6 @@ def get_myprj():
     with open(user_cfg_file) as f:
         user_cfg = yaml.load(f, Loader=yaml.FullLoader)
 
-    mode = user_cfg['activation']
     owner = user_cfg['owner']
     task = user_cfg['task']
     version = user_cfg['version']
@@ -50,11 +49,11 @@ def get_myprj():
     # repo = user_cfg['arch'] + '-model'
     data = user_cfg['data']
 
-    return default_set, default_cfg, user_cfg, modelfile, dockerfile, mode, owner, task, version, model_name, data
+    return default_set, default_cfg, user_cfg, modelfile, dockerfile, owner, task, version, model_name, data
 
 
 ## db manipulation codes for bypassing exception during experiments & demonstrations
-def clean_db():
+def clean_db(model_name, version):
         con = sqlite3.connect(db)
         cur = con.cursor()
         query = 'delete from modelinfo_detail where model_name="{model_name}" and version="{version}"'.format(model_name=model_name, version=version)
@@ -78,7 +77,7 @@ def str2bool(v):
 
 class device_control:
 
-    def host_config():
+    def host_config(default_set, user_cfg):
         # insert builders
         builders = []
 
@@ -130,7 +129,7 @@ class device_control:
 
 class model_control:
 
-    def build(builders):
+    def build(builders, owner, model_name, task, version, modelfile, dockerfile):
         for builder in builders:
             man = model_manager(
                 db_file=db,
@@ -158,7 +157,7 @@ class model_control:
                 man.insert_db()
                 man.view()
 
-    def download(server_port):
+    def download(user_cfg, owner, model_name, task, version, modelfile, dockerfile, server_port):
         man = model_manager(
             db_file=db,
             owner=owner,
@@ -183,7 +182,7 @@ class model_control:
         #     man.download(registry, user)
 
 
-    def run(mode, server_name, server_port):
+    def run(user_cfg, owner, model_name, task, version, modelfile, dockerfile, mode, server_name, server_port):
         
         man = model_manager(
             db_file=db,
@@ -204,13 +203,27 @@ class model_control:
         )
 
         for group in user_cfg['group']:
-            man.download_weights(node=group, file=weight_files)
+            # man.download_weights(node=group, file=weight_files)
             man.run(mode=mode, node=group, server_name=server_name, server_port=server_port)
+
+        output = []
+
+        for group in user_cfg['group']:
+                for node in user_cfg['target'][group]:
+                    # tmp = node["ip"] + ":" + str(node["port"])
+                    tmp = node["app"]
+                    output.append(tmp)
+
+        return "Activated at : " + (" ".join(str(i) for i in output))
 
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--prj_url",
+        type=str
+    )
     parser.add_argument(
         '--mode',
         type=str,
@@ -233,7 +246,7 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
 
-    default_set, default_cfg, user_cfg, modelfile, dockerfile, mode, owner, task, version, model_name, data = get_myprj()
+    default_set, default_cfg, user_cfg, modelfile, dockerfile, mode, owner, task, version, model_name, data = get_myprj(args.prj_url)
 
     for run in default_cfg:
         sequence = run['activation']
@@ -253,4 +266,4 @@ if __name__ == "__main__":
             model_control.download(args.server_port)
 
         elif sequence == 'run':
-            model_control.run(args.mode, args.server_name, args.server_port)
+            out = model_control.run(args.mode, args.server_name, args.server_port)

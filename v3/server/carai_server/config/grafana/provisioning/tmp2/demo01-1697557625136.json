@@ -1,0 +1,1013 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 16,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {},
+      "description": "",
+      "gridPos": {
+        "h": 2,
+        "w": 7,
+        "x": 0,
+        "y": 0
+      },
+      "id": 14,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "<center>\n<font size=\"6pt\" color=\"yellow\"> 1. 입력 데이터 분석 </font>\n</center>",
+        "mode": "html"
+      },
+      "pluginVersion": "10.1.2",
+      "type": "text"
+    },
+    {
+      "datasource": {},
+      "description": "",
+      "gridPos": {
+        "h": 2,
+        "w": 1,
+        "x": 7,
+        "y": 0
+      },
+      "id": 16,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "<center>\n<font size=\"6pt\" color=\"white\"> > </font>\n</center>",
+        "mode": "html"
+      },
+      "pluginVersion": "10.1.2",
+      "type": "text"
+    },
+    {
+      "datasource": {},
+      "description": "",
+      "gridPos": {
+        "h": 2,
+        "w": 7,
+        "x": 8,
+        "y": 0
+      },
+      "id": 17,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "<center>\n<font size=\"6pt\" color=\"gray\"> 2. 자율차 시나리오 생성/분석 </font>\n</center>",
+        "mode": "html"
+      },
+      "pluginVersion": "10.1.2",
+      "type": "text"
+    },
+    {
+      "datasource": {},
+      "description": "",
+      "gridPos": {
+        "h": 2,
+        "w": 1,
+        "x": 15,
+        "y": 0
+      },
+      "id": 18,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "<center>\n<font size=\"6pt\" color=\"white\"> > </font>\n</center>",
+        "mode": "html"
+      },
+      "pluginVersion": "10.1.2",
+      "type": "text"
+    },
+    {
+      "datasource": {},
+      "description": "",
+      "gridPos": {
+        "h": 2,
+        "w": 7,
+        "x": 16,
+        "y": 0
+      },
+      "id": 19,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "<center>\n<font size=\"6pt\" color=\"gray\"> 3.시뮬레이션 및 성능보고 </font>\n</center>",
+        "mode": "html"
+      },
+      "pluginVersion": "10.1.2",
+      "type": "text"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "e6287658-f5ea-4843-bb92-f014c0ce08c9"
+      },
+      "description": "",
+      "gridPos": {
+        "h": 6,
+        "w": 7,
+        "x": 0,
+        "y": 2
+      },
+      "id": 12,
+      "options": {
+        "autoPlay": true,
+        "backgroundColor": "#000000",
+        "customBackground": false,
+        "geolocate": false,
+        "iframeURL": "http://keticmr.iptime.org:22080/WorkDevCarAI/carai/api/web/static/20231002_follow.mp4",
+        "loop": true,
+        "videoId": "eQpyJQ2womo",
+        "videoType": "url",
+        "videoURL": "http://keticmr.iptime.org:22080/WorkDevCarAI/carai/api/web/static/20231002_follow.mp4"
+      },
+      "pluginVersion": "10.0.3",
+      "title": "교통 상황 입력 비디오",
+      "type": "innius-video-panel"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "e6287658-f5ea-4843-bb92-f014c0ce08c9"
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 6,
+        "x": 7,
+        "y": 2
+      },
+      "id": 2,
+      "options": {
+        "autoPlay": true,
+        "backgroundColor": "#000000",
+        "customBackground": true,
+        "geolocate": false,
+        "iframeURL": "http://keticmr.iptime.org:22080/WorkDevCarAI/carai/api/web/static/20231002_follow01.mp4",
+        "loop": true,
+        "videoId": "eQpyJQ2womo",
+        "videoType": "url",
+        "videoURL": "http://keticmr.iptime.org:22080/WorkDevCarAI/carai/api/web/static/20231002_follow02.mp4"
+      },
+      "pluginVersion": "10.0.3",
+      "title": "분석",
+      "type": "innius-video-panel"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "e6287658-f5ea-4843-bb92-f014c0ce08c9"
+      },
+      "description": "",
+      "gridPos": {
+        "h": 6,
+        "w": 5,
+        "x": 13,
+        "y": 2
+      },
+      "id": 7,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "#### 추론 요소\n- 환경 : 맑음\n- 상황 : 전방 차량 따라가기\n\n#### 상황 표현\n- 맑은 날입니다.\n- Ego 차량이 앞 차량을 따라가고 있습니다.\n",
+        "mode": "markdown"
+      },
+      "pluginVersion": "10.1.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "e6287658-f5ea-4843-bb92-f014c0ce08c9"
+          },
+          "editorMode": "builder",
+          "expr": "room_accx",
+          "instant": false,
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "type": "text"
+    },
+    {
+      "datasource": {
+        "type": "cloudwatch",
+        "uid": "P8045C56BDA891CB2"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "valueName": "last"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 5,
+        "x": 18,
+        "y": 2
+      },
+      "id": 4,
+      "options": {
+        "authPassword": "",
+        "authUsername": "",
+        "composites": [],
+        "content": "graph LR\n     EgoVehicle --> Follow --> Car",
+        "legend": {
+          "asTable": true,
+          "displayMode": "table",
+          "gradient": {
+            "enabled": true,
+            "show": true
+          },
+          "hideEmpty": false,
+          "hideZero": false,
+          "placement": "bottom",
+          "show": true,
+          "sortBy": "last",
+          "sortDesc": true,
+          "stats": [
+            "mean",
+            "last",
+            "min",
+            "max",
+            "sum"
+          ]
+        },
+        "maxWidth": true,
+        "mermaidServiceUrl": "",
+        "mermaidThemeVariablesDark": {
+          "classDiagram": {},
+          "common": {
+            "fontFamily": "Roboto,Helvetica Neue,Arial,sans-serif"
+          },
+          "flowChart": {},
+          "sequenceDiagram": {},
+          "stateDiagram": {},
+          "userJourneyDiagram": {}
+        },
+        "mermaidThemeVariablesLight": {
+          "classDiagram": {},
+          "common": {
+            "fontFamily": "Roboto,Helvetica Neue,Arial,sans-serif"
+          },
+          "flowChart": {},
+          "sequenceDiagram": {},
+          "stateDiagram": {},
+          "userJourneyDiagram": {}
+        },
+        "metricCharacterReplacements": [],
+        "moddedSeriesVal": 0,
+        "mode": "content",
+        "nodeSize": {
+          "minHeight": 40,
+          "minWidth": 30
+        },
+        "pluginVersion": "1.7.3",
+        "style": "",
+        "useBackground": false,
+        "useBasicAuth": false,
+        "valueName": "last"
+      },
+      "pluginVersion": "1.7.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "P8045C56BDA891CB2"
+          },
+          "dimensions": {},
+          "expression": "",
+          "id": "",
+          "label": "",
+          "logGroups": [],
+          "matchExact": true,
+          "metricEditorMode": 0,
+          "metricName": "",
+          "metricQueryType": 0,
+          "namespace": "",
+          "period": "",
+          "queryMode": "Metrics",
+          "refId": "A",
+          "region": "default",
+          "sqlExpression": "",
+          "statistic": "Average"
+        }
+      ],
+      "title": "추정 시나리오",
+      "type": "jdbranham-diagram-panel"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "e6287658-f5ea-4843-bb92-f014c0ce08c9"
+      },
+      "description": "",
+      "gridPos": {
+        "h": 6,
+        "w": 7,
+        "x": 0,
+        "y": 8
+      },
+      "id": 24,
+      "options": {
+        "autoPlay": true,
+        "backgroundColor": "#000000",
+        "customBackground": false,
+        "geolocate": false,
+        "iframeURL": "http://keticmr.iptime.org:22080/WorkDevCarAI/carai/api/web/static/20231002_follow.mp4",
+        "loop": true,
+        "videoId": "eQpyJQ2womo",
+        "videoType": "url",
+        "videoURL": "http://keticmr.iptime.org:22080/WorkDevCarAI/carai/api/web/static/20231002_human.mp4"
+      },
+      "pluginVersion": "10.0.3",
+      "title": "교통 상황 입력 비디오",
+      "type": "innius-video-panel"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "e6287658-f5ea-4843-bb92-f014c0ce08c9"
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 6,
+        "x": 7,
+        "y": 8
+      },
+      "id": 31,
+      "options": {
+        "autoPlay": true,
+        "backgroundColor": "#000000",
+        "customBackground": true,
+        "geolocate": false,
+        "iframeURL": "http://keticmr.iptime.org:22080/WorkDevCarAI/carai/api/web/static/20231002_follow01.mp4",
+        "loop": true,
+        "videoId": "eQpyJQ2womo",
+        "videoType": "url",
+        "videoURL": "http://keticmr.iptime.org:22080/WorkDevCarAI/carai/api/web/static/20231002_human02.mp4"
+      },
+      "pluginVersion": "10.0.3",
+      "title": "분석",
+      "type": "innius-video-panel"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "e6287658-f5ea-4843-bb92-f014c0ce08c9"
+      },
+      "description": "",
+      "gridPos": {
+        "h": 6,
+        "w": 5,
+        "x": 13,
+        "y": 8
+      },
+      "id": 30,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "#### 추론 요소\n- 환경 : 맑음\n- 상황 : 도로에 사람, 멈춘 후 출발\n\n#### 상황 표현\n- 맑은 날입니다.\n- 도로에 사람이 나타났습니다. \n- Ego 차량은 잠시 멈춘 후 사람이 지나가면 다시 출발합니다.",
+        "mode": "markdown"
+      },
+      "pluginVersion": "10.1.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "e6287658-f5ea-4843-bb92-f014c0ce08c9"
+          },
+          "editorMode": "builder",
+          "expr": "room_accx",
+          "instant": false,
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "type": "text"
+    },
+    {
+      "datasource": {
+        "type": "cloudwatch",
+        "uid": "P8045C56BDA891CB2"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "valueName": "last"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 5,
+        "x": 18,
+        "y": 8
+      },
+      "id": 28,
+      "options": {
+        "authPassword": "",
+        "authUsername": "",
+        "composites": [],
+        "content": "graph LR\n     EgoVehicle --> HumanAccrossStreet --> StopAndGo",
+        "legend": {
+          "asTable": true,
+          "displayMode": "table",
+          "gradient": {
+            "enabled": true,
+            "show": true
+          },
+          "hideEmpty": false,
+          "hideZero": false,
+          "placement": "bottom",
+          "show": true,
+          "sortBy": "last",
+          "sortDesc": true,
+          "stats": [
+            "mean",
+            "last",
+            "min",
+            "max",
+            "sum"
+          ]
+        },
+        "maxWidth": true,
+        "mermaidServiceUrl": "",
+        "mermaidThemeVariablesDark": {
+          "classDiagram": {},
+          "common": {
+            "fontFamily": "Roboto,Helvetica Neue,Arial,sans-serif"
+          },
+          "flowChart": {},
+          "sequenceDiagram": {},
+          "stateDiagram": {},
+          "userJourneyDiagram": {}
+        },
+        "mermaidThemeVariablesLight": {
+          "classDiagram": {},
+          "common": {
+            "fontFamily": "Roboto,Helvetica Neue,Arial,sans-serif"
+          },
+          "flowChart": {},
+          "sequenceDiagram": {},
+          "stateDiagram": {},
+          "userJourneyDiagram": {}
+        },
+        "metricCharacterReplacements": [],
+        "moddedSeriesVal": 0,
+        "mode": "content",
+        "nodeSize": {
+          "minHeight": 40,
+          "minWidth": 30
+        },
+        "pluginVersion": "1.7.3",
+        "style": "",
+        "useBackground": false,
+        "useBasicAuth": false,
+        "valueName": "last"
+      },
+      "pluginVersion": "1.7.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "P8045C56BDA891CB2"
+          },
+          "dimensions": {},
+          "expression": "",
+          "id": "",
+          "label": "",
+          "logGroups": [],
+          "matchExact": true,
+          "metricEditorMode": 0,
+          "metricName": "",
+          "metricQueryType": 0,
+          "namespace": "",
+          "period": "",
+          "queryMode": "Metrics",
+          "refId": "A",
+          "region": "default",
+          "sqlExpression": "",
+          "statistic": "Average"
+        }
+      ],
+      "title": "추정 시나리오",
+      "type": "jdbranham-diagram-panel"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "e6287658-f5ea-4843-bb92-f014c0ce08c9"
+      },
+      "description": "",
+      "gridPos": {
+        "h": 6,
+        "w": 7,
+        "x": 0,
+        "y": 14
+      },
+      "id": 27,
+      "options": {
+        "autoPlay": true,
+        "backgroundColor": "#000000",
+        "customBackground": false,
+        "geolocate": false,
+        "iframeURL": "http://keticmr.iptime.org:22080/WorkDevCarAI/carai/api/web/static/20231002_follow.mp4",
+        "loop": true,
+        "videoId": "eQpyJQ2womo",
+        "videoType": "url",
+        "videoURL": "http://keticmr.iptime.org:22080/WorkDevCarAI/carai/api/web/static/20231002_sunflare.mp4"
+      },
+      "pluginVersion": "10.0.3",
+      "title": "교통 상황 입력 비디오",
+      "type": "innius-video-panel"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "e6287658-f5ea-4843-bb92-f014c0ce08c9"
+      },
+      "description": "",
+      "gridPos": {
+        "h": 6,
+        "w": 6,
+        "x": 7,
+        "y": 14
+      },
+      "id": 33,
+      "options": {
+        "autoPlay": true,
+        "backgroundColor": "#000000",
+        "customBackground": false,
+        "geolocate": false,
+        "iframeURL": "http://keticmr.iptime.org:22080/WorkDevCarAI/carai/api/web/static/20231002_follow.mp4",
+        "loop": true,
+        "videoId": "eQpyJQ2womo",
+        "videoType": "url",
+        "videoURL": "http://keticmr.iptime.org:22080/WorkDevCarAI/carai/api/web/static/20231002_sunflare02.mp4"
+      },
+      "pluginVersion": "10.0.3",
+      "title": "분석",
+      "type": "innius-video-panel"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "e6287658-f5ea-4843-bb92-f014c0ce08c9"
+      },
+      "description": "",
+      "gridPos": {
+        "h": 6,
+        "w": 5,
+        "x": 13,
+        "y": 14
+      },
+      "id": 29,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "#### 추론 요소\n- 환경 : 맑음, 역광, 아침\n- 상황 : 사거리 우회전, 어린이 보호구역 진입\n\n#### 상황 표현\n- 주행 방향으로 태양에 의한 역광이 있습니다.\n- Ego 차량은 우회전 합니다.\n- 사거리 우회전 직후 어린이 보호구역이 나타납니다.",
+        "mode": "markdown"
+      },
+      "pluginVersion": "10.1.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "e6287658-f5ea-4843-bb92-f014c0ce08c9"
+          },
+          "editorMode": "builder",
+          "expr": "room_accx",
+          "instant": false,
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "type": "text"
+    },
+    {
+      "datasource": {
+        "type": "cloudwatch",
+        "uid": "P8045C56BDA891CB2"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "valueName": "last"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 5,
+        "x": 18,
+        "y": 14
+      },
+      "id": 32,
+      "options": {
+        "authPassword": "",
+        "authUsername": "",
+        "composites": [],
+        "content": "graph LR\n     EgoVehicle --> Intersection --> ChildProtectionZone",
+        "legend": {
+          "asTable": true,
+          "displayMode": "table",
+          "gradient": {
+            "enabled": true,
+            "show": true
+          },
+          "hideEmpty": false,
+          "hideZero": false,
+          "placement": "bottom",
+          "show": true,
+          "sortBy": "last",
+          "sortDesc": true,
+          "stats": [
+            "mean",
+            "last",
+            "min",
+            "max",
+            "sum"
+          ]
+        },
+        "maxWidth": true,
+        "mermaidServiceUrl": "",
+        "mermaidThemeVariablesDark": {
+          "classDiagram": {},
+          "common": {
+            "fontFamily": "Roboto,Helvetica Neue,Arial,sans-serif"
+          },
+          "flowChart": {},
+          "sequenceDiagram": {},
+          "stateDiagram": {},
+          "userJourneyDiagram": {}
+        },
+        "mermaidThemeVariablesLight": {
+          "classDiagram": {},
+          "common": {
+            "fontFamily": "Roboto,Helvetica Neue,Arial,sans-serif"
+          },
+          "flowChart": {},
+          "sequenceDiagram": {},
+          "stateDiagram": {},
+          "userJourneyDiagram": {}
+        },
+        "metricCharacterReplacements": [],
+        "moddedSeriesVal": 0,
+        "mode": "content",
+        "nodeSize": {
+          "minHeight": 40,
+          "minWidth": 30
+        },
+        "pluginVersion": "1.7.3",
+        "style": "",
+        "useBackground": false,
+        "useBasicAuth": false,
+        "valueName": "last"
+      },
+      "pluginVersion": "1.7.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "P8045C56BDA891CB2"
+          },
+          "dimensions": {},
+          "expression": "",
+          "id": "",
+          "label": "",
+          "logGroups": [],
+          "matchExact": true,
+          "metricEditorMode": 0,
+          "metricName": "",
+          "metricQueryType": 0,
+          "namespace": "",
+          "period": "",
+          "queryMode": "Metrics",
+          "refId": "A",
+          "region": "default",
+          "sqlExpression": "",
+          "statistic": "Average"
+        }
+      ],
+      "title": "추정 시나리오",
+      "type": "jdbranham-diagram-panel"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "e6287658-f5ea-4843-bb92-f014c0ce08c9"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 7,
+        "x": 0,
+        "y": 20
+      },
+      "id": 25,
+      "options": {
+        "autoPlay": true,
+        "customBackground": false,
+        "geolocate": false,
+        "loop": true,
+        "videoId": "eQpyJQ2womo",
+        "videoType": "url",
+        "videoURL": "http://keticmr.iptime.org:22080/WorkDevCarAI/carai/api/web/static/accident_video01.mp4"
+      },
+      "pluginVersion": "10.1.2",
+      "title": "교통 상황 입력 이미지",
+      "type": "innius-video-panel"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "e6287658-f5ea-4843-bb92-f014c0ce08c9"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 7,
+        "y": 20
+      },
+      "id": 34,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "\n\\#1차량(제규어)은 실선구간에서 진로변경이 금지되어 있음에도 이를 무시하고 편도 5차로 중 3차로를 따라 진행하다 사고지점에 이르러 2차로로 “급진로변경”하여 2차로를 따라 진행 중이던 #2차량(블박) 우측 앞 범퍼 부분을 #1차량 좌측 앞 범퍼 부분으로 충돌한 교통사고임.",
+        "mode": "markdown"
+      },
+      "pluginVersion": "10.1.2",
+      "title": "교통 상황 입력 텍스트",
+      "type": "text"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "e6287658-f5ea-4843-bb92-f014c0ce08c9"
+      },
+      "description": "",
+      "gridPos": {
+        "h": 8,
+        "w": 5,
+        "x": 13,
+        "y": 20
+      },
+      "id": 35,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "#### 추론 요소\n- 환경 : 실선구간, 급진로변경, 흐림\n- #1차량 : 실선구간, 진로변경, 금지, 편도, 5차로, 3차로, 사고지점, 급진로변경\n- #2차량 : 우측, 앞, 범퍼, 충돌\n\n#### 상황 표현\n- #1차량은 실선구간에서 진로변경이 금지되어 있음에도 이를 무시하고 편도 5차로 중 3차로를 따라 진행하고 있다.\n- 이후 #1차량은 사고지점에 이르러 2차로로 급진로변경하여 2차로를 따라 진행하고 있던 #2차량의 우측 앞 범퍼 부분과 충돌하였다.",
+        "mode": "markdown"
+      },
+      "pluginVersion": "10.1.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "e6287658-f5ea-4843-bb92-f014c0ce08c9"
+          },
+          "editorMode": "builder",
+          "expr": "room_accx",
+          "instant": false,
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "type": "text"
+    },
+    {
+      "datasource": {
+        "type": "cloudwatch",
+        "uid": "P8045C56BDA891CB2"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "valueName": "last"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 5,
+        "x": 18,
+        "y": 20
+      },
+      "id": 36,
+      "options": {
+        "authPassword": "",
+        "authUsername": "",
+        "composites": [],
+        "content": "graph TD\n    AccidentSite --> AbruptLaneChange --> Collisionwiththefrontbumperof2vehicleBlock\n    LaneChange --> AccidentSite\n    ProhibitedLaneChangeinSolidLineSection --> Proceedingalongthe3rdlane\n    Onthe5thlaneoftheonewayroad --> ProhibitedLaneChangeinSolidLineSection\n    Proceedingalongthe3rdlane --> AbruptLaneChangetothe2ndlane\n    1VehicleRegulation --> Onthe5thlaneoftheonewayroad\n    1VehicleRegulation --> LaneChange\n    Collisionwiththefrontbumperof2vehicleBlock --> Collisionwiththeleftfrontbumperof1vehicle",
+        "legend": {
+          "asTable": true,
+          "displayMode": "table",
+          "gradient": {
+            "enabled": true,
+            "show": true
+          },
+          "hideEmpty": false,
+          "hideZero": false,
+          "placement": "bottom",
+          "show": true,
+          "sortBy": "last",
+          "sortDesc": true,
+          "stats": [
+            "mean",
+            "last",
+            "min",
+            "max",
+            "sum"
+          ]
+        },
+        "maxWidth": true,
+        "mermaidServiceUrl": "",
+        "mermaidThemeVariablesDark": {
+          "classDiagram": {},
+          "common": {
+            "fontFamily": "Roboto,Helvetica Neue,Arial,sans-serif"
+          },
+          "flowChart": {},
+          "sequenceDiagram": {},
+          "stateDiagram": {},
+          "userJourneyDiagram": {}
+        },
+        "mermaidThemeVariablesLight": {
+          "classDiagram": {},
+          "common": {
+            "fontFamily": "Roboto,Helvetica Neue,Arial,sans-serif"
+          },
+          "flowChart": {},
+          "sequenceDiagram": {},
+          "stateDiagram": {},
+          "userJourneyDiagram": {}
+        },
+        "metricCharacterReplacements": [],
+        "moddedSeriesVal": 0,
+        "mode": "content",
+        "nodeSize": {
+          "minHeight": 40,
+          "minWidth": 30
+        },
+        "pluginVersion": "1.7.3",
+        "style": "",
+        "useBackground": false,
+        "useBasicAuth": false,
+        "valueName": "last"
+      },
+      "pluginVersion": "1.7.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "P8045C56BDA891CB2"
+          },
+          "dimensions": {},
+          "expression": "",
+          "id": "",
+          "label": "",
+          "logGroups": [],
+          "matchExact": true,
+          "metricEditorMode": 0,
+          "metricName": "",
+          "metricQueryType": 0,
+          "namespace": "",
+          "period": "",
+          "queryMode": "Metrics",
+          "refId": "A",
+          "region": "default",
+          "sqlExpression": "",
+          "statistic": "Average"
+        }
+      ],
+      "title": "추정 시나리오 : LLM 모델 적용 (e.g. ChatGPT)",
+      "type": "jdbranham-diagram-panel"
+    }
+  ],
+  "refresh": "",
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-15m",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "demo01",
+  "uid": "a8cfa331-b499-465e-99e4-5847318ad502e",
+  "version": 41,
+  "weekStart": ""
+}
