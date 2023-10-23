@@ -66,6 +66,7 @@ services:
             MYSQL_DATABASE: "${DB_NAME}"
             MYSQL_USER: "${DB_USER}"
             MYSQL_PASSWORD: "${DB_USER_PASSWORD}"
+            TZ: Asia/Seoul
         networks:
             - dev_network
             
