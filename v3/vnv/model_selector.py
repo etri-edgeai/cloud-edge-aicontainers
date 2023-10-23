@@ -46,7 +46,7 @@ class ModelSelection():
         return ['mobilenet_v3_large']
 
     def advancedModelSelection(self):
-        set_model4infer('mobilenet_v3_large')
-        return ['mobilenet_v3_large']
+        set_model4infer('mobilenet_v3_small')
+        return ['mobilenet_v3_small']
     
         
