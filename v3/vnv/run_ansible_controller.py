@@ -91,7 +91,7 @@ def main(mode = 'baseline'):
     print(cmd)
     run(cmd, True)
         
-    cmd = f'ansible vnv_getinfo -i ./config/hosts.ini -m shell -a "cd {wdir}; python3 -m venv venv; source venv/bin/activate; pip install -r requirements.txt;" -e "ansible_shell_executable=/bin/bash" {ask_pass_option} ' 
+    cmd = f'ansible vnv_getinfo -i ./config/hosts.ini -m shell -a "cd {wdir}; python3 -m venv venv; source venv/bin/activate;" -e "ansible_shell_executable=/bin/bash" {ask_pass_option} ' 
     print(cmd)
     run(cmd, True)
         
