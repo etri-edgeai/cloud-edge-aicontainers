@@ -56,6 +56,10 @@ with gr.Blocks(css="#chatbot .overflow-y-auto{height:750px}") as demo:
     state = gr.State(
         [
             {
+                "role": "인사",
+                "content": "안녕하세요. 한국전자전을 위해 배포된 LLM 서비스입니다.",
+            },
+            {
                 "role": "맥락",
                 "content": "KoAlpaca(코알파카)는 EleutherAI에서 개발한 Polyglot-ko 라는 한국어 모델을 기반으로, 자연어 처리 연구자 Beomi가 개발한 모델입니다.",
             },
@@ -76,14 +80,14 @@ with gr.Blocks(css="#chatbot .overflow-y-auto{height:750px}") as demo:
         gr.HTML(
             """<div style="text-align: center; max-width: 500px; margin: 0 auto;">
             <div>
-                <h1> EVC LLM 모델 </h1>
+                <h1> EVC를 통한 LLM 모델의 배포 및 실행 </h1>
                 <!--
                 <h1>ChatKoAlpaca 12.8B (v1.1b-chat-8bit)</h1>
                 -->
                 
             </div>
             <div>
-                RTX 3090 (24GB) with 8bit quantized
+                KETI 추론 서비스 서버 p01 (GPU : RTX 3090 (24GB), Model : 8bit quantized LLM)
             </div>
         </div>"""
         )
