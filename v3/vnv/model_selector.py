@@ -46,7 +46,7 @@ class ModelSelection():
         return ['resnet18']
 
     def advancedModelSelection(self):
-        set_model4infer('resnet101')
-        return ['resnet101']
+        set_model4infer('resnet152')
+        return ['resnet152']
     
         
