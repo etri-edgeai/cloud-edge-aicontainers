@@ -114,7 +114,7 @@
 
   - name: gradio server activation
     tags: gradio
-    command: docker exec -d {{ model_tag }}-model-{{ version }} python home/app.py --server_name {{ server_name }} --server_port {{ server_port }}
+    command: docker exec -d {{ model_tag }}-model-{{ version }} python app.py --server_name {{ server_name }} --server_port {{ server_port }}
     register: output
   - debug: msg="{{ output.stdout_lines }}"
     tags: gradio
