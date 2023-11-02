@@ -29,16 +29,26 @@ def str2bool(v):
         raise argparse.ArgumentTypeError('Boolean value expected.')
 
 
-def test(url, account, group, node, ip, port, owner, model_name, task, version, mode, app, server_port):
+def evc_group(url, account, group, node_list, owner):
+
+    global default_cfg, modelfile, dockerfile
+
     default_set, default_cfg, modelfile, dockerfile = evc.get_myprj(url, account)
+
+    builders = evc.device_control.builder_config(default_set)
+
+    for node in node_list:
+        evc.device_control.node_config(group, node[0], node[1], node[2], owner)
+
+    return builders
+
+
+def evc_run(builders, group, owner, model_name, task, version, mode, server_port):
 
     for run in default_cfg:
         sequence = run['activation']
-
-        if sequence == 'register':
-            builders = evc.device_control.host_config(default_set, group, node, ip, port, owner)
         
-        elif sequence == 'build':
+        if sequence == 'build':
             # if str2bool(clean_db):
             #     print()
             #     print()
@@ -55,12 +65,10 @@ def test(url, account, group, node, ip, port, owner, model_name, task, version, 
             )
 
         elif sequence == 'run':
-            out = evc.model_control.run(
+            evc.model_control.run(
                 group, owner, model_name, task, version, modelfile, dockerfile,
-                mode, app, server_port
+                mode, server_port
             )
-
-    return out
 
 
 with gr.Blocks() as demo:
@@ -70,24 +78,24 @@ with gr.Blocks() as demo:
     with gr.Row():
 
         with gr.Column():
-            markdown = gr.Markdown("<strong> This is a Face Detection Service. </strong>")
+            markdown = gr.Markdown("# <strong> Face Detection Service </strong>")
             sample1 = gr.Video(value="./sample_imgs/face_sample.mp4", autoplay=True)  
             face_btn = gr.Button("Deploy")
 
         with gr.Column():
-            markdown = gr.Markdown("<strong> This is a Fashion Detection Service. </strong>")
+            markdown = gr.Markdown("# <strong> Fashion Detection Service </strong>")
             sample2 = gr.Video(value="./sample_imgs/fashion_sample.mp4", autoplay=True)  
             fashion_btn = gr.Button("Deploy")
 
     with gr.Row():
 
         with gr.Column():
-            markdown = gr.Markdown("<strong> This is a HardHat Detection Service. </strong>")
+            markdown = gr.Markdown("# <strong> HardHat Detection Service </strong>")
             sample3 = gr.Video(value="./sample_imgs/hardhat_sample.mp4", autoplay=True)  
             hardhat_btn = gr.Button("Deploy")
 
         with gr.Column():
-            markdown = gr.Markdown("<strong> This is a Wind Mills Detection Service. </strong>")
+            markdown = gr.Markdown("# <strong> Wind Mills Detection Service </strong>")
             sample4 = gr.Video(value="./sample_imgs/windmills_sample.mp4", autoplay=True)  
             windmill_btn = gr.Button("Deploy")
 
@@ -96,7 +104,7 @@ with gr.Blocks() as demo:
     # 밑에 Accordion도 추가됨. (열고 닫기 기능)
     '''
 
-    with gr.Accordion("EVC Deployment System", open=False):
+    with gr.Accordion("EVC Deployment System", open=True):
         title1 = gr.Markdown(
                 """
                 # <center> EVC Deployment System </center>
@@ -119,30 +127,92 @@ with gr.Blocks() as demo:
                     server_port = gr.Textbox(label="Model Application Port", value=7999)
 
         with gr.Row():
+            db_btn = gr.Button("Clean DB", scale=0)
             title2 = gr.Markdown(
                 """
                 ## <center> Target Node Information </center>
                 """
             )
-            btn2 = gr.Button("Start Deployment", scale=0)
 
         with gr.Row():
             with gr.Column(scale=0, min_width=170):
                 group = gr.Textbox(label="Group Name", value="keti_test_nuc")
                 owner = gr.Textbox(label="Admin", value="keti")
 
-            with gr.Row():
-                node = gr.Textbox(label="Node Name", value="n02")
-                ip = gr.Textbox(label="IP Address", value="evc.re.kr")
-                port = gr.Textbox(label="Port Number", value=33322)
-                app = gr.Textbox(label="Model App URL", value="192.168.0.5:7999")
+            with gr.Column():
 
+                with gr.Row():
+                    node = gr.Textbox(label="Node Name", value="n02", interactive=True)
+                    ip = gr.Textbox(label="IP Address", value="evc.re.kr", interactive=True)
+                    port = gr.Textbox(label="Port Number", value=33322, interactive=True)
 
-    output = gr.Textbox(label="Result")
-    btn2.click(
-        test,
-        [url, account, group, node, ip, port, owner, model_name, task, version, mode, app, server_port],
-        output
+                    with gr.Row():
+                        add_btn = gr.Button("add node", scale=0)
+                        reset_btn = gr.Button("Reset list", scale=0)
+
+                output_box = gr.Textbox(label="Nodes List")
+
+        with gr.Row():
+            group_btn = gr.Button("Hosts Configuration")
+            run_btn = gr.Button("Start Deployment")
+
+    builders = gr.State([])
+
+    node_list = []
+    node_list_var = gr.State([])
+
+    def add_node(node, ip, port):
+
+        n = [node, ip, port]
+        node_list.append(n)
+
+        return {
+            node_list_var: node_list,
+            output_box: '\n'.join(str(n) for n in node_list)
+        }
+    
+    def reset_node_list():
+
+        global node_list
+
+        node_list = []
+
+        return {
+            node_list_var: node_list,
+            output_box: '\n'.join(str(n) for n in node_list)
+        }
+    
+    def reset_node_db(url, account, group, node, ip, port, owner):
+
+        global default_cfg, modelfile, dockerfile
+
+        default_set, default_cfg, modelfile, dockerfile = evc.get_myprj(url, account)
+
+        evc.device_control.node_delete(group, node, ip, port, owner)
+    
+    db_btn.click(
+        reset_node_db,
+        [url, account, group, node, ip, port, owner]
+    )
+    add_btn.click(
+        add_node,
+        [node, ip, port],
+        [node_list_var, output_box]
+    )
+    reset_btn.click(
+        fn=reset_node_list,
+        outputs=[node_list_var, output_box]
+    )
+    group_btn.click(
+        fn=evc_group,
+        inputs=[url, account, group, node_list_var, owner],
+        outputs=builders,
+        show_progress='full'
+    )
+    run_btn.click(
+        fn=evc_run,
+        inputs=[builders, group, owner, model_name, task, version, mode, server_port],
+        show_progress='full'
     )
 
     '''
@@ -158,7 +228,6 @@ with gr.Blocks() as demo:
     face_task = gr.Text(visible=False, value="detection")
     face_mode = gr.Text(visible=False, value="gradio")
     face_port = gr.Text(visible=False, value=8777)
-    face_app = gr.Text(visible=False, value="192.168.0.5:8777")
 
     fashion_url = gr.Text(visible=False, value="https://github.com/hibobo98/Fashion.git")
     fashion_model_name = gr.Text(visible=False, value="fashion-test")
@@ -166,7 +235,6 @@ with gr.Blocks() as demo:
     fashion_task = gr.Text(visible=False, value="detection")
     fashion_mode = gr.Text(visible=False, value="gradio")
     fashion_port = gr.Text(visible=False, value=8779)
-    fashion_app = gr.Text(visible=False, value="192.168.0.5:8779")
 
     hardhat_url = gr.Text(visible=False, value="https://github.com/hibobo98/Hardhat.git")
     hardhat_model_name = gr.Text(visible=False, value="hardhat-test")
@@ -174,7 +242,6 @@ with gr.Blocks() as demo:
     hardhat_task = gr.Text(visible=False, value="detection")
     hardhat_mode = gr.Text(visible=False, value="gradio")
     hardhat_port = gr.Text(visible=False, value=8778)
-    hardhat_app = gr.Text(visible=False, value="192.168.0.5:8778")
 
     windmill_url = gr.Text(visible=False, value="https://github.com/hibobo98/Windmill.git")
     windmill_model_name = gr.Text(visible=False, value="windmill")
@@ -182,10 +249,9 @@ with gr.Blocks() as demo:
     windmill_task = gr.Text(visible=False, value="detection")
     windmill_mode = gr.Text(visible=False, value="gradio")
     windmill_port = gr.Text(visible=False, value=8776)
-    windmill_app = gr.Text(visible=False, value="192.168.0.5:8776")
 
-    def same(a, b, c, d, e, f, g):
-        return a, b, c, d, e, f, g
+    def same(a, b, c, d, e, f):
+        return a, b, c, d, e, f
     
     face_btn.click(
         fn=same,
@@ -196,7 +262,6 @@ with gr.Blocks() as demo:
             face_task,
             face_mode,
             face_port,
-            face_app
         ],
         outputs=[
             url,
@@ -205,7 +270,6 @@ with gr.Blocks() as demo:
             task,
             mode,
             server_port,
-            app
         ]
     )
 
@@ -217,8 +281,7 @@ with gr.Blocks() as demo:
             fashion_version,
             fashion_task,
             fashion_mode,
-            fashion_port,
-            fashion_app
+            fashion_port
         ],
         outputs=[
             url,
@@ -227,7 +290,6 @@ with gr.Blocks() as demo:
             task,
             mode,
             server_port,
-            app
         ]
     )
 
@@ -240,7 +302,6 @@ with gr.Blocks() as demo:
             hardhat_task,
             hardhat_mode,
             hardhat_port,
-            hardhat_app
         ],
         outputs=[
             url,
@@ -249,7 +310,6 @@ with gr.Blocks() as demo:
             task,
             mode,
             server_port,
-            app
         ]
     )
 
@@ -262,7 +322,6 @@ with gr.Blocks() as demo:
             windmill_task,
             windmill_mode,
             windmill_port,
-            windmill_app
         ],
         outputs=[
             url,
@@ -271,7 +330,6 @@ with gr.Blocks() as demo:
             task,
             mode,
             server_port,
-            app
         ]
     )
 

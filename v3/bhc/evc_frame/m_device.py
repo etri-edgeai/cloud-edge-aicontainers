@@ -30,6 +30,13 @@ class device_manager:
         query = "select DATETIME(time, 'unixepoch') as date, affiliation, name, ip, port, type, owner, hw, os, gpu from nodes;"
         print(pd.read_sql_query(query, self.con))
 
+    def clean_hosts(self):
+
+        cur = self.con.cursor()
+        query = "delete from nodes;"
+        cur.execute(query)
+        self.con.commit()
+
     def insert(self, hub=False):
 
         done = True
@@ -84,10 +91,10 @@ class device_manager:
         return done
         
 
-    def delete(self):
+    def delete_users(self):
 
         cur = self.con.cursor()
-        query = 'delete from nodes where name="{name}"'.format(name=self.name)
+        query = 'delete from nodes;'
         cur.execute(query)
         self.con.commit()
 

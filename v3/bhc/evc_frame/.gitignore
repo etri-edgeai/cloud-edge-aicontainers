@@ -19,3 +19,6 @@ grafana_10.0.3_amd64.deb
 
 # ignore sample videos
 EVC_RunTest/sample_imgs/
+
+# ignore nohup output
+EVC_RunTest/nohup.out
