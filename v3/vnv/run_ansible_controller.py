@@ -91,7 +91,7 @@ def main(mode = 'baseline'):
     print(cmd)
     run(cmd, True)
         
-    cmd = f'ansible vnv_getinfo -i ./config/hosts.ini -m shell -a "cd {wdir}; python3 -m venv venv; source venv/bin/activate; pip install -r requirements.txt;" -e "ansible_shell_executable=/bin/bash" {ask_pass_option} ' 
+    cmd = f'ansible vnv_getinfo -i ./config/hosts.ini -m shell -a "cd {wdir}; python3 -m venv venv; source venv/bin/activate;" -e "ansible_shell_executable=/bin/bash" {ask_pass_option} ' 
     print(cmd)
     run(cmd, True)
         
@@ -168,11 +168,13 @@ def main(mode = 'baseline'):
         st_inference = time.time() #---------------------
 
         if mode == 'baseline':
+            print('[d] enter baseline mode')
             cmd = f'ansible vnv_baseline -i ./config/hosts.ini -m shell -a "cd {wdir}; pwd; {py} inference4vnv.py --mode {mode} --fpath_testimages {fpath_testimages};"  {ask_pass_option} ' 
         elif mode == 'advanced':
+            print('[d] enter advanced mode')
             cmd = f'ansible vnv_advanced -i ./config/hosts.ini -m shell -a "cd {wdir}; pwd; {py} inference4vnv.py --mode {mode} --fpath_testimages {fpath_testimages};"  {ask_pass_option} ' 
 
-        #print("\n", cmd, "\n")
+        print("\n", cmd, "\n")
         run(cmd, True)
             
         et_inference = time.time() #---------------------

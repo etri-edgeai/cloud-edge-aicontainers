@@ -51,8 +51,10 @@ function ValidatePublicIP($ip){
 //
 
 $hostname = $_GET['hostname'];
-
 $temperature = $_GET['temperature'];
+$cpuclock = $_GET['cpuclock'];
+$mem = $_GET['mem'];
+$json_str = $_GET['json_str'];
 
 $accessed_ip = GetClientIP();
 print( $accessed_ip.' ' );
@@ -61,7 +63,7 @@ print( $accessed_ip.' ' );
 # Include connection
 require_once "./config_log.php";
 
-$sql = "INSERT INTO data (ip, hostname, temperature) VALUES ('{$accessed_ip}', '{$hostname}', '{$temperature}')";
+$sql = "INSERT INTO data (ip, hostname, temperature, cpuclock, mem, json_str) VALUES ('{$accessed_ip}', '{$hostname}', '{$temperature}', '{$cpuclock}', '{$mem}', '{$json_str}')";
 
 $result = mysqli_query($conn, $sql);
 

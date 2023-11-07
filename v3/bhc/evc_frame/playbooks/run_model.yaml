@@ -19,6 +19,8 @@
     ansible_become_pass: ketiabcs
     server_name: None
     server_port: None
+    sv_private_ip: None
+    teacher: True
 
   
   tasks:
@@ -114,7 +116,7 @@
 
   - name: gradio server activation
     tags: gradio
-    command: docker exec -d {{ model_tag }}-model-{{ version }} python home/app.py --server_name {{ server_name }} --server_port {{ server_port }}
+    command: docker exec -d {{ model_tag }}-model-{{ version }} python app.py --server_name {{ server_name }} --server_port {{ server_port }}
     register: output
   - debug: msg="{{ output.stdout_lines }}"
     tags: gradio
@@ -130,6 +132,29 @@
     register: output
   - debug: msg="{{ output.stdout_lines }}"
     tags: flask
+
+
+#==================================== Run Flower dem0 ===========================================#
+#================================================================================================#
+
+  - name: Flower FL-train activation ( teacher )
+    tags: flower
+    command: docker exec -d {{ model_tag }}-model-{{ version }} python server.py --server_port {{ server_port }}
+    when: inventory_hostname in groups["fl_teacher"]
+    register: output
+  - debug: msg="{{ output.stdout_lines }}"
+    tags: flower
+    when: inventory_hostname in groups["fl_teacher"]
+
+  - name: Flower FL-train activation ( student )
+    tags: flower
+    command: docker exec -d {{ model_tag }}-model-{{ version }} python client.py --server_address {{ sv_private_ip }}:{{ server_port }}
+    register: output
+    when: inventory_hostname in groups["fl_student"]
+  - debug: msg="{{ output.stdout_lines }}"
+    tags: flower
+    when: inventory_hostname in groups["fl_student"]
+
 
 
 

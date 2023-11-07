@@ -368,13 +368,35 @@ class model_manager:
 
 
 
-    def run(self, mode, node, server_name, server_port):
+    def run(self, mode, node, server_name="0.0.0.0", server_port=7999, sv_ip=None):
 
         if mode == 'gradio':
-            os.system('ansible-playbook {playbook} -l {node} -t gradio -i {hosts_file} -e "registry={registry} model_tag={tag} version={version} server_name={server_name} server_port={server_port}"'.format(registry=self.registry, tag=self.model_name, version=self.version, playbook=self.distrb_playbook, node=node, hosts_file=self.hosts_file, server_name=server_name, server_port=server_port))    
+            os.system('ansible-playbook {playbook} -l {node} -t gradio -i {hosts_file} -e "registry={registry} model_tag={tag} version={version} server_name={server_name} server_port={server_port}"'.format(registry=self.registry, tag=self.model_name, version=self.version, playbook=self.distrb_playbook, node=node, hosts_file=self.hosts_file, server_name=server_name, server_port=server_port))
+
         elif mode == 'flask':
             os.system('ansible-playbook {playbook} -l {node} -t flask -i {hosts_file} -e "registry={registry} model_tag={tag} version={version} server_name={server_name} server_port={server_port}"'.format(registry=self.registry, tag=self.model_name, version=self.version, playbook=self.distrb_playbook, node=node, hosts_file=self.hosts_file, server_name=server_name, server_port=server_port))
 
+        elif mode == 'flower':
+            os.system(
+                'ansible-playbook {playbook} -l {node} -t flower -i {hosts_file} \
+                -e \
+                "registry={registry} \
+                model_tag={tag} \
+                version={version} \
+                server_name={server_name} \
+                server_port={server_port} \
+                sv_private_ip={sv_ip}"'.format(
+                                        registry=self.registry,
+                                        tag=self.model_name,
+                                        version=self.version,
+                                        playbook=self.distrb_playbook,
+                                        node=node,
+                                        hosts_file=self.hosts_file,
+                                        server_name=server_name,
+                                        server_port=server_port,
+                                        sv_ip=sv_ip
+                                    )
+            )
 
 
     def download_weights(self, node, file):

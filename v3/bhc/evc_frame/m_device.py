@@ -8,13 +8,13 @@ import pandas as pd
 
 class device_manager:
 
-    def __init__(self, db_file, affiliation, name, ip, port, type, owner, hw, op_sys, gpu):
+    def __init__(self, db_file, affiliation, name, ip, port, role, owner, hw=None, op_sys=None, gpu=None):
         self.con = sqlite3.connect(db_file)
         self.affiliation = affiliation
         self.name = name
         self.ip = ip
         self.port = port
-        self.type = type
+        self.role = role
         self.owner = owner
         self.hw = hw
         self.op_sys = op_sys
@@ -27,8 +27,15 @@ class device_manager:
 
     def view(self):
 
-        query = "select DATETIME(time, 'unixepoch') as date, affiliation, name, ip, port type, owner, hw, os, gpu from nodes;"
+        query = "select DATETIME(time, 'unixepoch') as date, affiliation, name, ip, port, type, owner, hw, os, gpu from nodes;"
         print(pd.read_sql_query(query, self.con))
+
+    def clean_hosts(self):
+
+        cur = self.con.cursor()
+        query = "delete from nodes;"
+        cur.execute(query)
+        self.con.commit()
 
     def insert(self, hub=False):
 
@@ -68,7 +75,7 @@ class device_manager:
         data.append(self.name)
         data.append(self.ip)
         data.append(self.port)
-        data.append(self.type)
+        data.append(self.role)
         data.append(self.owner)
         data.append(self.hw)
         data.append(self.op_sys)
@@ -84,10 +91,10 @@ class device_manager:
         return done
         
 
-    def delete(self):
+    def delete_users(self):
 
         cur = self.con.cursor()
-        query = 'delete from nodes where name="{name}"'.format(name=self.name)
+        query = 'delete from nodes;'
         cur.execute(query)
         self.con.commit()
 

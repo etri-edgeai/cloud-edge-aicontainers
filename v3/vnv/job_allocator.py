@@ -39,7 +39,7 @@ class job_allocator():
         
         hostname = 'n01'
         start_frame = 0
-        end_frame = 24000
+        end_frame = 25000
         rcon.set_data(f'vnv:edge:advanced:job:{hostname}:start_frame', start_frame)
         rcon.set_data(f'vnv:edge:advanced:job:{hostname}:end_frame', end_frame)
         

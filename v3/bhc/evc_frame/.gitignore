@@ -3,6 +3,11 @@ EVC_RunTest/EVC_test2/
 EVC_RunTest/evc-test3/
 EVC_RunTest/evc-selective-runner/
 EVC_RunTest/esp-python/
+EVC_RunTest/Face/
+EVC_RunTest/Fashion/
+EVC_RunTest/Hardhat/
+EVC_RunTest/Windmill
+EVC_RunTest/fl-test
 
 # ginore auth keys
 certs/
@@ -12,3 +17,9 @@ certs/
 
 # ignore download files
 grafana_10.0.3_amd64.deb
+
+# ignore sample videos
+EVC_RunTest/sample_imgs/
+
+# ignore nohup output
+EVC_RunTest/nohup.out
