@@ -64,8 +64,8 @@ def str2bool(v):
 
 class device_control:
 
-    def host_config(default_set, group, node, ip, port, owner):
-        # insert builders
+    def builder_config(default_set):
+
         builders = []
 
         for nodes in default_set['builder']:
@@ -87,6 +87,9 @@ class device_control:
             dman.config(cert_playbook, registry)
             dman.insert(hub=dockerhub)
 
+        return builders
+
+    def node_config(group, node, ip, port, owner):
 
         # host configuration (build inventory)
         dman = device_manager(
@@ -104,7 +107,21 @@ class device_control:
         dman.file_config()
         dman.view()
 
-        return builders
+    def node_delete(group, node, ip, port, owner):
+
+        # host configuration (build inventory)
+        dman = device_manager(
+            db_file=db,
+            affiliation=group,
+            name=node,
+            ip=ip,
+            port=port,
+            role='user',
+            owner=owner
+            )
+        dman.config(cert_playbook, registry)
+        dman.delete_users()
+        dman.view()
 
 
 
@@ -160,7 +177,7 @@ class model_control:
         man.download(registry, group, server_port)
 
 
-    def run(group, owner, model_name, task, version, modelfile, dockerfile, mode, app, server_port):
+    def run(group, owner, model_name, task, version, modelfile, dockerfile, mode, server_port, sv_ip=None):
         
         man = model_manager(
             db_file=db,
@@ -180,14 +197,7 @@ class model_control:
             registry=registry
         )
 
-        man.run(mode=mode, node=group, app=app, server_port=server_port)
-
-        output = []
-
-        tmp = app
-        output.append(tmp)
-
-        return "Activated at : " + (" ".join(str(i) for i in output))
+        man.run(mode=mode, node=group, server_port=server_port, sv_ip=sv_ip)
 
 
 
