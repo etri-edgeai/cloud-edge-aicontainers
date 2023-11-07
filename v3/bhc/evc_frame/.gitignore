@@ -7,6 +7,7 @@ EVC_RunTest/Face/
 EVC_RunTest/Fashion/
 EVC_RunTest/Hardhat/
 EVC_RunTest/Windmill
+EVC_RunTest/fl-test
 
 # ginore auth keys
 certs/

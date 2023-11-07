@@ -177,7 +177,7 @@ class model_control:
         man.download(registry, group, server_port)
 
 
-    def run(group, owner, model_name, task, version, modelfile, dockerfile, mode, server_port):
+    def run(group, owner, model_name, task, version, modelfile, dockerfile, mode, server_port, sv_ip=None):
         
         man = model_manager(
             db_file=db,
@@ -197,7 +197,7 @@ class model_control:
             registry=registry
         )
 
-        man.run(mode=mode, node=group, server_port=server_port)
+        man.run(mode=mode, node=group, server_port=server_port, sv_ip=sv_ip)
 
 
 

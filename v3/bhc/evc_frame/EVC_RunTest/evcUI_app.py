@@ -29,7 +29,7 @@ def str2bool(v):
         raise argparse.ArgumentTypeError('Boolean value expected.')
 
 
-def evc_group(url, account, group, node_list, owner):
+def evc_group(url, account, node_list, owner):
 
     global default_cfg, modelfile, dockerfile
 
@@ -38,15 +38,21 @@ def evc_group(url, account, group, node_list, owner):
     builders = evc.device_control.builder_config(default_set)
 
     for node in node_list:
-        evc.device_control.node_config(group, node[0], node[1], node[2], owner)
+        evc.device_control.node_config(node[0], node[1], node[2], node[3], owner)
 
     return builders
 
 
-def evc_run(builders, group, owner, model_name, task, version, mode, server_port):
+def evc_run(url, account, builders, group, owner, model_name, task, version, mode, server_port, sv_ip=None):
+
+    default_set, default_cfg, modelfile, dockerfile = evc.get_myprj(url, account)
 
     for run in default_cfg:
         sequence = run['activation']
+
+        print()
+        print(sequence)
+        print()
         
         if sequence == 'build':
             # if str2bool(clean_db):
@@ -65,10 +71,18 @@ def evc_run(builders, group, owner, model_name, task, version, mode, server_port
             )
 
         elif sequence == 'run':
-            evc.model_control.run(
-                group, owner, model_name, task, version, modelfile, dockerfile,
-                mode, server_port
-            )
+
+            if mode == 'flower':
+                evc.model_control.run(
+                    group, owner, model_name, task, version, modelfile, dockerfile,
+                    mode, server_port, sv_ip
+                )
+
+            else:
+                evc.model_control.run(
+                    group, owner, model_name, task, version, modelfile, dockerfile,
+                    mode, server_port
+                )
 
 
 with gr.Blocks() as demo:
@@ -116,15 +130,16 @@ with gr.Blocks() as demo:
             with gr.Column():
 
                 with gr.Row():
-                    account = gr.Textbox(label="Github Account", scale=0, value="hibobo98")
+                    account = gr.Textbox(label="Github Account", scale=0, value="ethicsense")
                     url = gr.Textbox(label="Project URL")
                 
                 with gr.Row():
-                    model_name = gr.Textbox(label="Model Name", value="esp-test")
-                    version = gr.Textbox(label="Model Version", value="0.6")
-                    task = gr.Textbox(label="Model Task", value="detection")
-                    mode = gr.Textbox(label="Activation Mode", value="flask")
-                    server_port = gr.Textbox(label="Model Application Port", value=7999)
+                    model_name = gr.Textbox(label="Model Name", value="fl-test")
+                    version = gr.Textbox(label="Model Version", value="0.1")
+                    task = gr.Textbox(label="Model Task", value="fed_learn")
+                    mode = gr.Textbox(label="Activation Mode", value="flower")
+                    sv_ip = gr.Textbox(label="Private IP", value="192.168.1.7")
+                    server_port = gr.Textbox(label="Model Application Port", value=8083)
 
         with gr.Row():
             db_btn = gr.Button("Clean DB", scale=0)
@@ -136,15 +151,15 @@ with gr.Blocks() as demo:
 
         with gr.Row():
             with gr.Column(scale=0, min_width=170):
-                group = gr.Textbox(label="Group Name", value="keti_test_nuc")
+                group = gr.Textbox(label="Group Name", value="fl_test")
                 owner = gr.Textbox(label="Admin", value="keti")
 
             with gr.Column():
 
                 with gr.Row():
-                    node = gr.Textbox(label="Node Name", value="n02", interactive=True)
-                    ip = gr.Textbox(label="IP Address", value="evc.re.kr", interactive=True)
-                    port = gr.Textbox(label="Port Number", value=33322, interactive=True)
+                    node = gr.Textbox(label="Node Name", value="", interactive=True)
+                    ip = gr.Textbox(label="IP Address", value="", interactive=True)
+                    port = gr.Textbox(label="Port Number", value=None, interactive=True)
 
                     with gr.Row():
                         add_btn = gr.Button("add node", scale=0)
@@ -156,14 +171,14 @@ with gr.Blocks() as demo:
             group_btn = gr.Button("Hosts Configuration")
             run_btn = gr.Button("Start Deployment")
 
-    builders = gr.State([])
+    builders = gr.State(["p02"])
 
     node_list = []
     node_list_var = gr.State([])
 
-    def add_node(node, ip, port):
+    def add_node(group, node, ip, port):
 
-        n = [node, ip, port]
+        n = [group, node, ip, port]
         node_list.append(n)
 
         return {
@@ -196,7 +211,7 @@ with gr.Blocks() as demo:
     )
     add_btn.click(
         add_node,
-        [node, ip, port],
+        [group, node, ip, port],
         [node_list_var, output_box]
     )
     reset_btn.click(
@@ -205,13 +220,13 @@ with gr.Blocks() as demo:
     )
     group_btn.click(
         fn=evc_group,
-        inputs=[url, account, group, node_list_var, owner],
+        inputs=[url, account, node_list_var, owner],
         outputs=builders,
         show_progress='full'
     )
     run_btn.click(
         fn=evc_run,
-        inputs=[builders, group, owner, model_name, task, version, mode, server_port],
+        inputs=[url, account, builders, group, owner, model_name, task, version, mode, server_port, sv_ip],
         show_progress='full'
     )
 
