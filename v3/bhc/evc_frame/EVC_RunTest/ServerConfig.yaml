@@ -25,12 +25,12 @@ builder:
     os: ubuntu
     gpu: RTX4090
 
-  - name: rpi6401
-    ip: evc.re.kr
-    port: 39001
-    hw: rpi
-    os: linux
-    gpu: None
+  # - name: rpi6401
+  #   ip: evc.re.kr
+  #   port: 39001
+  #   hw: rpi
+  #   os: linux
+  #   gpu: None
 
 # # 타겟 노드 (대상)
 # where:

@@ -43,7 +43,7 @@ def evc_group(url, account, node_list, owner):
     return builders
 
 
-def evc_run(url, account, builders, group, owner, model_name, task, version, mode, server_port, sv_ip=None):
+def evc_deploy(url, account, builders, group, owner, model_name, task, version, mode, server_port, sv_ip=None):
 
     default_set, default_cfg, modelfile, dockerfile = evc.get_myprj(url, account)
 
@@ -70,19 +70,36 @@ def evc_run(url, account, builders, group, owner, model_name, task, version, mod
                 server_port
             )
 
-        elif sequence == 'run':
+        # elif sequence == 'run':
 
-            if mode == 'flower':
-                evc.model_control.run(
-                    group, owner, model_name, task, version, modelfile, dockerfile,
-                    mode, server_port, sv_ip
-                )
+        #     if mode == 'flower' or 'flwrsim':
+        #         evc.model_control.run(
+        #             group, owner, model_name, task, version, modelfile, dockerfile,
+        #             mode, server_port, sv_ip
+        #         )
 
-            else:
-                evc.model_control.run(
-                    group, owner, model_name, task, version, modelfile, dockerfile,
-                    mode, server_port
-                )
+        #     else:
+        #         evc.model_control.run(
+        #             group, owner, model_name, task, version, modelfile, dockerfile,
+        #             mode, server_port
+        #         )
+
+def evc_run(url, account, builders, group, owner, model_name, task, version, mode, server_port, sv_ip=None):
+
+    default_set, default_cfg, modelfile, dockerfile = evc.get_myprj(url, account)
+
+    if mode == 'flower' or 'flwrsim':
+        evc.model_control.run(
+            group, owner, model_name, task, version, modelfile, dockerfile,
+            mode, server_port, sv_ip
+        )
+
+    else:
+        evc.model_control.run(
+            group, owner, model_name, task, version, modelfile, dockerfile,
+            mode, server_port
+        )
+
 
 
 with gr.Blocks() as demo:
@@ -153,6 +170,7 @@ with gr.Blocks() as demo:
             with gr.Column(scale=0, min_width=170):
                 group = gr.Textbox(label="Group Name", value="fl_test")
                 owner = gr.Textbox(label="Admin", value="keti")
+                target = gr.Textbox(label="Target", placeholder='"user" if all')
 
             with gr.Column():
 
@@ -169,7 +187,9 @@ with gr.Blocks() as demo:
 
         with gr.Row():
             group_btn = gr.Button("Hosts Configuration")
-            run_btn = gr.Button("Start Deployment")
+            deploy_btn = gr.Button("Start Deployment")
+            run_btn = gr.Button("Start App")
+            
 
     builders = gr.State(["p02"])
 
@@ -224,9 +244,14 @@ with gr.Blocks() as demo:
         outputs=builders,
         show_progress='full'
     )
+    deploy_btn.click(
+        fn=evc_deploy,
+        inputs=[url, account, builders, target, owner, model_name, task, version, mode, server_port, sv_ip],
+        show_progress='full'
+    )
     run_btn.click(
         fn=evc_run,
-        inputs=[url, account, builders, group, owner, model_name, task, version, mode, server_port, sv_ip],
+        inputs=[url, account, builders, target, owner, model_name, task, version, mode, server_port, sv_ip],
         show_progress='full'
     )
 
