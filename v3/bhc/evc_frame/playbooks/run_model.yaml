@@ -20,6 +20,9 @@
     server_name: None
     server_port: None
     sv_private_ip: None
+    num_clients: 2
+    num_rounds: 5
+    tb_port: 6006
     teacher: True
 
   
@@ -44,12 +47,24 @@
   - debug: msg="{{ output.stdout_lines }}"
     tags: distrb
 
+
+### different types of build script
+
+## 1. flower fed-learn sever
   - name: create new AI model env container
     tags: distrb
-    shell: docker run -d -p {{ server_port }}:{{ server_port }} -v "$(pwd)"/weights:/weights --name {{ model_tag }}-model-{{ version }} -it {{ registry }}/{{ image_name }}:{{ model_tag }}-{{ version }}
+    shell: docker run -d -p {{ server_port }}:{{ server_port }} -v "$(pwd)"/ethicsense/flwr_logs:/home/flwr_logs --name {{ model_tag }}-model-{{ version }} -it {{ registry }}/{{ image_name }}:{{ model_tag }}-{{ version }}
     register: output
   - debug: msg="{{ output.stdout_lines }}"
     tags: distrb
+
+## 2. gradio, flask, etc AI model app
+  # - name: create new AI model env container
+  #   tags: distrb
+  #   shell: docker run -d -p {{ server_port }}:{{ server_port }} -v "$(pwd)"/weights:/weights --name {{ model_tag }}-model-{{ version }} -it {{ registry }}/{{ image_name }}:{{ model_tag }}-{{ version }}
+  #   register: output
+  # - debug: msg="{{ output.stdout_lines }}"
+  #   tags: distrb
 
 
 #==================================== show results =====================================
@@ -134,12 +149,12 @@
     tags: flask
 
 
-#==================================== Run Flower dem0 ===========================================#
-#================================================================================================#
+#============================ Run Flower dem0 (server-client ver.)==================================#
+#===================================================================================================#
 
   - name: Flower FL-train activation ( teacher )
     tags: flower
-    command: docker exec -d {{ model_tag }}-model-{{ version }} python server.py --server_port {{ server_port }}
+    command: docker exec -d {{ model_tag }}-model-{{ version }} python server.py --server_port {{ server_port }} --num_clients {{ num_clients }} --num_rounds {{ num_rounds }} --tb_port {{ tb_port }}
     when: inventory_hostname in groups["fl_teacher"]
     register: output
   - debug: msg="{{ output.stdout_lines }}"
@@ -148,13 +163,54 @@
 
   - name: Flower FL-train activation ( student )
     tags: flower
-    command: docker exec -d {{ model_tag }}-model-{{ version }} python client.py --server_address {{ sv_private_ip }}:{{ server_port }}
+    command: docker exec {{ model_tag }}-model-{{ version }} python client.py --server_address {{ sv_private_ip }}:{{ server_port }}
     register: output
     when: inventory_hostname in groups["fl_student"]
   - debug: msg="{{ output.stdout_lines }}"
     tags: flower
     when: inventory_hostname in groups["fl_student"]
 
+
+
+#============================ Run Flower dem0 (ray simulation ver.)==================================#
+#====================================================================================================#
+
+  - name: Flower FL-train ray server activation
+    tags: flwrsim
+    command: docker exec {{ model_tag }}-model-{{ version }} ray start --head --node-ip-address 0.0.0.0 --dashboard-host 0.0.0.0 --dashboard-port {{ server_port }}
+    register: output
+    when: inventory_hostname in groups["fl_teacher"]
+  - debug: msg="{{ output.stdout_lines }}"
+    tags: flwrsim
+    when: inventory_hostname in groups["fl_teacher"]
+
+  - name: Pause til server set
+    tags: flwrsim
+    pause:
+      seconds: 20
+
+  - name: Flower FL-train ray client activation
+    tags: flwrsim
+    command: docker exec {{ model_tag }}-model-{{ version }} ray start --address {{ sv_private_ip }}:6379
+    register: output
+    when: inventory_hostname in groups["fl_student"]
+  - debug: msg="{{ output.stdout_lines }}"
+    tags: flwrsim
+    when: inventory_hostname in groups["fl_student"]
+
+  - name: Pause til clients set
+    tags: flwrsim
+    pause:
+      seconds: 20
+
+  - name: Start Flower training simulation
+    tags: flwrsim
+    command: docker exec {{ model_tag }}-model-{{ version }} python sim.py --num_rounds 10 --multi_node 1 --num_cpus 10
+    register: output
+    when: inventory_hostname in groups["fl_teacher"]
+  - debug: msg="{{ output.stdout_lines }}"
+    tags: flwrsim
+    when: inventory_hostname in groups["fl_teacher"]
 
 
 
