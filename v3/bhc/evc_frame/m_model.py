@@ -368,7 +368,8 @@ class model_manager:
 
 
 
-    def run(self, mode, node, server_name="0.0.0.0", server_port=7999, sv_ip=None):
+    def run(self, mode, node, server_name="0.0.0.0", server_port=7999, sv_ip=None, num_clients=None,
+            num_rounds=None, tb_port=None):
 
         if mode == 'gradio':
             os.system('ansible-playbook {playbook} -l {node} -t gradio -i {hosts_file} -e "registry={registry} model_tag={tag} version={version} server_name={server_name} server_port={server_port}"'.format(registry=self.registry, tag=self.model_name, version=self.version, playbook=self.distrb_playbook, node=node, hosts_file=self.hosts_file, server_name=server_name, server_port=server_port))

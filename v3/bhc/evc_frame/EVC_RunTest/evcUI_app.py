@@ -84,14 +84,15 @@ def evc_deploy(url, account, builders, group, owner, model_name, task, version, 
         #             mode, server_port
         #         )
 
-def evc_run(url, account, builders, group, owner, model_name, task, version, mode, server_port, sv_ip=None):
+def evc_run(url, account, builders, group, owner, model_name, task, version, mode, server_port, sv_ip=None,
+            num_clients=None, num_rounds=None, tb_port=None):
 
     default_set, default_cfg, modelfile, dockerfile = evc.get_myprj(url, account)
 
     if mode == 'flower' or 'flwrsim':
         evc.model_control.run(
             group, owner, model_name, task, version, modelfile, dockerfile,
-            mode, server_port, sv_ip
+            mode, server_port, sv_ip, num_clients, num_rounds, tb_port
         )
 
     else:
@@ -100,6 +101,9 @@ def evc_run(url, account, builders, group, owner, model_name, task, version, mod
             mode, server_port
         )
 
+def read_logs():
+        with open("/home/keti/ethicsense/flwr_logs/fl_log.txt", "r") as f:
+            return f.read()
 
 
 with gr.Blocks() as demo:
@@ -155,7 +159,6 @@ with gr.Blocks() as demo:
                     version = gr.Textbox(label="Model Version", value="0.1")
                     task = gr.Textbox(label="Model Task", value="fed_learn")
                     mode = gr.Textbox(label="Activation Mode", value="flower")
-                    sv_ip = gr.Textbox(label="Private IP", value="192.168.1.7")
                     server_port = gr.Textbox(label="Model Application Port", value=8083)
 
         with gr.Row():
@@ -185,11 +188,21 @@ with gr.Blocks() as demo:
 
                 output_box = gr.Textbox(label="Nodes List")
 
+                markdown = gr.Markdown("## <strong> Federated Learning Settings </strong>")
+                with gr.Row():
+                    sv_ip = gr.Textbox(label="Server Node IP", value="192.168.1.7")
+                    num_clients = gr.Textbox(label="Number of Clients")
+                    num_rounds = gr.Textbox(label="Number of Rounds")
+                    tb_port = gr.Textbox(label="Tensorboard Service Port")
+
         with gr.Row():
             group_btn = gr.Button("Hosts Configuration")
             deploy_btn = gr.Button("Start Deployment")
             run_btn = gr.Button("Start App")
-            
+        
+        markdown = gr.Markdown("# <strong> Show Result Output </strong>")
+        run_logs = gr.Textbox(label="output")
+
 
     builders = gr.State(["p02"])
 
@@ -251,9 +264,11 @@ with gr.Blocks() as demo:
     )
     run_btn.click(
         fn=evc_run,
-        inputs=[url, account, builders, target, owner, model_name, task, version, mode, server_port, sv_ip],
+        inputs=[url, account, builders, target, owner, model_name, task, version, mode, server_port, sv_ip,
+                num_clients, num_rounds, tb_port],
         show_progress='full'
     )
+    demo.load(read_logs, None, run_logs, every=1, trigger_mode='always_last')
 
     '''
     deploy_btn을 click하면 
