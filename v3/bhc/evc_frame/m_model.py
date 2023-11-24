@@ -336,7 +336,7 @@ class model_manager:
 
 
 
-    def download(self, registry, node, server_port):
+    def download(self, registry, node, server_port, tb_port=6006):
 
         query = 'select owner_name, model_name, version from modelinfo_detail'
         cur = self.con.cursor()
@@ -357,7 +357,7 @@ class model_manager:
                 #     raise Exception('Model not found. please check models-list.')
 
         ## model download to user_node
-        os.system('ansible-playbook {playbook} -l {node_name} -t distrb -i {hosts_file} -e "registry={registry} model_tag={tag} version={version} server_port={server_port}"'.format(playbook=self.distrb_playbook, hosts_file=self.hosts_file, node_name=node, registry=registry, tag=self.model_name, version=self.version, server_port=server_port))
+        os.system('ansible-playbook {playbook} -l {node_name} -t distrb -i {hosts_file} -e "registry={registry} model_tag={tag} version={version} server_port={server_port} tb_port={tb_port}"'.format(playbook=self.distrb_playbook, hosts_file=self.hosts_file, node_name=node, registry=registry, tag=self.model_name, version=self.version, server_port=server_port, tb_port=tb_port))
 
         print()
         print('Show result')
@@ -386,7 +386,10 @@ class model_manager:
                 version={version} \
                 server_name={server_name} \
                 server_port={server_port} \
-                sv_private_ip={sv_ip}"'.format(
+                sv_private_ip={sv_ip} \
+                num_clients={num_clients} \
+                num_rounds={num_rounds} \
+                tb_port={tb_port}"'.format(
                                         mode=mode,
                                         registry=self.registry,
                                         tag=self.model_name,
@@ -396,7 +399,10 @@ class model_manager:
                                         hosts_file=self.hosts_file,
                                         server_name=server_name,
                                         server_port=server_port,
-                                        sv_ip=sv_ip
+                                        sv_ip=sv_ip,
+                                        num_clients=num_clients,
+                                        num_rounds=num_rounds,
+                                        tb_port=tb_port
                                     )
             )
 

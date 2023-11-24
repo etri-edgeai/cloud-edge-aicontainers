@@ -155,7 +155,7 @@ class model_control:
                 man.insert_db()
                 man.view()
 
-    def download(group, owner, model_name, task, version, modelfile, dockerfile, server_port):
+    def download(group, owner, model_name, task, version, modelfile, dockerfile, server_port, tb_port=6006):
         man = model_manager(
             db_file=db,
             owner=owner,
@@ -174,7 +174,7 @@ class model_control:
             registry=registry
         )
         
-        man.download(registry, group, server_port)
+        man.download(registry, group, server_port, tb_port)
 
 
     def run(group, owner, model_name, task, version, modelfile, dockerfile, mode, server_port, sv_ip=None,
