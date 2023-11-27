@@ -53,7 +53,7 @@
 ## 1. flower fed-learn sever
   - name: create new AI model env container
     tags: distrb
-    shell: docker run -d -p {{ server_port }}:{{ server_port }} -v "$(pwd)"/ethicsense/flwr_logs:/home/flwr_logs --name {{ model_tag }}-model-{{ version }} -it {{ registry }}/{{ image_name }}:{{ model_tag }}-{{ version }}
+    shell: docker run -d -p {{ server_port }}:{{ server_port }} -p {{ tb_port }}:{{ tb_port }} -v "$(pwd)"/ethicsense/flwr_logs:/home/flwr_logs --name {{ model_tag }}-model-{{ version }} -it {{ registry }}/{{ image_name }}:{{ model_tag }}-{{ version }}
     register: output
   - debug: msg="{{ output.stdout_lines }}"
     tags: distrb

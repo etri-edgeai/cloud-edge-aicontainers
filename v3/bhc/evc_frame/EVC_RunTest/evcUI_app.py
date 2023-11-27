@@ -43,7 +43,7 @@ def evc_group(url, account, node_list, owner):
     return builders
 
 
-def evc_deploy(url, account, builders, group, owner, model_name, task, version, mode, server_port, sv_ip=None):
+def evc_deploy(url, account, builders, group, owner, model_name, task, version, mode, server_port, sv_ip=None, tb_port=6006):
 
     default_set, default_cfg, modelfile, dockerfile = evc.get_myprj(url, account)
 
@@ -67,7 +67,7 @@ def evc_deploy(url, account, builders, group, owner, model_name, task, version, 
         elif sequence == 'download':
             evc.model_control.download(
                 group, owner, model_name, task, version, modelfile, dockerfile,
-                server_port
+                server_port, tb_port
             )
 
         # elif sequence == 'run':
@@ -259,7 +259,7 @@ with gr.Blocks() as demo:
     )
     deploy_btn.click(
         fn=evc_deploy,
-        inputs=[url, account, builders, target, owner, model_name, task, version, mode, server_port, sv_ip],
+        inputs=[url, account, builders, target, owner, model_name, task, version, mode, server_port, sv_ip, tb_port],
         show_progress='full'
     )
     run_btn.click(
