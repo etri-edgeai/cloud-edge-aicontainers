@@ -1,0 +1,1 @@
+curl GET http://evc.re.kr:28010/plantuml/svg/SyfFKj2rKt3CoKnELR1Io4ZDoSa70000 > ../../web/tmp/t1.html

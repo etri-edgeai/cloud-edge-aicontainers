@@ -291,6 +291,32 @@ services:
     #    networks:
     #        - dev_network
     
+
+    kroki:
+        image: yuzutech/kroki
+        ports:
+            - 8010:8000        
+          
+        environment:
+            - KROKI_BLOCKDIAG_HOST=blockdiag
+            - KROKI_MERMAID_HOST=mermaid
+            - KROKI_BPMN_HOST=bpmn
+        depends_on:
+            - blockdiag
+            - mermaid
+            - bpmn
+        networks:
+            - dev_network
+
+    blockdiag:
+        image: yuzutech/kroki-blockdiag
+
+    mermaid:
+        image: yuzutech/kroki-mermaid
+
+    bpmn:
+        image: yuzutech/kroki-bpmn
+
     
 networks:
     dev_network:
