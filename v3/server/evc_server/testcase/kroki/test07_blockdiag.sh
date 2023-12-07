@@ -1,0 +1,1 @@
+cat screen.blockdiag | http http://evc.re.kr:28010/blockdiag/svg Content-Type:text/plain > ../../web/tmp/t7.html

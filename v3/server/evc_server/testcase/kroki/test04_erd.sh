@@ -1,0 +1,1 @@
+cat project.erd | http http://evc.re.kr:28010/erd/svg Content-Type:text/plain > ../../web/tmp/t4.html

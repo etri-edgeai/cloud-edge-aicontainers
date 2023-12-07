@@ -1,0 +1,58 @@
+// http://blockdiag.com/en/
+
+nwdiag {
+    network frontend {
+        address = "evc.re.kr:20080";
+        nginx [address = "p01", label = "NginX"];
+        
+        group web {
+            rpi6431 [address = ".1"];
+        }
+    }
+    
+    network backend {
+        address = "192.168.1.x/24";
+        rpi6431 [address = ".1", label = "Raspberry Pi 4, Ubutu 64bit"];
+        rpi6432 [address = ".2"];
+        rpi6433 [address = ".3"];
+        rpi6434 [address = ".4"];
+        rpi6435 [address = ".5"];
+
+        
+        group runner {
+            color = "#FF7777";
+        
+            rpi6432;
+            rpi6433;
+        }
+        
+        // define network using defined nodes
+        group db {
+            rpi6434;
+            rpi6435;
+        }
+    }
+
+
+  // define group at outside network definitions
+  group {
+    color = "#FF7777";
+
+    web01;
+    web02;
+    db01;
+  }
+
+
+
+
+  network dmz {
+    web01;
+    web02;
+  }
+  network internal {
+    web01;
+    web02;
+    db01;
+  }
+}
