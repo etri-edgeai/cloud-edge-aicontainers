@@ -1,0 +1,1 @@
+curl http://evc.re.kr:28010/nwdiag/svg --data-binary '@web.nwdiag' > ../../web/tmp/t9.html

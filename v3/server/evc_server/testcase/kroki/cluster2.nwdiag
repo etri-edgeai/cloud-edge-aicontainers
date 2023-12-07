@@ -1,0 +1,28 @@
+// http://blockdiag.com/en/
+
+nwdiag {
+    group frontend {
+        label = "Frontend"
+        color = "#FF7777";
+        rpi6431 [address = ".1"];
+    }
+
+    group backend {
+        label = "Backend"
+        color = "#FFFF77";
+        rpi6432 [address = ".2"];
+        rpi6433 [address = ".3"];
+        rpi6434 [address = ".4"];
+        rpi6435 [address = ".5"];
+    }
+    
+    network evc {
+        address = "evc.re.kr:20080";
+        rpi6431;
+        rpi6432;
+        rpi6433;
+        rpi6434;
+        rpi6435;
+    }
+
+}
