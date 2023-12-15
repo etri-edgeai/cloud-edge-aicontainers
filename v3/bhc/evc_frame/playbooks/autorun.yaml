@@ -53,10 +53,16 @@
   #   tags: test
   
 
+  # ## from container save image (for saving mounted-datas (especially weight files))
+  # - name: Container2Iamge converting
+  #   tags: push
+  #   command: docker commit {{ tag }}-model-{{ ver }} {{ registry_ip }}/{{ image_name }}:{{ tag }}-{{ ver }}
+  #   register: command_output
+  # - debug: msg="{{ command_output.stdout_lines }}"
+  #   tags: push
 
 
-
-  ## rename & push model image
+  # rename model image
   - name: rename model image...
     tags: push
     command: docker tag {{ image_name }}:{{ tag }}-{{ ver }} {{ registry_ip }}/{{ image_name }}:{{ tag }}-{{ ver }}
@@ -64,6 +70,8 @@
   - debug: msg="{{ command_output.stdout_lines }}"
     tags: push
 
+
+  ## push model image
   - name: push image to registry
     tags: push
     command: docker push {{ registry_ip }}/{{ image_name }}:{{ tag }}-{{ ver }}

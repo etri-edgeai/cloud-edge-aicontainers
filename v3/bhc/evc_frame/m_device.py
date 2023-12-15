@@ -39,12 +39,20 @@ class device_manager:
 
     def insert(self, hub=False):
 
+        global vpn
+
+        vpn = False
         done = True
 
         try:
             cmd = "ssh-copy-id -p {port} {host_name}@{ip}".format(host_name=self.owner, ip=self.ip, port=self.port)
             if os.system(cmd) != 0:
-                raise Exception('Error')
+                cmd = f"ssh-copy-id {self.ip}"
+
+                if os.system(cmd) != 0:
+                    raise Exception('Error')
+                else:
+                    vpn = True
             
         except Exception as e:
             done = False
@@ -144,29 +152,53 @@ class device_manager:
                     user_data[g] = tmp
 
         
+        if vpn:
+            with open('../hosts.ini','w') as f:
 
-        with open('../hosts.ini','w') as f:
-
-            f.write('[builder]')
-            f.write('\n')
-
-            for s in builder_data:
-                f.write('{name} ansible_host={ip} ansible_port={port}'.format(name=s[0],ip=s[1],port=s[2]))
+                f.write('[builder]')
                 f.write('\n')
 
-            f.write('[user:children]')
-            f.write('\n')
-
-            for s in group:
-                f.write('{group}'.format(group=s))
-                f.write('\n')
-
-            for s in group:
-                f.write('[{group}]'.format(group=s))
-                f.write('\n')
-                for d in user_data[s]:
-                    f.write('{name} ansible_host={ip} ansible_port={port}'.format(name=d[0],ip=d[1],port=d[2]))
+                for s in builder_data:
+                    f.write('{name} ansible_host={ip} ansible_port={port}'.format(name=s[0],ip=s[1],port=s[2]))
                     f.write('\n')
+
+                f.write('[user:children]')
+                f.write('\n')
+
+                for s in group:
+                    f.write('{group}'.format(group=s))
+                    f.write('\n')
+
+                for s in group:
+                    f.write('[{group}]'.format(group=s))
+                    f.write('\n')
+                    for d in user_data[s]:
+                        f.write('{name} ansible_host={ip}'.format(name=d[0],ip=d[1],port=d[2]))
+                        f.write('\n')
+        
+        else:
+            with open('../hosts.ini','w') as f:
+
+                f.write('[builder]')
+                f.write('\n')
+
+                for s in builder_data:
+                    f.write('{name} ansible_host={ip} ansible_port={port}'.format(name=s[0],ip=s[1],port=s[2]))
+                    f.write('\n')
+
+                f.write('[user:children]')
+                f.write('\n')
+
+                for s in group:
+                    f.write('{group}'.format(group=s))
+                    f.write('\n')
+
+                for s in group:
+                    f.write('[{group}]'.format(group=s))
+                    f.write('\n')
+                    for d in user_data[s]:
+                        f.write('{name} ansible_host={ip} ansible_port={port}'.format(name=d[0],ip=d[1],port=d[2]))
+                        f.write('\n')
 
 
 

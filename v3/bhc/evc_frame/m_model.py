@@ -83,12 +83,12 @@ class model_manager:
                 lst.append(tmp[0])
 
             elif 'size' in row:
-                row = row.strip(' size')
+                row = row.strip(' - size')
                 row = row.strip('GB')
                 lst.append(row)
 
             elif 'repo' in row:
-                row = row.strip(' repo')
+                row = row.strip(' - repo')
                 lst.append(row)
 
         n = 3

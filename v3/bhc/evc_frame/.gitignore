@@ -9,6 +9,7 @@ EVC_RunTest/Hardhat/
 EVC_RunTest/Windmill/
 EVC_RunTest/fl-test/
 EVC_RunTest/flsim-test/
+EVC_RunTest/fl-test-adv
 
 # ginore auth keys
 certs/
