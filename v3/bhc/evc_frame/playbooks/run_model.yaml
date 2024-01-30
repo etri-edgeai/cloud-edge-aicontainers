@@ -51,20 +51,20 @@
 ### different types of build script
 
 ## 1. flower fed-learn sever
-  - name: create new AI model env container
-    tags: distrb
-    shell: docker run -d -p {{ server_port }}:{{ server_port }} -p {{ tb_port }}:{{ tb_port }} -v "$(pwd)"/ethicsense/flwr_logs:/home/flwr_logs --name {{ model_tag }}-model-{{ version }} -it {{ registry }}/{{ image_name }}:{{ model_tag }}-{{ version }}
-    register: output
-  - debug: msg="{{ output.stdout_lines }}"
-    tags: distrb
-
-## 2. gradio, flask, etc AI model app
   # - name: create new AI model env container
   #   tags: distrb
-  #   shell: docker run -d -p {{ server_port }}:{{ server_port }} -v "$(pwd)"/weights:/weights --name {{ model_tag }}-model-{{ version }} -it {{ registry }}/{{ image_name }}:{{ model_tag }}-{{ version }}
+  #   shell: docker run -d -p {{ server_port }}:{{ server_port }} -p {{ tb_port }}:{{ tb_port }} -v "$(pwd)"/ethicsense/flwr_logs:/home/log --name {{ model_tag }}-model-{{ version }} -it {{ registry }}/{{ image_name }}:{{ model_tag }}-{{ version }}
   #   register: output
   # - debug: msg="{{ output.stdout_lines }}"
   #   tags: distrb
+
+# 2. gradio, flask, etc AI model app
+  - name: create new AI model env container
+    tags: distrb
+    shell: docker run -d -p {{ server_port }}:{{ server_port }} --name {{ model_tag }}-model-{{ version }} -it {{ registry }}/{{ image_name }}:{{ model_tag }}-{{ version }}
+    register: output
+  - debug: msg="{{ output.stdout_lines }}"
+    tags: distrb
 
 
 #==================================== show results =====================================
@@ -155,20 +155,29 @@
   - name: Flower FL-train activation ( teacher )
     tags: flower
     command: docker exec -d {{ model_tag }}-model-{{ version }} python server.py --server_port {{ server_port }} --num_clients {{ num_clients }} --num_rounds {{ num_rounds }} --tb_port {{ tb_port }}
-    when: inventory_hostname in groups["fl_teacher"]
+    when: inventory_hostname in groups["teacher"]
     register: output
   - debug: msg="{{ output.stdout_lines }}"
     tags: flower
-    when: inventory_hostname in groups["fl_teacher"]
+    when: inventory_hostname in groups["teacher"]
 
-  - name: Flower FL-train activation ( student )
+  - name: Flower FL-train activation ( student 0 )
     tags: flower
-    command: docker exec {{ model_tag }}-model-{{ version }} python client.py --server_address {{ sv_private_ip }}:{{ server_port }}
+    command: docker exec -d {{ model_tag }}-model-{{ version }} python client.py --server_address {{ sv_private_ip }}:{{ server_port }} --cid 0
     register: output
-    when: inventory_hostname in groups["fl_student"]
+    when: inventory_hostname in groups["student00"]
   - debug: msg="{{ output.stdout_lines }}"
     tags: flower
-    when: inventory_hostname in groups["fl_student"]
+    when: inventory_hostname in groups["student00"]
+
+  - name: Flower FL-train activation ( student 1 )
+    tags: flower
+    command: docker exec {{ model_tag }}-model-{{ version }} python client.py --server_address {{ sv_private_ip }}:{{ server_port }} --cid 1
+    register: output
+    when: inventory_hostname in groups["student01"]
+  - debug: msg="{{ output.stdout_lines }}"
+    tags: flower
+    when: inventory_hostname in groups["student01"]
 
 
 

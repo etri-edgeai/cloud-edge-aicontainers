@@ -17,12 +17,21 @@ class git_downloader:
 
     
     def get_path(self):
-        
-        p_repo = re.compile("\/{account}\/.+\.git".format(account=self.account))
-        repo = p_repo.findall(self.url)[0]
-        repo = repo.replace('/', '')
-        repo = repo.replace(self.account, '')
-        repo = repo.replace('.git', '')
+
+        if "https" in self.url:        
+            p_repo = re.compile("\/{account}\/.+\.git".format(account=self.account))
+            repo = p_repo.findall(self.url)[0]
+            repo = repo.replace('/', '')
+            repo = repo.replace(self.account, '')
+            repo = repo.replace('.git', '')
+
+        elif "git@" in self.url:
+            p_repo = re.compile(f":{self.account}\/.+\.git")
+            repo = p_repo.findall(self.url)[0]
+            repo = repo.replace('/', '')
+            repo = repo.replace(self.account, '')
+            repo = repo.replace('.git', '')
+            repo = repo.replace(':', '')
         
         return repo
 

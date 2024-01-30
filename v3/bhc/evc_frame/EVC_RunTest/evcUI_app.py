@@ -102,8 +102,13 @@ def evc_run(url, account, builders, group, owner, model_name, task, version, mod
         )
 
 def read_logs():
-        with open("/home/keti/ethicsense/flwr_logs/fl_log.txt", "r") as f:
-            return f.read()
+        dir_path = "/home/keti/ethicsense/flwr_logs"
+        f_list = os.listdir(dir_path)
+
+        for file in f_list:
+            file_path = dir_path + '/' + file
+            with open(file_path, "r") as f:
+                return f.read()
 
 
 with gr.Blocks() as demo:
@@ -133,6 +138,21 @@ with gr.Blocks() as demo:
             markdown = gr.Markdown("# <strong> Wind Mills Detection Service </strong>")
             sample4 = gr.Video(value="./sample_imgs/windmills_sample.mp4", autoplay=True)  
             windmill_btn = gr.Button("Deploy")
+
+    '''
+    추가 2023-12-15
+    '''
+    with gr.Row():
+
+        with gr.Column():
+            markdown = gr.Markdown("# <strong> Tomato Detection Service </strong>")
+            sample5 = gr.Video(value="./sample_imgs/tomato_sample.mp4", autoplay=True)  
+            tomato_btn = gr.Button("Deploy")
+
+        with gr.Column():
+            markdown = gr.Markdown("# <strong> License Plate Detection Service </strong>")
+            sample6 = gr.Video(value="./sample_imgs/plate_sample.mp4", autoplay=True)  
+            plate_btn = gr.Button("Deploy")
 
     '''
     추가된 부분 (끝)
@@ -305,6 +325,23 @@ with gr.Blocks() as demo:
     windmill_mode = gr.Text(visible=False, value="gradio")
     windmill_port = gr.Text(visible=False, value=8776)
 
+    '''
+    추가 2023-12-15
+    '''
+    tomato_url = gr.Text(visible=False, value="https://github.com/hibobo98/Tomato.git")
+    tomato_model_name = gr.Text(visible=False, value="y8n_tmt_best")
+    tomato_version = gr.Text(visible=False, value="0.1")
+    tomato_task = gr.Text(visible=False, value="detection")
+    tomato_mode = gr.Text(visible=False, value="gradio")
+    tomato_port = gr.Text(visible=False, value=8775)
+
+    plate_url = gr.Text(visible=False, value="https://github.com/hibobo98/LicensePlate.git")
+    plate_model_name = gr.Text(visible=False, value="pd_base")
+    plate_version = gr.Text(visible=False, value="0.1")
+    plate_task = gr.Text(visible=False, value="detection")
+    plate_mode = gr.Text(visible=False, value="gradio")
+    plate_port = gr.Text(visible=False, value=8774)
+
     def same(a, b, c, d, e, f):
         return a, b, c, d, e, f
     
@@ -377,6 +414,49 @@ with gr.Blocks() as demo:
             windmill_task,
             windmill_mode,
             windmill_port,
+        ],
+        outputs=[
+            url,
+            model_name,
+            version,
+            task,
+            mode,
+            server_port,
+        ]
+    )
+
+    '''
+    추가 2023-12-15
+    '''
+    tomato_btn.click(
+        fn=same,
+        inputs=[
+            tomato_url,
+            tomato_model_name,
+            tomato_version,
+            tomato_task,
+            tomato_mode,
+            tomato_port,
+        ],
+        outputs=[
+            url,
+            model_name,
+            version,
+            task,
+            mode,
+            server_port,
+        ]
+    )
+
+    plate_btn.click(
+        fn=same,
+        inputs=[
+            plate_url,
+            plate_model_name,
+            plate_version,
+            plate_task,
+            plate_mode,
+            plate_port,
         ],
         outputs=[
             url,
