@@ -1,1 +1,0 @@
-docker-compose -f credentials.yml up -d

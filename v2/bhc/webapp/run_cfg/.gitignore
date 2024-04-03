@@ -1,7 +1,0 @@
-# ignore zip files
-*.tar.gz
-*.tar
-*.zip
-
-# ignore model logs
-runs/

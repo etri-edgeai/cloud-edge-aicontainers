@@ -1,9 +1,0 @@
-- name: curl test
-  hosts: builders
-
-  tasks:
-  - name: search registry
-    command: docker images
-    register: command_output
-  - debug:
-      var: command_output.stdout_lines

@@ -1,3 +1,0 @@
-rabbitmqctl set_policy my-pol "^one-meg$" \
-  '{"max-length-bytes":4048576}' \
-  --apply-to queues

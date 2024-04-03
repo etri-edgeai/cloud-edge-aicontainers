@@ -1,1 +1,0 @@
-python classifier.py --model_type efficientnet --model_name efficientnet_b7 --input test_dog.jpg
