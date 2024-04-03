@@ -1,6 +1,0 @@
-model, RTX3080ti(GPU), RTX3080ti(CPU), NUC(GPU), NUC(CPU),
-resnet18, 91.04, todo, 86.72, todo,
-resnet34, 92.84, todo, 88.19, todo,
-resnet-50, 93.37, todo, 89.38, todo,
-resnet-101, 94.4, todo, 91.73, todo,
-resnet-152, 95.11, todo, 91.3, todo,

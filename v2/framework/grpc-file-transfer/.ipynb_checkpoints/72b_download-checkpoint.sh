@@ -1,9 +1,0 @@
-python3 -m client.main -i localhost -p 5000 -c cert/server.crt download -d client/dataset -f na.txt
-python3 -m client.main -i localhost -p 5000 -c cert/server.crt download -d client/dataset -f cal2022.txt
-python3 -m client.main -i localhost -p 5000 -c cert/server.crt download -d client/dataset -f vgg16.onnx
-python3 -m client.main -i localhost -p 5000 -c cert/server.crt download -d client/dataset -f resnet50.onnx
-python3 -m client.main -i localhost -p 5000 -c cert/server.crt download -d client/dataset -f resnet34.onnx
-python3 -m client.main -i localhost -p 5000 -c cert/server.crt download -d client/dataset -f resnet18.onnx
-python3 -m client.main -i localhost -p 5000 -c cert/server.crt download -d client/dataset -f resnet50.pth
-python3 -m client.main -i localhost -p 5000 -c cert/server.crt download -d client/dataset -f resnet34.pth
-python3 -m client.main -i localhost -p 5000 -c cert/server.crt download -d client/dataset -f resnet18.pth
