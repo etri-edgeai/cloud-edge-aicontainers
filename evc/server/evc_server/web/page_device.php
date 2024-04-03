@@ -37,11 +37,11 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== TRUE) {
                                 <label for="tab-1">Edge Monitoring</label>
                                 <div class="tabby-content">
                                     
-                                    <iframe src="http://evc.re.kr:20080/grafana/d/ac02df67-cfd6-42b3-9683-4930f78d485e/demo01-device-management?orgId=1&refresh=5s" width = 100% height=100%> </iframe>
+                                    <iframe src="http://evc.re.kr:20080/grafana/d/ac02df67-cfd6-42b3-9683-4930f78d485e/demo01-device-management?orgId=1&refresh=5s&theme=dark" width = 100% height=100%> </iframe>
                                     
                                     
                                     <!--
-                                    <a href="http://ketiabcs.iptime.org:39080/d/sP0nIDTVz/rpi-6402?orgId=1&refresh=5s&from=1687109419697&to=1687131019697&theme=light" target="_blank"> 모니터링 UI</a>
+                                    <a href="http://ketiabcs.iptime.org:39080/d/sP0nIDTVz/rpi-6402?orgId=1&refresh=5s&from=1687109419697&to=1687131019697&theme=dark" target="_blank"> 모니터링 UI</a>
                                     <iframe src="http://evc.re.kr:28004/docs" width=100% height=100%> </iframe>
                                     -->
                                 </div>

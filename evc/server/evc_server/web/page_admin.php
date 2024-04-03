@@ -36,7 +36,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== TRUE) {
                             <div class="tabby-content">
 
                                 <iframe
-                                    src="http://evc.re.kr:20080/grafana/d/rYdddlPWk/node-exporter-full?orgId=1&from=1693279199059&to=1693365599059&theme=dark&kiosk"
+                                    src="http://evc.re.kr:20080/grafana/d/rYdddlPWk/demo02-evc-monitoring?orgId=1&theme=dark&kiosk"
                                     width=100% height=100%> </iframe>
                             </div>
                         </div>
@@ -69,6 +69,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== TRUE) {
                             </div>
                         </div>
 
+                        <!--
                         <div class="tabby-tab">
                             <input type="radio" id="tab-5" name="tabby-tabs">
                             <label for="tab-5">docker registry</label>
@@ -93,6 +94,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== TRUE) {
 
                             </div>
                         </div>
+                        
 
 
                         <div class="tabby-tab">
@@ -118,6 +120,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== TRUE) {
                                 <iframe src="http://evc.re.kr:20080/redis/" width=100% height=80%> </iframe>
                             </div>
                         </div>
+                        -->
 
                     </div>
                 </div>
