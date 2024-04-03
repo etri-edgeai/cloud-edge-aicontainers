@@ -31,10 +31,27 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== TRUE) {
                     <div class="container">
                         <div class="tabs">
                     
-
+              
                             <div class="tabby-tab">
                                 <input type="radio" id="tab-1" name="tabby-tabs" checked>
-                                <label for="tab-1">User APIKEY</label>
+                                <label for="tab-1">Edge Monitoring</label>
+                                <div class="tabby-content">
+                                    
+                                    <iframe src="http://evc.re.kr:20080/grafana/d/ac02df67-cfd6-42b3-9683-4930f78d485e/demo01-device-management?orgId=1&refresh=5s" width = 100% height=100%> </iframe>
+                                    
+                                    
+                                    <!--
+                                    <a href="http://ketiabcs.iptime.org:39080/d/sP0nIDTVz/rpi-6402?orgId=1&refresh=5s&from=1687109419697&to=1687131019697&theme=light" target="_blank"> 모니터링 UI</a>
+                                    <iframe src="http://evc.re.kr:28004/docs" width=100% height=100%> </iframe>
+                                    -->
+                                </div>
+                            </div>  
+                                   
+                                    
+                    
+                            <div class="tabby-tab">
+                                <input type="radio" id="tab-2" name="tabby-tabs">
+                                <label for="tab-2">User APIKEY</label>
                                 <div class="tabby-content">
                                     <h7><font color = 'black'> 
                                         Your APIKEY is 
@@ -47,8 +64,8 @@ APIKEY is important for device management, builing cluster, and model distributi
                             </div>
                                     
                             <div class="tabby-tab">
-                                <input type="radio" id="tab-2" name="tabby-tabs">
-                                <label for="tab-2">Add New Device</label>
+                                <input type="radio" id="tab-3" name="tabby-tabs">
+                                <label for="tab-3">Add New Device</label>
                                 <div class="tabby-content">
 
                                   <p> <font color = "black"> 😊 1. EVC를 통해 서비스 하려는 에지장치(edge device)에 터미널로 진입합니다.</font> </p>
@@ -80,33 +97,19 @@ APIKEY is important for device management, builing cluster, and model distributi
                                 </div>
                             </div>   
 
-                            <div class="tabby-tab">
-                                <input type="radio" id="tab-3" name="tabby-tabs">
-                                <label for="tab-3">List of Edges</label>
-                                <div class="tabby-content">
-                                    
-
-                                    <iframe src=http://evc.re.kr:20080/grafana/d/adddbbaa-6906-4b82-aff6-d308f9825c0a/evc-user-devices?orgId=1&var-user_apikey=<?=htmlspecialchars($_SESSION["user_apikey"]);?>&kiosk width=100% height=100%> </iframe>
-                                    
-                                    
-                                    
-                                </div>
-                            </div>
-
                             <!--
                             <div class="tabby-tab">
                                 <input type="radio" id="tab-4" name="tabby-tabs">
-                                <label for="tab-4">Edge Monitoring</label>
+                                <label for="tab-4">List of Edges</label>
                                 <div class="tabby-content">
-                                    <a href="http://ketiabcs.iptime.org:39080/d/sP0nIDTVz/rpi-6402?orgId=1&refresh=5s&from=1687109419697&to=1687131019697&theme=light" target="_blank"> 모니터링 UI</a>
-                                    <iframe src="http://evc.re.kr:28004/docs" width=100% height=100%> </iframe>
 
-                                    
-                                    
+                                    <iframe src=http://evc.re.kr:20080/grafana/d/adddbbaa-6906-4b82-aff6-d308f9825c0a/evc-user-devices?orgId=1&var-user_apikey=<?=htmlspecialchars($_SESSION["user_apikey"]);?>&kiosk width=100% height=100%> </iframe>
+
                                 </div>
-                            </div>  
+                            </div>
                             -->
-                                   
+
+                          
                                     
                         </div>
                     </div>
