@@ -1,0 +1,79 @@
+
+PLAY [Docker model Generation && Distribution] *********************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [n01]
+ok: [rpi6401]
+
+TASK [get model data] **********************************************************
+changed: [n01]
+changed: [rpi6401]
+
+TASK [data processing] *********************************************************
+ok: [rpi6401]
+ok: [n01]
+
+TASK [debug] *******************************************************************
+ok: [rpi6401] => {
+    "msg": {
+        "Containers": "N/A",
+        "CreatedAt": "2023-06-17 03:20:57 +0000 UTC",
+        "CreatedSince": "46 hours ago",
+        "Digest": "<none>",
+        "ID": "f6cd99839083",
+        "Repository": "aarch64-model",
+        "SharedSize": "N/A",
+        "Size": "2.14GB",
+        "Tag": "gitlink_test2_pd_v1.0",
+        "UniqueSize": "N/A",
+        "VirtualSize": "2.144GB"
+    }
+}
+ok: [n01] => {
+    "msg": {
+        "Containers": "N/A",
+        "CreatedAt": "2023-06-17 11:13:46 +0900 KST",
+        "CreatedSince": "2 days ago",
+        "Digest": "<none>",
+        "ID": "dfb135d5e741",
+        "Repository": "x86_64-model",
+        "SharedSize": "N/A",
+        "Size": "8.68GB",
+        "Tag": "gitlink_test2_pd_v1.0",
+        "UniqueSize": "N/A",
+        "VirtualSize": "8.682GB"
+    }
+}
+
+TASK [get date] ****************************************************************
+ok: [rpi6401]
+ok: [n01]
+
+TASK [get size] ****************************************************************
+ok: [rpi6401]
+ok: [n01]
+
+TASK [get repo] ****************************************************************
+ok: [rpi6401]
+ok: [n01]
+
+TASK [get result] **************************************************************
+ok: [rpi6401] => {
+    "msg": [
+        "date=2023-06-17 03:20:57 +0000 UTC",
+        "size=2.14GB",
+        "repo=aarch64-model"
+    ]
+}
+ok: [n01] => {
+    "msg": [
+        "date=2023-06-17 11:13:46 +0900 KST",
+        "size=8.68GB",
+        "repo=x86_64-model"
+    ]
+}
+
+PLAY RECAP *********************************************************************
+n01                        : ok=8    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+rpi6401                    : ok=8    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+

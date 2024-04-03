@@ -1,0 +1,130 @@
+## initial configuration file for EVC activation
+# please check out annotations below
+# 멀티 시퀀트 작업 처리를 위한 구성 스크립트 파일
+# 개별 시스템 구축, 시스템 이식 등을 위한 커스터마이즈가 목표인 개발자, 사용자를 위해 제작됨.
+
+# 수행할 작업
+activations:
+  - &host_configuration register
+  - &model_environment_image_build build
+  - &model_environment_image_deploy download
+  - &activate_gradio run
+  - &model_deletion delete
+  - &model_train train
+  - &model_inference pred
+  - &monitor_node mon_d
+  - &monitor_model mon_m
+# choose action and write into "runs" below.
+
+# builders config
+builder:
+  - name: p02
+    ip: evc.re.kr
+    port: 20023
+    hw: intel_Server
+    os: ubuntu
+    gpu: RTX4090
+
+  # - name: rpi6401
+  #   ip: evc.re.kr
+  #   port: 39001
+  #   hw: rpi
+  #   os: linux
+  #   gpu: None
+
+# # 타겟 노드 (대상)
+# where:
+#   &nodes_1
+#     - n02
+#     # - your node
+#     # add your nodes where run the task.
+
+# 작업 처리를 위한 각종 파일 경로
+path:
+
+  cert_playbook: &cert_playbook ../playbooks/registry-config.yaml
+
+  # path to model copy playbook (server -> edge node)
+  copy_playbook: &copy_playbook ../playbooks/copy_model.yaml
+
+  # path to model build playbook
+  build_playbook: &build_playbook ../playbooks/autorun.yaml
+
+  # path to distribution playbook
+  distrb_playbook: &distrb_playbook ../playbooks/run_model.yaml
+
+  # playbook for getting index or manipulate db
+  idx_playbook: &idx_playbook ../playbooks/get_index.yaml
+
+  # path to ansible hosts file
+  hosts_file: &hosts_file ../hosts.ini
+
+  # path to logs.db
+  db: &db ../db/edge_logs.db3
+
+  # registry address
+  registry: &registry ethicsense
+
+  # weights dir path
+  weight_files: &weight_files weights
+
+  # if you use docker hub
+  dockerhub: &dockerhub True # False if private registry
+
+
+autorun: # 노드 등록 / 모델 구축 / 배포 / 실행 기본 절차 수행
+
+  - name: host registration
+    activation: *host_configuration
+    path:
+      cert_playbook: *cert_playbook
+      copy_playbook: *copy_playbook
+      build_playbook: *build_playbook
+      distrb_playbook: *distrb_playbook
+      idx_playbook: *idx_playbook
+      hosts_file: *hosts_file
+      db: *db
+      registry: *registry
+      weight_files: *weight_files
+      dockerhub: *dockerhub
+
+
+  - name: build AI model env image and push to dockerhub
+    activation: *model_environment_image_build
+    path:
+      cert_playbook: *cert_playbook
+      copy_playbook: *copy_playbook
+      build_playbook: *build_playbook
+      distrb_playbook: *distrb_playbook
+      idx_playbook: *idx_playbook
+      hosts_file: *hosts_file
+      db: *db
+      registry: *registry
+      dockerhub: *dockerhub
+
+
+  - name: deploy AI model env image to clusters
+    activation: *model_environment_image_deploy
+    path:
+      cert_playbook: *cert_playbook
+      copy_playbook: *copy_playbook
+      build_playbook: *build_playbook
+      distrb_playbook: *distrb_playbook
+      idx_playbook: *idx_playbook
+      hosts_file: *hosts_file
+      db: *db
+      registry: *registry
+      dockerhub: *dockerhub
+  
+
+  - name: activate gradio server & AI model
+    activation: run
+    path:
+      cert_playbook: *cert_playbook
+      copy_playbook: *copy_playbook
+      build_playbook: *build_playbook
+      distrb_playbook: *distrb_playbook
+      idx_playbook: *idx_playbook
+      hosts_file: *hosts_file
+      db: *db
+      registry: *registry

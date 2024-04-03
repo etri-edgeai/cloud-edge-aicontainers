@@ -1,1 +1,0 @@
-redis-cli --rdb ./tmp/dump_redis.rdb
