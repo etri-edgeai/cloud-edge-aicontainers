@@ -26,12 +26,12 @@
         <ul class="list-group">   
             <a href='page_admin.php' class="list-group-item"> EVC monitoring </a>
             <a href='page_device.php' class="list-group-item"> Edge Device </a>  
+            <a href='page_user.php' class="list-group-item"> Users </a>
             <!--     
             <a href='page_cluster.php' class="list-group-item"> Cluster </a>   
             <a href='page_image_registry.php' class="list-group-item"> Container Image </a>  
             <a href='page_model_repository.php' class="list-group-item"> AI Model </a> 
             <a href='page_chatbot.php' class="list-group-item" style="color:gray-dark"> LLM Model </a> 
-            <a href='page_user.php' class="list-group-item"> Users </a>
             <a href='page_edge_camera.php' class="list-group-item"> [Edge] Cameras </a>
             <a href='page_edge_datasource.php' class="list-group-item"> [Edge] DataSource </a>   
             <a href='page_edge_infer.php' class="list-group-item"> [Edge] Inference </a>      
