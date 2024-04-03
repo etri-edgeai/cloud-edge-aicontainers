@@ -1,1 +1,0 @@
-redis-cli -r -1 -i 1 INFO | grep rss_human

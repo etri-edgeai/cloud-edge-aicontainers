@@ -1,1 +1,0 @@
-docker build --tag hello_redisai .

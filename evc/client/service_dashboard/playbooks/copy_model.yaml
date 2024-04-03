@@ -1,0 +1,20 @@
+- name: copy file
+  hosts: all
+  vars:
+    model_file: model.tar.gz
+    dockerfile: Dockerfile
+    ansible_become: true
+    ansible_user: keti
+    ansible_become_method: sudo
+    ansible_become_pass: ketiabcs
+
+  tasks:
+    - name: Copying Dockerfile from server
+      copy:
+        src: "{{ dockerfile }}"
+        dest: "/home/keti/buildimg/"
+
+    - name: Copying model from server
+      copy:
+        src: "{{ model_file }}"
+        dest: "/home/keti/buildimg/"
