@@ -14,6 +14,7 @@ $ service --status-all
 [ + ]  apache2
 ...
 
+
 ; 아파치 웹서버 삭제
 $ service apache2 stop
 $ apt-get remove apache2*
