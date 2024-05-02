@@ -1,1 +1,0 @@
-gpuview run --safe-zone
