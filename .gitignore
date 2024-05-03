@@ -12,13 +12,7 @@ __pycache__/
 
 !.gitignore
 
-v2/doc/figures
-v3/padmin
-v3/vender
-v3/vnv/runs
-v3/server/nn-dist-train-keti
-
-
+evc/doc/evc.adoc
 
 # model
 *.onnx
