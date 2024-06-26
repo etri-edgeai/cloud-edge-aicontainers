@@ -29,6 +29,7 @@ doc/evc.html
 **/wandb/
 **/venv/
 **/.ipynb_checkpoints/
+**/flagged/
 
 .ipynb_checkpoints
 .ipynb_checkpoints/*
