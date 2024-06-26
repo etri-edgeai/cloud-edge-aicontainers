@@ -30,6 +30,7 @@ doc/evc.html
 **/venv/
 **/.ipynb_checkpoints/
 **/flagged/
+**/VideoCrafter/
 
 .ipynb_checkpoints
 .ipynb_checkpoints/*
