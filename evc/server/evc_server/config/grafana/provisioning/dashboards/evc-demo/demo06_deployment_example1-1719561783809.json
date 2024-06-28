@@ -1,0 +1,90 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 175,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "testdata",
+        "uid": "PBE37E131D2FF99F1"
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 2,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "<center> \n  <font color=#7777FF size=6> <img src=\"http://keticmr.iptime.org:22080/WorkDevCarAI/carai/api/web/static/keti_logo.png\"> &nbsp;&nbsp;&nbsp;  응용서비스 : 서비스 빌드 및 배포 1 (비디오 생성기)</font>\n</center>\n",
+        "mode": "markdown"
+      },
+      "pluginVersion": "11.0.0",
+      "type": "text"
+    },
+    {
+      "datasource": {
+        "type": "testdata",
+        "uid": "PBE37E131D2FF99F1"
+      },
+      "gridPos": {
+        "h": 25,
+        "w": 24,
+        "x": 0,
+        "y": 2
+      },
+      "id": 1,
+      "options": {
+        "autoPlay": true,
+        "customBackground": false,
+        "geolocate": false,
+        "iframeURL": "http://evc.re.kr:28001",
+        "loop": true,
+        "videoId": "eQpyJQ2womo",
+        "videoType": "iframe"
+      },
+      "type": "innius-video-panel"
+    }
+  ],
+  "refresh": "",
+  "schemaVersion": 39,
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timeRangeUpdatedDuringEditOrView": false,
+  "timepicker": {},
+  "timezone": "",
+  "title": "demo06_deployment_example1",
+  "uid": "faa534ef-1ac1-453e-9fc7-62a4074af2ba",
+  "version": 11,
+  "weekStart": ""
+}

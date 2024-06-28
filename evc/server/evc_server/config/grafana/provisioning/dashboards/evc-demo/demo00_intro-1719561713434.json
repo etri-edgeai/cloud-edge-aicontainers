@@ -1,0 +1,91 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 171,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "testdata",
+        "uid": "PBE37E131D2FF99F1"
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "<center> \n  <font color=#7777FF size=6> <img src=\"http://keticmr.iptime.org:22080/WorkDevCarAI/carai/api/web/static/keti_logo.png\"> &nbsp;&nbsp;&nbsp;  목표 및 개념 : 클라우드-엣지 연동분석 프레임워크 </font>\n</center>\n",
+        "mode": "markdown"
+      },
+      "pluginVersion": "11.0.0",
+      "type": "text"
+    },
+    {
+      "datasource": {
+        "type": "testdata",
+        "uid": "PBE37E131D2FF99F1"
+      },
+      "gridPos": {
+        "h": 22,
+        "w": 24,
+        "x": 0,
+        "y": 2
+      },
+      "id": 2,
+      "options": {
+        "autoPlay": true,
+        "customBackground": false,
+        "geolocate": false,
+        "loop": true,
+        "videoId": "http://keticmr.iptime.org:22080/WorkDevCarAI/carai/api/web/static/kes2023intro.mp4",
+        "videoType": "url",
+        "videoURL": "http://keticmr.iptime.org:22080/WorkDevCarAI/carai/api/web/static/kes2023intro.mp4"
+      },
+      "pluginVersion": "10.0.3",
+      "type": "innius-video-panel"
+    }
+  ],
+  "refresh": "",
+  "schemaVersion": 39,
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timeRangeUpdatedDuringEditOrView": false,
+  "timepicker": {},
+  "timezone": "",
+  "title": "demo00_intro",
+  "uid": "f1c746f5-ff61-4526-85b5-b02ec5e51625",
+  "version": 9,
+  "weekStart": ""
+}

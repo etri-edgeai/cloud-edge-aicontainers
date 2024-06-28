@@ -1,0 +1,206 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 194,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {},
+      "description": "",
+      "gridPos": {
+        "h": 2,
+        "w": 23,
+        "x": 0,
+        "y": 0
+      },
+      "id": 18,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "<center> \n  <font color=#7777FF size=6> <img src=\"http://keticmr.iptime.org:22080/WorkDevCarAI/carai/api/web/static/keti_logo.png\"> &nbsp;&nbsp;&nbsp;  응용기능 : 차량내 주행 영상분석 (단일 에지 기기 추론) </font>\n</center>\n",
+        "mode": "html"
+      },
+      "pluginVersion": "11.0.0",
+      "type": "text"
+    },
+    {
+      "datasource": {},
+      "description": "",
+      "gridPos": {
+        "h": 2,
+        "w": 23,
+        "x": 0,
+        "y": 2
+      },
+      "id": 35,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "<center> \n  <font color=#FFFFFF size=6> TODO, 입력 영상 수정 필요 --> 병행추론에 적합한 영상 ? </font>\n</center>\n",
+        "mode": "html"
+      },
+      "pluginVersion": "11.0.0",
+      "type": "text"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "e6287658-f5ea-4843-bb92-f014c0ce08c9"
+      },
+      "description": "",
+      "gridPos": {
+        "h": 7,
+        "w": 6,
+        "x": 0,
+        "y": 4
+      },
+      "id": 12,
+      "options": {
+        "autoPlay": true,
+        "backgroundColor": "#000000",
+        "customBackground": false,
+        "geolocate": false,
+        "iframeURL": "http://keticmr.iptime.org:22080/WorkDevCarAI/carai/api/web/static/20231002_follow.mp4",
+        "loop": true,
+        "videoId": "eQpyJQ2womo",
+        "videoType": "url",
+        "videoURL": "http://keticmr.iptime.org:22080/WorkDevCarAI/carai/api/web/static/20231002_follow.mp4"
+      },
+      "pluginVersion": "10.0.3",
+      "title": "교통 상황 입력 비디오",
+      "type": "innius-video-panel"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "e6287658-f5ea-4843-bb92-f014c0ce08c9"
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 6,
+        "x": 6,
+        "y": 4
+      },
+      "id": 2,
+      "options": {
+        "autoPlay": true,
+        "backgroundColor": "#000000",
+        "customBackground": true,
+        "geolocate": false,
+        "iframeURL": "http://keticmr.iptime.org:22080/WorkDevCarAI/carai/api/web/static/20231002_follow01.mp4",
+        "loop": true,
+        "videoId": "eQpyJQ2womo",
+        "videoType": "url",
+        "videoURL": "http://keticmr.iptime.org:22080/WorkDevCarAI/carai/api/web/static/20231002_follow02.mp4"
+      },
+      "pluginVersion": "10.0.3",
+      "title": "분석",
+      "type": "innius-video-panel"
+    },
+    {
+      "datasource": {
+        "type": "grafana-testdata-datasource",
+        "uid": "PBE37E131D2FF99F1"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 11,
+        "x": 12,
+        "y": 4
+      },
+      "id": 34,
+      "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "pluginVersion": "11.0.0",
+      "targets": [
+        {
+          "csvContent": "CPU i7-13700K [GHz], # of cuda cores, Core clock speed [MHz], Maximum RAM [GB], Memory clock speed [MHz], Memory Bandwidth [GB/s]\n3.4, 16384, 2235, 24, 21000, 1008",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "PBE37E131D2FF99F1"
+          },
+          "refId": "A",
+          "scenarioId": "csv_content"
+        }
+      ],
+      "title": "Edge01",
+      "type": "gauge"
+    }
+  ],
+  "refresh": "",
+  "schemaVersion": 39,
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-15m",
+    "to": "now"
+  },
+  "timeRangeUpdatedDuringEditOrView": false,
+  "timepicker": {},
+  "timezone": "",
+  "title": "demo04b_parallel_inference",
+  "uid": "ddq3mgvqz42dcc",
+  "version": 13,
+  "weekStart": ""
+}
