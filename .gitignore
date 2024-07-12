@@ -2,9 +2,6 @@
 __pycache__/
 *.py[cod]
 
-#---------------
-# jpark
-#---------------
 .DS_Store
 .*.swp
 .*.pt
