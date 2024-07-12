@@ -40,8 +40,6 @@ doc/evc.html
 # C extensions
 *.so
 
-
-
 # tests and coverage
 *.pytest_cache
 .coverage
