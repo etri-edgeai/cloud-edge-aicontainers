@@ -1,4 +1,0 @@
-@startuml
-' Bob->Alice: Hello
-!includesub story.puml!FOO1
-@enduml

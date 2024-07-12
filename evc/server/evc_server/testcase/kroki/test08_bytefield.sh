@@ -1,1 +1,0 @@
-curl http://evc.re.kr:28010/bytefield/svg --data-binary '@address.bytefield' > ../../web/tmp/t8.html

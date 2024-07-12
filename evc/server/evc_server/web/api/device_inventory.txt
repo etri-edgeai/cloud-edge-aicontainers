@@ -1,3 +1,0 @@
-$ ansible-inventory --graph -i inventory
-$ ansible-inventory --graph --vars -i inventory
-$ ansible-inventory --host=myhost.mydomain.net -i inventory

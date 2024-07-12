@@ -1,1 +1,0 @@
-curl -X DELETE 'http://evc.re.kr/api/user.php' -H 'Content-Type: application/json' -d '{"id":31, "user_name":"user1", "email":"user1@evc.re.kr", "password":"test"}'
