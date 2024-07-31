@@ -53,7 +53,7 @@ if __name__ == "__main__":
     parser.add_argument(
         '--server_port',
         type=int,
-        default=7860
+        default=8003
     )
     args=parser.parse_args()
 
