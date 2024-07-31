@@ -1,4 +1,4 @@
 # EVC
 
--  Hello world
+-  Edge vision cluster framework
 
