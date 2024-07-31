@@ -62,7 +62,7 @@ with gr.Blocks() as demo:
     with gr.Row():
         with gr.Column():
             markdown = gr.Markdown(f"# {object_name}")
-            input1 = gr.Textbox(label = "Video URL", value="http://evc.re.kr:20096/www/news.mp4") # Video URL 넣기 
+            input1 = gr.Textbox(label = "Video URL", value="http://your_domain/news.mp4") # Video URL 넣기 
             btn1 = gr.Button("Run", size="sm")
         with gr.Column():
             output1 = gr.Video(autoplay=True) # 원본 비디오 재생 
