@@ -1,0 +1,11 @@
+version: '3'
+services:
+  beacon_service:
+    image: ketirepo/beacon:latest
+    deploy:
+      replicas: 1
+    networks:
+      - beacon_net
+
+networks:
+  beacon_net:
