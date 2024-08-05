@@ -1,0 +1,13 @@
+# Dockerfile
+
+# Step 1: Base image
+FROM python:3.9-alpine
+
+# Step 2: Set the working directory
+WORKDIR /app
+
+# Step 3: Copy the Python script to the container
+COPY app.py .
+
+# Step 4: Run the Python script
+CMD ["python", "app.py"]
