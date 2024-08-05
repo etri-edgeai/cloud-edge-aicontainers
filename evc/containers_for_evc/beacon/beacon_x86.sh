@@ -1,5 +1,5 @@
 #!/bin/sh
-echo "Running on x86 architecture (ver 1.1)"
+echo "Running on x86 architecture (ver 1.2)"
 
 # x86-specific commands here
 
