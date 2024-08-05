@@ -1,13 +1,13 @@
 version: '3'
 services:
-  service_a:
-    build:
-      context: .
-      dockerfile: Dockerfile-a
-    container_name: service_a
+    service_a:
+        build:
+            context: .
+            dockerfile: Dockerfile-a
+        container_name: service_a
 
-  service_b:
-    build:
-      context: .
-      dockerfile: Dockerfile-b
-    container_name: service_b
+    service_b:
+        build:
+            context: .
+            dockerfile: Dockerfile-b
+        container_name: service_b
