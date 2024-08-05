@@ -1,7 +1,7 @@
 version: '3'
 services:
   beacon_service:
-    image: myusername/beacon:latest
+    image: ketirepo/beacon:latest
     deploy:
       replicas: 1
     networks:

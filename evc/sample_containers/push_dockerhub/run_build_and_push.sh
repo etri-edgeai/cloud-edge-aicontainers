@@ -8,4 +8,4 @@ docker buildx ls
 # Docker Hub와 같은 레지스트리에 푸시합니다. 
 # 여기서는 myusername/myapp 이미지의 예시이며, 각자 환경에 맞게 수정해야 합니다.
 # 또한 Docker Hub에 로그인한 상태여야 합니다.
-docker buildx build --platform linux/amd64,linux/arm64 -t myrepo/myapp:latest --push .
+docker buildx build --platform linux/amd64,linux/arm64 -t ketirepo/myapp:latest --push .
