@@ -15,6 +15,7 @@ import numpy as np
 import pandas as pd
 from datetime import datetime
 
+
 '''
 object_name 변수
  : 맨 밑에 makdowon과 Model에서 사용합니다. 
