@@ -1,5 +1,6 @@
 # cloud-edge-aicontainers (Client side S/W)
 
+
 ## 클라우드-에지 인공지능 컨테이너 ?
 - 기계학습을 위해 클라우드와 에지가 협력하는 프레임워크 기술의 일종입니다.
 - 분산된 환경에서 학습 성능은 높이고, 개인정보 이슈는 극복합니다.
@@ -13,4 +14,5 @@
 
 ## Acknowledgement
 This work was supported by Institute of Information & communications Technology Planning & Evaluation (IITP) grant funded by the Korea government(MSIT) (No. 2021-0-00907, Development of Adaptive and Lightweight Edge-Collaborative Analysis Technology for Enabling Proactively Immediate Response and Rapid Learning).
+
 
