@@ -8,7 +8,6 @@ COPY beacon_x86.sh /usr/local/bin/beacon_x86.sh
 # Set bash as the default shell
 CMD ["/bin/bash"]
 
-
 # Install bash
 RUN apk update && apk add --no-cache bash
 
