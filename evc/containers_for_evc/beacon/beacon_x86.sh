@@ -19,6 +19,7 @@ echo "Running on x86 architecture"
 #------------------------------------------------
 
 hostname=$(uname -n)
+echo ${hostname}
 
 while true; do
     temperature=$((paste <(cat /sys/class/thermal/thermal_zone*/type) <(cat /sys/class/thermal/thermal_zone*/temp) | column -s $'\t' -t | sed 's/\(.\)..$/.\1°C/' | grep x86_pkg_temp) | grep -oE '[0-9]+(\.[0-9]+)?' | tail -1)
