@@ -1,4 +1,3 @@
-version: '3'
 services:
   beacon_service:
     image: ketirepo/beacon:latest
