@@ -5,8 +5,14 @@ FROM alpine:latest
 COPY beacon_arm.sh /usr/local/bin/beacon_arm.sh
 COPY beacon_x86.sh /usr/local/bin/beacon_x86.sh
 
+# Set bash as the default shell
+CMD ["/bin/bash"]
+
+# Install bash
+RUN apk update && apk add --no-cache bash
+
 # Make scripts executable
 RUN chmod +x /usr/local/bin/beacon_arm.sh /usr/local/bin/beacon_x86.sh
 
 # Set entrypoint based on the architecture
-CMD ["/usr/bin/bash", "-c", "if [ $(uname -m) = 'x86_64' ]; then /usr/local/bin/beacon_x86.sh; else /usr/local/bin/beacon_arm.sh; fi"]
+CMD ["/bin/bash", "-c", "if [ $(uname -m) = 'x86_64' ]; then /usr/local/bin/beacon_x86.sh; else /usr/local/bin/beacon_arm.sh; fi"]
