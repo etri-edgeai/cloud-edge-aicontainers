@@ -9,4 +9,4 @@ COPY beacon_x86.sh /usr/local/bin/beacon_x86.sh
 RUN chmod +x /usr/local/bin/beacon_arm.sh /usr/local/bin/beacon_x86.sh
 
 # Set entrypoint based on the architecture
-CMD ["/bin/bash", "-c", "if [ $(uname -m) = 'x86_64' ]; then /usr/local/bin/beacon_x86.sh; else /usr/local/bin/beacon_arm.sh; fi"]
+CMD ["/usr/bin/bash", "-c", "if [ $(uname -m) = 'x86_64' ]; then /usr/local/bin/beacon_x86.sh; else /usr/local/bin/beacon_arm.sh; fi"]
