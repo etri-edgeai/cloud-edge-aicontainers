@@ -29,7 +29,7 @@ while true; do
     #temperature=1.1
     #cpuclock=1
     #mem=2
-    #curl -X 'GET' http://evc.re.kr:20080/puship.php?hostname=${hostname}\&temperature=${temperature}\&cpuclock=${cpuclock}\&mem=${mem}
+    curl -X 'GET' http://evc.re.kr:20080/puship.php?hostname=${hostname}\&temperature=${temperature}\&cpuclock=${cpuclock}\&mem=${mem}
     echo ${hostname}, ${temperature}, ${cpuclock}, ${mem}
-    sleep 1
+    sleep 60
 done
