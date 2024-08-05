@@ -1,6 +1,5 @@
 #!/bin/sh
 echo "Running on x86 architecture 2"
-echo "TEST"
 
 # x86-specific commands here
 
