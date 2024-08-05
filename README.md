@@ -10,7 +10,6 @@
 
 ## 리포지토리 요약
 - 본 리포지토리는 에지 디바이스에 탑재되는 인공지능 소프트웨어 컨테이너입니다.
-- evc 에지 컨테이너 코드
 
 ## Acknowledgement
 This work was supported by Institute of Information & communications Technology Planning & Evaluation (IITP) grant funded by the Korea government(MSIT) (No. 2021-0-00907, Development of Adaptive and Lightweight Edge-Collaborative Analysis Technology for Enabling Proactively Immediate Response and Rapid Learning).
