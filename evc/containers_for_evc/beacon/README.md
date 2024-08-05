@@ -20,8 +20,7 @@
 
 ### 스크립트 파일
 
-- `beacon_arm.sh`와 `beacon_x86.sh` 파일로 구성됨
-- 실제 내부 코드는 다름
+- `beacon_arm.sh`와 `beacon_x86.sh` 파일로 구성됨 (아래는 예시로써, 스크립트 파일의 실제 동작 코드는 파일을 통해 확인 할 것)
 
 1. `beacon_arm.sh`
 
