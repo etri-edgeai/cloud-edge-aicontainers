@@ -1,6 +1,6 @@
 # Install Docker
 
-## Raspberry Pi 5
+## On Raspberry Pi 5
 
 Raspberry Pi 5에서 64비트 OS를 설치하고 Docker를 설치하는 방법을 단계별로 설명합니다.
 
