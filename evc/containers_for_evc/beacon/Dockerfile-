@@ -8,10 +8,11 @@ RUN apk update && apk add --no-cache \
     util-linux
 
 # Copy scripts into the image
-COPY beacon.sh /usr/local/bin/beacon.sh
+COPY beacon_arm.sh /usr/local/bin/beacon_arm.sh
 
 # Make scripts executable
-RUN chmod +x /usr/local/bin/beacon.sh
+RUN chmod +x /usr/local/bin/beacon_arm.sh
 
 # Set entrypoint
-ENTRYPOINT ["/bin/bash", "/usr/local/bin/beacon.sh"]
+CMD ["/bin/bash", "-c", "/usr/local/bin/beacon_arm.sh"]
+
