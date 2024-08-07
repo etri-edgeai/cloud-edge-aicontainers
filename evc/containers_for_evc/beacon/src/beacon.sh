@@ -22,7 +22,7 @@ while true; do
     mem_available=$(free -m | awk 'NR==2{print $7}')
 
     # Send data to server
-    /usr/bin/curl "http://evc.re.kr:20080/beacon.php?hostname=${hostname}&temperature=${temperature}&cpuclock=${cpuclock}&mem_total=${mem_total}&mem_avilable=${mem_available}"
+    /usr/bin/curl "http://evc.re.kr:20080/beacon.php?hostname=${hostname}&temperature=${temperature}&cpuclock=${cpuclock}&mem_total=${mem_total}&mem_available=${mem_available}"
 
     # Print data to console
     #echo "${hostname}, ${temperature}, ${cpuclock}, ${mem_max}, ${mem_available}"

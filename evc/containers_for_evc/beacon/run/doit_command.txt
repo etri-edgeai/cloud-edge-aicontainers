@@ -1,0 +1,13 @@
+#--------------------------------------------------------
+#	•	docker run: 새로운 컨테이너를 실행하는 명령어입니다.
+#	•	--rm: 컨테이너가 종료될 때 자동으로 삭제합니다.
+#	•	--privileged: 컨테이너에 추가 권한을 부여합니다. 주로 하드웨어 접근이 필요한 경우에 사용됩니다.
+#	•	-e HOSTNAME_ENV=$(hostname): 환경 변수를 설정합니다. 여기서는 호스트 시스템의 호스트 이름을 HOSTNAME_ENV라는 환경 변수로 설정합니다.
+#	•	my-arm-image: 사용하려는 Docker 이미지의 이름입니다.
+#	•	-d : Docker 컨테이너를 백그라운드에서 실행
+#--------------------------------------------------------
+
+docker pull ketirepo/beacon
+hostname=$(uname -n)
+docker run --rm --privileged ketirepo/beacon $(hostname)
+docker run -d --rm --privileged ketirepo/beacon $(hostname)
