@@ -1,12 +1,12 @@
 # Install Docker
 
-## On Raspberry Pi 5
+## On Raspberry Pi {4, 5}
 
-Raspberry Pi 5에서 64비트 OS를 설치하고 Docker를 설치하는 방법을 단계별로 설명합니다.
+Raspberry Pi 4 or 5에서 64비트 OS를 설치하고 Docker를 설치하는 방법을 단계별로 설명합니다.
 
 ### 1. 64비트 OS 설치
 
-Raspberry Pi 5에 64비트 OS를 설치하기 위해 공식 Raspberry Pi OS를 사용하겠습니다. 다음 단계에 따라 설치를 진행합니다.
+Raspberry Pi 4 or 5에 64비트 OS를 설치하기 위해 공식 Raspberry Pi OS를 사용하겠습니다. 다음 단계에 따라 설치를 진행합니다.
 
 #### a. Raspberry Pi Imager 다운로드 및 설치
 Raspberry Pi Imager를 다운로드하고 설치합니다. Raspberry Pi Imager는 공식 웹사이트에서 다운로드할 수 있습니다.

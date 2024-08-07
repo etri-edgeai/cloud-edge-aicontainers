@@ -1,0 +1,15 @@
+services:
+  beacon_service:
+    image: ketirepo/beacon:latest
+    deploy:
+      replicas: 1
+    environment:
+      HOSTNAME_ENV: ${HOSTNAME_ENV}
+    privileged: true
+    entrypoint: ["/usr/local/bin/beacon.sh", "${HOSTNAME_ENV}"]
+    networks:
+      - beacon_net
+
+networks:
+  beacon_net:
+    driver: bridge
