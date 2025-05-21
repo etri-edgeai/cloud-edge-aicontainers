@@ -1,0 +1,1 @@
+redis-cli --raw GET mycounter
