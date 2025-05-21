@@ -1,3 +1,3 @@
 # Container
 
-- JPark @ KETI, June 2024
+- JPark @ KETI, 2024
